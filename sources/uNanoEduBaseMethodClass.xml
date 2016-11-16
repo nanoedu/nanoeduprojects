@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="uNanoEduBaseMethodClass">
+  <class name="TScanMethod">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <field name="pathlength" type="Integer" visibility="protected" />
+      <field name="data_in_Bufferlength" type="Integer" visibility="protected" />
+      <field name="data_out_Bufferlength" type="Integer" visibility="protected" />
+      <function name="InitBuffers" visibility="protected" procflags="abstract virtual">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="SetPath" visibility="protected" procflags="abstract virtual">
+      </procedure>
+      <procedure name="SetDataIn" visibility="protected" procflags="abstract virtual">
+      </procedure>
+      <procedure name="NonLinearPath" visibility="protected" procflags="abstract virtual">
+      </procedure>
+      <procedure name="LinearPath" visibility="protected" procflags="abstract virtual">
+      </procedure>
+      <function name="InitRegimeVars" visibility="protected" procflags="abstract virtual">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="StartDraw" visibility="protected" procflags="abstract virtual">
+      </procedure>
+      <procedure name="StopDraw" visibility="protected" procflags="abstract virtual">
+      </procedure>
+      <procedure name="GetData" visibility="protected" procflags="abstract virtual">
+      </procedure>
+      <procedure name="SetJump" visibility="protected">
+      </procedure>
+      <procedure name="SetPrimStep" visibility="protected">
+      </procedure>
+      <procedure name="SetPathSpeed" visibility="protected" procflags="virtual">
+      </procedure>
+      <procedure name="TurnOnFB" visibility="public">
+      </procedure>
+      <procedure name="ScannerProtract" visibility="public">
+      </procedure>
+      <procedure name="ScannerRetract" visibility="public">
+      </procedure>
+      <procedure name="TurnOffFB" visibility="public">
+      </procedure>
+      <procedure name="SetSpeed" visibility="public" procflags="virtual">
+      </procedure>
+      <function name="StartWork" visibility="public">
+        <parameters>
+          <parameter name="ScriptName" type="string" paramflags="const" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="FreeBuffer" visibility="public">
+      </procedure>
+      <procedure name="StopWork" visibility="public" procflags="virtual">
+      </procedure>
+      <procedure name="WaitStopWork" visibility="public">
+      </procedure>
+      <procedure name="ScanWorkDone" visibility="public">
+      </procedure>
+      <function name="Launch" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+    </members>
+  </class>
+</namespace>

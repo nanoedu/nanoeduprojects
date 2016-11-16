@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="SioCSPM">
+  <pointer name="PInt" type="Integer" indircnt="1" />
+  <pointer name="PFifo" type="fifo_desc" indircnt="1" />
+  <const name="REPORT_NO_WAIT" type="Integer">
+    <value>
+      $7FFFFFFF
+    </value>
+  </const>
+  <const name="REPORT_WAIT" type="Integer">
+    <value>
+      $FFFFFFFF
+    </value>
+  </const>
+  <const name="P_READY" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="P_ERROR" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="P_BUSY" type="Integer">
+    <value>
+      $FF
+    </value>
+  </const>
+  <const name="P_START" type="Integer">
+    <value>
+      $50
+    </value>
+  </const>
+  <const name="P_INIT" type="Integer">
+    <value>
+      $51
+    </value>
+  </const>
+  <const name="P_MAIN" type="Integer">
+    <value>
+      $52
+    </value>
+  </const>
+  <const name="P_NOWAIT" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="CSPMLib" type="string">
+    <value>
+      CSPM_API.dll
+    </value>
+  </const>
+  <const name="CSPMLibDemo" type="string">
+    <value>
+      SioCSPMDemo.dll
+    </value>
+  </const>
+  <variable name="ScanLoadAA" type="TFpbli_d" />
+  <variable name="ScanStart" type="TF_d" />
+  <variable name="ScanPause" type="TF_d" />
+  <variable name="ScanResume" type="TF_d" />
+  <variable name="ScanStop" type="TF_d" />
+  <variable name="BufRegister" type="TF_d" />
+  <variable name="BufDeregister" type="TF_d" />
+  <variable name="ScanInit" type="TFpf_d" />
+  <variable name="ScanWork" type="TF_d" />
+  <variable name="ScanReport" type="TFpf_d" />
+  <variable name="ScanDone" type="TF_d" />
+  <variable name="GetCurProc" type="TFd_d" />
+  <variable name="GetSerialNumber" type="TFws_d" />
+  <variable name="SelfTest" type="TF_d" />
+  <function name="FreeCSPMLib" visibility="private">
+    <parameters>
+      <parameter name="hLibModule" type="Cardinal" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="LoadCSPMlib" visibility="private">
+    <parameters>
+      <parameter name="LibName" type="string" paramflags="const" />
+      <retval type="Cardinal" />
+    </parameters>
+  </function>
+  <function name="GetCommonVar" visibility="private">
+    <parameters>
+      <parameter name="CommonVarName" type="Byte" />
+      <retval type="Smallint" />
+    </parameters>
+  </function>
+  <procedure name="SetCommonVar" visibility="private">
+    <parameters>
+      <parameter name="CommonVarName" type="Byte" />
+      <parameter name="CommonVarValue" type="Word" />
+    </parameters>
+  </procedure>
+  <function name="LoadScript" visibility="private">
+    <parameters>
+      <parameter name="ScriptName" type="string" paramflags="const" />
+      <retval type="Byte" />
+    </parameters>
+  </function>
+</namespace>

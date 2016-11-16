@@ -1,0 +1,131 @@
+// MLPC_API2.idl: источник IDL для MLPC_API2
+//
+
+// Этот файл будет обработан средством MIDL для
+// создания библиотеки типов (MLPC_API2.tlb) и кода маршалирования.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(6F298EEC-4D98-4437-91FF-A98AA092CC63),
+	helpstring("Интерфейс IMLabDevice"),
+	pointer_default(unique)
+]
+interface IMLabDevice : IUnknown
+{
+	HRESULT Connect([in] BSTR path);
+	HRESULT Disconnect();
+	HRESULT get_Path([out] BSTR *pVal);
+	HRESULT get_Device([out] IUnknown **ppVal);
+	HRESULT QuerySchematic([out] IUnknown **ppVal);
+	HRESULT QueryJava([out] IUnknown **ppVal);
+};
+
+[
+	object,
+	uuid(C42D151F-12D6-4468-995D-E704817228B9),
+	helpstring("Интерфейс ISchematicControl"),
+	pointer_default(unique),
+	dual
+]
+interface ISchematicControl : IUnknown
+{
+	HRESULT Load([in] BSTR FileName);
+	HRESULT Unload();
+	HRESULT IsLoaded([out] VARIANT_BOOL *pLoaded);
+	HRESULT Run();
+	HRESULT IsRunning([out] VARIANT_BOOL *pRunning);
+	HRESULT Stop();
+	HRESULT Debug([in] LONG steps);
+	HRESULT EnumLFB([out] IUnknown **ppUnk);
+	HRESULT QueryLFB([in] BSTR Name, [out] IUnknown **ppUnk);
+};
+
+[
+	object,
+	uuid(8F39719F-232D-4776-B9EB-8709C65BA5F1),
+	helpstring("Интерфейс IJavaControl"),
+	pointer_default(unique),
+	dual
+]
+interface IJavaControl : IUnknown
+{
+	HRESULT Download([in] BSTR FileName, [in] BSTR ObjectName);
+	HRESULT Upload([in] BSTR FileName, [in] BSTR ObjectName);
+	HRESULT Delete([in] BSTR ObjectName);
+	HRESULT Run([in] BSTR ObjectName);
+	HRESULT Stop();
+	HRESULT IsRunning([out] VARIANT_BOOL *pRunning);
+};
+
+[
+	uuid(69CF7448-D8B5-442A-B829-063403455B02),
+	version(1.0),
+	helpstring("Библиотека типов MLPC_API2 1.0")
+]
+library MLPC_API2Lib
+{
+	importlib("stdole2.tlb");
+	importlib("NL3LFB.tlb");
+
+	interface ISchematicControl;
+	interface IJavaControl;
+	[
+		uuid(7AF2485D-21C7-4C71-A917-50AA1D30A1DB),
+		helpstring("MLabDevice Class")
+	]
+	coclass MLabDevice
+	{
+		[default] interface IMLabDevice;
+	};
+	[
+		uuid(0F8E3015-3C99-4E78-B8D4-D7C600B01999),
+		helpstring("MLPC_Cell Class")
+	]
+	coclass MLPC_Cell
+	{
+		[default] interface ILFB;
+	};
+	[
+		uuid(8277555D-6B1A-4A2A-9444-C3256374E354),
+		helpstring("MLPC_PID Class")
+	]
+	coclass MLPC_PID
+	{
+		[default] interface ILFB;
+	};
+	[
+		uuid(A5B156E6-8E90-4DEC-B230-7C30C38F5A96),
+		helpstring("MLPC_VScope Class")
+	]
+	coclass MLPC_VScope
+	{
+		[default] interface ILFB;
+	};
+	[
+		uuid(B682C56D-AEF8-4105-BAF0-7243E1284EAA),
+		helpstring("CellPropertyPage Class")
+	]
+	coclass CellPropertyPage
+	{
+		[default] interface IUnknown;
+	};
+	[
+		uuid(0A4B955A-CFD6-43C9-AB10-A6BF96FF0023),
+		helpstring("PIDPropertyPage Class")
+	]
+	coclass PIDPropertyPage
+	{
+		[default] interface IUnknown;
+	};
+	[
+		uuid(5295B10D-1801-4A81-9D86-9A58BD27E2FF),
+		helpstring("VScopePropertyPage Class")
+	]
+	coclass VScopePropertyPage
+	{
+		[default] interface IUnknown;
+	};
+};

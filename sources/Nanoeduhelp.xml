@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="Nanoeduhelp">
+  <const name="IDH_Install_Program" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="IDH_Install_Progr_NanoEdu" type="Integer">
+    <value>
+      $3
+    </value>
+  </const>
+  <const name="IDH_Probe_Install" type="Integer">
+    <value>
+      $4
+    </value>
+  </const>
+  <const name="IDH_Put_Sample" type="Integer">
+    <value>
+      $5
+    </value>
+  </const>
+  <const name="IDH_Resonance" type="Integer">
+    <value>
+      $6
+    </value>
+  </const>
+  <const name="IDH_Additional_Scan_Regims" type="Integer">
+    <value>
+      $7
+    </value>
+  </const>
+  <const name="IDH_Set_ScanParameters" type="Integer">
+    <value>
+      $8
+    </value>
+  </const>
+  <const name="IDH_Indicate_Visualize" type="Integer">
+    <value>
+      $9
+    </value>
+  </const>
+  <const name="IDH_Change_Scan_Params" type="Integer">
+    <value>
+      $A
+    </value>
+  </const>
+  <const name="IDH_SaveResults" type="Integer">
+    <value>
+      $B
+    </value>
+  </const>
+  <const name="IDH_Start_Program" type="Integer">
+    <value>
+      $C
+    </value>
+  </const>
+  <const name="IDH_Device_Panel" type="Integer">
+    <value>
+      $D
+    </value>
+  </const>
+  <const name="IDH_Probe_Position" type="Integer">
+    <value>
+      $E
+    </value>
+  </const>
+  <const name="IDH_Landing_Interface" type="Integer">
+    <value>
+      $F
+    </value>
+  </const>
+  <const name="IDH_Landing_SFM" type="Integer">
+    <value>
+      $10
+    </value>
+  </const>
+  <const name="IDH_Set_Interaction" type="Integer">
+    <value>
+      $11
+    </value>
+  </const>
+  <const name="IDH_Rising" type="Integer">
+    <value>
+      $12
+    </value>
+  </const>
+  <const name="IDH_Scanning_SFM" type="Integer">
+    <value>
+      $13
+    </value>
+  </const>
+  <const name="IDH_Prepare_Experiment_Stm" type="Integer">
+    <value>
+      $14
+    </value>
+  </const>
+  <const name="IDH_Landing_interface_STM" type="Integer">
+    <value>
+      $15
+    </value>
+  </const>
+  <const name="IDH_Landing_STM" type="Integer">
+    <value>
+      $16
+    </value>
+  </const>
+  <const name="IDH_Rising_STM" type="Integer">
+    <value>
+      $17
+    </value>
+  </const>
+  <const name="IDH_Scanning_STM" type="Integer">
+    <value>
+      $18
+    </value>
+  </const>
+  <const name="IDH_Set_Scan_Params_STM" type="Integer">
+    <value>
+      $19
+    </value>
+  </const>
+  <const name="IDH_Indicate_Visualize_STM" type="Integer">
+    <value>
+      $1A
+    </value>
+  </const>
+  <const name="IDH_Change_Scan_Params_STM" type="Integer">
+    <value>
+      $1B
+    </value>
+  </const>
+  <const name="IDH_SaveResults_STM" type="Integer">
+    <value>
+      $1C
+    </value>
+  </const>
+  <const name="IDH_Tunnel_Current_Regim" type="Integer">
+    <value>
+      $1D
+    </value>
+  </const>
+  <const name="IDH_Files_Explorer" type="Integer">
+    <value>
+      $1E
+    </value>
+  </const>
+  <const name="IDH_Images" type="Integer">
+    <value>
+      $1F
+    </value>
+  </const>
+  <const name="IDH_Image_Processing" type="Integer">
+    <value>
+      $20
+    </value>
+  </const>
+  <const name="IDH_Select_Img_Fragment" type="Integer">
+    <value>
+      $21
+    </value>
+  </const>
+  <const name="IDH_Section" type="Integer">
+    <value>
+      $22
+    </value>
+  </const>
+  <const name="IDH_Spectroscopy" type="Integer">
+    <value>
+      $23
+    </value>
+  </const>
+  <const name="IDH_Probe_is_too_High" type="Integer">
+    <value>
+      $24
+    </value>
+  </const>
+  <const name="IDH_Start_NanoEdu" type="Integer">
+    <value>
+      $25
+    </value>
+  </const>
+  <const name="IDH_Prepare_Experiment" type="Integer">
+    <value>
+      $26
+    </value>
+  </const>
+  <const name="IDH_NanoEdu_Principle" type="Integer">
+    <value>
+      $27
+    </value>
+  </const>
+  <const name="IDH_Force_Sensor" type="Integer">
+    <value>
+      $28
+    </value>
+  </const>
+  <const name="IDH_STM_Sensor" type="Integer">
+    <value>
+      $29
+    </value>
+  </const>
+  <const name="IDH_MicroScaner" type="Integer">
+    <value>
+      $2A
+    </value>
+  </const>
+  <const name="IDH_Fast_Landing" type="Integer">
+    <value>
+      $2B
+    </value>
+  </const>
+  <const name="IDH_General_View" type="Integer">
+    <value>
+      $2C
+    </value>
+  </const>
+  <const name="IDH_Feed_Back_Loop" type="Integer">
+    <value>
+      $2D
+    </value>
+  </const>
+  <const name="IDH_Landing" type="Integer">
+    <value>
+      $2E
+    </value>
+  </const>
+  <const name="IDH_Introduction1" type="Integer">
+    <value>
+      $2F
+    </value>
+  </const>
+  <const name="IDH_Rule" type="Integer">
+    <value>
+      $30
+    </value>
+  </const>
+  <const name="IDH_Angles" type="Integer">
+    <value>
+      $31
+    </value>
+  </const>
+  <const name="IDH_Contrast" type="Integer">
+    <value>
+      $32
+    </value>
+  </const>
+  <const name="IDH_Image_Analysis" type="Integer">
+    <value>
+      $33
+    </value>
+  </const>
+  <const name="IDH_LItho" type="Integer">
+    <value>
+      $34
+    </value>
+  </const>
+  <const name="IDH_Spectroscopy_STM" type="Integer">
+    <value>
+      $35
+    </value>
+  </const>
+  <const name="IDH_error_load_lib" type="Integer">
+    <value>
+      $36
+    </value>
+  </const>
+  <const name="IDH_error_landing_option" type="Integer">
+    <value>
+      $37
+    </value>
+  </const>
+  <const name="IDH_paramers_SSM" type="Integer">
+    <value>
+      $38
+    </value>
+  </const>
+  <const name="IDH_Parameters" type="Integer">
+    <value>
+      $39
+    </value>
+  </const>
+  <const name="IDH_Oscilloscope" type="Integer">
+    <value>
+      $3A
+    </value>
+  </const>
+  <const name="IDH_Fast_Scan" type="Integer">
+    <value>
+      $3B
+    </value>
+  </const>
+  <const name="IDH_Fast_Scan_STM" type="Integer">
+    <value>
+      $3C
+    </value>
+  </const>
+  <const name="IDH_One_Line_Scan" type="Integer">
+    <value>
+      $3D
+    </value>
+  </const>
+  <const name="IDH_One_Line_STM" type="Integer">
+    <value>
+      $3E
+    </value>
+  </const>
+  <const name="IDH_Instr_Panel" type="Integer">
+    <value>
+      $3F
+    </value>
+  </const>
+  <const name="IDH_imagefiltr" type="Integer">
+    <value>
+      $40
+    </value>
+  </const>
+  <const name="IDH_Z_Scale" type="Integer">
+    <value>
+      $41
+    </value>
+  </const>
+  <const name="IDH_scaleX_Y" type="Integer">
+    <value>
+      $42
+    </value>
+  </const>
+  <const name="IDH_Tip" type="Integer">
+    <value>
+      $43
+    </value>
+  </const>
+  <const name="IDH_Micro" type="Integer">
+    <value>
+      $44
+    </value>
+  </const>
+  <const name="IDH_Change_work_dir" type="Integer">
+    <value>
+      $45
+    </value>
+  </const>
+  <const name="IDH_Save1" type="Integer">
+    <value>
+      $46
+    </value>
+  </const>
+  <const name="IDH_Save2" type="Integer">
+    <value>
+      $47
+    </value>
+  </const>
+  <const name="IDH_Recording_scripts" type="Integer">
+    <value>
+      $48
+    </value>
+  </const>
+  <const name="IDH_Flash_drive" type="Integer">
+    <value>
+      $49
+    </value>
+  </const>
+  <const name="IDH_training_scanner" type="Integer">
+    <value>
+      $4A
+    </value>
+  </const>
+  <const name="IDH_reportR" type="Integer">
+    <value>
+      $4B
+    </value>
+  </const>
+  <const name="IDH_Control_Panel_Beginner" type="Integer">
+    <value>
+      $4C
+    </value>
+  </const>
+  <const name="IDH_samples" type="Integer">
+    <value>
+      $4D
+    </value>
+  </const>
+  <const name="IDH_probe" type="Integer">
+    <value>
+      $4E
+    </value>
+  </const>
+  <const name="IDH_FAQR_Approach" type="Integer">
+    <value>
+      $4F
+    </value>
+  </const>
+  <const name="IDH_WorkR" type="Integer">
+    <value>
+      $50
+    </value>
+  </const>
+  <const name="IDH_setupUSBR" type="Integer">
+    <value>
+      $51
+    </value>
+  </const>
+  <const name="IDH_CommonR" type="Integer">
+    <value>
+      $52
+    </value>
+  </const>
+  <const name="IDC_Demo" type="Integer">
+    <value>
+      $53
+    </value>
+  </const>
+  <const name="IDH_Start_SFM" type="Integer">
+    <value>
+      $54
+    </value>
+  </const>
+  <const name="IDH_Start_STM" type="Integer">
+    <value>
+      $55
+    </value>
+  </const>
+  <const name="IDH_Turn_On" type="Integer">
+    <value>
+      $56
+    </value>
+  </const>
+</namespace>

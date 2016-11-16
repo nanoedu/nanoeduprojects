@@ -1,0 +1,1 @@
+txt2bin approach_pack_one.txt ..\..\javabin\approachone.bin

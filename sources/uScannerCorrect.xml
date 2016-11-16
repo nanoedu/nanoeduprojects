@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="uScannerCorrect">
+  <struct name="vector2D">
+    <field name="x" type="Single" visibility="public" />
+    <field name="y" type="Single" visibility="public" />
+  </struct>
+  <array name="TZCell" low="1" high="2">
+    <array name="TZCell" low="1" high="2">
+      <element type="vector2D" />
+    </array>
+  </array>
+  <struct name="Point3D">
+    <field name="X" type="Single" visibility="public" />
+    <field name="Y" type="Single" visibility="public" />
+    <field name="Z" type="Single" visibility="public" />
+    <field name="i3D" type="Integer" visibility="public" />
+    <field name="j3D" type="Integer" visibility="public" />
+  </struct>
+  <procedure name="Spline" visibility="private">
+    <parameters>
+      <parameter name="N" type="Integer" />
+      <parameter name="X" type="ArraySpline" paramflags="var" />
+      <parameter name="Y" type="ArraySpline" paramflags="var" />
+      <parameter name="B" type="ArraySpline" paramflags="var" />
+      <parameter name="C" type="ArraySpline" paramflags="var" />
+      <parameter name="D" type="ArraySpline" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="SEVAL" visibility="private">
+    <parameters>
+      <parameter name="N" type="Integer" />
+      <parameter name="U" type="Single" />
+      <parameter name="X" type="ArraySpline" paramflags="var" />
+      <parameter name="Y" type="ArraySpline" paramflags="var" />
+      <parameter name="B" type="ArraySpline" paramflags="var" />
+      <parameter name="C" type="ArraySpline" paramflags="var" />
+      <parameter name="D" type="ArraySpline" paramflags="var" />
+      <retval type="Single" />
+    </parameters>
+  </function>
+  <procedure name="Smooth1" visibility="private">
+    <parameters>
+      <parameter name="Dat" type="ArraySpline" paramflags="var" />
+      <parameter name="N" type="Integer" />
+      <parameter name="S" type="Integer" />
+    </parameters>
+  </procedure>
+  <procedure name="ReadZSurf" visibility="private">
+  </procedure>
+  <function name="ZCorrCalculate" visibility="private">
+    <parameters>
+      <parameter name="Xnm" type="Single" />
+      <parameter name="Ynm" type="Single" />
+      <retval type="Single" />
+    </parameters>
+  </function>
+  <procedure name="SetLinSplineZero" visibility="private">
+  </procedure>
+  <function name="TestErrorScannerIniFile" visibility="private">
+    <parameters>
+      <retval type="Byte" />
+    </parameters>
+  </function>
+  <function name="LoadLinSpline" visibility="private">
+    <parameters>
+      <parameter name="ScannerNum" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <procedure name="ApprLinesParamsCalc" visibility="private">
+    <parameters>
+      <parameter name="ScannerNum" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+</namespace>

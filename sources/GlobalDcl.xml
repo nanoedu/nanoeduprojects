@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="Globaldcl">
+  <const name="ScanSizeMax" type="Integer">
+    <value>
+      $400
+    </value>
+  </const>
+  <const name="Identif" type="string">
+    <value>
+      (C) STM Data File System 
+    </value>
+  </const>
+  <const name="IdentifDemo" type="string">
+    <value>
+      (C) NanoEdu Data File System 
+    </value>
+  </const>
+  <const name="IdApproachZ" type="string">
+    <value>
+      (C) NanoEdu Data: Approach Z 
+    </value>
+  </const>
+  <const name="IdApproachOscAmp" type="string">
+    <value>
+      (C) NanoEdu Data: Approach Oscillation Amplitude 
+    </value>
+  </const>
+  <struct name="TScanNormData" packed="true">
+    <field name="previousMin" type="Single" visibility="public" />
+    <field name="previousMax" type="Single" visibility="public" />
+    <field name="previousDz" type="Single" visibility="public" />
+    <field name="datmin" type="Single" visibility="public" />
+    <field name="datmax" type="Single" visibility="public" />
+    <field name="datminph" type="Single" visibility="public" />
+    <field name="datmaxph" type="Single" visibility="public" />
+    <field name="ScaleZ0" type="Single" visibility="public" />
+    <field name="ScaleAdd" type="Single" visibility="public" />
+    <field name="sfA" type="Single" visibility="public" />
+    <field name="sfB" type="Single" visibility="public" />
+    <field name="Prevline" type="TLineSingle" visibility="public" />
+  </struct>
+  <pointer name="TPtSpector" type="PtSpector" indircnt="1" />
+  <struct name="PtSpector" packed="true">
+    <field name="Point" type="TPoint" visibility="public" />
+  </struct>
+  <pointer name="TPtFileName" type="PtFileName" indircnt="1" />
+  <struct name="PtFileName" packed="true">
+    <field name="FileName" type="string" visibility="public" />
+  </struct>
+  <struct name="MainFileRec" packed="true">
+    <field name="Ident" visibility="public">
+      <type name="Ident" type="ShortString" />
+    </field>
+    <field name="Version" type="Word" visibility="public" />
+    <field name="Flags" type="Word" visibility="public" />
+    <field name="NumRec" type="Word" visibility="public" />
+    <field name="bdata" type="Byte" visibility="public" />
+    <field name="bhead" type="Byte" visibility="public" />
+    <field name="headsize" type="Word" visibility="public" />
+    <field name="HeadOfs" type="Integer" visibility="public" />
+    <field name="NyTop" type="Smallint" visibility="public" />
+    <field name="NxTop" type="Smallint" visibility="public" />
+    <field name="TopoOfs" type="Integer" visibility="public" />
+    <field name="NyAdd" type="Smallint" visibility="public" />
+    <field name="NxAdd" type="Smallint" visibility="public" />
+    <field name="AddOfs" type="Integer" visibility="public" />
+    <field name="NyPoint" type="Smallint" visibility="public" />
+    <field name="NxPoint" type="Smallint" visibility="public" />
+    <field name="PointOfs" type="Integer" visibility="public" />
+    <field name="NySpec" type="Smallint" visibility="public" />
+    <field name="NxSpec" type="Smallint" visibility="public" />
+    <field name="SpecOfs" type="Integer" visibility="public" />
+    <field name="NyReni" type="Smallint" visibility="public" />
+    <field name="NxReni" type="Smallint" visibility="public" />
+    <field name="ReniOfs" type="Integer" visibility="public" />
+  </struct>
+  <struct name="HeadParmType" packed="true">
+    <field name="HYear" type="Word" visibility="public" />
+    <field name="HMonth" type="Word" visibility="public" />
+    <field name="HDay" type="Word" visibility="public" />
+    <field name="HHour" type="Word" visibility="public" />
+    <field name="HMinute" type="Word" visibility="public" />
+    <field name="HSecond" type="Word" visibility="public" />
+    <field name="HMaterial" visibility="public">
+      <type name="HMaterial" type="ShortString" />
+    </field>
+    <field name="HScannerName" visibility="public">
+      <type name="HScannerName" type="ShortString" />
+    </field>
+    <field name="HTemperature" type="Byte" visibility="public" />
+    <field name="HFlagLinear" type="Boolean" visibility="public" />
+    <field name="HAquiTopo" type="Boolean" visibility="public" />
+    <field name="HAquiADD" type="Byte" visibility="public" />
+    <field name="HAquiSpectr" type="Boolean" visibility="public" />
+    <field name="HAquiRenishaw" type="Boolean" visibility="public" />
+    <field name="HNxTopo" type="Smallint" visibility="public" />
+    <field name="HNyTopo" type="Smallint" visibility="public" />
+    <field name="HNumSpLines" type="Smallint" visibility="public" />
+    <field name="HNumSpPoints" type="Smallint" visibility="public" />
+    <field name="HStepXY" type="Single" visibility="public" />
+    <field name="HScanRate" type="Single" visibility="public" />
+    <field name="HScanVoltage" type="Single" visibility="public" />
+    <field name="HScanCurrent" type="Single" visibility="public" />
+    <field name="HProbeType" type="Byte" visibility="public" />
+    <field name="HAMP_GainZ" type="Single" visibility="public" />
+    <field name="HXBegin" type="Single" visibility="public" />
+    <field name="HYBegin" type="Single" visibility="public" />
+    <field name="HSetPoint" type="Smallint" visibility="public" />
+    <field name="HPathMode" type="Byte" visibility="public" />
+    <field name="IReservScan1" type="Byte" visibility="public" />
+    <field name="IReservScan3" type="Smallint" visibility="public" />
+    <field name="IReservScan2" type="Byte" visibility="public" />
+    <field name="HSensX" type="Single" visibility="public" />
+    <field name="HSensY" type="Single" visibility="public" />
+    <field name="HSensZ" type="Single" visibility="public" />
+    <field name="HDiscrZmvolt" type="Single" visibility="public" />
+    <field name="HGainX" type="Single" visibility="public" />
+    <field name="HGainY" type="Single" visibility="public" />
+    <field name="HnA_D" type="Single" visibility="public" />
+    <field name="HUv_d16" type="Single" visibility="public" />
+    <field name="HAmpModulation" type="Integer" visibility="public" />
+    <field name="HSDGainFM" type="Word" visibility="public" />
+    <field name="HSDGainAM" type="Word" visibility="public" />
+    <field name="HResFreqR" type="Word" visibility="public" />
+    <field name="HResFreqF" type="Word" visibility="public" />
+    <field name="HF0" type="Integer" visibility="public" />
+    <field name="HAmplSuppress" type="Single" visibility="public" />
+    <field name="HNumberOfStepX" type="Smallint" visibility="public" />
+    <field name="HNumberOfStepY" type="Smallint" visibility="public" />
+    <field name="HNumberOfAver" type="Smallint" visibility="public" />
+    <field name="HSpVoltageStart" type="Single" visibility="public" />
+    <field name="HSpVoltageFinal" type="Single" visibility="public" />
+    <field name="HTimeSpecPoint" type="Single" visibility="public" />
+    <field name="HSpModulation" type="Single" visibility="public" />
+    <field name="HSpDetectorCoef" type="Single" visibility="public" />
+    <field name="HResistance" type="Single" visibility="public" />
+    <field name="HUAMMax" type="Smallint" visibility="public" />
+    <field name="IReservSpec2" type="Smallint" visibility="public" />
+    <field name="HXnm_d" type="Single" visibility="public" />
+    <field name="HYnm_d" type="Single" visibility="public" />
+    <field name="HTypeCVC" type="Smallint" visibility="public" />
+    <field name="HTypeSpectr" type="Smallint" visibility="public" />
+    <field name="HTypeConstCurrent" type="Boolean" visibility="public" />
+    <field name="TypeReserv1" type="Boolean" visibility="public" />
+    <field name="TypeReserv2" type="Boolean" visibility="public" />
+    <field name="Typereserv3" type="Boolean" visibility="public" />
+    <field name="SecondPass" type="Boolean" visibility="public" />
+    <field name="HRenishawCorrected" type="Boolean" visibility="public" />
+    <field name="HFBGain" type="Smallint" visibility="public" />
+    <field name="HRenishawPeriod" type="Smallint" visibility="public" />
+    <field name="HRenishawSensorPos" type="Single" visibility="public" />
+    <field name="HLithoAction" type="Single" visibility="public" />
+    <field name="comments" visibility="public">
+      <array name="comments" low="0" high="7">
+        <element />
+      </array>
+    </field>
+  </struct>
+  <class name="TData">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <function name="max" visibility="private">
+        <parameters>
+          <retval type="Smallint" />
+        </parameters>
+      </function>
+      <function name="min" visibility="private">
+        <parameters>
+          <retval type="Smallint" />
+        </parameters>
+      </function>
+      <function name="mean" visibility="private">
+        <parameters>
+          <retval type="Single" />
+        </parameters>
+      </function>
+      <field name="flg" type="Byte" visibility="public" />
+      <field name="caption" type="string" visibility="public" />
+      <field name="captionX" type="string" visibility="public" />
+      <field name="captionY" type="string" visibility="public" />
+      <field name="captionZ" type="string" visibility="public" />
+      <field name="Nx" type="Integer" visibility="public" />
+      <field name="Ny" type="Integer" visibility="public" />
+      <field name="XStep" type="Single" visibility="public" />
+      <field name="YStep" type="Single" visibility="public" />
+      <field name="ZStep" type="Single" visibility="public" />
+      <field name="data" type="TMas2" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <property name="DataMin" visibility="public" read="min" type="Smallint" />
+      <property name="DataMax" visibility="public" read="max" type="Smallint" />
+      <property name="DataMean" visibility="public" read="mean" type="Single" />
+    </members>
+  </class>
+  <class name="TExperiment">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <field name="Caption" type="string" visibility="public" />
+      <field name="ImFileName" type="string" visibility="public" />
+      <field name="WorkFileName" type="string" visibility="public" />
+      <field name="ArFileNameEdit" type="TList" visibility="public" />
+      <field name="FileHeadRcd" type="HeadParmType" visibility="public" />
+      <field name="MainRcd" type="MainFileRec" visibility="public" />
+      <field name="AquiTopo" type="TData" visibility="public" />
+      <field name="AquiAdd" type="TData" visibility="public" />
+      <field name="AquiSpectr" type="TData" visibility="public" />
+      <field name="AquiRenishaw" type="TData" visibility="public" />
+      <field name="AquiSpectrPoint" type="TLine" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <function name="ReadSurface" visibility="public">
+        <parameters>
+          <parameter name="flgReadBlock" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="ReadRenishawData" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="PrepareSaveData" visibility="public">
+      </procedure>
+      <procedure name="SaveExperiment" visibility="public">
+      </procedure>
+      <procedure name="SaveSpectr" visibility="public">
+      </procedure>
+      <procedure name="SaveRenishaw" visibility="public">
+      </procedure>
+      <procedure name="HeaderPrepare" visibility="public">
+      </procedure>
+    </members>
+  </class>
+  <class name="TDataLine">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <field name="dataLineX" type="TLineSingle" visibility="public" />
+      <field name="dataLineY" type="TLineSingle" visibility="public" />
+      <field name="XStep" type="Single" visibility="public" />
+      <field name="YStep" type="Single" visibility="public" />
+      <field name="Nx" type="Integer" visibility="public" />
+      <field name="xAxisTitle" type="string" visibility="public" />
+      <field name="yAxisTitle" type="string" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="NX" type="Integer" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+    </members>
+  </class>
+  <type name="DataFloat" type="Double" />
+  <array name="PMas2">
+    <element type=".4" />
+  </array>
+  <struct name="Tcom" packed="true">
+    <field name="re" type="Double" visibility="public" />
+    <field name="im" type="Double" visibility="public" />
+  </struct>
+  <array name="MasCom">
+    <element type="Tcom" />
+  </array>
+  <class name="TDataFloatCount">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <field name="data" type="PMas2" visibility="public" />
+      <field name="NX" type="Integer" visibility="public" />
+      <field name="NY" type="Integer" visibility="public" />
+      <function name="max" visibility="public">
+        <parameters>
+          <retval type="Double" />
+        </parameters>
+      </function>
+      <function name="min" visibility="public">
+        <parameters>
+          <retval type="Double" />
+        </parameters>
+      </function>
+      <function name="mean" visibility="public">
+        <parameters>
+          <retval type="Double" />
+        </parameters>
+      </function>
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+    </members>
+  </class>
+  <variable name="FlgReadBlock" type="Integer">
+    <devnotes>
+      ////////////////////////////////////////////
+      ////VARIABLES ///////////////////////////////
+    </devnotes>
+  </variable>
+  <variable name="FlgViewTypeL" type="Byte" />
+  <variable name="ArPntSpector" type="TList" />
+  <variable name="PntSpector" type="TPtSpector" />
+  <variable name="PntFileName" type="TPtFileName" />
+  <variable name="Head" type="HeadParmType" />
+  <variable name="MainRc" type="MainFileRec" />
+  <variable name="ScanError" type="TLineSingle" />
+  <variable name="ScanData" type="TExperiment" />
+  <variable name="ScanDataSecondPass" type="TExperiment" />
+  <variable name="ScanNormData" type="TScanNormData" />
+  <variable name="ScanNormData_2_Pass" type="TScanNormData" />
+  <procedure name="SetScanNormData" visibility="private">
+    <parameters>
+      <parameter name="NormData" type="TScanNormData" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="SaveHeader" visibility="private">
+    <parameters>
+      <parameter name="FileName" type="string" paramflags="const" />
+      <parameter name="head" type="HeadParmType" paramflags="var" />
+      <parameter name="mainrc" type="MainFileRec" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="ReadHeader" visibility="private">
+    <parameters>
+      <parameter name="FileName" type="string" paramflags="const" />
+      <parameter name="flg" type="Integer" paramflags="var" />
+      <parameter name="head" type="HeadParmType" paramflags="var" />
+      <parameter name="main" type="MainFileRec" paramflags="var" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+</namespace>

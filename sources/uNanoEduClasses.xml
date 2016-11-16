@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="uNanoEduClasses">
+  <class name="TSTMNanoEdu">
+    <ancestor name="TBaseNanoEdu" namespace="UNanoEduBaseClasses">
+      <methodref name="SetFeedBackRough" visibility="private" />
+      <methodref name="SetFineZ" visibility="private" />
+      <methodref name="SetFineXY" visibility="private" />
+      <methodref name="SetBias" visibility="private" />
+      <methodref name="SetSetPoint" visibility="protected" />
+      <methodref name="GetZIndication" visibility="protected" />
+      <methodref name="GetControllerNumber" visibility="protected" />
+      <methodref name="GetUpperLimitOut" visibility="protected" />
+      <methodref name="SetFeedBack" visibility="protected" />
+      <methodref name="CalcFBKoefDemo" visibility="protected" />
+      <methodref name="SetDACZero" visibility="public" />
+      <methodref name="TurnOn" visibility="public" />
+      <methodref name="TurnOff" visibility="public" />
+      <methodref name="ScanMotorTurnOn" visibility="public" />
+      <methodref name="ScanMotorTurnOff" visibility="public" />
+      <methodref name="ResonanceRegime" visibility="public" />
+      <methodref name="ApproachRegime" visibility="public" />
+      <methodref name="ScanningMethod" visibility="public" />
+      <methodref name="ScanMoveToX0Y0Method" visibility="public" />
+      <methodref name="ScanCalibrateMethod" visibility="public" />
+      <methodref name="ScannerTrainnigMethod" visibility="public" />
+      <methodref name="LithoSFMMethod" visibility="public" />
+      <methodref name="FastTopoMethod" visibility="public" />
+      <methodref name="SpectroscopyMethod" visibility="public" />
+      <methodref name="StepTestMethod" visibility="public" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <propertyref name="ControllerNumber" visibility="public" />
+      <propertyref name="ZIndication" visibility="public" />
+      <propertyref name="FeedBackRough" visibility="public" />
+      <propertyref name="FineZ" visibility="public" />
+      <propertyref name="FineXY" visibility="public" />
+      <propertyref name="UpperLimitOut" visibility="public" />
+      <propertyref name="SetPoint" visibility="public" />
+      <propertyref name="FeedBackBand" visibility="public" />
+      <propertyref name="Bias" visibility="public" />
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <members>
+      <procedure name="SetSetPoint" visibility="private" procflags="override">
+        <parameters>
+          <parameter name="val" type="Smallint" />
+        </parameters>
+      </procedure>
+      <function name="TurnOn" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="TurnOff" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <procedure name="ApproachRegime" visibility="public" procflags="override">
+      </procedure>
+      <function name="ScanningMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScanMoveToX0Y0Method" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="X0" type="Single" />
+          <parameter name="Y0" type="Single" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScanCalibrateMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScannerTrainnigMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="FastTopoMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="SpectroscopyMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="StepTestMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+    </members>
+  </class>
+  <class name="TSFMNanoEdu">
+    <ancestor name="TBaseNanoEdu" namespace="UNanoEduBaseClasses">
+      <methodref name="SetFeedBackRough" visibility="private" />
+      <methodref name="SetFineZ" visibility="private" />
+      <methodref name="SetFineXY" visibility="private" />
+      <methodref name="SetBias" visibility="private" />
+      <methodref name="SetSetPoint" visibility="protected" />
+      <methodref name="GetZIndication" visibility="protected" />
+      <methodref name="GetControllerNumber" visibility="protected" />
+      <methodref name="GetUpperLimitOut" visibility="protected" />
+      <methodref name="SetFeedBack" visibility="protected" />
+      <methodref name="CalcFBKoefDemo" visibility="protected" />
+      <methodref name="SetDACZero" visibility="public" />
+      <methodref name="TurnOn" visibility="public" />
+      <methodref name="TurnOff" visibility="public" />
+      <methodref name="ScanMotorTurnOn" visibility="public" />
+      <methodref name="ScanMotorTurnOff" visibility="public" />
+      <methodref name="ResonanceRegime" visibility="public" />
+      <methodref name="ApproachRegime" visibility="public" />
+      <methodref name="ScanningMethod" visibility="public" />
+      <methodref name="ScanMoveToX0Y0Method" visibility="public" />
+      <methodref name="ScanCalibrateMethod" visibility="public" />
+      <methodref name="ScannerTrainnigMethod" visibility="public" />
+      <methodref name="LithoSFMMethod" visibility="public" />
+      <methodref name="FastTopoMethod" visibility="public" />
+      <methodref name="SpectroscopyMethod" visibility="public" />
+      <methodref name="StepTestMethod" visibility="public" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <propertyref name="ControllerNumber" visibility="public" />
+      <propertyref name="ZIndication" visibility="public" />
+      <propertyref name="FeedBackRough" visibility="public" />
+      <propertyref name="FineZ" visibility="public" />
+      <propertyref name="FineXY" visibility="public" />
+      <propertyref name="UpperLimitOut" visibility="public" />
+      <propertyref name="SetPoint" visibility="public" />
+      <propertyref name="FeedBackBand" visibility="public" />
+      <propertyref name="Bias" visibility="public" />
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <members>
+      <function name="median3" visibility="private">
+        <parameters>
+          <parameter name="a1" type="Smallint" />
+          <parameter name="a2" type="Smallint" />
+          <parameter name="a3" type="Smallint" />
+          <retval type="Smallint" />
+        </parameters>
+      </function>
+      <procedure name="SetGain_AM" visibility="private">
+        <parameters>
+          <parameter name="val" type="Word" />
+        </parameters>
+      </procedure>
+      <procedure name="SetGain_FM" visibility="private">
+        <parameters>
+          <parameter name="val" type="Word" />
+        </parameters>
+      </procedure>
+      <procedure name="SetSD_GENF_R" visibility="private">
+        <parameters>
+          <parameter name="val" type="Word" />
+        </parameters>
+      </procedure>
+      <procedure name="SetSD_GENF_F" visibility="private">
+        <parameters>
+          <parameter name="val" type="Word" />
+        </parameters>
+      </procedure>
+      <procedure name="SetModAmplitud" visibility="private">
+        <parameters>
+          <parameter name="val" type="Word" />
+        </parameters>
+      </procedure>
+      <function name="GetMaxUAM" visibility="protected" procflags="virtual">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <field name="ScannerResonance" type="TScannerResonance" visibility="public" />
+      <function name="TurnOn" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="TurnOff" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="AdjustPhaseMethod" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ResonanceRegime" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <procedure name="ApproachRegime" visibility="public" procflags="override">
+      </procedure>
+      <function name="LithoSFMMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <procedure name="NormalizeUAM" visibility="public">
+      </procedure>
+      <procedure name="SetSetPoint" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="val" type="Smallint" />
+        </parameters>
+      </procedure>
+      <function name="ScanningMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScanMoveToX0Y0Method" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="X0" type="Single" />
+          <parameter name="Y0" type="Single" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScanCalibrateMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScannerTrainnigMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="FastTopoMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="SpectroscopyMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="StepTestMethod" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <property name="MaxUAM" visibility="public" read="GetMaxUAM" type="Integer" />
+      <property name="ModAmplitud" visibility="public" write="SetModAmplitud" type="Word" />
+      <property name="SD_GENF_F" visibility="public" write="SetSD_GENF_F" type="Word" />
+      <property name="SD_GENF_R" visibility="public" write="SetSD_GENF_R" type="Word" />
+      <property name="Gain_FM" visibility="public" write="SetGain_FM" type="Word" />
+      <property name="Gain_AM" visibility="public" write="SetGain_AM" type="Word" />
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+    </members>
+  </class>
+</namespace>

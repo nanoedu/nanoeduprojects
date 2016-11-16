@@ -1,0 +1,1 @@
+jar cfe ..\..\javabin\resonance.jar    mlab.RezSearch   mlab\*.class java\lang\*.class

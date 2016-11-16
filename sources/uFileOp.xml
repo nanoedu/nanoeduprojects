@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="uFileOp">
+  <procedure name="FileCopyStream" visibility="private">
+    <parameters>
+      <parameter name="src" type="string" paramflags="const" />
+      <parameter name="target" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+</namespace>

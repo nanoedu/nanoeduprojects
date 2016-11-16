@@ -1,0 +1,8 @@
+-verbose
+-source 1.2
+-target 1.2
+-bootclasspath "d:/nanoeducator/nanoedule/exe/java/java_litho" 
+-extdirs "d:/nanoeducator/nanoedule/exe/java/java_litho"  
+-endorseddirs "d:/nanoeducator/nanoedule/exe/java/java_litho"  
+-cp "d:/nanoeducator/nanoeduLe/exe/java/java_litho"  
+

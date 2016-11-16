@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="RenishawVars">
+  <struct name="RRenishawParams" packed="true">
+    <field name="flgXSlow" type="Boolean" visibility="public" />
+    <field name="flgSteponNets" type="Boolean" visibility="public" />
+    <field name="flgscriptname" type="Byte" visibility="public" />
+    <field name="delt_discr" type="Smallint" visibility="public" />
+    <field name="noiseW_discr" type="Smallint" visibility="public" />
+    <field name="Length_discr" type="Smallint" visibility="public" />
+    <field name="microstep_Delay" type="Smallint" visibility="public" />
+    <field name="XBeginDiscr" type="Smallint" visibility="public" />
+    <field name="YBeginDiscr" type="Smallint" visibility="public" />
+    <field name="NX" type="Smallint" visibility="public" />
+    <field name="NY" type="Smallint" visibility="public" />
+    <field name="Axis" type="Smallint" visibility="public" />
+    <field name="stepScale" type="Smallint" visibility="public" />
+    <field name="NParts_inStep" type="Smallint" visibility="public" />
+    <field name="curveScale" type="Smallint" visibility="public" />
+    <field name="FrontsDistnm" type="Smallint" visibility="public" />
+    <field name="ReniShawSlowCoord" type=".1" visibility="public" />
+    <field name="RenishawPeriod" type="Smallint" visibility="public" />
+    <field name="ReniShawScale" type="Single" visibility="public" />
+    <field name="Period_nm" type="Single" visibility="public" />
+    <field name="DisperceMax" type="Single" visibility="public" />
+  </struct>
+  <struct name="RRenishawStendParams" packed="true">
+    <field name="flgSmooth" type="Boolean" visibility="public" />
+    <field name="flgAutosave" type="Boolean" visibility="public" />
+    <field name="flgLinearizationOn" type="Boolean" visibility="public" />
+    <field name="flgXFast_forAngle" type="Boolean" visibility="public" />
+    <field name="delt_discr" type="Smallint" visibility="public" />
+    <field name="noiseW_discr" type="Smallint" visibility="public" />
+    <field name="LengthFast_discr" type="Smallint" visibility="public" />
+    <field name="LengthSlow_discr" type="Smallint" visibility="public" />
+    <field name="LengthZ_discr" type="Smallint" visibility="public" />
+    <field name="RateFastAxis" type="Smallint" visibility="public" />
+    <field name="RateSlowAxis" type="Smallint" visibility="public" />
+    <field name="microstep_Delay" type="Smallint" visibility="public" />
+    <field name="XBeginDiscr" type="Smallint" visibility="public" />
+    <field name="YBeginDiscr" type="Smallint" visibility="public" />
+    <field name="YBeginDiscr_forXYAngle" type="Smallint" visibility="public" />
+    <field name="LengthAcross_discr" type="Smallint" visibility="public" />
+    <field name="NX" type="Integer" visibility="public" />
+    <field name="NY" type="Integer" visibility="public" />
+    <field name="TrainFastLines" type="Integer" visibility="public" />
+    <field name="TrainSlowLines" type="Integer" visibility="public" />
+    <field name="curveScale" type="Integer" visibility="public" />
+    <field name="NLinearTestPoints" type="Integer" visibility="public" />
+    <field name="TimeProgressMax_s" type="Integer" visibility="public" />
+    <field name="HistPulseKoordnm" type="Integer" visibility="public" />
+    <field name="HistPulseInd" type="Integer" visibility="public" />
+    <field name="HistItemsNmb" type="Integer" visibility="public" />
+    <field name="HistLinesLength" type="Integer" visibility="public" />
+    <field name="HistLinesNmb" type="Integer" visibility="public" />
+    <field name="RenishawPeriod" type="Smallint" visibility="public" />
+    <field name="ReniShawScale" type="Single" visibility="public" />
+    <field name="TransformkoefX" type="Single" visibility="public" />
+    <field name="TransformkoefY" type="Single" visibility="public" />
+    <field name="TransformkoefZ" type="Single" visibility="public" />
+    <field name="SensX" type="Single" visibility="public" />
+    <field name="SensY" type="Single" visibility="public" />
+    <field name="SensZ" type="Single" visibility="public" />
+    <field name="Period_nm" type="Single" visibility="public" />
+    <field name="LinearJumpsArray" type=".2" visibility="public" />
+    <field name="DisperceMax" type="Single" visibility="public" />
+  </struct>
+  <variable name="ReniShawParams" type="RRenishawParams" />
+  <variable name="RenishawStendParams" type="RRenishawStendParams" />
+  <variable name="FlgRenishawUnit" type="Boolean" />
+  <variable name="FlgRenishawUnitExists" type="Boolean" />
+  <variable name="FlgRenishawCorrection" type="Boolean" />
+  <variable name="RenishawLinDirectory" type="string" />
+  <variable name="ReniShawFrontsImg" type="TData" />
+  <variable name="ReniShawStepScale" type="Integer" />
+  <procedure name="RenishawParamsDef" visibility="private">
+  </procedure>
+  <procedure name="RenishawStendParamsDef" visibility="private">
+  </procedure>
+  <procedure name="ReniShawDACCorrect2D" visibility="private">
+    <parameters>
+      <parameter name="zData" type="TData" paramflags="var" />
+      <parameter name="DACData" type="TData" />
+      <parameter name="mode" type="Integer" />
+      <parameter name="stepScale" type="Integer" />
+      <parameter name="period" type="Single" />
+    </parameters>
+  </procedure>
+  <procedure name="ReniShawFrontsSmooth" visibility="private">
+  </procedure>
+  <procedure name="ReniShawFreeFrontsMap" visibility="private">
+  </procedure>
+  <procedure name="ReniShawCreateFrontsMap" visibility="private">
+    <parameters>
+      <parameter name="ExperimData" type="TData" />
+      <parameter name="mode" type="Integer" />
+      <parameter name="stepScale" type="Integer" />
+    </parameters>
+  </procedure>
+  <procedure name="ReniShawSlowAxisCorr" visibility="private">
+    <parameters>
+      <parameter name="ZData" type="TData" paramflags="var" />
+      <parameter name="DACData" type="TData" />
+      <parameter name="mode" type="Integer" />
+      <parameter name="stepScale" type="Integer" />
+      <parameter name="period" type="Single" />
+    </parameters>
+  </procedure>
+  <procedure name="Smooth1" visibility="private">
+    <parameters>
+      <parameter name="Dat" type="ArraySpline" paramflags="var" />
+      <parameter name="N" type="Integer" />
+      <parameter name="S" type="Integer" />
+    </parameters>
+  </procedure>
+</namespace>

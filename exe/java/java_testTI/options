@@ -1,0 +1,8 @@
+-verbose
+-source 1.2
+-target 1.2
+-bootclasspath "d:/nanoeducator/nanoedule/exe/java/java_testTI" 
+-extdirs "d:/nanoeducator/nanoedule/exe/java/java_testTI"  
+-endorseddirs "d:/nanoeducator/nanoedule/exe/java/java_testTI"  
+-cp "d:/nanoeducator/nanoedule/exe/java/java_testTI"  
+

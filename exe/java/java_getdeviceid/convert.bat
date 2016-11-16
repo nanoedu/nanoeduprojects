@@ -1,0 +1,1 @@
+jar cfe ..\..\javabin\getdeviceid.jar mlab.getdeviceid mlab\*.class java\lang\*.class

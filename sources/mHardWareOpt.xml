@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="mHardWareOpt">
+  <procedure name="HardWareOptLast" visibility="private">
+  </procedure>
+  <function name="ControllerNumClick" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="ConfigOptLast" visibility="private">
+  </procedure>
+  <procedure name="ConfigUsersOptLast" visibility="private">
+  </procedure>
+  <procedure name="ControllerOptLast" visibility="private">
+    <parameters>
+      <parameter name="FileName" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <procedure name="CSPMSignalsInit" visibility="private">
+  </procedure>
+  <procedure name="TransformUnitInit" visibility="private">
+  </procedure>
+</namespace>

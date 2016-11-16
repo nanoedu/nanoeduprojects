@@ -1,0 +1,104 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{7e88ae88-aa8d-41b2-82cc-546c2cfcc30e}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="..\sources\components\NTShPack.dproj" />
+    <Projects Include="..\sources\MSVIDEO\MSVideoLib.dproj" />
+    <Projects Include="..\sources\SioCSPMDemo\SioCSPMDemo.dproj" />
+    <Projects Include="..\sources\surfacetools\SurfTools.dproj" />
+    <Projects Include="alfa.dproj" />
+    <Projects Include="NanoEduLE.dproj" />
+    <Projects Include="NanoTutor.dproj" />
+    <Projects Include="ProBeam.dproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject xmlns=""><Default.Personality></Default.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="NanoEduLE">
+    <MSBuild Projects="NanoEduLE.dproj" Targets="" />
+  </Target>
+  <Target Name="NanoEduLE:Clean">
+    <MSBuild Projects="NanoEduLE.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="NanoEduLE:Make">
+    <MSBuild Projects="NanoEduLE.dproj" Targets="Make" />
+  </Target>
+  <Target Name="alfa">
+    <MSBuild Projects="alfa.dproj" Targets="" />
+  </Target>
+  <Target Name="alfa:Clean">
+    <MSBuild Projects="alfa.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="alfa:Make">
+    <MSBuild Projects="alfa.dproj" Targets="Make" />
+  </Target>
+  <Target Name="MSVideoLib">
+    <MSBuild Projects="..\sources\MSVIDEO\MSVideoLib.dproj" Targets="" />
+  </Target>
+  <Target Name="MSVideoLib:Clean">
+    <MSBuild Projects="..\sources\MSVIDEO\MSVideoLib.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="MSVideoLib:Make">
+    <MSBuild Projects="..\sources\MSVIDEO\MSVideoLib.dproj" Targets="Make" />
+  </Target>
+  <Target Name="SioCSPMDemo">
+    <MSBuild Projects="..\sources\SioCSPMDemo\SioCSPMDemo.dproj" Targets="" />
+  </Target>
+  <Target Name="SioCSPMDemo:Clean">
+    <MSBuild Projects="..\sources\SioCSPMDemo\SioCSPMDemo.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="SioCSPMDemo:Make">
+    <MSBuild Projects="..\sources\SioCSPMDemo\SioCSPMDemo.dproj" Targets="Make" />
+  </Target>
+  <Target Name="SurfTools">
+    <MSBuild Projects="..\sources\surfacetools\SurfTools.dproj" Targets="" />
+  </Target>
+  <Target Name="SurfTools:Clean">
+    <MSBuild Projects="..\sources\surfacetools\SurfTools.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="SurfTools:Make">
+    <MSBuild Projects="..\sources\surfacetools\SurfTools.dproj" Targets="Make" />
+  </Target>
+  <Target Name="NTShPack">
+    <MSBuild Projects="..\sources\components\NTShPack.dproj" Targets="" />
+  </Target>
+  <Target Name="NTShPack:Clean">
+    <MSBuild Projects="..\sources\components\NTShPack.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="NTShPack:Make">
+    <MSBuild Projects="..\sources\components\NTShPack.dproj" Targets="Make" />
+  </Target>
+  <Target Name="NanoTutor">
+    <MSBuild Projects="NanoTutor.dproj" Targets="" />
+  </Target>
+  <Target Name="NanoTutor:Clean">
+    <MSBuild Projects="NanoTutor.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="NanoTutor:Make">
+    <MSBuild Projects="NanoTutor.dproj" Targets="Make" />
+  </Target>
+  <Target Name="ProBeam">
+    <MSBuild Projects="ProBeam.dproj" Targets="" />
+  </Target>
+  <Target Name="ProBeam:Clean">
+    <MSBuild Projects="ProBeam.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="ProBeam:Make">
+    <MSBuild Projects="ProBeam.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="NanoEduLE;alfa;MSVideoLib;SioCSPMDemo;SurfTools;NTShPack;NanoTutor;ProBeam" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="NanoEduLE:Clean;alfa:Clean;MSVideoLib:Clean;SioCSPMDemo:Clean;SurfTools:Clean;NTShPack:Clean;NanoTutor:Clean;ProBeam:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="NanoEduLE:Make;alfa:Make;MSVideoLib:Make;SioCSPMDemo:Make;SurfTools:Make;NTShPack:Make;NanoTutor:Make;ProBeam:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>

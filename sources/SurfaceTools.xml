@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="SurfaceTools">
+  <struct name="TDataRect">
+    <field name="StartX" type="Smallint" visibility="public" />
+    <field name="EndX" type="Smallint" visibility="public" />
+    <field name="StartY" type="Smallint" visibility="public" />
+    <field name="EndY" type="Smallint" visibility="public" />
+  </struct>
+  <array name="ArrayOfDouble0" low="0" high="16777215">
+    <element type="Double" />
+  </array>
+  <pointer name="PArrayOfDouble0" type="ArrayOfDouble0" indircnt="1" />
+  <array name="ArrayOfInteger0" low="0" high="16777215">
+    <element type="Integer" />
+  </array>
+  <pointer name="PArrayOfInteger0" type="ArrayOfInteger0" indircnt="1" />
+  <array name="ArrayOfSmallInt0" low="0" high="16777215">
+    <element type="Smallint" />
+  </array>
+  <pointer name="PArrayOfSmallInt0" type="ArrayOfSmallInt0" indircnt="1" />
+  <procedure name="AverageFilt3X3" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="Ny" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <procedure name="MedianFilt3" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="Ny" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <procedure name="DelFiltLevel" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="Ny" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <procedure name="DelStepsX" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="Ny" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <procedure name="DelStepsY" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="Ny" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <procedure name="DelFiltLevelOne" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="Ny" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <procedure name="Del2xSurface" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="NX" type="Integer" />
+      <parameter name="NY" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <procedure name="DelFiltPlane" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="Ny" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <procedure name="ExecuteFourierFiltrat" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="Ny" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+      <parameter name="FileName" type="PAnsiChar" />
+    </parameters>
+  </procedure>
+  <function name="Get2xSurfaceVector" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="pIn" type="PArrayOfSmallInt0" />
+      <parameter name="m_nx" type="Integer" />
+      <parameter name="m_ny" type="Integer" />
+      <parameter name="Window" type="TDataRect" />
+      <parameter name="a" type="PArrayOfDouble0" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="Subtract2xSurfaceByVector" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="pIn" type="PArrayOfSmallInt0" />
+      <parameter name="pOut" type="PArrayOfSmallInt0" />
+      <parameter name="m_nx" type="Integer" />
+      <parameter name="m_ny" type="Integer" />
+      <parameter name="Window" type="TDataRect" />
+      <parameter name="a" type="PArrayOfDouble0" />
+    </parameters>
+  </procedure>
+  <procedure name="LinDelFiltPlaneParm" visibility="private" callconv="stdcall">
+    <devnotes>
+      *******
+    </devnotes>
+    <parameters>
+      <parameter name="Nx" type="Integer" />
+      <parameter name="p" type="TLineSingle" paramflags="var" />
+      <parameter name="sfA" type="Single" paramflags="var" />
+      <parameter name="sfB" type="Single" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DelFiltSurface" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Nx1" type="Integer" />
+      <parameter name="Ny1" type="Integer" />
+      <parameter name="Nx2" type="Integer" />
+      <parameter name="Ny2" type="Integer" />
+      <parameter name="NxMax" type="Integer" />
+      <parameter name="NyMax" type="Integer" />
+      <parameter name="p" type="TMas2" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="Convolution" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="Mas" type="TLineSingle" paramflags="var" />
+      <parameter name="Size" type="Integer" paramflags="const" />
+      <parameter name="S" type="Integer" paramflags="const" />
+    </parameters>
+  </procedure>
+  <function name="Normal" visibility="private" callconv="stdcall">
+    <parameters>
+      <parameter name="TopoCell" type="mcell" paramflags="var" />
+      <parameter name="x" type="Double" />
+      <parameter name="y" type="Double" />
+      <parameter name="StepX" type="Double" />
+      <parameter name="StepY" type="Double" />
+      <retval type="Vector" />
+    </parameters>
+  </function>
+</namespace>

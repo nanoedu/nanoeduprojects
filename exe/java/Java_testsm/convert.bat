@@ -1,0 +1,1 @@
+jar cfe ..\..\javabin\testsm.jar mlab.Testsm mlab\*.class java\lang\*.class

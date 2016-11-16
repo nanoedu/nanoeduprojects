@@ -1,0 +1,1 @@
+txt2bin scan3.txt ..\..\javabin\moveto.bin

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="SEC.Nanoeye.NanoeyeSEM.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <userSettings>
+        <SEC.Nanoeye.NanoeyeSEM.Properties.Settings>
+            <setting name="SenseFocusCoarseLeft" serializeAs="String">
+                <value>5</value>
+            </setting>
+            <setting name="MicronFont" serializeAs="String">
+                <value>Arial, 16pt</value>
+            </setting>
+            <setting name="SenseBeamshiftLeft" serializeAs="String">
+                <value>5</value>
+            </setting>
+            <setting name="SenseFocusCoarseRight" serializeAs="String">
+                <value>0.5</value>
+            </setting>
+            <setting name="MicronEdgeColor" serializeAs="String">
+                <value>Black</value>
+            </setting>
+            <setting name="MicronBackColor" serializeAs="String">
+                <value>Black</value>
+            </setting>
+            <setting name="SenseBeamshiftRight" serializeAs="String">
+                <value>0.5</value>
+            </setting>
+            <setting name="MicronTextColor" serializeAs="String">
+                <value>White</value>
+            </setting>
+            <setting name="StatusServerPort" serializeAs="String">
+                <value>57341</value>
+            </setting>
+            <setting name="EDSLowBSECL2" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSHighSEClt" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSHighSEPmt" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSHighBSECL1" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSHighBSEAmp" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSHighBSECL2" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="SelectedProfile" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSHighSECL1" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSHighSECL2" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSLowBSECL1" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="EDSLowBSEAmp" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="FilamentRunningTime" serializeAs="String">
+                <value>1.11:47:00</value>
+            </setting>
+            <setting name="DualClt" serializeAs="String">
+                <value>128</value>
+            </setting>
+            <setting name="Language" serializeAs="String">
+                <value>en-US</value>
+            </setting>
+            <setting name="ArchAdress" serializeAs="String">
+                <value>C:\images</value>
+            </setting>
+            <setting name="ExportMode" serializeAs="String">
+                <value>Print</value>
+            </setting>
+            <setting name="MicronEnable" serializeAs="String">
+                <value>False</value>
+            </setting>
+        </SEC.Nanoeye.NanoeyeSEM.Properties.Settings>
+    </userSettings>
+</configuration>

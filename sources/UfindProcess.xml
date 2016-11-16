@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="UfindProcess">
+  <procedure name="CreateWinNTProcessList" visibility="private">
+    <parameters>
+      <parameter name="List" type="TStringList" />
+    </parameters>
+  </procedure>
+  <procedure name="GetProcessList" visibility="private">
+    <parameters>
+      <parameter name="List" type="TStringList" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="EXE_Running" visibility="private">
+    <parameters>
+      <parameter name="FileName" type="string" />
+      <parameter name="bFullpath" type="Boolean" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+</namespace>

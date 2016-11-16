@@ -1,0 +1,160 @@
+package mlab;
+
+public class Approach
+{
+    public static  int status; // control script parameter
+    public static  int param0; // FlgStepResult
+    public static  int param1; // ZMax
+    public static  int param2; // ZMin
+    public static  int param3; // Level_UAM
+    public static  int param4; // NStep_Z
+    public static  int  param5; // T1 ceramic delay
+    public static  int  param6; // T2 integrator delay
+    public static  int    param7; // Z
+    public static  int    param8; // VERT
+    public static  int  flgonestep;   //not used
+    public static  int  flgTopPos;   //control top position flag
+    public static  int    flgendscript; //1 endscript; 2 - not ;
+
+public static final int endscript=1;
+public static final int steps=50;
+public static final int  waitsteps=0;
+public static final int stop=100;
+public static final int  touch=60;
+public static void main()
+{ 
+    int s,T1,T2,__j,TIMERSTM,count;
+    int SIGNAL,LEVEL_SGL,Z,ZMin,ZMax;
+
+         param0=0;  //0
+         flgendscript=2;//active
+         TIMERSTM=20000;
+         status=waitsteps;
+         T2=param6;
+         T1=param5;
+         ITR_RES=1;      //втянуть
+         sleep(T1);
+         SD_ZERO=1;     // turn on step motor
+         SMZ_SPEED=1;
+    
+   	while ( 1 )
+{
+   if (status==stop){status=endscript; flgendscript=; return;}    //exit init; 100
+                       //approch
+                while ( status==steps)       // 50 Scanner Approachment
+		{       param0=0;
+                        T1=param5;
+                        T2=param6;
+                        LEVEL_SGL=param3;
+                        ZMin=param2;
+                        ZMax=param1;
+                        ITR_RES=0;          // pull ahead tip
+                        s=1000;
+                        while (s)
+                         { s=s-1;
+                          TIMER0=T2;              //integrator delay
+                          while(TIMER0!=0);
+                         }
+                          Z=ADC_Z;      //attention  +1 to take smallint interval
+                            if (Z>0) {Z=0;}
+		            if (Z<0) {Z=-(Z+1);}
+                         param7=Z;
+                    if (param4<0) {if (Z<=ZMin)  {param0=2; status=endscript;  flgendscript=1;return;} } // Too Close  stop script        //        NStep_Z=1
+                    if (param4<0)
+                      {
+                        if (MODE==1)      //STM
+                         {
+                          TIMER0=TIMERSTM;
+                          while(TIMER0!=0)
+                           {
+                            SIGNAL=ADC_IT;
+                            if (SIGNAL<0){SIGNAL=-(SIGNAL+1);}
+                            if (SIGNAL>=LEVEL_SGL)
+                            {
+                             if (Z<=ZMax){param0=3; status=endscript; flgendscript=1;return;}  //O'K   stop script
+                            };
+                           }///timer
+                         }
+			if (MODE==0)         //SFM
+                          {
+                           TIMER0=TIMERSTM;
+			   count=0;
+                           while(TIMER0!=0)
+                           {
+                             SIGNAL=ADC_UAM;
+                            if (SIGNAL<=LEVEL_SGL)
+                            {
+                             if (Z<=ZMax)  {count=count+1;}  //O'K
+                             if (count==100)
+                             {
+                              param0=3; status=endscript; flgendscript=1; return;  //O'K   stop script
+                             };//100
+                            };
+                           }
+                          }
+                       }     //param4=-1
+                       if (param4>0)
+			 {
+                          if (flgTopPos==1) {
+                           if (CMP_VAL<2)
+                           {
+                             param0=4;
+                             status=endscript;
+                             flgendscript=1;
+                             return; //stop script
+                           }} //out boundary
+
+			 }
+                           ITR_RES=1; // pull back;
+                           s=1000;
+                           while(s)
+                            {
+                             s=s-1;
+                             TIMER0=T1;         //ceramic delay
+                             while(TIMER0!=0);
+                            }
+
+			 SMZ_STEP=param4;
+                         while(SMZ_STEP!=0);
+			if (param0==0){ param0=1;}        //true
+                        if (param4>0) {if (flgTopPos==1) {if (CMP_VAL<2) {param0=4; status=endscript; flgendscript=1; return;}}} //out boundary stop script
+                        if (status!=stop) {status=waitsteps;}
+
+                }  //test 50 Approach
+       	}   //while(1)
+
+        flgendscript=1;
+}       //init
+
+		int rez_A;
+		int rez_Freq;
+		int[] arrA;
+
+		rez_A = 0;
+		rez_Freq = 0;
+
+		Simple.bramWrite(M_PID_ON, 0);
+
+		arrA = new int[FREQ_STEPS];
+		for(int i=0; i<FREQ_STEPS; i++)
+		{
+		int freq;
+		int i_tmp;
+
+			freq = FREQ_START+i*DELTA_FREQ;
+			Simple.bramWrite(M_DFI_PIN, freq);
+			Simple.Sleep(10);
+			i_tmp = Simple.bramRead(M_A);
+			arrA[i] = i_tmp;
+			if ( i_tmp > rez_A )
+			{
+				rez_A = i_tmp;
+				rez_Freq = freq;
+			}
+		}
+		Simple.bramWrite(M_DFI_PIN, rez_Freq);
+		Simple.bramWrite(M_A_REZ,   rez_A);
+
+		Simple.xchgCreate("rezA.dat", arrA);
+	}
+}

@@ -1,0 +1,6 @@
+regsvr32/u "c:\nt-mdt\nanoeducatorle\NL3FB.dll"
+regsvr32/u "c:\nt-mdt\nanoeducatorle\NL3LFB.dll"
+regsvr32/u "c:\nt-mdt\nanoeducatorle\MLPC_API.dll"
+regsvr32/u "c:\nt-mdt\nanoeducatorle\MLPC_API2.dll"
+regsvr32/u "c:\nt-mdt\nanoeducatorle\NL3Cntx.dll"
+regsvr32/u "c:\nt-mdt\nanoeducatorle\SiGraph.dll"

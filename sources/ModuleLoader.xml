@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="ModuleLoader">
+  <const name="INVALID_MODULEHANDLE_VALUE" type="Cardinal">
+    <value>
+      $0
+    </value>
+  </const>
+  <function name="LoadModule" visibility="private">
+    <parameters>
+      <parameter name="Module" type="Cardinal" paramflags="var" />
+      <parameter name="FileName" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="LoadModuleEx" visibility="private">
+    <parameters>
+      <parameter name="Module" type="Cardinal" paramflags="var" />
+      <parameter name="FileName" type="string" />
+      <parameter name="Flags" type="Cardinal" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="UnloadModule" visibility="private">
+    <parameters>
+      <parameter name="Module" type="Cardinal" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="GetModuleSymbol" visibility="private">
+    <parameters>
+      <parameter name="Module" type="Cardinal" />
+      <parameter name="SymbolName" type="string" />
+      <retval type="Pointer" />
+    </parameters>
+  </function>
+  <function name="GetModuleSymbolEx" visibility="private">
+    <parameters>
+      <parameter name="Module" type="Cardinal" />
+      <parameter name="SymbolName" type="string" />
+      <parameter name="Accu" type="Boolean" paramflags="var" />
+      <retval type="Pointer" />
+    </parameters>
+  </function>
+  <function name="ReadModuleData" visibility="private">
+    <parameters>
+      <parameter name="Module" type="Cardinal" />
+      <parameter name="SymbolName" type="string" />
+      <parameter name="Buffer" paramflags="var" />
+      <parameter name="Size" type="Cardinal" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="WriteModuleData" visibility="private">
+    <parameters>
+      <parameter name="Module" type="Cardinal" />
+      <parameter name="SymbolName" type="string" />
+      <parameter name="Buffer" paramflags="var" />
+      <parameter name="Size" type="Cardinal" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+</namespace>

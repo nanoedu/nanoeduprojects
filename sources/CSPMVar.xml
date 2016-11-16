@@ -1,0 +1,1091 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="CSPMVar">
+  <const name="DAC12DiscrToVolt" type="Extended">
+    <value>
+      3275
+    </value>
+  </const>
+  <const name="MaxAPITYPE" type="Integer">
+    <value>
+      $7FFF
+    </value>
+  </const>
+  <const name="MinAPITYPE" type="Integer">
+    <value>
+      $FFFF8000
+    </value>
+  </const>
+  <const name="MaxDATATYPE" type="Integer">
+    <value>
+      $7FFF
+    </value>
+  </const>
+  <const name="MinDATATYPE" type="Integer">
+    <value>
+      $FFFF8000
+    </value>
+  </const>
+  <const name="TIMER0" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="DAC_Z" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="DAC_X" type="Integer">
+    <value>
+      $4
+    </value>
+  </const>
+  <const name="DAC_Y" type="Integer">
+    <value>
+      $6
+    </value>
+  </const>
+  <const name="DAC_REF" type="Integer">
+    <value>
+      $8
+    </value>
+  </const>
+  <const name="DAC_LP" type="Integer">
+    <value>
+      $A
+    </value>
+  </const>
+  <const name="DAC_VT" type="Integer">
+    <value>
+      $C
+    </value>
+  </const>
+  <const name="DAC_UPD" type="Integer">
+    <value>
+      $E
+    </value>
+  </const>
+  <const name="ADC_Z" type="Integer">
+    <value>
+      $10
+    </value>
+  </const>
+  <const name="ADC_MCH_ENA" type="Integer">
+    <value>
+      $12
+    </value>
+  </const>
+  <const name="ADC_UFM" type="Integer">
+    <value>
+      $14
+    </value>
+  </const>
+  <const name="ADC_LASER_H" type="Integer">
+    <value>
+      $16
+    </value>
+  </const>
+  <const name="ADC_VERT" type="Integer">
+    <value>
+      $18
+    </value>
+  </const>
+  <const name="ADC_IT" type="Integer">
+    <value>
+      $1A
+    </value>
+  </const>
+  <const name="ADC_LAT" type="Integer">
+    <value>
+      $1C
+    </value>
+  </const>
+  <const name="ADC_UAM" type="Integer">
+    <value>
+      $1E
+    </value>
+  </const>
+  <const name="ADC_MCH6" type="Integer">
+    <value>
+      $20
+    </value>
+  </const>
+  <const name="ADC_MCH7" type="Integer">
+    <value>
+      $22
+    </value>
+  </const>
+  <const name="PM_SPEED" type="Integer">
+    <value>
+      $24
+    </value>
+  </const>
+  <const name="PM_STEP" type="Integer">
+    <value>
+      $26
+    </value>
+  </const>
+  <const name="SMX_SPEED" type="Integer">
+    <value>
+      $28
+    </value>
+  </const>
+  <const name="SMY_SPEED" type="Integer">
+    <value>
+      $2A
+    </value>
+  </const>
+  <const name="SMZ_SPEED" type="Integer">
+    <value>
+      $2C
+    </value>
+  </const>
+  <const name="SMX_STEP" type="Integer">
+    <value>
+      $2E
+    </value>
+  </const>
+  <const name="SMY_STEP" type="Integer">
+    <value>
+      $30
+    </value>
+  </const>
+  <const name="SMZ_STEP" type="Integer">
+    <value>
+      $32
+    </value>
+  </const>
+  <const name="SD_ENA" type="Integer">
+    <value>
+      $34
+    </value>
+  </const>
+  <const name="SD_ZERO" type="Integer">
+    <value>
+      $36
+    </value>
+  </const>
+  <const name="SD_BUSY" type="Integer">
+    <value>
+      $38
+    </value>
+  </const>
+  <const name="SD_GAIN_AM" type="Integer">
+    <value>
+      $3A
+    </value>
+  </const>
+  <const name="SD_COMP_AM" type="Integer">
+    <value>
+      $3C
+    </value>
+  </const>
+  <const name="SD_GENF_R" type="Integer">
+    <value>
+      $3E
+    </value>
+  </const>
+  <const name="SD_GENF_F" type="Integer">
+    <value>
+      $40
+    </value>
+  </const>
+  <const name="SD_GAIN_FM" type="Integer">
+    <value>
+      $42
+    </value>
+  </const>
+  <const name="SD_GEN_M" type="Integer">
+    <value>
+      $44
+    </value>
+  </const>
+  <const name="PATH_SPD" type="Integer">
+    <value>
+      $46
+    </value>
+  </const>
+  <const name="CMP_VAL" type="Integer">
+    <value>
+      $48
+    </value>
+  </const>
+  <const name="CMP_RES" type="Integer">
+    <value>
+      $4A
+    </value>
+  </const>
+  <const name="CMP_ENA" type="Integer">
+    <value>
+      $4C
+    </value>
+  </const>
+  <const name="ITR_RES" type="Integer">
+    <value>
+      $4E
+    </value>
+  </const>
+  <const name="FB_ENA" type="Integer">
+    <value>
+      $50
+    </value>
+  </const>
+  <const name="FB_SEL" type="Integer">
+    <value>
+      $52
+    </value>
+  </const>
+  <const name="ITR_SEL" type="Integer">
+    <value>
+      $54
+    </value>
+  </const>
+  <const name="CHMOD_SEL" type="Integer">
+    <value>
+      $56
+    </value>
+  </const>
+  <const name="XY_TUNE" type="Integer">
+    <value>
+      $58
+    </value>
+  </const>
+  <const name="MODE" type="Integer">
+    <value>
+      $5A
+    </value>
+  </const>
+  <const name="FREQ_SEL" type="Integer">
+    <value>
+      $5C
+    </value>
+  </const>
+  <const name="Z_TUNE" type="Integer">
+    <value>
+      $5E
+    </value>
+  </const>
+  <const name="VT_SIGN" type="Integer">
+    <value>
+      $60
+    </value>
+  </const>
+  <const name="VERSION" type="Integer">
+    <value>
+      $62
+    </value>
+  </const>
+  <const name="END_SCAN" type="Integer">
+    <value>
+      $64
+    </value>
+  </const>
+  <const name="FIFO_IN" type="Integer">
+    <value>
+      $66
+    </value>
+  </const>
+  <const name="FIFO_PATH" type="Integer">
+    <value>
+      $68
+    </value>
+  </const>
+  <const name="FIFO_OUT" type="Integer">
+    <value>
+      $6A
+    </value>
+  </const>
+  <const name="IR_IN" type="Integer">
+    <value>
+      $6C
+    </value>
+  </const>
+  <const name="IR_OUT" type="Integer">
+    <value>
+      $6E
+    </value>
+  </const>
+  <const name="aTEST_NMB" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="aSTATUS" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="aMIN_IN" type="Integer">
+    <value>
+      $82
+    </value>
+  </const>
+  <const name="aPRIM_STEP_X" type="Integer">
+    <value>
+      $84
+    </value>
+  </const>
+  <const name="aPRIM_STEP_Y" type="Integer">
+    <value>
+      $86
+    </value>
+  </const>
+  <const name="aJUMP" type="Integer">
+    <value>
+      $88
+    </value>
+  </const>
+  <const name="aFlgViewType" type="Integer">
+    <value>
+      $8A
+    </value>
+  </const>
+  <const name="aFlgFine" type="Integer">
+    <value>
+      $8A
+    </value>
+  </const>
+  <const name="aPRIM_STEP_ZX" type="Integer">
+    <value>
+      $8C
+    </value>
+  </const>
+  <const name="aTDelayR" type="Integer">
+    <value>
+      $8C
+    </value>
+  </const>
+  <const name="aPRIM_STEP_ZY" type="Integer">
+    <value>
+      $8E
+    </value>
+  </const>
+  <const name="aPath_SPD_BW" type="Integer">
+    <value>
+      $90
+    </value>
+  </const>
+  <const name="aIntegratorDl" type="Integer">
+    <value>
+      $90
+    </value>
+  </const>
+  <const name="aScannerDc" type="Integer">
+    <value>
+      $92
+    </value>
+  </const>
+  <const name="aFlgPlnDel_HW" type="Integer">
+    <value>
+      $8E
+    </value>
+  </const>
+  <const name="aTimeLithoZ" type="Integer">
+    <devnotes>
+      /!!!!!!!
+    </devnotes>
+    <value>
+      $92
+    </value>
+  </const>
+  <const name="aFlgTypeSPM" type="Integer">
+    <value>
+      $94
+    </value>
+  </const>
+  <const name="aAmplLitho" type="Integer">
+    <value>
+      $96
+    </value>
+  </const>
+  <const name="aAmplTimeLitho" type="Integer">
+    <value>
+      $96
+    </value>
+  </const>
+  <const name="aLithoVMin" type="Integer">
+    <value>
+      $98
+    </value>
+  </const>
+  <const name="a_dz" type="Integer">
+    <value>
+      $90
+    </value>
+  </const>
+  <const name="a_i" type="Integer">
+    <value>
+      $92
+    </value>
+  </const>
+  <const name="aTDelay" type="Integer">
+    <value>
+      $94
+    </value>
+  </const>
+  <const name="aStartV" type="Integer">
+    <value>
+      $96
+    </value>
+  </const>
+  <const name="aNPoints" type="Integer">
+    <value>
+      $98
+    </value>
+  </const>
+  <const name="aStepV" type="Integer">
+    <value>
+      $9A
+    </value>
+  </const>
+  <const name="aTDelayC" type="Integer">
+    <value>
+      $9C
+    </value>
+  </const>
+  <const name="aNPointsAv" type="Integer">
+    <value>
+      $9E
+    </value>
+  </const>
+  <const name="aStartZ" type="Integer">
+    <value>
+      $96
+    </value>
+  </const>
+  <const name="aStepZ" type="Integer">
+    <value>
+      $9A
+    </value>
+  </const>
+  <const name="aADCVertMin" type="Integer">
+    <value>
+      $9E
+    </value>
+  </const>
+  <const name="aTimeDelayMeasure" type="Integer">
+    <value>
+      $A0
+    </value>
+  </const>
+  <const name="aflgIZ" type="Integer">
+    <value>
+      $A0
+    </value>
+  </const>
+  <const name="aNStepE" type="Integer">
+    <value>
+      $84
+    </value>
+  </const>
+  <const name="aMDelayE" type="Integer">
+    <value>
+      $86
+    </value>
+  </const>
+  <const name="StatusApproach" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="StatusStep" type="Integer">
+    <value>
+      $82
+    </value>
+  </const>
+  <const name="CZMax" type="Integer">
+    <value>
+      $84
+    </value>
+  </const>
+  <const name="CZMin" type="Integer">
+    <value>
+      $86
+    </value>
+  </const>
+  <const name="CLevel" type="Integer">
+    <value>
+      $88
+    </value>
+  </const>
+  <const name="CNStep_Z" type="Integer">
+    <value>
+      $8A
+    </value>
+  </const>
+  <const name="CT1" type="Integer">
+    <value>
+      $8C
+    </value>
+  </const>
+  <const name="CT2" type="Integer">
+    <value>
+      $8E
+    </value>
+  </const>
+  <const name="CZ" type="Integer">
+    <value>
+      $90
+    </value>
+  </const>
+  <const name="CUAM" type="Integer">
+    <value>
+      $92
+    </value>
+  </const>
+  <const name="CCycle" type="Integer">
+    <value>
+      $94
+    </value>
+  </const>
+  <const name="CycleNmbAdres" type="Integer">
+    <value>
+      $94
+    </value>
+  </const>
+  <const name="CflgOneStep" type="Integer">
+    <value>
+      $94
+    </value>
+  </const>
+  <const name="CTPause" type="Integer">
+    <value>
+      $96
+    </value>
+  </const>
+  <const name="CflgControlTopPos" type="Integer">
+    <value>
+      $96
+    </value>
+  </const>
+  <const name="Steps" type="Integer">
+    <value>
+      $32
+    </value>
+  </const>
+  <const name="Stop" type="Integer">
+    <value>
+      $64
+    </value>
+  </const>
+  <const name="Start" type="Integer">
+    <value>
+      $32
+    </value>
+  </const>
+  <const name="WaitSteps" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="EndScript" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="Fine" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="Rough" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="Beginner" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="Advanced" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="Demo" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="mScanning" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="mDrawing" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="mFastDrawing" type="Integer">
+    <value>
+      $3
+    </value>
+  </const>
+  <const name="mApproaching" type="Integer">
+    <value>
+      $4
+    </value>
+  </const>
+  <set name="TScanModesSet" type="TScanModes" />
+  <const name="Topography" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="WorkF" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="BackPass" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="Phase" type="Integer">
+    <value>
+      $3
+    </value>
+  </const>
+  <const name="UAM" type="Integer">
+    <value>
+      $4
+    </value>
+  </const>
+  <const name="Spectr" type="Integer">
+    <value>
+      $5
+    </value>
+  </const>
+  <const name="Litho" type="Integer">
+    <value>
+      $6
+    </value>
+  </const>
+  <const name="CurrentSTM" type="Integer">
+    <value>
+      $7
+    </value>
+  </const>
+  <const name="FastScan" type="Integer">
+    <value>
+      $8
+    </value>
+  </const>
+  <const name="TopoError" type="Integer">
+    <value>
+      $9
+    </value>
+  </const>
+  <const name="FastScanPhase" type="Integer">
+    <value>
+      $A
+    </value>
+  </const>
+  <const name="OneLineScan" type="Integer">
+    <value>
+      $B
+    </value>
+  </const>
+  <const name="SensivityCorrection" type="Integer">
+    <value>
+      $C
+    </value>
+  </const>
+  <const name="LithoCurrent" type="Integer">
+    <value>
+      $D
+    </value>
+  </const>
+  <variable name="ScanModesSetTopo" type="TScanModesSet" />
+  <variable name="ScanModesSetOneL" type="TScanModesSet" />
+  <variable name="ScanModesSetZnm" type="TScanModesSet" />
+  <variable name="ScanModesSetZAm" type="TScanModesSet" />
+  <variable name="ScanModesSetZph" type="TScanModesSet" />
+  <variable name="ScanModesSetAdd" type="TScanModesSet" />
+  <variable name="ScanModesSetNoAdd" type="TScanModesSet" />
+  <variable name="ScanModesSetZUAM" type="TScanModesSet" />
+  <variable name="ScanModesSetSpectr" type="TScanModesSet" />
+  <variable name="ScanModesSetTopoErr" type="TScanModesSet" />
+  <variable name="ScanModesSetZWrk" type="TScanModesSet" />
+  <const name="MultiY" type="Integer">
+    <value>
+      $3
+    </value>
+  </const>
+  <const name="Multi" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="OneY" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="OneX" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="WM_UserCloseVideo" type="Integer">
+    <value>
+      $41E
+    </value>
+  </const>
+  <const name="WM_ThreadDoneMsg" type="Integer">
+    <value>
+      $408
+    </value>
+  </const>
+  <const name="WM_ScanParamsUpdate" type="Integer">
+    <value>
+      $409
+    </value>
+  </const>
+  <const name="WM_ThreadTrainDoneMsg" type="Integer">
+    <value>
+      $40A
+    </value>
+  </const>
+  <const name="WM_StepTestThreadDoneMsg" type="Integer">
+    <value>
+      $40B
+    </value>
+  </const>
+  <const name="WM_ThreadStepsDoneMsg" type="Integer">
+    <value>
+      $40C
+    </value>
+  </const>
+  <const name="WM_CopyClipboardMsg" type="Integer">
+    <value>
+      $40D
+    </value>
+  </const>
+  <const name="WM_MultiThreadDoneMsg" type="Integer">
+    <value>
+      $40E
+    </value>
+  </const>
+  <const name="WM_UserChangePreview" type="Integer">
+    <value>
+      $40F
+    </value>
+  </const>
+  <const name="WM_UserLBViewFocus" type="Integer">
+    <value>
+      $410
+    </value>
+  </const>
+  <const name="CM_PrilipalkaMove" type="Integer">
+    <value>
+      $411
+    </value>
+  </const>
+  <const name="WM_UserFreeLib" type="Integer">
+    <value>
+      $414
+    </value>
+  </const>
+  <const name="WM_UserApproachOptUpdated" type="Integer">
+    <value>
+      $415
+    </value>
+  </const>
+  <const name="WM_UserScanWndUpdated" type="Integer">
+    <value>
+      $416
+    </value>
+  </const>
+  <struct name="TPrilipalkaMSG" packed="true">
+    <field name="Msg" type="Cardinal" visibility="public" />
+    <field name="mfLeft" type="Integer" visibility="public" />
+    <field name="mfTop" type="Integer" visibility="public" />
+    <field name="mfRight" type="Integer" visibility="public" />
+    <field name="mfBottom" type="Integer" visibility="public" />
+  </struct>
+  <struct name="RHardwareOpt" packed="true">
+    <field name="flgFlash" type="Boolean" visibility="public" />
+    <field name="flgAutoScanner" type="Byte" visibility="public" />
+    <field name="ScannerNumb" type="string" visibility="public" />
+    <field name="ElectronicNumb" type="string" visibility="public" />
+    <field name="ZTune" type="string" visibility="public" />
+    <field name="XYTune" type="string" visibility="public" />
+    <field name="AMPGainZ" type="Single" visibility="public" />
+    <field name="AMPGainX" type="Single" visibility="public" />
+    <field name="AMPGainY" type="Single" visibility="public" />
+    <field name="AMPGainRZ" type="Single" visibility="public" />
+    <field name="AMPGainRX" type="Single" visibility="public" />
+    <field name="AMPGainRY" type="Single" visibility="public" />
+    <field name="AMPGainFZ" type="Single" visibility="public" />
+    <field name="AMPGainFX" type="Single" visibility="public" />
+    <field name="AMPGainFY" type="Single" visibility="public" />
+    <field name="UFBMaxOUT" type="Double" visibility="public" />
+    <field name="TappingKoef" type="Double" visibility="public" />
+    <field name="FlgNewElectronic" type="Boolean" visibility="public" />
+  </struct>
+  <struct name="RSignalCharacter" packed="true">
+    <field name="Name" type="string" visibility="public" />
+    <field name="Minrange" type="Integer" visibility="public" />
+    <field name="Maxrange" type="Integer" visibility="public" />
+    <field name="DeviceClass" type="Word" visibility="public" />
+    <field name="MinVal" type="Word" visibility="public" />
+    <field name="ZeroVal" type="Word" visibility="public" />
+    <field name="MaxVal" type="Word" visibility="public" />
+  </struct>
+  <struct name="RTransformUnit" packed="true">
+    <field name="Znm_d" type="Single" visibility="public" />
+    <field name="Ynm_d" type="Single" visibility="public" />
+    <field name="Xnm_d" type="Single" visibility="public" />
+    <field name="YPnm_d" type="Single" visibility="public" />
+    <field name="XPnm_d" type="Single" visibility="public" />
+    <field name="Uv_d" type="Single" visibility="public" />
+    <field name="nA_d" type="Single" visibility="public" />
+    <field name="A_d_SetPoint" type="Single" visibility="public" />
+    <field name="Uv_d16" type="Single" visibility="public" />
+    <field name="BiasV_d" type="Single" visibility="public" />
+    <field name="mA_dE" type="Single" visibility="public" />
+  </struct>
+  <array name="CSPMSignalsArr" low="1" high="13">
+    <element type="RSignalCharacter" />
+  </array>
+  <struct name="RApproachParams" packed="true">
+    <field name="flgOneStep" type="Boolean" visibility="public" />
+    <field name="flgControlTopPosition" type="Boolean" visibility="public" />
+    <field name="TypeMover" type="Byte" visibility="public" />
+    <field name="ResFreqR" type="Word" visibility="public" />
+    <field name="ResFreqF" type="Word" visibility="public" />
+    <field name="F0" type="Word" visibility="public" />
+    <field name="Amp_M" type="Word" visibility="public" />
+    <field name="Gain_FM" type="Word" visibility="public" />
+    <field name="Gain_AM" type="Word" visibility="public" />
+    <field name="FreqBandF" type="Word" visibility="public" />
+    <field name="FreqBandR" type="Word" visibility="public" />
+    <field name="PMActiveTime" type="Word" visibility="public" />
+    <field name="PMPause" type="Word" visibility="public" />
+    <field name="ScannerDecay" type="Word" visibility="public" />
+    <field name="IntegratorDelay" type="Word" visibility="public" />
+    <field name="IntegratorDelayFB" visibility="public">
+      <array name="IntegratorDelayFB" low="0" high="10">
+        <element type="Word" />
+      </array>
+    </field>
+    <field name="UAMMax" type="Smallint" visibility="public" />
+    <field name="ZUpStepsNumb" type="Integer" visibility="public" />
+    <field name="ZFastStepsNumb" type="Integer" visibility="public" />
+    <field name="ZStepsNumb" type="Integer" visibility="public" />
+    <field name="NCycles" type="Integer" visibility="public" />
+    <field name="MaxAmp_M" type="Integer" visibility="public" />
+    <field name="ExtremAmplitude" type="Single" visibility="public" />
+    <field name="LevelIT" type="Single" visibility="public" />
+    <field name="ZGateMax" type="Single" visibility="public" />
+    <field name="ZGateMin" type="Single" visibility="public" />
+    <field name="LevelUAM" type="Single" visibility="public" />
+    <field name="SetPoint" type="Single" visibility="public" />
+    <field name="LandingSetpoint" type="Single" visibility="public" />
+    <field name="BiasV" type="Single" visibility="public" />
+    <field name="MaxSuppress" type="Single" visibility="public" />
+    <field name="ScaleMaxIT" type="Single" visibility="public" />
+    <field name="CurVideoProgram" type="string" visibility="public" />
+    <field name="OrVideoProgram" type="string" visibility="public" />
+    <field name="OrVideoCaption" type="string" visibility="public" />
+  </struct>
+  <struct name="RSTMApproachParams" packed="true">
+    <field name="ZStepsNumb" type="Integer" visibility="public" />
+    <field name="FreqBandF" type="Word" visibility="public" />
+    <field name="FreqBandR" type="Word" visibility="public" />
+    <field name="ScannerDecay" type="Integer" visibility="public" />
+    <field name="IntegratorDelay" type="Integer" visibility="public" />
+    <field name="ZGateMax" type="Single" visibility="public" />
+    <field name="ZGateMin" type="Single" visibility="public" />
+    <field name="LevelI" type="Single" visibility="public" />
+    <field name="ExtremI" type="Single" visibility="public" />
+    <field name="SetPoint" type="Double" visibility="public" />
+    <field name="BiasV" type="Double" visibility="public" />
+  </struct>
+  <struct name="RScanParams" packed="true">
+    <field name="flgStepXY" type="Boolean" visibility="public" />
+    <field name="flgSQ" type="Boolean" visibility="public" />
+    <field name="flgTopoCurLinePlDel" type="Boolean" visibility="public" />
+    <field name="flgTopoTopViewPlDel" type="Boolean" visibility="public" />
+    <field name="flgTopoTopViewSDel" type="Boolean" visibility="public" />
+    <field name="flgAquiAdd" type="Boolean" visibility="public" />
+    <field name="flgSpectr" type="Boolean" visibility="public" />
+    <field name="NX" type="Integer" visibility="public" />
+    <field name="NY" type="Integer" visibility="public" />
+    <field name="CurrentScanCount" type="Integer" visibility="public" />
+    <field name="NFrames" type="Integer" visibility="public" />
+    <field name="CycleCount" type="Integer" visibility="public" />
+    <field name="ScanPoints" type="Integer" visibility="public" />
+    <field name="ScanLines" type="Integer" visibility="public" />
+    <field name="ScanRate" type="Single" visibility="public" />
+    <field name="ScanRateBW" type="Single" visibility="public" />
+    <field name="ScanMode" type="Integer" visibility="public" />
+    <field name="sz" type="Integer" visibility="public" />
+    <field name="ScanMethod" type="Integer" visibility="public" />
+    <field name="PassIIDz" type="Word" visibility="public" />
+    <field name="dataInPrev" type="Smallint" visibility="public" />
+    <field name="dataInNext" type="Smallint" visibility="public" />
+    <field name="dataInCur" type="Smallint" visibility="public" />
+    <field name="MicrostepDelay" type="Integer" visibility="public" />
+    <field name="MicrostepDelayBW" type="Integer" visibility="public" />
+    <field name="DiscrNumInMicroStep" type="Word" visibility="public" />
+    <field name="Microstep" type="Integer" visibility="public" />
+    <field name="XMicrostepNmb" type="Integer" visibility="public" />
+    <field name="YMicrostepNmb" type="Integer" visibility="public" />
+    <field name="ScanShift" type="Integer" visibility="public" />
+    <field name="flgFilter" type="Integer" visibility="public" />
+    <field name="StepXY" type="Single" visibility="public" />
+    <field name="X" type="Single" visibility="public" />
+    <field name="Y" type="Single" visibility="public" />
+    <field name="XBegin" type="Single" visibility="public" />
+    <field name="YBegin" type="Single" visibility="public" />
+    <field name="XMax" type="Single" visibility="public" />
+    <field name="YMax" type="Single" visibility="public" />
+  </struct>
+  <struct name="RLithoParams" packed="true">
+    <field name="TimeAct" type="Word" visibility="public" />
+    <field name="ScaleAct" type="Single" visibility="public" />
+    <field name="Amplifier" type="Word" visibility="public" />
+    <field name="Vmin" type="Smallint" visibility="public" />
+    <field name="Vmax" type="Smallint" visibility="public" />
+  </struct>
+  <struct name="RSpectrParams" packed="true">
+    <field name="NSpectrPoints" type="Integer" visibility="public" />
+    <field name="CurrentLine" type="Integer" visibility="public" />
+    <field name="NPoints" type="Integer" visibility="public" />
+    <field name="StartP" type="Smallint" visibility="public" />
+    <field name="Step" type="Single" visibility="public" />
+    <field name="LevelSFM" type="Smallint" visibility="public" />
+    <field name="EndP" type="Smallint" visibility="public" />
+    <field name="T" type="Word" visibility="public" />
+    <field name="TC" type="Word" visibility="public" />
+    <field name="StopV" type="Smallint" visibility="public" />
+    <field name="StartV" type="Smallint" visibility="public" />
+    <field name="NCurves" type="Smallint" visibility="public" />
+    <field name="NAv" type="Integer" visibility="public" />
+    <field name="flgIZ" type="Boolean" visibility="public" />
+    <field name="StartPointLimit" type="Integer" visibility="public" />
+    <field name="FinalPointLimit" type="Integer" visibility="public" />
+  </struct>
+  <struct name="RScannerCorrect" packed="true">
+    <field name="flgPlnDelHW" type="Boolean" visibility="public" />
+    <field name="flgPlnDel" type="Boolean" visibility="public" />
+    <field name="FlgXYLinear" type="Boolean" visibility="public" />
+    <field name="FlgZSurfCorr" type="Boolean" visibility="public" />
+    <field name="flgHideLine" type="Boolean" visibility="public" />
+    <field name="DZdclnX" type="Single" visibility="public" />
+    <field name="DZdclnY" type="Single" visibility="public" />
+    <field name="NonLinFieldX" type="Integer" visibility="public" />
+    <field name="NonLinFieldY" type="Integer" visibility="public" />
+    <field name="GridCellSize" type="Integer" visibility="public" />
+    <field name="YBiasTan" type="Single" visibility="public" />
+    <field name="SensitivZ" type="Single" visibility="public" />
+    <field name="SensitivX" type="Single" visibility="public" />
+    <field name="SensitivY" type="Single" visibility="public" />
+    <field name="I_VTransfKoef" type="Single" visibility="public" />
+  </struct>
+  <struct name="RScannerMaxAreaDef" packed="true">
+    <field name="YBiasTan" type="Single" visibility="public" />
+    <field name="SensitivX" type="Single" visibility="public" />
+    <field name="SensitivY" type="Single" visibility="public" />
+  </struct>
+  <struct name="RScannerOptMod" packed="true">
+    <field name="DZdclnX" type="Single" visibility="public" />
+    <field name="DZdclnY" type="Single" visibility="public" />
+    <field name="NonLinFieldX" type="Integer" visibility="public" />
+    <field name="NonLinFieldY" type="Integer" visibility="public" />
+    <field name="GridCellSize" type="Integer" visibility="public" />
+    <field name="YBiasTan" type="Single" visibility="public" />
+    <field name="SensitivZ" type="Single" visibility="public" />
+    <field name="SensitivX" type="Single" visibility="public" />
+    <field name="SensitivY" type="Single" visibility="public" />
+    <field name="I_VTransfKoef" type="Single" visibility="public" />
+    <field name="ApprLineX0" type="Single" visibility="public" />
+    <field name="ApprLineXKoef" type="Single" visibility="public" />
+    <field name="ApprLineY0" type="Single" visibility="public" />
+    <field name="ApprLineYKoef" type="Single" visibility="public" />
+  </struct>
+  <struct name="RDemoParams" packed="true">
+    <field name="Z" type="Integer" visibility="public" />
+    <field name="OscAmp" type="Integer" visibility="public" />
+    <field name="TunnelCurrent" type="Integer" visibility="public" />
+    <field name="NZStepsApproach" type="Integer" visibility="public" />
+    <field name="NZStepsFastApproach" type="Integer" visibility="public" />
+    <field name="FBKoef" type="Single" visibility="public" />
+  </struct>
+  <variable name="STMFlg" type="Boolean" />
+  <variable name="flgControlerTurnON" type="Boolean" />
+  <variable name="flgUnit" type=".1" />
+  <const name="Nano">
+    <value>
+      Nano
+    </value>
+  </const>
+  <const name="Baby">
+    <value>
+      Baby
+    </value>
+  </const>
+  <const name="Grand">
+    <value>
+      Grand
+    </value>
+  </const>
+  <variable name="flgSaveProcess" type="Boolean" />
+  <variable name="flgVideoOscConflict" type="Boolean" />
+  <variable name="ApprOnProgr" type="Boolean" />
+  <variable name="ScanOnProgr" type="Boolean" />
+  <variable name="SetIntActOnProgr" type="Boolean" />
+  <variable name="ThreadFlg" type="Integer" />
+  <variable name="ScanAreaStartXR" type="Integer" />
+  <variable name="ScanAreaStartYR" type="Integer" />
+  <variable name="ScanAreaStartXF" type="Integer" />
+  <variable name="ScanAreaStartYF" type="Integer" />
+  <variable name="ScanAreaBeginXR" type="Integer" />
+  <variable name="ScanAreaBeginYR" type="Integer" />
+  <variable name="ScanAreaBeginXF" type="Integer" />
+  <variable name="ScanAreaBeginYF" type="Integer" />
+  <variable name="MStepsX" type="Integer" />
+  <variable name="MStepsY" type="Integer" />
+  <variable name="JMPX" type="TMas1" />
+  <variable name="JMPY" type="TMas1" />
+  <variable name="XYSp" type="ArraySpline" />
+  <variable name="YYsp" type="ArraySpline" />
+  <variable name="BY" type="ArraySpline" />
+  <variable name="CY" type="ArraySpline" />
+  <variable name="DY" type="ArraySpline" />
+  <variable name="XXsp" type="ArraySpline" />
+  <variable name="YXsp" type="ArraySpline" />
+  <variable name="BX" type="ArraySpline" />
+  <variable name="CX" type="ArraySpline" />
+  <variable name="DX" type="ArraySpline" />
+  <variable name="MatrixLitho" type=".3" />
+  <variable name="NXSplines" type="Integer" />
+  <variable name="NYSplines" type="Integer" />
+  <variable name="YBiasTang" type="Single" />
+  <variable name="ZMatr" type="TMas2" />
+  <variable name="LineXkoef" type="Single" />
+  <variable name="LineYKoef" type="Single" />
+  <variable name="ApproachParams" type="RApproachParams" />
+  <variable name="ScanParams" type="RScanParams" />
+  <variable name="LithoParams" type="RLithoParams" />
+  <variable name="ScanParamsDef" type="RScanParams" />
+  <variable name="SpectrParams" type="RSpectrParams" />
+  <variable name="ScannerCorrect" type="RScannerCorrect" />
+  <variable name="ScannerOptModX" type="RScannerOptMod" />
+  <variable name="ScannerOptModY" type="RScannerOptMod" />
+  <variable name="STMApproachParams" type="RSTMApproachParams" />
+  <variable name="DemoParams" type="RDemoParams" />
+  <variable name="HardwareOpt" type="RHardwareOpt" />
+  <variable name="TransformUnit" type="RTransformUnit" />
+  <variable name="CSPMSignals" type="CSPMSignalsArr" />
+  <variable name="f" type="fifo_desc" />
+  <variable name="data_in" type="PWord" />
+  <variable name="data_out" type="PWord" />
+  <variable name="data_path" type="PWord" />
+  <variable name="LibHandle" type="Cardinal" />
+</namespace>

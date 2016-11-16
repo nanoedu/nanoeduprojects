@@ -1,0 +1,1046 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="UNanoEduInterface">
+  <interface name="IpmApi05">
+    <function name="Get_Version" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_DacY" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_DacY" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_DacX" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_DacX" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_DacZ" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_DacZ" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_DacLP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_DacLP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_DacVt" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_DacVt" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_DacIref" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_DacIref" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_Z" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_It" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_LAT" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_Uam" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_Ufm" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_LazerH" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_Vert" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_SdEnabled" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SdEnabled" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SdZero" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SdZero" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_CmpValue" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_TuneZ" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_TuneZ" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_Frequency" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_Frequency" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SDGAIN_AM" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SDGAIN_AM" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SDCOMP_AM" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SDCOMP_AM" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SDGENF_F" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SDGENF_F" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SDGENF_R" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SDGENF_R" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SDGEN_M" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SDGEN_M" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SDGAIN_FM" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SDGAIN_FM" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_VTSIGN" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_VTSIGN" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_DACUPD" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_DACUPD" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_ADCMCH_ENA" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_ADCMCH_ENA" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_PMSPEED" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_PMSPEED" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_PMSTEP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_PMSTEP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <procedure name="Set_PMPAUSE" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SMZSTEP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SMZSTEP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SMZSPEED" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SMZSPEED" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <procedure name="Set_SMXSTEP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SMXSTEP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <function name="Get_SMXSPEED" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SMXSPEED" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SMYSTEP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SMYSTEP" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_SMYSPEED" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_SMYSPEED" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_PATHSPD" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_PATHSPD" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_PATHSPD_BW" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_PATHSPD_BW" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_CMPRES" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_CMPRES" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_CMPENA" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_CMPENA" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_ITRRES" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_ITRRES" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="GET_ITR_SEL" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="SET_ITR_SEL" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_FBENA" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_FBENA" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_FBSEL" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_FBSEL" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_FB_GAIN" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_FB_GAIN" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_CHMODSEL" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_CHMODSEL" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <function name="Get_XYTUNE" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <retval type="Integer" />
+      </parameters>
+    </function>
+    <procedure name="Set_XYTUNE" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <procedure name="Set_Mode" visibility="public" procflags="abstract virtual">
+      <parameters>
+        <parameter name="pVal" type="Integer" />
+      </parameters>
+    </procedure>
+    <property name="Version" visibility="public" read="Get_Version" type="Integer" />
+    <property name="DACY" visibility="public" read="Get_DacY" write="Set_DacY" type="Integer" />
+    <property name="DACX" visibility="public" read="Get_DacX" write="Set_DacX" type="Integer" />
+    <property name="DACZ" visibility="public" read="Get_DacZ" write="Set_DacZ" type="Integer" />
+    <property name="DACLP" visibility="public" read="Get_DacLP" write="Set_DacLP" type="Integer" />
+    <property name="DACVt" visibility="public" read="Get_DacVt" write="Set_DacVt" type="Integer" />
+    <property name="DACIRef" visibility="public" read="Get_DacIref" write="Set_DacIref" type="Integer" />
+    <property name="Z" visibility="public" read="Get_Z" type="Integer" />
+    <property name="IT" visibility="public" read="Get_It" type="Integer" />
+    <property name="LAT" visibility="public" read="Get_LAT" type="Integer" />
+    <property name="UAM" visibility="public" read="Get_Uam" type="Integer" />
+    <property name="UFM" visibility="public" read="Get_Ufm" type="Integer" />
+    <property name="LazerH" visibility="public" read="Get_LazerH" type="Integer" />
+    <property name="Vert" visibility="public" read="Get_Vert" type="Integer" />
+    <property name="SDEnabled" visibility="public" read="Get_SdEnabled" write="Set_SdEnabled" type="Integer" />
+    <property name="SDZero" visibility="public" read="Get_SdZero" write="Set_SdZero" type="Integer" />
+    <property name="CmpValue" visibility="public" read="Get_CmpValue" type="Integer" />
+    <property name="TuneZ" visibility="public" read="Get_TuneZ" write="Set_TuneZ" type="Integer" />
+    <property name="Frequency" visibility="public" read="Get_Frequency" write="Set_Frequency" type="Integer" />
+    <property name="SDGain_AM" visibility="public" read="Get_SDGAIN_AM" write="Set_SDGAIN_AM" type="Integer" />
+    <property name="SDComp_AM" visibility="public" read="Get_SDCOMP_AM" write="Set_SDCOMP_AM" type="Integer" />
+    <property name="SDGenf_F" visibility="public" read="Get_SDGENF_F" write="Set_SDGENF_F" type="Integer" />
+    <property name="SDGenf_R" visibility="public" read="Get_SDGENF_R" write="Set_SDGENF_R" type="Integer" />
+    <property name="SDGen_M" visibility="public" read="Get_SDGEN_M" write="Set_SDGEN_M" type="Integer" />
+    <property name="SDGain_FM" visibility="public" read="Get_SDGAIN_FM" write="Set_SDGAIN_FM" type="Integer" />
+    <property name="VTSIGN" visibility="public" read="Get_VTSIGN" write="Set_VTSIGN" type="Integer" />
+    <property name="DACUPD" visibility="public" read="Get_DACUPD" write="Set_DACUPD" type="Integer" />
+    <property name="ADCMCH_ENA" visibility="public" read="Get_ADCMCH_ENA" write="Set_ADCMCH_ENA" type="Integer" />
+    <property name="PMSPEED" visibility="public" read="Get_PMSPEED" write="Set_PMSPEED" type="Integer" />
+    <property name="PMSTEP" visibility="public" read="Get_PMSTEP" write="Set_PMSTEP" type="Integer" />
+    <property name="PMPAUSE" visibility="public" write="Set_PMPAUSE" type="Integer" />
+    <property name="SMZSTEP" visibility="public" read="Get_SMZSTEP" write="Set_SMZSTEP" type="Integer" />
+    <property name="SMZSPEED" visibility="public" read="Get_SMZSPEED" write="Set_SMZSPEED" type="Integer" />
+    <property name="SMXSTEP" visibility="public" read="Get_SMXSTEP" write="Set_SMXSTEP" type="Integer" />
+    <property name="SMXSPEED" visibility="public" read="Get_SMXSPEED" write="Set_SMXSPEED" type="Integer" />
+    <property name="SMYSTEP" visibility="public" read="Get_SMYSTEP" write="Set_SMYSTEP" type="Integer" />
+    <property name="SMYSPEED" visibility="public" read="Get_SMYSPEED" write="Set_SMYSPEED" type="Integer" />
+    <property name="PATHSPD" visibility="public" read="Get_PATHSPD" write="Set_PATHSPD" type="Integer" />
+    <property name="PATHSPD_BW" visibility="public" read="Get_PATHSPD_BW" write="Set_PATHSPD_BW" type="Integer" />
+    <property name="CMPENA" visibility="public" read="Get_CMPENA" write="Set_CMPENA" type="Integer" />
+    <property name="CMPRES" visibility="public" read="Get_CMPRES" write="Set_CMPRES" type="Integer" />
+    <property name="ITRRES" visibility="public" read="Get_ITRRES" write="Set_ITRRES" type="Integer" />
+    <property name="ITRSEL" visibility="public" read="GET_ITR_SEL" write="SET_ITR_SEL" type="Integer" />
+    <property name="FBENA" visibility="public" read="Get_FBENA" write="Set_FBENA" type="Integer" />
+    <property name="FBSEL" visibility="public" read="Get_FBSEL" write="Set_FBSEL" type="Integer" />
+    <property name="FB_GAIN" visibility="public" read="Get_FB_GAIN" write="Set_FB_GAIN" type="Integer" />
+    <property name="CHMODSEL" visibility="public" read="Get_CHMODSEL" write="Set_CHMODSEL" type="Integer" />
+    <property name="XYTune" visibility="public" read="Get_XYTUNE" write="Set_XYTUNE" type="Integer" />
+    <property name="UMODE" visibility="public" write="Set_Mode" type="Integer" />
+  </interface>
+  <class name="TpmAPI05">
+    <ancestor name="TInterfacedObject" namespace="System">
+      <methodref name="QueryInterface" visibility="protected">
+      </methodref>
+      <methodref name="_AddRef" visibility="protected">
+      </methodref>
+      <methodref name="_Release" visibility="protected">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <propertyref name="RefCount" visibility="public">
+      </propertyref>
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <interfaces>
+      <implements name="IpmApi05" />
+    </interfaces>
+    <members>
+      <function name="Get_Version" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_DacY" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_DacY" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_DacX" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_DacX" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_DacZ" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_DacZ" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_DacLP" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_DacLP" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_DacVt" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_DacVt" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_DacIref" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_DacIref" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_Z" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_It" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_LAT" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_Uam" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_Ufm" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_LazerH" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_Vert" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_SdEnabled" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SdEnabled" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SdZero" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SdZero" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_CmpValue" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Get_TuneZ" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_TuneZ" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_Frequency" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_Frequency" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SDGAIN_AM" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SDGAIN_AM" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SDCOMP_AM" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SDCOMP_AM" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SDGENF_F" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SDGENF_F" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SDGENF_R" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SDGENF_R" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SDGEN_M" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SDGEN_M" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SDGAIN_FM" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SDGAIN_FM" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_VTSIGN" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_VTSIGN" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_DACUPD" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_DACUPD" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_ADCMCH_ENA" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_ADCMCH_ENA" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_PMSPEED" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_PMSPEED" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_PMSTEP" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_PMSTEP" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="Set_PMPAUSE" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SMZSTEP" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SMZSTEP" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SMZSPEED" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SMZSPEED" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SMXSTEP" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SMXSTEP" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SMXSPEED" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SMXSPEED" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SMYSTEP" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SMYSTEP" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_SMYSPEED" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_SMYSPEED" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_PATHSPD" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_PATHSPD" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_PATHSPD_BW" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_PATHSPD_BW" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_CMPENA" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_CMPENA" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_CMPRES" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_CMPRES" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_ITRRES" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_ITRRES" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="GET_ITR_SEL" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="SET_ITR_SEL" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_FBENA" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_FBENA" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_FBSEL" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_FBSEL" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_FB_GAIN" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_FB_GAIN" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_CHMODSEL" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_CHMODSEL" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="Get_XYTUNE" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="Set_XYTUNE" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="Set_Mode" visibility="public">
+        <parameters>
+          <parameter name="pVal" type="Integer" />
+        </parameters>
+      </procedure>
+      <property name="Version" visibility="public" read="Get_Version" type="Integer" />
+      <property name="DACY" visibility="public" read="Get_DacY" write="Set_DacY" type="Integer" />
+      <property name="DACX" visibility="public" read="Get_DacX" write="Set_DacX" type="Integer" />
+      <property name="DACZ" visibility="public" read="Get_DacZ" write="Set_DacZ" type="Integer" />
+      <property name="DACLP" visibility="public" read="Get_DacLP" write="Set_DacLP" type="Integer" />
+      <property name="DACVt" visibility="public" read="Get_DacVt" write="Set_DacVt" type="Integer" />
+      <property name="DACIRef" visibility="public" read="Get_DacIref" write="Set_DacIref" type="Integer" />
+      <property name="Z" visibility="public" read="Get_Z" type="Integer" />
+      <property name="IT" visibility="public" read="Get_It" type="Integer" />
+      <property name="LAT" visibility="public" read="Get_LAT" type="Integer" />
+      <property name="UAM" visibility="public" read="Get_Uam" type="Integer" />
+      <property name="UFM" visibility="public" read="Get_Ufm" type="Integer" />
+      <property name="LazerH" visibility="public" read="Get_LazerH" type="Integer" />
+      <property name="VERT" visibility="public" read="Get_Vert" type="Integer" />
+      <property name="SDEnabled" visibility="public" read="Get_SdEnabled" write="Set_SdEnabled" type="Integer" />
+      <property name="SDZero" visibility="public" read="Get_SdZero" write="Set_SdZero" type="Integer" />
+      <property name="CmpValue" visibility="public" read="Get_CmpValue" type="Integer" />
+      <property name="TuneZ" visibility="public" read="Get_TuneZ" write="Set_TuneZ" type="Integer" />
+      <property name="Frequency" visibility="public" read="Get_Frequency" write="Set_Frequency" type="Integer" />
+      <property name="SDGain_AM" visibility="public" read="Get_SDGAIN_AM" write="Set_SDGAIN_AM" type="Integer" />
+      <property name="SDComp_AM" visibility="public" read="Get_SDCOMP_AM" write="Set_SDCOMP_AM" type="Integer" />
+      <property name="SDGenf_F" visibility="public" read="Get_SDGENF_F" write="Set_SDGENF_F" type="Integer" />
+      <property name="SDGenf_R" visibility="public" read="Get_SDGENF_R" write="Set_SDGENF_R" type="Integer" />
+      <property name="SDGen_M" visibility="public" read="Get_SDGEN_M" write="Set_SDGEN_M" type="Integer" />
+      <property name="SDGain_FM" visibility="public" read="Get_SDGAIN_FM" write="Set_SDGAIN_FM" type="Integer" />
+      <property name="VTSIGN" visibility="public" read="Get_VTSIGN" write="Set_VTSIGN" type="Integer" />
+      <property name="DACUPD" visibility="public" read="Get_DACUPD" write="Set_DACUPD" type="Integer" />
+      <property name="ADCMCH_ENA" visibility="public" read="Get_ADCMCH_ENA" write="Set_ADCMCH_ENA" type="Integer" />
+      <property name="PMSPEED" visibility="public" read="Get_PMSPEED" write="Set_PMPAUSE" type="Integer" />
+      <property name="PMPAUSE" visibility="public" write="Set_PMPAUSE" type="Integer" />
+      <property name="PMSTEP" visibility="public" read="Get_PMSTEP" write="Set_PMSTEP" type="Integer" />
+      <property name="SMZSTEP" visibility="public" read="Get_SMZSTEP" write="Set_SMZSTEP" type="Integer" />
+      <property name="SMZSPEED" visibility="public" read="Get_SMZSPEED" write="Set_SMZSPEED" type="Integer" />
+      <property name="SMXSTEP" visibility="public" read="Get_SMXSTEP" write="Set_SMXSTEP" type="Integer" />
+      <property name="SMXSPEED" visibility="public" read="Get_SMXSPEED" write="Set_SMXSPEED" type="Integer" />
+      <property name="PATHSPD" visibility="public" read="Get_PATHSPD" write="Set_PATHSPD" type="Integer" />
+      <property name="CMPENA" visibility="public" read="Get_CMPENA" write="Set_CMPENA" type="Integer" />
+      <property name="CMPRES" visibility="public" read="Get_CMPRES" write="Set_CMPRES" type="Integer" />
+      <property name="ITRRES" visibility="public" read="Get_ITRRES" write="Set_ITRRES" type="Integer" />
+      <property name="ITRSEL" visibility="public" read="GET_ITR_SEL" write="SET_ITR_SEL" type="Integer" />
+      <property name="FBENA" visibility="public" read="Get_FBENA" write="Set_FBENA" type="Integer" />
+      <property name="FBSEL" visibility="public" read="Get_FBSEL" write="Set_FBSEL" type="Integer" />
+      <property name="FB_GAIN" visibility="public" read="Get_FB_GAIN" write="Set_FB_GAIN" type="Integer" />
+      <property name="CHMODSEL" visibility="public" read="Get_CHMODSEL" write="Set_CHMODSEL" type="Integer" />
+      <property name="XYTune" visibility="public" read="Get_XYTUNE" write="Set_XYTUNE" type="Integer" />
+      <property name="UMODE" visibility="public" write="Set_Mode" type="Integer" />
+    </members>
+  </class>
+  <variable name="API" type="IpmApi05" />
+</namespace>

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="SystemConfig">
+  <variable name="ZnmdiscrConv" type="Single" />
+  <variable name="DefaultOptions" type="Boolean" />
+  <procedure name="SysVarDef" visibility="private">
+  </procedure>
+  <procedure name="SysVarLast" visibility="private">
+  </procedure>
+  <procedure name="StoreScannerOpt" visibility="private">
+    <parameters>
+      <parameter name="ScannerOptMod" type="RScannerOptMod" paramflags="var" />
+      <parameter name="ScannerOptOtherMod" type="RScannerOptMod" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="ScannerCorrectLast" visibility="private">
+  </procedure>
+  <procedure name="LoadScannerOptGeneral" visibility="private">
+    <parameters>
+      <parameter name="fileNameX" type="string" paramflags="const" />
+      <parameter name="FileNameY" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <procedure name="LoadHeadConfig" visibility="private">
+  </procedure>
+  <procedure name="ApproachParamsDef" visibility="private">
+  </procedure>
+  <procedure name="ApproachParamsLast" visibility="private">
+    <parameters>
+      <parameter name="FileName" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <procedure name="SetScanParamsDef" visibility="private">
+  </procedure>
+  <procedure name="SetScanParamsDefF" visibility="private">
+  </procedure>
+  <procedure name="SetScanParamsDefAtom" visibility="private">
+  </procedure>
+  <procedure name="SetScanParamsDefGrand" visibility="private">
+  </procedure>
+  <procedure name="SetScanParamsDefGrandF" visibility="private">
+  </procedure>
+  <procedure name="SetScanAreaDef" visibility="private">
+  </procedure>
+  <procedure name="SetDemoParamsDef" visibility="private">
+  </procedure>
+  <procedure name="SDSignalsLast" visibility="private">
+  </procedure>
+  <procedure name="SDSignalsDef" visibility="private">
+  </procedure>
+  <procedure name="LoadConfig" visibility="private">
+  </procedure>
+  <procedure name="SaveConfigUsers" visibility="private">
+  </procedure>
+  <procedure name="SaveConfig" visibility="private">
+  </procedure>
+  <procedure name="ConfigDef" visibility="private">
+  </procedure>
+  <procedure name="SaveScannerParams" visibility="private">
+  </procedure>
+  <procedure name="SaveElectronicParams" visibility="private">
+  </procedure>
+</namespace>

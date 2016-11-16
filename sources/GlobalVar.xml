@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="GlobalVar">
+  <const name="D3" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="D3Top" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="D2Geo" type="Integer">
+    <value>
+      $3
+    </value>
+  </const>
+  <const name="D3Geo" type="Integer">
+    <value>
+      $4
+    </value>
+  </const>
+  <const name="DiskFDD" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="DiskHDD" type="Integer">
+    <value>
+      $3
+    </value>
+  </const>
+  <const name="DiskNet" type="Integer">
+    <value>
+      $4
+    </value>
+  </const>
+  <const name="DiskCDROM" type="Integer">
+    <value>
+      $5
+    </value>
+  </const>
+  <const name="XLinId" type="string">
+    <value>
+      XPoints Number
+    </value>
+  </const>
+  <const name="YLinId" type="string">
+    <value>
+      YPoints Number
+    </value>
+  </const>
+  <const name="crAimCursor" type="Integer">
+    <value>
+      $5
+    </value>
+  </const>
+  <const name="crRectDraw" type="Integer">
+    <value>
+      $6
+    </value>
+  </const>
+  <const name="crPen" type="Integer">
+    <value>
+      $7
+    </value>
+  </const>
+  <const name="crCrip" type="Integer">
+    <value>
+      $8
+    </value>
+  </const>
+  <variable name="flgNewVersion" type="Boolean" />
+  <variable name="flgErrorCreateNanoedu" type="Boolean" />
+  <variable name="flgDragForm" type="Boolean" />
+  <variable name="FlgRecord" type="Boolean" />
+  <variable name="flgShowWellComeWindow" type="Boolean" />
+  <variable name="flgAdmin" type="Boolean" />
+  <variable name="FlgImgAnalysDrag" type="Boolean" />
+  <variable name="FlgReWrite" type="Boolean" />
+  <variable name="FlgStopScan" type="Boolean" />
+  <variable name="FlgFirstPass" type="Boolean" />
+  <variable name="FlgStopApproach" type="Boolean" />
+  <variable name="FlgApproachOK" type="Boolean" />
+  <variable name="flgTooClose" type="Boolean" />
+  <variable name="flgBlickNorm" type="Boolean" />
+  <variable name="FlgMakeNormalize" type="Boolean" />
+  <variable name="flgLinXScanner" type="Boolean" />
+  <variable name="flgLinYScanner" type="Boolean" />
+  <variable name="FlgStopResonance" type="Boolean" />
+  <variable name="FlgResonance" type="Boolean" />
+  <variable name="flgViewTools" type="Boolean" />
+  <variable name="flgLeftView" type="Boolean" />
+  <variable name="flgRightView" type="Boolean" />
+  <variable name="flgfrTools" type="Boolean" />
+  <variable name="flgLinVisible" type="Boolean" />
+  <variable name="flgGlbZZero" type="Boolean" />
+  <variable name="flgGlbZStretch" type="Boolean" />
+  <variable name="flgGlbRealScale" type="Boolean" />
+  <variable name="FlgLeaveEnabled" type="Boolean" />
+  <variable name="FlgViewDef" type="Byte" />
+  <variable name="CurrentUserLevelFlg" type="Byte" />
+  <variable name="Lang" type="Integer" />
+  <variable name="CountStart" type="Integer" />
+  <variable name="CountCapture" type="Integer" />
+  <variable name="CountClose" type="Integer" />
+  <variable name="flgfirsttimeSFM" type="Boolean" />
+  <variable name="flgfirsttimeSTM" type="Boolean" />
+  <variable name="TopStart" type="Integer" />
+  <variable name="LeftStart" type="Integer" />
+  <variable name="ITCor" type="Integer" />
+  <variable name="ColorMaterial" type="Integer" />
+  <variable name="NRed" type="Integer" />
+  <variable name="NGreen" type="Integer" />
+  <variable name="NBlue" type="Integer" />
+  <variable name="emission" />
+  <variable name="shininess" />
+  <variable name="specular" />
+  <variable name="diffuse" />
+  <variable name="ambient" />
+  <variable name="ltposition0" />
+  <variable name="ltposition1" />
+  <variable name="L1ambient" />
+  <variable name="L1diffuse" />
+  <variable name="L2ambient" />
+  <variable name="L2diffuse" />
+  <variable name="RDistr" type="ArraySpline" />
+  <variable name="GDistr" type="ArraySpline" />
+  <variable name="BDistr" type="ArraySpline" />
+  <variable name="RPaletteKoef" />
+  <variable name="GPaletteKoef" />
+  <variable name="BPaletteKoef" />
+  <variable name="PaletteName" type="string" />
+  <variable name="XR" type="ArraySpline" />
+  <variable name="YR" type="ArraySpline" />
+  <variable name="XG" type="ArraySpline" />
+  <variable name="YG" type="ArraySpline" />
+  <variable name="XB" type="ArraySpline" />
+  <variable name="YB" type="ArraySpline" />
+  <variable name="A0R" type="ArraySpline" />
+  <variable name="A0G" type="ArraySpline" />
+  <variable name="A0B" type="ArraySpline" />
+  <variable name="KLR" type="ArraySpline" />
+  <variable name="KLG" type="ArraySpline" />
+  <variable name="KLB" type="ArraySpline" />
+  <variable name="HlpContext" type="THelpContext" />
+  <variable name="strcomment" />
+  <variable name="sLanguage" type="string" />
+  <variable name="PathFlash" type="string" />
+  <variable name="CurrentUserLevel" type="string" />
+  <variable name="ConfigIniFilePath" type="string" />
+  <variable name="ConfigDefIniFilePath" type="string" />
+  <variable name="ConfigUsersIniFilePath" type="string" />
+  <variable name="ConfigUsersIniFileDefPath" type="string" />
+  <variable name="ConfigLabListFilePath" type="string" />
+  <variable name="ReportTemplPath" type="string" />
+  <variable name="ReportTemplEDefPath" type="string" />
+  <variable name="ReportTemplRDefPath" type="string" />
+  <variable name="ControllerIniFilePath" type="string" />
+  <variable name="ControllerIniFileDefPath" type="string" />
+  <variable name="ScannerIniFile" type="string" />
+  <variable name="ScannerIniFilesPath" type="string" />
+  <variable name="ScannerDefIniFilesPath" type="string" />
+  <variable name="ScannerDefIniFile" type="string" />
+  <variable name="ScannerStepMotorUnitPath" type="string" />
+  <variable name="ScannerAtomicUnitPath" type="string" />
+  <variable name="PalettesIniFile" type="string" />
+  <variable name="PaletteIniFilePath" type="string" />
+  <variable name="ExeFilePath" type="string" />
+  <variable name="dirsys32" type="string" />
+  <variable name="dirsys32drivers" type="string" />
+  <variable name="DocAndSetDirPath" type="string" />
+  <variable name="CommonApplDataPath" type="string" />
+  <variable name="CommonNanoeduApplDataPath" type="string" />
+  <variable name="CommonDocumentsPath" type="string" />
+  <variable name="CommonNanoeduDocumentsPath" type="string" />
+  <variable name="UserIniFilesPath" type="string" />
+  <variable name="UserIniFilesDefPath" type="string" />
+  <variable name="UserNanoeduWorkDocumentsPath" type="string" />
+  <variable name="UserDocAndSetDirPath" type="string" />
+  <variable name="UserDrivePath" type="string" />
+  <variable name="UserApplDataPath" type="string" />
+  <variable name="UserNanoeduApplDataPath" type="string" />
+  <variable name="UserNanoeduDocumentsPath" type="string" />
+  <variable name="UserName" type="string" />
+  <variable name="ProgramName" type="string" />
+  <variable name="UserDocumentsPath" type="string" />
+  <variable name="OpenDirectory" type="string" />
+  <variable name="LithoTemplDirectory" type="string" />
+  <variable name="ScanGalleryDir" type="string" />
+  <variable name="WorkDirectory" type="string" />
+  <variable name="SaveAsDirectory" type="string" />
+  <variable name="TempDirectory" type="string" />
+  <variable name="DemoDataDirectory" type="string" />
+  <variable name="WorkNameFile" type="string" />
+  <variable name="ReportTemplRFile" type="string" />
+  <variable name="ReportTemplEFile" type="string" />
+  <variable name="ReportTemplFile" type="string" />
+  <variable name="LabWorkIdentificator" type="string" />
+  <variable name="WorkNameFileMaskCur" type="string" />
+  <variable name="WorkNameFileMask" type="string" />
+  <variable name="WorkNameFileMaskDef" type="string" />
+  <variable name="WorkNameFileMaskDemo" type="string" />
+  <variable name="WorkFileMask" />
+  <variable name="CurWorkExtFile" />
+  <variable name="WorkExtFile" />
+  <variable name="ModExtFile" />
+  <variable name="DefPaletName" type="string" />
+  <variable name="FiltFileName" type="PAnsiChar" />
+  <variable name="TrainScrpt" type="string" />
+  <variable name="ScanMScrpt" type="string" />
+  <variable name="ScanMIIScrpt" type="string" />
+  <variable name="ApproachNScrpt" type="string" />
+  <variable name="ApproachNOneScrpt" type="string" />
+  <variable name="ApproachSMOneScrpt" type="string" />
+  <variable name="ApproachSMScrpt" type="string" />
+  <variable name="ApproachPMScrpt" type="string" />
+  <variable name="ApproachPMOneScrpt" type="string" />
+  <variable name="ApproachSMXScrpt" type="string" />
+  <variable name="EtchingScrpt" type="string" />
+  <variable name="MTestScrpt" type="string" />
+  <variable name="SMTestScrpt" type="string" />
+  <variable name="PMTestScrpt" type="string" />
+  <variable name="ScanFastScrpt" type="string" />
+  <variable name="LithoScript" type="string" />
+  <variable name="SpectrNScrpt" type="string" />
+  <variable name="SpectrScrptSTM" type="string" />
+  <variable name="PhaseNScrpt" type="string" />
+  <variable name="ResonanceNScrpt" type="string" />
+  <variable name="BitMapStart" type="TBitmap" />
+  <variable name="BitMapStop" type="TBitmap" />
+  <variable name="CursorAim" type="TCursor" />
+  <variable name="DemoSample" type="string" />
+  <variable name="DemoSpectrCurves" type="TMas2" />
+  <variable name="DemoSpectrCnt" type="Integer" />
+  <variable name="DemoSpectrStep" type="Single" />
+  <variable name="DemoSpectrNorm" type="Smallint" />
+  <variable name="DemoSpectrNPoints" type="Integer" />
+  <variable name="DemoSpectrNCurves" type="Integer" />
+  <variable name="mcrn" type="string" />
+  <variable name="TopoUnitsZ" type="TSignalUnits" />
+  <variable name="TopoUnitsXY" type="TSignalUnits" />
+  <variable name="TopoUnitsnmZ" type="TSignalUnits" />
+  <variable name="TopoUnitsmcnZ" type="TSignalUnits" />
+  <variable name="TopoUnitsnmXY" type="TSignalUnits" />
+  <variable name="TopoUnitsmcnXY" type="TSignalUnits" />
+  <variable name="PhaseUnits" type="TSignalUnits" />
+  <variable name="OneLineTopoUnits" type="TSignalUnits" />
+  <variable name="ForceUnits" type="TSignalUnits" />
+  <variable name="CurrentUnits" type="TSignalUnits" />
+  <variable name="MyMenuColor" type="TColor" />
+  <variable name="iRusLCID" type="Cardinal" />
+  <variable name="iEngUsLCID" type="Cardinal" />
+</namespace>

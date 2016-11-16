@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="mScanRate">
+  <variable name="ScanFreq" type="Double" />
+  <variable name="tMicroStepNmb" type="Integer" />
+  <variable name="NDiscrBetweenPoints" type="Integer" />
+  <const name="MaxDiscrNumb" type="Integer">
+    <value>
+      $8000
+    </value>
+  </const>
+  <const name="TimMicroStep" type="Comp">
+    <value>
+      0.005
+    </value>
+  </const>
+  <const name="TimMeasurePoint" type="Comp">
+    <value>
+      0.022
+    </value>
+  </const>
+  <const name="MinValidMicroStepDelay" type="Comp">
+    <value>
+      0.005
+    </value>
+  </const>
+  <const name="MaxValidMicroStepDelay" type="Integer">
+    <value>
+      $41
+    </value>
+  </const>
+  <procedure name="SetScanRate" visibility="private">
+    <parameters>
+      <parameter name="L" type="Double" />
+      <parameter name="ScanDiscrNumb" type="Integer" />
+      <parameter name="NPoints" type="Integer" />
+      <parameter name="Rate" type="Single" paramflags="var" />
+      <parameter name="Delay" type="Integer" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="SetScanRateFine" visibility="private">
+    <parameters>
+      <parameter name="L" type="Double" />
+      <parameter name="ScanDiscrNumb" type="Integer" />
+      <parameter name="NPoints" type="Integer" />
+    </parameters>
+  </procedure>
+</namespace>

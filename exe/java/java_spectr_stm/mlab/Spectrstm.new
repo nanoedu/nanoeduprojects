@@ -1,0 +1,228 @@
+package mlab;      //110312
+
+public class Spectrstm
+{
+	static final int DAC_STEP = 65536*1;
+
+        public static  int M_I;
+        public static  int M_U;
+      	public static  int M_SELOPORA;
+
+
+	static final int PORT_I = ( Port.OUT | 4 );
+      	static final int PORT_U = ( Port.OUT | 6 );
+
+
+
+        // chanels ID
+	public static final int CH_STOP        = 0;
+	public static final int CH_DRAWDONE    = 1;
+	public static final int CH_DATA_OUT    = 2;
+        public static final int CH_PARAMS      = 3;
+
+        public static final int done=60;
+
+        public static final int stop=100;
+
+	public static final int MakeSTOP =1;
+
+	public static void main(String[] arg)
+	{
+
+		int i,j;
+              	int[] arr;
+		int src_i;
+		int dst_i;
+
+		int[] datain;
+		Port[] port;
+		Span[] span_u; 	Span[] span_i;
+		Scene scene;
+                boolean flg;
+                int  off;
+		int  handle;
+		int  point;
+	        int  ubackup;
+                int  s,wr,rd;
+                int  Z;
+		int  dt;
+                int  VertMin;
+                int  UPoints;
+                int  UCurves;
+                int  UStep;
+                int  UStart;
+                int  flgSTM;
+                int  dacU;
+
+
+
+//		datain=Simple.xchgGet("algoritmparams.bin");
+
+		UPoints         = 200;// datain[0];
+                UCurves         = 2;//  datain[1];
+		UStart		= -16000*DAC_STEP; // datain[2];    //integer  shl
+		UStep		=160*DAC_STEP; // datain[3];    //step shl
+      		dt              =30;//   datain[4];
+                flgSTM          =0;//   datain[5];
+
+                Simple.DumpInt(0xAAAAAAA0);
+                Simple.DumpInt(UPoints);
+                Simple.DumpInt(UCurves);
+                Simple.DumpInt(UStart);
+                Simple.DumpInt(UStep);
+
+              M_I = Simple.bramID("m_ADC_I");
+              M_U = Simple.bramID("m_DAC_I");
+       M_SELOPORA = Simple.bramID("m_sel_Uopora");
+
+      		JVIO stream_ch_stop      = new JVIO(CH_STOP,    1, 1,JVIO.BUF,  1, 0);                 // 0
+		JVIO stream_ch_drawdone  = new JVIO(CH_DRAWDONE,1, 1,JVIO.BUF,  1, 0);                 // 1
+		JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,2,UPoints*UCurves,JVIO.FIFO,UPoints, 1);   //
+
+                int[] buf_stop;
+		buf_stop = new int[1];
+		buf_stop[0] =0;
+		wr = stream_ch_stop.Write(buf_stop, 1, 1000);
+		stream_ch_stop.Invalidate();
+
+		int[] buf_drawdone;
+		buf_drawdone = new int[1];
+		buf_drawdone[0] =0;
+		wr = stream_ch_drawdone.Write(buf_drawdone, 1, 1000);
+              	stream_ch_drawdone.Invalidate();
+
+
+
+    	i=0;
+        int k;
+        k=0;
+        off=0;
+
+//start
+
+    Simple.fcupBypass(0,true); //turn off   FB     false???
+
+    Simple.Sleep(100);
+
+    Simple.bramWrite( M_SELOPORA, 0X00000000);
+
+    ubackup=Simple.bramRead(M_U);
+
+
+    Simple.bramWrite(M_U,UStart);
+
+    Simple.Sleep(1000);
+
+   Simple.bramWrite( M_SELOPORA, 0X80000000);     //use dchange for U
+
+
+
+ {
+ //move to start point
+
+
+
+     span_u = new Span[] {new Span(2),new Span(1), new Span(dt)};
+     span_i = new Span[] {new Span(2),new Span(1), new Span(dt)};
+
+     port   = new Port[] {   new Port(PORT_U,       span_u),
+                             new Port(PORT_I,       span_i)
+                          };
+     scene  = new Scene( port );
+
+    for(handle=0;handle==0;)
+    {
+	handle = scene.createScene( scene.getTemplate(), UPoints);
+	if ( 0 == handle ) scene.releaseScene(0);
+    }
+
+    dacU=UStart;
+
+
+
+  for(i=0; i<UPoints; i++)
+  {
+       	 scene.startLoad( handle, PORT_U, i );
+       	 scene.load( handle, dacU );
+         scene.load( handle, dacU );
+         scene.load( handle, dacU );
+         dacU+=UStep;
+  }
+
+
+    scene.run( handle );
+
+    scene.wait( handle, -1 );
+
+
+    arr = scene.get( handle, PORT_I );
+
+
+
+    	//Read data Оставляем в массиве только нужные данные.
+
+
+                        scene.releaseScene( handle );
+
+
+ //move to start point
+  }// j Curves
+
+
+                Simple.bramWrite( M_SELOPORA, 0X00000000); //use bram for U
+
+                Simple.Sleep(1000);
+                Simple.bramWrite(M_U,ubackup);
+
+                Simple.fcupBypass(0,false); //turn on  FB
+
+
+	     //	Simple.Sleep(10000);
+                	buf_drawdone[0]=done;
+
+		Simple.DumpInt(done);
+
+		wr=0;
+		for (;  wr == 0; )
+		{
+	          wr = stream_ch_drawdone.Write(buf_drawdone, 1, 300);
+		}
+                stream_ch_drawdone.Invalidate();
+
+		Simple.Sleep(1000);
+
+		rd=0;
+		int ccnt = 0;
+              //  for(;(buf_stop[0]!=stop) & (ccnt < 50) ;)
+                  for(;(buf_stop[0]!=stop) ;)
+                {
+                  rd = stream_ch_stop.Read(buf_stop, 1,1000,false);
+                  ccnt+=1;
+                }
+
+
+		stream_ch_drawdone.Close();
+		stream_ch_data_out.Close();
+		stream_ch_stop.Close();
+
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

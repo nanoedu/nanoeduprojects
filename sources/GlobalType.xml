@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="GlobalType">
+  <const name="maxValue" type="Integer">
+    <value>
+      $400
+    </value>
+  </const>
+  <const name="maxVal" type="Integer">
+    <value>
+      $100
+    </value>
+  </const>
+  <const name="ArraySplineLen" type="Integer">
+    <value>
+      $400
+    </value>
+  </const>
+  <const name="IdentifSpectrTempl" type="string">
+    <value>
+      (C) Spectr Template Data 
+    </value>
+  </const>
+  <array name="ArrayInt">
+    <element type="Integer" />
+  </array>
+  <type name="float" type="Float" />
+  <array name="ArraySpline" low="1" high="1024">
+    <element type="Single" />
+  </array>
+  <array name="ColorsSet" low="1" high="2">
+    <array name="ColorsSet" low="1" high="100">
+      <element type="Single" />
+    </array>
+  </array>
+  <array name="mcell" low="1" high="3">
+    <array name="mcell" low="1" high="3">
+      <element type="Single" />
+    </array>
+  </array>
+  <struct name="Vector">
+    <field name="x" type="Single" visibility="public" />
+    <field name="y" type="Single" visibility="public" />
+    <field name="z" type="Single" visibility="public" />
+  </struct>
+  <struct name="TSinglePoint">
+    <field name="x" type="Single" visibility="public" />
+    <field name="y" type="Single" visibility="public" />
+  </struct>
+  <struct name="TPOintDouble">
+    <field name="x" type="Double" visibility="public" />
+    <field name="y" type="Double" visibility="public" />
+  </struct>
+  <array name="TMas2">
+    <element type=".1" />
+  </array>
+  <array name="TMas1">
+    <element type="Integer" />
+  </array>
+  <array name="Array2D">
+    <element type=".2" />
+  </array>
+  <array name="TLine">
+    <element type="Smallint" />
+  </array>
+  <array name="TLineSingle">
+    <element type="Single" />
+  </array>
+  <struct name="fifo_desc">
+    <field name="PIn" type="PWord" visibility="public" />
+    <field name="POut" type="PWord" visibility="public" />
+    <field name="PPath" type="PWord" visibility="public" />
+    <field name="in_count" type="Integer" visibility="public" />
+    <field name="out_count" type="Integer" visibility="public" />
+    <field name="path_count" type="Integer" visibility="public" />
+  </struct>
+  <struct name="RDemoDataInfo">
+    <field name="ScanRegimeIdent" type="Integer" visibility="public" />
+    <field name="DataExists" type="Boolean" visibility="public" />
+    <field name="Nx" type="Integer" visibility="public" />
+    <field name="Ny" type="Integer" visibility="public" />
+    <field name="XLengthNM" type="Single" visibility="public" />
+    <field name="YLengthNM" type="Single" visibility="public" />
+  </struct>
+  <struct name="TSignalUnits">
+    <field name="text" type="string" visibility="public" />
+    <field name="limit" type="Integer" visibility="public" />
+    <field name="coef" type="Single" visibility="public" />
+  </struct>
+  <array name="TDemoDataInfoArray">
+    <element type="RDemoDataInfo" />
+  </array>
+</namespace>

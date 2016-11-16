@@ -1,0 +1,9 @@
+-verbose
+-source 1.2
+-target 1.2     
+
+-bootclasspath "D:/nanoeducator/nanoedule/exe/java/java_ascan3d_v3"
+-extdirs "D:/nanoeducator/nanoeduLE/exe/java/java_ascan3d_v3"
+
+-endorseddirs "D:/nanoeducator/nanoeduLE/exe/java/java_ascan3d_v3"
+-cp "D:/nanoeducator/nanoeduLE/exe/java/java_ascan3d_v3"

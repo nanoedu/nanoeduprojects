@@ -1,0 +1,152 @@
+Version   : 6.1.01 RC 1
+Date      : Fri, 30 Aug 2013 13:10:39 +0400
+OS        : Microsoft Windows 7
+RAD       : BDS 5.0
+Dump      : $8B $43 $44 $8B $4B $5C $09 $45 $0C $89 $4D $F4 $3B $CE $0F $85 $1E $AE $02 $00 $F7 $45 $0C $61 $0F $81 $7D $0F $85 $B1 $2C $00 
+Section   : 7022
+LastExcept: EAccessViolation
+Address   : $77022DF6 - [76FD0000] ntdll.dll -  -  - RtlAllocateHeap - 0[0]
+Exception : EAccessViolation
+Message   : Access violation at address 77022DF6 in module 'ntdll.dll'. Read of address 00000044
+Call Stack: 00 $733534AF - [73350000] IPHLPAPI.DLL 
+            01 $733550C0 - [73350000] IPHLPAPI.DLL 
+            02 $76BCE2F1 - [76B90000] RPCRT4.dll 
+            03 $76C2677A - [76B90000] RPCRT4.dll 
+            04 $76C2660F - [76B90000] RPCRT4.dll 
+            05 $72F21CD4 - [72F20000] dhcpcsvc6.DLL 
+            06 $72F21CC0 - [72F20000] dhcpcsvc6.DLL 
+            07 $72F21820 - [72F20000] dhcpcsvc6.DLL 
+            08 $72F21DE6 - [72F20000] dhcpcsvc6.DLL 
+            09 $7716D43B - [77120000] kernel32.dll 
+            0A $72F21730 - [72F20000] dhcpcsvc6.DLL 
+            0B $7335671A - [73350000] IPHLPAPI.DLL 
+            0C $733566F2 - [73350000] IPHLPAPI.DLL 
+            0D $733566A2 - [73350000] IPHLPAPI.DLL 
+            0E $750C784A - [750C0000] KERNELBASE.dll 
+            0F $750C7921 - [750C0000] KERNELBASE.dll 
+            10 $770158A2 - [76FD0000] ntdll.dll 
+            11 $77015512 - [76FD0000] ntdll.dll 
+            12 $750C6BDC - [750C0000] KERNELBASE.dll 
+            13 $750C6BC9 - [750C0000] KERNELBASE.dll 
+            14 $7716E88B - [77120000] kernel32.dll 
+            15 $755114D8 - [75510000] NSI.dll 
+            16 $75511470 - [75510000] NSI.dll 
+            17 $7551162E - [75510000] NSI.dll 
+            18 $75511610 - [75510000] NSI.dll 
+            19 $755116AB - [75510000] NSI.dll 
+            1A $75511640 - [75510000] NSI.dll 
+            1B $73355A09 - [73350000] IPHLPAPI.DLL 
+            1C $733534AF - [73350000] IPHLPAPI.DLL 
+            1D $73355A19 - [73350000] IPHLPAPI.DLL 
+            1E $733567A3 - [73350000] IPHLPAPI.DLL 
+            1F $7335678E - [73350000] IPHLPAPI.DLL 
+            20 $7335662E - [73350000] IPHLPAPI.DLL 
+            21 $73356151 - [73350000] IPHLPAPI.DLL 
+            22 $73355C61 - [73350000] IPHLPAPI.DLL 
+            23 $73356A84 - [73350000] IPHLPAPI.DLL 
+            24 $748C3176 - [748C0000] DNSAPI.dll 
+            25 $748C3168 - [748C0000] DNSAPI.dll 
+            26 $76E19790 - [76E10000] msvcrt.dll 
+            27 $748C3267 - [748C0000] DNSAPI.dll 
+            28 $748CCE7A - [748C0000] DNSAPI.dll 
+            29 $748CD724 - [748C0000] DNSAPI.dll 
+            2A $748CC9F3 - [748C0000] DNSAPI.dll 
+            2B $748CD6A3 - [748C0000] DNSAPI.dll 
+            2C $748CE5DC - [748C0000] DNSAPI.dll 
+            2D $748CC81D - [748C0000] DNSAPI.dll 
+            2E $748CE8F2 - [748C0000] DNSAPI.dll 
+            2F $748CE8C9 - [748C0000] DNSAPI.dll 
+            30 $748CEAD3 - [748C0000] DNSAPI.dll 
+            31 $748CEAA6 - [748C0000] DNSAPI.dll 
+            32 $748CEBF5 - [748C0000] DNSAPI.dll 
+            33 $748D6EAC - [748C0000] DNSAPI.dll 
+            34 $7335D29A - [73350000] IPHLPAPI.DLL 
+            35 $77017750 - [76FD0000] ntdll.dll 
+            36 $770968DB - [76FD0000] ntdll.dll 
+            37 $77022C51 - [76FD0000] ntdll.dll 
+            38 $770968BF - [76FD0000] ntdll.dll 
+            39 $77022C51 - [76FD0000] ntdll.dll 
+            3A $770968BF - [76FD0000] ntdll.dll 
+            3B $77096665 - [76FD0000] ntdll.dll 
+            3C $7705A139 - [76FD0000] ntdll.dll 
+            3D $77022C51 - [76FD0000] ntdll.dll 
+            3E $7702656B - [76FD0000] ntdll.dll 
+            3F $77022C6A - [76FD0000] ntdll.dll 
+            40 $770256E7 - [76FD0000] ntdll.dll 
+            41 $001E3A90 - [001E0000] surfTools.dll 
+            42 $001E8C66 - [001E0000] surfTools.dll - ELeaks.pas -  - GetFramesCallStackDump - 440[18]
+            43 $001E8BDC - [001E0000] surfTools.dll - ELeaks.pas -  - LockCheck - 381[1]
+            44 $001E8C08 - [001E0000] surfTools.dll - ELeaks.pas -  - LockVariable - 392[1]
+            45 $001E3A90 - [001E0000] surfTools.dll 
+            46 $001E8C66 - [001E0000] surfTools.dll - ELeaks.pas -  - GetFramesCallStackDump - 440[18]
+            47 $7335D1DD - [73350000] IPHLPAPI.DLL 
+            48 $7335D3D2 - [73350000] IPHLPAPI.DLL 
+            49 $00249D02 - [001E0000] surfTools.dll - ExceptionLog.pas -  - GetAdapterInfo - 12772[18]
+            4A $00249BCC - [001E0000] surfTools.dll - ExceptionLog.pas -  - GetAdapterInfo - 12754[0]
+            4B $0024A059 - [001E0000] surfTools.dll - ExceptionLog.pas -  - GetNetworkData - 12833[25]
+            4C $00249F88 - [001E0000] surfTools.dll - ExceptionLog.pas -  - GetNetworkData - 12808[0]
+            4D $0024B9E1 - [001E0000] surfTools.dll - ExceptionLog.pas -  - CreateGeneralText - 13433[1]
+            4E $0024B9A4 - [001E0000] surfTools.dll - ExceptionLog.pas -  - CreateGeneralText - 13432[0]
+            4F $0024CCC9 - [001E0000] surfTools.dll - ExceptionLog.pas -  - CreateLogText - 13726[14]
+            50 $0024CC34 - [001E0000] surfTools.dll - ExceptionLog.pas -  - CreateLogText - 13712[0]
+            51 $00250434 - [001E0000] surfTools.dll - ExceptionLog.pas -  - InternalExceptNotify - 14498[289]
+            52 $0024F954 - [001E0000] surfTools.dll - ExceptionLog.pas -  - InternalExceptNotify - 14209[0]
+            53 $002514CC - [001E0000] surfTools.dll - ExceptionLog.pas -  - ExceptNotify - 14988[58]
+            54 $002512B0 - [001E0000] surfTools.dll - ExceptionLog.pas -  - ExceptNotify - 14930[0]
+            55 $002519FF - [001E0000] surfTools.dll - ExceptionLog.pas -  - GoNotify - 15247[28]
+            56 $002518DC - [001E0000] surfTools.dll - ExceptionLog.pas -  - GoNotify - 15219[0]
+            57 $00251EEE - [001E0000] surfTools.dll - ExceptionLog.pas -  - EurekaLog_CallExceptObject - 15478[33]
+            58 $00251DD8 - [001E0000] surfTools.dll - ExceptionLog.pas -  - EurekaLog_CallExceptObject - 15445[0]
+            59 $00251F66 - [001E0000] surfTools.dll - ExceptionLog.pas -  - Call_HookedExceptionObject - 15493[1]
+            5A $00251F64 - [001E0000] surfTools.dll - ExceptionLog.pas -  - Call_HookedExceptionObject - 15493[1]
+            5B $00251F7C - [001E0000] surfTools.dll - ExceptionLog.pas -  - HookedExceptionObject - 15508[9]
+            5C $001E4A0B - [001E0000] surfTools.dll 
+            5D $770171F7 - [76FD0000] ntdll.dll 
+            5E $770171D3 - [76FD0000] ntdll.dll 
+            5F $770171C6 - [76FD0000] ntdll.dll 
+            60 $77017198 - [76FD0000] ntdll.dll 
+            61 $76FEF982 - [76FD0000] ntdll.dll 
+            62 $77005C90 - [76FD0000] ntdll.dll 
+            63 $7705A1F8 - [76FD0000] ntdll.dll 
+            64 $77022C51 - [76FD0000] ntdll.dll 
+            65 $7702656B - [76FD0000] ntdll.dll 
+            66 $76FEF8B4 - [76FD0000] ntdll.dll 
+            67 $77017052 - [76FD0000] ntdll.dll 
+            68 $529BCB40 - [52170000] nvoglv32.DLL 
+            69 $529AC3A1 - [52170000] nvoglv32.DLL 
+            6A $529AC320 - [52170000] nvoglv32.DLL 
+            6B $529AC437 - [52170000] nvoglv32.DLL 
+            6C $76EF6D2D - [76EC0000] USER32.dll 
+            6D $76EF6E1F - [76EC0000] USER32.dll 
+            6E $76ECB2FE - [76EC0000] USER32.dll 
+            6F $76ECB2F4 - [76EC0000] USER32.dll 
+            70 $0020047B - [001E0000] surfTools.dll 
+            71 $0020046C - [001E0000] surfTools.dll 
+            72 $00271CBA - [001E0000] surfTools.dll 
+            73 $001E4500 - [001E0000] surfTools.dll 
+            74 $001E44F8 - [001E0000] surfTools.dll 
+            75 $00290087 - [001E0000] surfTools.dll 
+            76 $00290080 - [001E0000] surfTools.dll 
+            77 $002906C3 - [001E0000] surfTools.dll 
+            78 $001E50B5 - [001E0000] surfTools.dll 
+            79 $001E507C - [001E0000] surfTools.dll 
+            7A $001E53D2 - [001E0000] surfTools.dll 
+            7B $001E5148 - [001E0000] surfTools.dll 
+            7C $001E7848 - [001E0000] surfTools.dll 
+            7D $001E7808 - [001E0000] surfTools.dll 
+            7E $0029C87B - [001E0000] surfTools.dll - SurfTools.dpr -  -  - 29[0]
+            7F $770289C4 - [76FD0000] ntdll.dll 
+            80 $7702E0FF - [76FD0000] ntdll.dll 
+            81 $77022FED - [76FD0000] ntdll.dll 
+            82 $7702E0E0 - [76FD0000] ntdll.dll 
+            83 $7702E3B2 - [76FD0000] ntdll.dll 
+            84 $7702E19A - [76FD0000] ntdll.dll 
+            85 $7717BBF1 - [77120000] kernel32.dll 
+            86 $7717BBE2 - [77120000] kernel32.dll 
+            87 $00405CDC - [00400000] NanoEduLE.exe 
+            88 $00405C1C - [00400000] NanoEduLE.exe 
+            89 $00738353 - [00400000] NanoEduLE.exe - NanoEduLE.dpr -  -  - 188[25]
+            8A $7716ED6A - [77120000] kernel32.dll 
+            8B $770337E9 - [76FD0000] ntdll.dll 
+            8C $770337C4 - [76FD0000] ntdll.dll 
+            8D $770337B9 - [76FD0000] ntdll.dll 

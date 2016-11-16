@@ -1,0 +1,118 @@
+object ControllerDetect: TControllerDetect
+  Left = -169
+  Top = 823
+  AlphaBlend = True
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Controller status'
+  ClientHeight = 86
+  ClientWidth = 401
+  Color = clBtnFace
+  TransparentColorValue = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Default'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poDesigned
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 328
+    Top = 424
+    Width = 53
+    Height = 13
+    Caption = 'Log events'
+  end
+  object LogMemo: TMemo
+    Left = 0
+    Top = 0
+    Width = 401
+    Height = 86
+    Align = alClient
+    Color = clBtnFace
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Default'
+    Font.Style = []
+    Lines.Strings = (
+      'test')
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Timer: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = TimerTimer
+    Left = 256
+    Top = 120
+  end
+  object siLangLinked1: TsiLangLinked
+    Version = '6.5'
+    StringsTypes.Strings = (
+      'TIB_STRINGLIST'
+      'TSTRINGLIST')
+    NumOfLanguages = 2
+    LangDispatcher = Main.siLangDispatcher1
+    OnChangeLanguage = siLangLinked1ChangeLanguage
+    LangDelim = 1
+    LangNames.Strings = (
+      'English'
+      'Russian')
+    Language = 'English'
+    ExcludedProperties.Strings = (
+      'Category'
+      'SecondaryShortCuts'
+      'HelpKeyword'
+      'InitialDir'
+      'HelpKeyword'
+      'ActivePage'
+      'ImeName'
+      'DefaultExt'
+      'FileName'
+      'FieldName'
+      'PickList'
+      'DisplayFormat'
+      'EditMask'
+      'KeyList'
+      'LookupDisplayFields'
+      'DropDownSpecRow'
+      'TableName'
+      'DatabaseName'
+      'IndexName'
+      'MasterFields')
+    Left = 208
+    Top = 48
+    TranslationData = {
+      737443617074696F6E730D0A54436F6E74726F6C6C6572446574656374014E61
+      6E6F5475746F7220436F6E74726F6C6C65722073746174757301D1F2E0F2F3F1
+      20EAEEEDF2F0EEEBEBE5F0E0010D0A4C6162656C31014C6F67206576656E7473
+      01CBEEE320F1EEE1FBF2E8E920F3F1F2F0EEE9F1F2E2010D0A737448696E7473
+      0D0A54436F6E74726F6C6C657244657465637401010D0A7374446973706C6179
+      4C6162656C730D0A7374466F6E74730D0A54436F6E74726F6C6C657244657465
+      63740144656661756C740144656661756C74010D0A4C6F674D656D6F01446566
+      61756C740144656661756C74010D0A73744D756C74694C696E65730D0A4C6F67
+      4D656D6F2E4C696E6573017465737401010D0A7374537472696E67730D0A7374
+      727374727475726E6F6E0120697320207475726E6564206F6E2121012020E2EA
+      EBFEF7E5ED2121010D0A7374727374727475726E6F6666012069732020747572
+      6E6564206F66662121012020E2FBEAEBFEF7E5ED2121010D0A73747273747263
+      6F6E74726F6C6C6572015468652020636F6E74726F6C6C657201CAEEEDF2F0EE
+      EBEBE5F020010D0A7374727374726F73630154686520206F73636C696C6C6F73
+      636F706501CEF1F6E8EBEBEEE3F0E0F420010D0A4944535F3401436F6E74726F
+      6C6C6572206472697665727320696E7374616C6C6174696F6E206572726F7220
+      01CEF8E8E1EAE020E8EDF1F2E0EBFFF6E8E820E4F0E0E9E2E5F0EEE220EAEEED
+      F2F0EEEBEBE5F0E0010D0A4944535F3501436F6E74726F6C6C65722064726976
+      6572732061726520696E7374616C6C6564207375636365737366756C6C792001
+      C4F0E0E9E2E5F0E020EAEEEDF2F0EEEBEBE5F0E020F3F1EFE5F8EDEE20F3F1F2
+      E0EDEEE2EBE5EDFB20010D0A73744F74686572537472696E67730D0A7374436F
+      6C6C656374696F6E730D0A737443686172536574730D0A54436F6E74726F6C6C
+      65724465746563740144454641554C545F43484152534554015255535349414E
+      5F43484152534554010D0A4C6F674D656D6F0144454641554C545F4348415253
+      4554015255535349414E5F43484152534554010D0A}
+  end
+end

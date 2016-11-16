@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="Video">
+  <variable name="StartVideo" type="pStartVideo" />
+  <variable name="StopVideo" type="PStopVideo" />
+  <variable name="LibVideoHandle" type="Cardinal" />
+</namespace>

@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="GlobalFunction">
+  <const name="CSIDL_ADMINTOOLS" type="Integer">
+    <value>
+      $30
+    </value>
+  </const>
+  <const name="CSIDL_CDBURN_AREA" type="Integer">
+    <value>
+      $3B
+    </value>
+  </const>
+  <const name="CSIDL_COMMON_ADMINTOOLS" type="Integer">
+    <value>
+      $2F
+    </value>
+  </const>
+  <const name="CSIDL_COMMON_APPDATA" type="Integer">
+    <value>
+      $23
+    </value>
+  </const>
+  <const name="CSIDL_COMMON_DOCUMENTS" type="Integer">
+    <value>
+      $2E
+    </value>
+  </const>
+  <const name="CSIDL_COMMON_TEMPLATES" type="Integer">
+    <value>
+      $2D
+    </value>
+  </const>
+  <const name="CSIDL_COMMON_MUSIC" type="Integer">
+    <value>
+      $35
+    </value>
+  </const>
+  <const name="CSIDL_COMMON_PICTURES" type="Integer">
+    <value>
+      $36
+    </value>
+  </const>
+  <const name="CSIDL_COMMON_VIDEO" type="Integer">
+    <value>
+      $37
+    </value>
+  </const>
+  <const name="CSIDL_COMPUTERSNEARME" type="Integer">
+    <value>
+      $3D
+    </value>
+  </const>
+  <const name="CSIDL_CONNECTIONS" type="Integer">
+    <value>
+      $31
+    </value>
+  </const>
+  <const name="CSIDL_LOCAL_APPDATA" type="Integer">
+    <value>
+      $1C
+    </value>
+  </const>
+  <const name="CSIDL_MYDOCUMENTS" type="Integer">
+    <value>
+      $C
+    </value>
+  </const>
+  <const name="CSIDL_MYMUSIC" type="Integer">
+    <value>
+      $D
+    </value>
+  </const>
+  <const name="CSIDL_MYPICTURES" type="Integer">
+    <value>
+      $27
+    </value>
+  </const>
+  <const name="CSIDL_MYVIDEO" type="Integer">
+    <value>
+      $E
+    </value>
+  </const>
+  <const name="CSIDL_PROFILE" type="Integer">
+    <value>
+      $28
+    </value>
+  </const>
+  <const name="CSIDL_PROGRAM_FILES" type="Integer">
+    <value>
+      $26
+    </value>
+  </const>
+  <const name="CSIDL_PROGRAM_FILESX86" type="Integer">
+    <value>
+      $2A
+    </value>
+  </const>
+  <const name="CSIDL_PROGRAM_FILES_COMMON" type="Integer">
+    <value>
+      $2B
+    </value>
+  </const>
+  <const name="CSIDL_PROGRAM_FILES_COMMONX86" type="Integer">
+    <value>
+      $2C
+    </value>
+  </const>
+  <const name="CSIDL_RESOURCES" type="Integer">
+    <value>
+      $38
+    </value>
+  </const>
+  <const name="CSIDL_RESOURCES_LOCALIZED" type="Integer">
+    <value>
+      $39
+    </value>
+  </const>
+  <const name="CSIDL_SYSTEM" type="Integer">
+    <value>
+      $25
+    </value>
+  </const>
+  <const name="CSIDL_SYSTEMX86" type="Integer">
+    <value>
+      $29
+    </value>
+  </const>
+  <const name="CSIDL_WINDOWS" type="Integer">
+    <value>
+      $24
+    </value>
+  </const>
+  <function name="ShowWelComeWindow" visibility="private">
+    <parameters>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="SetFileAttribute_ReadOnly" visibility="private">
+    <parameters>
+      <parameter name="filename" type="string" paramflags="const" />
+      <parameter name="flg" type="Boolean" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="ReadFloatConvert" visibility="private">
+    <parameters>
+      <parameter name="iniCSPM" type="TIniFile" />
+      <parameter name="Section" type="string" paramflags="const" />
+      <parameter name="Ident" type="string" paramflags="const" />
+      <parameter name="Default" type="Single" />
+      <retval type="Single" />
+    </parameters>
+  </function>
+  <procedure name="FixedPalette" visibility="private">
+  </procedure>
+  <procedure name="RenderTeapot" visibility="private">
+    <parameters>
+      <parameter name="ambr" type="Single" />
+      <parameter name="ambg" type="Single" />
+      <parameter name="ambb" type="Single" />
+      <parameter name="difr" type="Single" />
+      <parameter name="difg" type="Single" />
+      <parameter name="difb" type="Single" />
+      <parameter name="specr" type="Single" />
+      <parameter name="specg" type="Single" />
+      <parameter name="specb" type="Single" />
+      <parameter name="shine" type="Single" />
+    </parameters>
+  </procedure>
+  <function name="CheckScannerName" visibility="private">
+    <parameters>
+      <parameter name="ScannerFile" type="string" paramflags="const" />
+      <parameter name="ImgScannerName" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="WorkFlash" visibility="private">
+    <parameters>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="GetSpecialPath" visibility="private">
+    <parameters>
+      <parameter name="CSIDL" type="Word" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="GetSpecialDirPath" visibility="private">
+  </procedure>
+  <procedure name="SetFirstStartParams" visibility="private">
+  </procedure>
+  <function name="GetUserLevel" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="SetUserLevel" visibility="private">
+  </procedure>
+  <function name="GetLanguage" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="TestAndSetNewVersion" visibility="private">
+    <parameters>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="SetLanguage" visibility="private">
+  </procedure>
+  <function name="GetConfigFileName" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="GetConfigUsersFileName" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="SetScriptsName" visibility="private">
+  </procedure>
+  <function name="GetPathFlash" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="Median3" visibility="private">
+    <parameters>
+      <parameter name="a1" type="Smallint" />
+      <parameter name="a2" type="Smallint" />
+      <parameter name="a3" type="Smallint" />
+      <retval type="Smallint" />
+    </parameters>
+  </function>
+  <procedure name="PaletBrownInit" visibility="private">
+  </procedure>
+  <procedure name="PaletGreyInit" visibility="private">
+  </procedure>
+  <procedure name="PaletBlueToRedInit" visibility="private">
+  </procedure>
+  <procedure name="PaletZebraInit" visibility="private">
+  </procedure>
+  <procedure name="PaletColorZebraInit" visibility="private">
+  </procedure>
+  <procedure name="EvalPaletteLines" visibility="private">
+  </procedure>
+  <procedure name="LoadPalette" visibility="private">
+    <parameters>
+      <parameter name="PaletName" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <procedure name="SavePalette" visibility="private">
+    <parameters>
+      <parameter name="PaletName" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <procedure name="LoadDefPaletName" visibility="private">
+    <parameters>
+      <parameter name="PaletName" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="SaveDefPaletName" visibility="private">
+    <parameters>
+      <parameter name="PaletName" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <function name="InitParametersNanoEdu" visibility="private">
+    <parameters>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="InitDirectories" visibility="private">
+  </procedure>
+  <procedure name="InitParametersAxes" visibility="private">
+  </procedure>
+  <procedure name="InitParameters" visibility="private">
+  </procedure>
+  <function name="ExecAndWait" visibility="private">
+    <parameters>
+      <parameter name="FileName" type="ShortString" paramflags="var" />
+      <parameter name="Params" type="ShortString" paramflags="var" />
+      <parameter name="WinState" type="Word" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="SetXYMax" visibility="private">
+  </procedure>
+</namespace>

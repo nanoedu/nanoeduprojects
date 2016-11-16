@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="FastMM4">
+  <const name="FastMMVersion" type="string">
+    <devnotes>
+      un
+    </devnotes>
+    <value>
+      4.78
+    </value>
+  </const>
+  <const name="NumSmallBlockTypes" type="Integer">
+    <value>
+      $37
+    </value>
+  </const>
+  <struct name="TSmallBlockTypeState" packed="true">
+    <field name="InternalBlockSize" type="Cardinal" visibility="public" />
+    <field name="UseableBlockSize" type="Cardinal" visibility="public" />
+    <field name="AllocatedBlockCount" type="Cardinal" visibility="public" />
+    <field name="ReservedAddressSpace" type="Cardinal" visibility="public" />
+  </struct>
+  <array name="TSmallBlockTypeStates" low="0" high="54">
+    <element type="TSmallBlockTypeState" />
+  </array>
+  <struct name="TMemoryManagerState" packed="true">
+    <field name="SmallBlockTypeStates" type="TSmallBlockTypeStates" visibility="public" />
+    <field name="AllocatedMediumBlockCount" type="Cardinal" visibility="public" />
+    <field name="TotalAllocatedMediumBlockSize" type="Cardinal" visibility="public" />
+    <field name="ReservedMediumBlockAddressSpace" type="Cardinal" visibility="public" />
+    <field name="AllocatedLargeBlockCount" type="Cardinal" visibility="public" />
+    <field name="TotalAllocatedLargeBlockSize" type="Cardinal" visibility="public" />
+    <field name="ReservedLargeBlockAddressSpace" type="Cardinal" visibility="public" />
+  </struct>
+  <const name="csUnallocated" type="TChunkStatus">
+    <value>
+      csUnallocated
+    </value>
+  </const>
+  <const name="csAllocated" type="TChunkStatus">
+    <value>
+      csAllocated
+    </value>
+  </const>
+  <const name="csReserved" type="TChunkStatus">
+    <value>
+      csReserved
+    </value>
+  </const>
+  <const name="csSysAllocated" type="TChunkStatus">
+    <value>
+      csSysAllocated
+    </value>
+  </const>
+  <const name="csSysReserved" type="TChunkStatus">
+    <value>
+      csSysReserved
+    </value>
+  </const>
+  <enum name="TChunkStatus">
+    <element name="csUnallocated" />
+    <element name="csAllocated" />
+    <element name="csReserved" />
+    <element name="csSysAllocated" />
+    <element name="csSysReserved" />
+  </enum>
+  <array name="TMemoryMap" low="0" high="65535">
+    <element type="TChunkStatus" />
+  </array>
+  <struct name="TRegisteredMemoryLeak" packed="true">
+    <field name="LeakAddress" type="Pointer" visibility="public" />
+    <field name="LeakedClass" type="TClass" visibility="public" />
+    <field name="LeakSize" type="Integer" visibility="public" />
+    <field name="LeakCount" type="Integer" visibility="public" />
+  </struct>
+  <array name="TRegisteredMemoryLeaks">
+    <element type="TRegisteredMemoryLeak" />
+  </array>
+  <procedure name="SetMMLogFileName" visibility="private">
+    <parameters>
+      <parameter name="ALogFileName" type="PAnsiChar">
+        <value>
+          nil
+        </value>
+      </parameter>
+    </parameters>
+  </procedure>
+  <function name="GetCurrentAllocationGroup" visibility="private">
+    <parameters>
+      <retval type="Cardinal" />
+    </parameters>
+  </function>
+  <procedure name="PushAllocationGroup" visibility="private">
+    <parameters>
+      <parameter name="ANewCurrentAllocationGroup" type="Cardinal" />
+    </parameters>
+  </procedure>
+  <procedure name="PopAllocationGroup" visibility="private">
+  </procedure>
+  <function name="DebugGetMem" visibility="private">
+    <parameters>
+      <parameter name="ASize" type="Integer" />
+      <retval type="Pointer" />
+    </parameters>
+  </function>
+  <function name="DebugFreeMem" visibility="private">
+    <parameters>
+      <parameter name="APointer" type="Pointer" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="DebugReallocMem" visibility="private">
+    <parameters>
+      <parameter name="APointer" type="Pointer" />
+      <parameter name="ANewSize" type="Integer" />
+      <retval type="Pointer" />
+    </parameters>
+  </function>
+  <function name="DebugAllocMem" visibility="private">
+    <parameters>
+      <parameter name="ASize" type="Cardinal" />
+      <retval type="Pointer" />
+    </parameters>
+  </function>
+  <procedure name="LogAllocatedBlocksToFile" visibility="private">
+    <parameters>
+      <parameter name="AFirstAllocationGroupToLog" type="Cardinal" />
+      <parameter name="ALastAllocationGroupToLog" type="Cardinal" />
+    </parameters>
+  </procedure>
+  <function name="RegisterExpectedMemoryLeak" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="ALeakedPointer" type="Pointer" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="RegisterExpectedMemoryLeak" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="ALeakedObjectClass" type="TClass" />
+      <parameter name="ACount" type="Integer">
+        <value>
+          $1
+        </value>
+      </parameter>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="RegisterExpectedMemoryLeak" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="ALeakedBlockSize" type="Integer" />
+      <parameter name="ACount" type="Integer">
+        <value>
+          $1
+        </value>
+      </parameter>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="UnregisterExpectedMemoryLeak" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="ALeakedPointer" type="Pointer" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="UnregisterExpectedMemoryLeak" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="ALeakedObjectClass" type="TClass" />
+      <parameter name="ACount" type="Integer">
+        <value>
+          $1
+        </value>
+      </parameter>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="UnregisterExpectedMemoryLeak" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="ALeakedBlockSize" type="Integer" />
+      <parameter name="ACount" type="Integer">
+        <value>
+          $1
+        </value>
+      </parameter>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="GetRegisteredMemoryLeaks" visibility="private">
+    <parameters>
+      <retval type="TRegisteredMemoryLeaks" />
+    </parameters>
+  </function>
+  <procedure name="GetMemoryManagerState" visibility="private">
+    <parameters>
+      <parameter name="AMemoryManagerState" type="TMemoryManagerState" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="GetMemoryMap" visibility="private">
+    <parameters>
+      <parameter name="AMemoryMap" type="TMemoryMap" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="FastGetHeapStatus" visibility="private">
+    <parameters>
+      <retval type="THeapStatus" symflags="deprecated">
+      </retval>
+    </parameters>
+  </function>
+  <procedure name="FreeAllMemory" visibility="private">
+  </procedure>
+</namespace>

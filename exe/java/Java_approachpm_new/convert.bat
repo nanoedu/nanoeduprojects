@@ -1,0 +1,1 @@
+jar cfe ..\..\javabin\approachpmnew.jar mlab.Approachpmnew mlab\*.class java\lang\*.class

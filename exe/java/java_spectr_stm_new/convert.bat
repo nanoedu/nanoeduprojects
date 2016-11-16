@@ -1,0 +1,1 @@
+jar cfe ..\..\javabin\spectrstmnew.jar    mlab.Spectrstmnew   mlab\*.class  java\lang\*.class

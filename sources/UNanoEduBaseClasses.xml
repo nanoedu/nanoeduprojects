@@ -1,0 +1,1136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="UNanoEduBaseClasses">
+  <class name="TMotor">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <procedure name="SetMotorSPEED" visibility="private" procflags="abstract virtual">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetMotorPause" visibility="private" procflags="abstract virtual">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="TurnOn" visibility="public" procflags="virtual">
+      </procedure>
+      <procedure name="TurnOff" visibility="public" procflags="abstract virtual">
+      </procedure>
+      <property name="Speed" visibility="public" write="SetMotorSPEED" type="Integer" />
+      <property name="Pause" visibility="public" write="SetMotorPause" type="Integer" />
+    </members>
+  </class>
+  <class name="TStepMotor">
+    <ancestor name="TMotor" namespace="UNanoEduBaseClasses">
+      <methodref name="SetMotorSPEED" visibility="private" />
+      <methodref name="SetMotorPause" visibility="private" />
+      <methodref name="TurnOn" visibility="public" />
+      <methodref name="TurnOff" visibility="public" />
+      <propertyref name="Speed" visibility="public" />
+      <propertyref name="Pause" visibility="public" />
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <members>
+      <procedure name="SetMotorSPEED" visibility="private" procflags="override">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetMotorPause" visibility="private" procflags="override">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="TurnOn" visibility="public" procflags="override">
+      </procedure>
+      <procedure name="TurnOff" visibility="public" procflags="override">
+      </procedure>
+    </members>
+  </class>
+  <class name="TPiezoMotor">
+    <ancestor name="TMotor" namespace="UNanoEduBaseClasses">
+      <methodref name="SetMotorSPEED" visibility="private" />
+      <methodref name="SetMotorPause" visibility="private" />
+      <methodref name="TurnOn" visibility="public" />
+      <methodref name="TurnOff" visibility="public" />
+      <propertyref name="Speed" visibility="public" />
+      <propertyref name="Pause" visibility="public" />
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <members>
+      <procedure name="SetMotorSPEED" visibility="private" procflags="override">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetMotorPause" visibility="private" procflags="override">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="TurnOn" visibility="public" procflags="override">
+      </procedure>
+      <procedure name="TurnOff" visibility="public" procflags="override">
+      </procedure>
+    </members>
+  </class>
+  <class name="TStepMotorX">
+    <ancestor name="TStepMotor" namespace="UNanoEduBaseClasses">
+      <methodref name="SetMotorSPEED" visibility="private" />
+      <methodref name="SetMotorPause" visibility="private" />
+      <methodref name="TurnOn" visibility="public" />
+      <methodref name="TurnOff" visibility="public" />
+      <ancestor name="TMotor" namespace="UNanoEduBaseClasses">
+        <methodref name="SetMotorSPEED" visibility="private" />
+        <methodref name="SetMotorPause" visibility="private" />
+        <methodref name="TurnOn" visibility="public" />
+        <methodref name="TurnOff" visibility="public" />
+        <propertyref name="Speed" visibility="public" />
+        <propertyref name="Pause" visibility="public" />
+        <ancestor name="TObject" namespace="System">
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="Free" visibility="public">
+          </methodref>
+          <methodref name="InitInstance" visibility="public">
+          </methodref>
+          <methodref name="CleanupInstance" visibility="public">
+          </methodref>
+          <methodref name="ClassType" visibility="public">
+          </methodref>
+          <methodref name="ClassName" visibility="public">
+          </methodref>
+          <methodref name="ClassNameIs" visibility="public">
+          </methodref>
+          <methodref name="ClassParent" visibility="public">
+          </methodref>
+          <methodref name="ClassInfo" visibility="public">
+          </methodref>
+          <methodref name="InstanceSize" visibility="public">
+          </methodref>
+          <methodref name="InheritsFrom" visibility="public">
+          </methodref>
+          <methodref name="MethodAddress" visibility="public">
+          </methodref>
+          <methodref name="MethodName" visibility="public">
+          </methodref>
+          <methodref name="FieldAddress" visibility="public">
+          </methodref>
+          <methodref name="GetInterface" visibility="public">
+          </methodref>
+          <methodref name="GetInterfaceEntry" visibility="public">
+          </methodref>
+          <methodref name="GetInterfaceTable" visibility="public">
+          </methodref>
+          <methodref name="SafeCallException" visibility="public">
+          </methodref>
+          <methodref name="AfterConstruction" visibility="public">
+          </methodref>
+          <methodref name="BeforeDestruction" visibility="public">
+          </methodref>
+          <methodref name="Dispatch" visibility="public">
+          </methodref>
+          <methodref name="DefaultHandler" visibility="public">
+          </methodref>
+          <methodref name="NewInstance" visibility="public">
+          </methodref>
+          <methodref name="FreeInstance" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <members>
+      <procedure name="SetMotorSPEED" visibility="private" procflags="override">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="TurnOn" visibility="public" procflags="override">
+      </procedure>
+      <procedure name="TurnOff" visibility="public" procflags="override">
+      </procedure>
+    </members>
+  </class>
+  <class name="TStepMotorY">
+    <ancestor name="TStepMotor" namespace="UNanoEduBaseClasses">
+      <methodref name="SetMotorSPEED" visibility="private" />
+      <methodref name="SetMotorPause" visibility="private" />
+      <methodref name="TurnOn" visibility="public" />
+      <methodref name="TurnOff" visibility="public" />
+      <ancestor name="TMotor" namespace="UNanoEduBaseClasses">
+        <methodref name="SetMotorSPEED" visibility="private" />
+        <methodref name="SetMotorPause" visibility="private" />
+        <methodref name="TurnOn" visibility="public" />
+        <methodref name="TurnOff" visibility="public" />
+        <propertyref name="Speed" visibility="public" />
+        <propertyref name="Pause" visibility="public" />
+        <ancestor name="TObject" namespace="System">
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="Free" visibility="public">
+          </methodref>
+          <methodref name="InitInstance" visibility="public">
+          </methodref>
+          <methodref name="CleanupInstance" visibility="public">
+          </methodref>
+          <methodref name="ClassType" visibility="public">
+          </methodref>
+          <methodref name="ClassName" visibility="public">
+          </methodref>
+          <methodref name="ClassNameIs" visibility="public">
+          </methodref>
+          <methodref name="ClassParent" visibility="public">
+          </methodref>
+          <methodref name="ClassInfo" visibility="public">
+          </methodref>
+          <methodref name="InstanceSize" visibility="public">
+          </methodref>
+          <methodref name="InheritsFrom" visibility="public">
+          </methodref>
+          <methodref name="MethodAddress" visibility="public">
+          </methodref>
+          <methodref name="MethodName" visibility="public">
+          </methodref>
+          <methodref name="FieldAddress" visibility="public">
+          </methodref>
+          <methodref name="GetInterface" visibility="public">
+          </methodref>
+          <methodref name="GetInterfaceEntry" visibility="public">
+          </methodref>
+          <methodref name="GetInterfaceTable" visibility="public">
+          </methodref>
+          <methodref name="SafeCallException" visibility="public">
+          </methodref>
+          <methodref name="AfterConstruction" visibility="public">
+          </methodref>
+          <methodref name="BeforeDestruction" visibility="public">
+          </methodref>
+          <methodref name="Dispatch" visibility="public">
+          </methodref>
+          <methodref name="DefaultHandler" visibility="public">
+          </methodref>
+          <methodref name="NewInstance" visibility="public">
+          </methodref>
+          <methodref name="FreeInstance" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <members>
+      <procedure name="SetMotorSPEED" visibility="private" procflags="override">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="TurnOn" visibility="public" procflags="override">
+      </procedure>
+      <procedure name="TurnOff" visibility="public" procflags="override">
+      </procedure>
+    </members>
+  </class>
+  <class name="TScannerApproach">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <procedure name="SetNSteps" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="GetNSteps" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="SetNCycles" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="GetNCycles" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="SetZMin" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetZMax" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetFlgControlTopPosition" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetScannerDecay" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetIntegratorDelay" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="ScannerProtract" visibility="private">
+      </procedure>
+      <procedure name="ScannerRetract" visibility="private">
+      </procedure>
+      <procedure name="SetStatus_Approach" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="GetStatus_Approach" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="SetStepResult" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetflgOneStep" visibility="private">
+        <parameters>
+          <parameter name="val" type="Boolean" />
+        </parameters>
+      </procedure>
+      <function name="GetStepResult" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="Median3" visibility="private">
+        <parameters>
+          <parameter name="a1" type="Smallint" />
+          <parameter name="a2" type="Smallint" />
+          <parameter name="a3" type="Smallint" />
+          <retval type="Smallint" />
+        </parameters>
+      </function>
+      <field name="iStepsCount" type="Integer" visibility="protected" />
+      <function name="GetZValue" visibility="protected" procflags="virtual">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="GetSignalValue" visibility="protected" procflags="abstract virtual">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <field name="Motor" type="TMotor" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="TurnOn" visibility="public" procflags="virtual">
+      </procedure>
+      <procedure name="TurnOff" visibility="public">
+      </procedure>
+      <procedure name="SetLevel" visibility="public" procflags="abstract virtual">
+      </procedure>
+      <procedure name="StopSteps" visibility="public" procflags="virtual">
+      </procedure>
+      <function name="InitTestStep" visibility="public">
+        <parameters>
+          <retval type="Byte" />
+        </parameters>
+      </function>
+      <function name="RisingToStartPoint" visibility="public" procflags="virtual">
+        <parameters>
+          <parameter name="Nstep" type="Smallint" />
+          <retval type="Byte" />
+        </parameters>
+      </function>
+      <function name="InitSteps" visibility="public" procflags="virtual">
+        <parameters>
+          <parameter name="script" type="string" paramflags="const" />
+          <retval type="Byte" />
+        </parameters>
+      </function>
+      <function name="Step" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="Byte" />
+        </parameters>
+      </function>
+      <procedure name="SetScanSetPoint" visibility="public" procflags="abstract virtual">
+      </procedure>
+      <property name="ControlTopPosition" visibility="public" write="SetFlgControlTopPosition" type="Integer" />
+      <property name="ZValue" visibility="public" read="GetZValue" type="Integer" />
+      <property name="SignalValue" visibility="public" read="GetSignalValue" type="Integer" />
+      <property name="ZMin" visibility="public" write="SetZMin" type="Integer" />
+      <property name="ZMax" visibility="public" write="SetZMax" type="Integer" />
+      <property name="ScannerDecay" visibility="public" write="SetScannerDecay" type="Integer" />
+      <property name="IntegratorDelay" visibility="public" write="SetIntegratorDelay" type="Integer" />
+      <property name="NSteps" visibility="public" read="GetNSteps" write="SetNSteps" type="Integer" />
+      <property name="NCycles" visibility="public" read="GetNCycles" write="SetNCycles" type="Integer" />
+      <property name="Status_Approach" visibility="public" read="GetStatus_Approach" write="SetStatus_Approach" type="Integer" />
+      <property name="StepResult" visibility="public" read="GetStepResult" write="SetStepResult" type="Integer" />
+      <property name="flgMakeOneStep" visibility="public" write="SetflgOneStep" type="Boolean" />
+    </members>
+  </class>
+  <class name="TSTMApproach">
+    <ancestor name="TScannerApproach" namespace="UNanoEduBaseClasses">
+      <methodref name="SetNSteps" visibility="private" />
+      <methodref name="GetNSteps" visibility="private" />
+      <methodref name="SetNCycles" visibility="private" />
+      <methodref name="GetNCycles" visibility="private" />
+      <methodref name="SetZMin" visibility="private" />
+      <methodref name="SetZMax" visibility="private" />
+      <methodref name="SetFlgControlTopPosition" visibility="private" />
+      <methodref name="SetScannerDecay" visibility="private" />
+      <methodref name="SetIntegratorDelay" visibility="private" />
+      <methodref name="ScannerProtract" visibility="private" />
+      <methodref name="ScannerRetract" visibility="private" />
+      <methodref name="SetStatus_Approach" visibility="private" />
+      <methodref name="GetStatus_Approach" visibility="private" />
+      <methodref name="SetStepResult" visibility="private" />
+      <methodref name="SetflgOneStep" visibility="private" />
+      <methodref name="GetStepResult" visibility="private" />
+      <methodref name="Median3" visibility="private" />
+      <methodref name="GetZValue" visibility="protected" />
+      <methodref name="GetSignalValue" visibility="protected" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <methodref name="TurnOn" visibility="public" />
+      <methodref name="TurnOff" visibility="public" />
+      <methodref name="SetLevel" visibility="public" />
+      <methodref name="StopSteps" visibility="public" />
+      <methodref name="InitTestStep" visibility="public" />
+      <methodref name="RisingToStartPoint" visibility="public" />
+      <methodref name="InitSteps" visibility="public" />
+      <methodref name="Step" visibility="public" />
+      <methodref name="SetScanSetPoint" visibility="public" />
+      <propertyref name="ControlTopPosition" visibility="public" />
+      <propertyref name="ZValue" visibility="public" />
+      <propertyref name="SignalValue" visibility="public" />
+      <propertyref name="ZMin" visibility="public" />
+      <propertyref name="ZMax" visibility="public" />
+      <propertyref name="ScannerDecay" visibility="public" />
+      <propertyref name="IntegratorDelay" visibility="public" />
+      <propertyref name="NSteps" visibility="public" />
+      <propertyref name="NCycles" visibility="public" />
+      <propertyref name="Status_Approach" visibility="public" />
+      <propertyref name="StepResult" visibility="public" />
+      <propertyref name="flgMakeOneStep" visibility="public" />
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <members>
+      <procedure name="SetLevel" visibility="private" procflags="override">
+      </procedure>
+      <function name="GetSignalValue" visibility="private" procflags="override">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="TurnOn" visibility="public" procflags="override">
+      </procedure>
+      <procedure name="SetScanSetPoint" visibility="public" procflags="override">
+      </procedure>
+    </members>
+  </class>
+  <class name="TSFMApproach">
+    <ancestor name="TScannerApproach" namespace="UNanoEduBaseClasses">
+      <methodref name="SetNSteps" visibility="private" />
+      <methodref name="GetNSteps" visibility="private" />
+      <methodref name="SetNCycles" visibility="private" />
+      <methodref name="GetNCycles" visibility="private" />
+      <methodref name="SetZMin" visibility="private" />
+      <methodref name="SetZMax" visibility="private" />
+      <methodref name="SetFlgControlTopPosition" visibility="private" />
+      <methodref name="SetScannerDecay" visibility="private" />
+      <methodref name="SetIntegratorDelay" visibility="private" />
+      <methodref name="ScannerProtract" visibility="private" />
+      <methodref name="ScannerRetract" visibility="private" />
+      <methodref name="SetStatus_Approach" visibility="private" />
+      <methodref name="GetStatus_Approach" visibility="private" />
+      <methodref name="SetStepResult" visibility="private" />
+      <methodref name="SetflgOneStep" visibility="private" />
+      <methodref name="GetStepResult" visibility="private" />
+      <methodref name="Median3" visibility="private" />
+      <methodref name="GetZValue" visibility="protected" />
+      <methodref name="GetSignalValue" visibility="protected" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <methodref name="TurnOn" visibility="public" />
+      <methodref name="TurnOff" visibility="public" />
+      <methodref name="SetLevel" visibility="public" />
+      <methodref name="StopSteps" visibility="public" />
+      <methodref name="InitTestStep" visibility="public" />
+      <methodref name="RisingToStartPoint" visibility="public" />
+      <methodref name="InitSteps" visibility="public" />
+      <methodref name="Step" visibility="public" />
+      <methodref name="SetScanSetPoint" visibility="public" />
+      <propertyref name="ControlTopPosition" visibility="public" />
+      <propertyref name="ZValue" visibility="public" />
+      <propertyref name="SignalValue" visibility="public" />
+      <propertyref name="ZMin" visibility="public" />
+      <propertyref name="ZMax" visibility="public" />
+      <propertyref name="ScannerDecay" visibility="public" />
+      <propertyref name="IntegratorDelay" visibility="public" />
+      <propertyref name="NSteps" visibility="public" />
+      <propertyref name="NCycles" visibility="public" />
+      <propertyref name="Status_Approach" visibility="public" />
+      <propertyref name="StepResult" visibility="public" />
+      <propertyref name="flgMakeOneStep" visibility="public" />
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <members>
+      <procedure name="SetLevel" visibility="private" procflags="override">
+      </procedure>
+      <function name="GetSignalValue" visibility="private" procflags="override">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="TurnOn" visibility="public" procflags="override">
+      </procedure>
+      <procedure name="SetScanSetPoint" visibility="public" procflags="override">
+      </procedure>
+    </members>
+  </class>
+  <class name="TBaseNanoEdu">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <procedure name="SetFeedBackRough" visibility="private">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetFineZ" visibility="private">
+        <parameters>
+          <parameter name="val" type="Boolean" />
+        </parameters>
+      </procedure>
+      <procedure name="SetFineXY" visibility="private">
+        <parameters>
+          <parameter name="val" type="Boolean" />
+        </parameters>
+      </procedure>
+      <procedure name="SetBias" visibility="private">
+        <parameters>
+          <parameter name="val" type="Smallint" />
+        </parameters>
+      </procedure>
+      <procedure name="SetSetPoint" visibility="protected" procflags="abstract virtual">
+        <parameters>
+          <parameter name="val" type="Smallint" />
+        </parameters>
+      </procedure>
+      <function name="GetZIndication" visibility="protected" procflags="virtual">
+        <parameters>
+          <retval type="Smallint" />
+        </parameters>
+      </function>
+      <function name="GetControllerNumber" visibility="protected" procflags="virtual">
+        <parameters>
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="GetUpperLimitOut" visibility="protected" procflags="virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <procedure name="SetFeedBack" visibility="protected" procflags="virtual">
+        <parameters>
+          <parameter name="val" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="CalcFBKoefDemo" visibility="protected">
+        <parameters>
+          <retval type="Single" />
+        </parameters>
+      </function>
+      <field name="ScannerApproach" type="TScannerApproach" visibility="public" />
+      <field name="Method" type="TScanMethod" visibility="public" />
+      <field name="ScanMotorX" type="TStepMotor" visibility="public" />
+      <field name="ScanMotorY" type="TStepMotorY" visibility="public" />
+      <field name="FBKoefDemo" type="Single" visibility="public" />
+      <procedure name="SetDACZero" visibility="public">
+      </procedure>
+      <function name="TurnOn" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="TurnOff" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScanMotorTurnOn" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScanMotorTurnOff" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ResonanceRegime" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <procedure name="ApproachRegime" visibility="public" procflags="abstract virtual">
+      </procedure>
+      <function name="ScanningMethod" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScanMoveToX0Y0Method" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="X0" type="Single" />
+          <parameter name="Y0" type="Single" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScanCalibrateMethod" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="ScannerTrainnigMethod" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="LithoSFMMethod" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="FastTopoMethod" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="SpectroscopyMethod" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="StepTestMethod" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <property name="ControllerNumber" visibility="public" read="GetControllerNumber" type="string" />
+      <property name="ZIndication" visibility="public" read="GetZIndication" type="Smallint" />
+      <property name="FeedBackRough" visibility="public" write="SetFeedBackRough" type="Integer" />
+      <property name="FineZ" visibility="public" write="SetFineZ" type="Boolean" />
+      <property name="FineXY" visibility="public" write="SetFineXY" type="Boolean" />
+      <property name="UpperLimitOut" visibility="public" read="GetUpperLimitOut" type="Boolean" />
+      <property name="SetPoint" visibility="public" write="SetSetPoint" type="Smallint" />
+      <property name="FeedBackBand" visibility="public" write="SetFeedBack" type="Integer" />
+      <property name="Bias" visibility="public" write="SetBias" type="Smallint" />
+    </members>
+  </class>
+  <class name="TScannerResonance">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <function name="Q" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="GetQRes" visibility="private">
+        <parameters>
+          <retval type="Single" />
+        </parameters>
+      </function>
+      <function name="median3" visibility="private">
+        <parameters>
+          <parameter name="a1" type="Smallint" />
+          <parameter name="a2" type="Smallint" />
+          <parameter name="a3" type="Smallint" />
+          <retval type="Smallint" />
+        </parameters>
+      </function>
+      <procedure name="SetFreqValRough" visibility="private">
+        <parameters>
+          <parameter name="pos" type="Single" />
+        </parameters>
+      </procedure>
+      <procedure name="SetFreqValFine" visibility="private">
+        <parameters>
+          <parameter name="pos" type="Single" />
+        </parameters>
+      </procedure>
+      <field name="imax" type="Word" visibility="protected" />
+      <procedure name="SetGain_Am" visibility="protected" procflags="virtual">
+        <parameters>
+          <parameter name="val" type="Word" />
+        </parameters>
+      </procedure>
+      <procedure name="SetFreq_Sel" visibility="protected" procflags="virtual">
+        <parameters>
+          <parameter name="fq" type="Integer" />
+        </parameters>
+      </procedure>
+      <field name="T" type="Word" visibility="public" />
+      <field name="Fine" type="Word" visibility="public" />
+      <field name="Rough" type="Word" visibility="public" />
+      <field name="dx" type="Integer" visibility="public" />
+      <field name="UMax" type="Smallint" visibility="public" />
+      <field name="koef" type="Single" visibility="public" />
+      <field name="U" type=".11" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="TurnOnSD" visibility="public">
+      </procedure>
+      <function name="GetAmplitudes" visibility="public" procflags="virtual">
+        <parameters>
+          <parameter name="RangeRF" type="Word" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <property name="QRes" visibility="public" read="GetQRes" type="Single" />
+      <property name="SDFreQ" visibility="public" write="SetFreq_Sel" type="Integer" />
+      <property name="FreqValRough" visibility="public" write="SetFreqValRough" type="Single" />
+      <property name="FreqValFine" visibility="public" write="SetFreqValFine" type="Single" />
+      <property name="Gain_Am" visibility="public" write="SetGain_Am" type="Word" />
+    </members>
+  </class>
+  <variable name="NanoEdu" type="TBaseNanoEdu" />
+</namespace>

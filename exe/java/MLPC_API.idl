@@ -1,0 +1,233 @@
+// MLPC_API.idl: источник IDL для MLPC_API
+//
+
+// Этот файл будет обработан средством MIDL для
+// создания библиотеки типов (MLPC_API.tlb) и кода маршалирования.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(3D27E12E-38C4-4720-AFAF-80B320C459F8),
+	helpstring("Интерфейс IMLPCConnect"),
+	pointer_default(unique)
+]
+interface IMLPCConnect : IUnknown
+{
+	HRESULT Connect([out] IUnknown **ppUnk);
+	HRESULT get_Path([out] BSTR *pPath);
+};
+
+[
+	object,
+	uuid(970CCC7B-BBAD-474E-9D18-2DA3989B233B),
+	helpstring("Интерфейс IMTPIO"),
+	pointer_default(unique)
+]
+interface IMTPIO : IUnknown
+{
+	HRESULT Connect([in] IUnknown *pUnk);
+	HRESULT Disconnect();
+	HRESULT SendCommand([in] ULONG operation, [in, size_is(pcount)] ULONG param[], [in] ULONG pcount, [out, size_is(rcount)] ULONG res[], [in] ULONG rcount);
+	HRESULT SendCommandWrite([in] ULONG operation, [in, size_is(pcount)] ULONG param[], [in] ULONG pcount, [in, size_is(size)] BYTE *buf, [in] ULONG size, [out] ULONG *pcnt, [out, size_is(rcount)] ULONG res[], [in] ULONG rcount);
+	HRESULT SendCommandRead([in] ULONG operation, [in, size_is(pcount)] ULONG param[], [in] ULONG pcount, [out, size_is(,*psize)] BYTE **pbuf, [out] ULONG *psize, [out, size_is(rcount)] ULONG res[], [in] ULONG rcount);
+};
+
+[
+	object,
+	uuid(14B9E1E1-B881-4263-B7EE-AF361D0CD92D),
+	helpstring("Интерфейс IMLPCChannelManager"),
+	pointer_default(unique)
+]
+interface IMLPCChannelManager : IUnknown
+{
+	[helpstring("Подключение к устройству")]
+	HRESULT Connect([in] IUnknown *pUnk);
+	[helpstring("Отключение от устройства")]
+	HRESULT Disconnect();
+	[helpstring("Получение списка каналов (IEnumUnknown)")]
+	HRESULT EnumChannels([out] IUnknown **ppUnk);
+};
+
+[
+	object,
+	uuid(523DCD28-01D1-4D47-9C44-7278D0DC2A23),
+	helpstring("Интерфейс IMLPCChannel"),
+	pointer_default(unique)
+]
+interface IMLPCChannel : IUnknown
+{
+	[helpstring("Максимальный объем данных для чтения / записи")]
+	HRESULT get_Geometry([out] LONG *pN, [out] LONG *pW);
+	[helpstring("Имя канала")]
+	HRESULT get_Name([out] BSTR *pName);
+	[helpstring("Идентификатор канала")]
+	HRESULT get_ID([out] LONG *pID);
+	[helpstring("Отключение от устройства")]
+	HRESULT Disconnect();
+};
+
+[
+	uuid(2E66CF4C-4320-49F3-85D6-63B657CA995A),
+	version(1.0),
+	helpstring("Библиотека типов MLPC_API 1.0")
+]
+library MLPC_APILib
+{
+	importlib("stdole2.tlb");
+	[
+		object,
+		uuid(33AEC2A8-CB49-4249-B2A1-0599FFF87962),
+		helpstring("Интерфейс IMLPCChannelRead"),
+		pointer_default(unique)
+	]
+	interface IMLPCChannelRead : IUnknown
+	{
+		[helpstring("Блокирующее чтение данных из канала")]
+		HRESULT Read([out, size_is(*pCount)] LONG *Data, [in, out] LONG *pCount);
+		[helpstring("Объем данных, доступных для чтения")]
+		HRESULT get_Count([out] LONG *pN);
+	};
+	[
+		object,
+		uuid(FBDB2868-EF6E-472a-A372-1F19C053E97A),
+		helpstring("Интерфейс IMLPCChannelWrite"),
+		pointer_default(unique)
+	]
+	interface IMLPCChannelWrite : IUnknown
+	{
+		[helpstring("Блокирующая запись данных в канал")]
+		HRESULT Write([in, size_is(*pCount)] LONG *Data, [in, out] LONG *pCount);
+		[helpstring("Объем свободного места, доступного для записи")]
+		HRESULT get_Count([out] LONG *pN);
+	};
+	[
+		object,
+		uuid(14ED1ABA-84AB-4d74-BB5C-6B62551D3C76),
+		helpstring("IDeviceProxy Interface"),
+		pointer_default(unique)
+	]
+	interface IDeviceProxy : IUnknown
+	{
+		[helpstring("Установить связь с устройством.")]
+		HRESULT Connect( [out] ULONG * pConnected );
+		[helpstring("Есть ли связь с устройством.")]
+		HRESULT IsConnected( [out] ULONG * pConnected );
+	};
+	[
+		object,
+		uuid(7DA29717-3960-443D-AAE9-93DAF93ADF63),
+		helpstring("IDeviceInfo Interface"),
+		pointer_default(unique)
+	]
+	interface IDeviceInfo : IUnknown
+	{
+		[helpstring("Получить dirty-формат.")]
+		HRESULT GetDirtyFormat( [out] ULONG * pFmtBytesJunk, [out] ULONG * pFmtBytesData );
+		[helpstring("Получить путь к устройству.")]
+		HRESULT GetDevicePath( [out] BSTR * pPathBSTR );
+	};
+	[
+		object,
+		uuid(B74558AF-F063-4be2-B8AE-1FAA1BE51CBC),
+		helpstring("IDeviceChannelsInfo Interface"),
+		pointer_default(unique)
+	]
+	interface IDeviceChannelsInfo : IUnknown
+	{
+		//[helpstring("Задать число каналов.")]
+		//HRESULT SetCount( [in] UINT count  );
+		//[helpstring("Задать параметры канала.")]
+		//HRESULT SetChannelDesc( [in] UINT index, [in] LONG cid, [in] UINT bits );
+		[helpstring("Задать параметры канала.")]
+		HRESULT SetChannelBits( [in] UINT index, [in] UINT bits );
+		[helpstring("Обновить параметры всех каналов канала.")]
+		HRESULT UpdateChannelBits();
+
+		[helpstring("Получить число каналов.")]
+		HRESULT GetCount( [out] UINT * pCount );
+		// todo delete
+		[helpstring("Получить идентификатор канала.")]
+		HRESULT GetChannelCid( [in] UINT index, [out] LONG * pCid );
+		[helpstring("Получить ширину битового поля канала в пакете.")]
+		HRESULT GetChannelName( [in] UINT index, [out] BSTR * pName );
+		[helpstring("Получить ширину битового поля канала в пакете.")]
+		HRESULT GetChannelBits( [in] UINT index, [out] UINT * pBits );
+		[helpstring("Получить диапазон значений канала.")]
+		HRESULT GetChannelRange( [in] UINT index, [out] float * pMin, [out] float * pMax );
+		[helpstring("Получить единицу измерений канала.")]
+		HRESULT GetChannelUnits( [in] UINT index, [out] BSTR * pName );
+
+		[helpstring("Запретить перенастройку каналов.")]
+		HRESULT Lock( void );
+		[helpstring("Снять запрет на перенастройку каналов.")]
+		HRESULT Unlock( void );
+	};
+
+	[
+		uuid(802D5EB9-1939-49C1-9298-4064904A0E8A),
+		helpstring("MLPCConnect Class")
+	]
+	coclass MLPCConnect
+	{
+		[default] interface IMLPCConnect;
+	};
+	[
+		uuid(3CCFFE01-A1F0-40BC-BF22-233DAC519453),
+		helpstring("MTPIO Class")
+	]
+	coclass MTPIO
+	{
+		[default] interface IMTPIO;
+	};
+	[
+		uuid(91D7D7AE-3812-44DA-8FF8-72D450F14963),
+		helpstring("Интерфейс событий _IMLPCChannelManager")
+	]
+	dispinterface _IMLPCChannelManagerEvents
+	{
+		properties:
+		methods:
+		[id(1),helpstring("Обновился список каналов")]
+		HRESULT OnListUpdate();
+	};
+	[
+		uuid(1D07F1B6-216E-4221-9AB7-A55820271589),
+		helpstring("MLPCChannelManager Class")
+	]
+	coclass MLPCChannelManager
+	{
+		[default] interface IMLPCChannelManager;
+		[default, source] dispinterface _IMLPCChannelManagerEvents;
+	};
+	[
+		uuid(435A0ADA-5B98-4623-A6C1-36C125010E7D),
+		helpstring("Интерфейс событий _IMLPCChannel")
+	]
+	dispinterface _IMLPCChannelEvents
+	{
+		properties:
+		methods:
+		[id(1),helpstring("Обновился канал")]
+		HRESULT OnUpdate();
+	};
+	[
+		uuid(2D0BEB9F-5433-4F67-9B58-ABC231ED808D),
+		helpstring("MLPCChannel Class")
+	]
+	coclass MLPCChannel
+	{
+		[default] interface IMLPCChannel;
+		[default, source] dispinterface _IMLPCChannelEvents;
+	};
+	[
+		uuid(896A4034-0F7A-457B-94FA-1CCEEFE9C900),
+		helpstring("VScopeProxy Class")
+	]
+	coclass VScopeProxy
+	{
+		[default] interface IUnknown;
+		interface IDeviceProxy;
+	};
+};

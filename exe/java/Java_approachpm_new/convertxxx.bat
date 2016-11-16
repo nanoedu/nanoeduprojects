@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Java\jdk1.6.0_39\bin\jar" cfe ..\..\javabin\approachpmnew.jar mlab.Approachpmnew mlab\*.class java\lang\*.class

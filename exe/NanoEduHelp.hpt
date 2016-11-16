@@ -1,0 +1,71 @@
+RoboHelp Topic Export file
+23|IDH_Landing_Interface|Интерфейс режима захвата взаимодействия
+23|IDH_Probe_Position|Позиционирование острия
+23|IDH_Device_Panel|Описание приборной панели
+23|IDH_Start_Program|Начало работы с программой управления СЗМ-У
+23|IDH_SaveResults|Сохранение результатов
+23|IDH_Change_Scan_Params|Изменение параметров во время сканирования.
+23|IDH_Indicate_Visualize|Индикация и визуализация во время сканирования
+23|IDH_Set_ScanParameters|Установка параметров сканирования
+23|IDH_Additional_Scan_Regims|Дополнительные режимы сканирования
+23|IDH_Resonance|Поиск резонанса и установка рабочей частоты
+23|IDH_Put_Sample|Установка образца, выбор участка для исследования.
+23|IDH_Probe_Install|Установка зонда.
+23|IDH_Install_Progr_NanoEdu|Установка программы управления СЗМ-У.
+23|IDH_Install_Program|Структура ПО СЗМ NanoEducator
+23|IDH_Turn_On|Включение прибора
+23|IDH_Images|Способы представления изображений
+23|IDH_Cathalogue|Просмотр каталогов файлов
+23|IDH_Tunnel_Current_Regim|Режим измерения туннельного тока
+23|IDH_SaveResults_STM|Сохранение результатов СТМ
+23|IDH_Change_Scan_Params_STM|Изменение параметров во время сканирования СТМ
+23|IDH_Indicate_Visualize_STM|Индикация и визуализация во время сканирования СТМ
+23|IDH_Set_Scan_Params_STM|Установка параметров сканирования СТМ
+23|IDH_Scanning_STM|Сканирование СТМ
+23|IDH_Rising_STM|Обратный ход СТМ
+23|IDH_Landing_STM|Сближение СТМ
+23|IDH_Landing_interface_STM|Интерфейс режима захвата взаимодействия СТМ
+23|IDH_Prepare_Experiment_Stm|Подготовка к эксперименту СТМ
+23|IDH_Scanning_SFM|Сканирование ССМ
+23|IDH_Rising|Обратный ход
+23|IDH_Set_Interaction|Установка величины взаимодействия
+23|IDH_Landing_SFM|Сближение
+23|IDH_Introduction1|Введение
+23|IDH_Landing|Захват взаимодействия
+23|IDH_Feed_Back_Loop|Работа системы слежения
+23|IDH_General_View|Общий вид
+23|IDH_Fast_Landing|Механизм грубого сближения зонда с образцом
+23|IDH_MicroScaner|Микросканер
+23|IDH_STM_Sensor|Датчик туннельного тока
+23|IDH_Force_Sensor|Датчик силового взаимодействия.
+23|IDH_NanoEdu_Principle|Принцип работы СЗМ-У
+23|IDH_Prepare_Experiment|Подготовка к эксперименту
+23|IDH_Start_NanoEdu|Начало работы с программой управления СЗМ-У
+23|IDH_Probe_is_too_High|Зонд поднят слишком высоко
+23|IDH_Spectroscopy|Спектроскопия
+23|IDH_Section|Сечение изображения
+23|IDH_Select_Img_Fragment|Выделение фрагмента изображения
+23|IDH_Image_Processing|Вызов функций обработки изображений
+23|IDH_One_Line_STM|Сканирование по одной линии СТМ
+23|IDH_One_Line_Scan|Сканирование по одной линии
+23|IDH_Fast_Scan_STM|Быстрое сканирование СТМ
+23|IDH_Fast_Scan|Быстрое сканирование
+23|IDH_Oscilloscope|осциллограф
+23|IDH_Parameters|Описание параметров
+23|IDH_paramers_SSM|Описание параметров СТМ
+23|IDH_error_landing_option|Неверно заданы параметры сближения
+23|IDH_error_load_lib|Ошибка загрузки библиотеки контроллера
+23|IDH_write_script|запись скриптов контроллера
+23|IDH_Spectroscopy_STM|Туннельная спектроскопия
+23|IDH_LItho|Силовая литография
+23|IDH_Image_Analysis|Шероховатость поверхности
+23|IDH_Contrast|Контраст
+23|IDH_Angles|Транспортир
+23|IDH_Rule|Рулетка
+23|IDH_Cange_work_dir|Выбор рабочего каталога
+23|IDH_Micro|Настройка цифрового микроскопа
+23|IDH_Tip|Изготовление острия
+23|IDH_scaleX_Y|Изменение масштабов сканирования по осям ОХ, ОY.
+23|IDH_Z_Scale|Z  Масштаб
+23|IDH_imagefiltr|фильтрация изображений
+23|IDH_Instr_Panel|функции панели интрументов
