@@ -32,7 +32,7 @@ uses
     ElementSize:Integer;
     nElements,CurChElements:Integer;
     mod512corr:integer;
-    ErrorScan:boolean;
+    ErrorController:boolean;
   protected
     procedure Execute; override;
     procedure ClearSeries;
@@ -74,7 +74,7 @@ constructor TScanDrawLithoThread.Create;
    FreeOnTerminate:=true;
    Priority := TThreadPriority(tpNormal);
    Suspended := false;
-   ErrorScan:=false;
+   ErrorController:=false;
  end;
 
 destructor TScanDrawLithoThread.Destroy;
@@ -195,7 +195,7 @@ begin
 
       end;   //(All other Points )
   end; //i
-  if counterr>10 then ErrorScan:=true;
+  if counterr>10 then ErrorController:=true;
   Dout:=j;
 end;
 
@@ -341,7 +341,7 @@ if CreateChannels(AlgParams.NChannels) then
     CurChElements:=0;   // current of elements
     nread:=0;
 
-  while (not Terminated) and (CurrentP<PointsNmb) and (not flgEnd) and (not ErrorScan) do
+  while (not Terminated) and (CurrentP<PointsNmb) and (not flgEnd) and (not ErrorController) do
   begin
     nread:=1;
 //       sleep(300);
@@ -514,7 +514,7 @@ if CreateChannels(AlgParams.NChannels) then
    end; // nread > 0
   end; {while ScanCount}
    //flgend
-      PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,mScanning,integer(ErrorScan));
+      PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,mScanning,integer(ErrorController));
           if  CurrentP=0 then
           begin
               FlgScanError:=True;
@@ -560,7 +560,7 @@ finally
 end;
   {$IFDEF DEBUG}
          Formlog.memolog.Lines.add('End drawing');
-         if ErrorScan then   Formlog.memolog.Lines.add('Scan Error');
+         if ErrorController then   Formlog.memolog.Lines.add('The Controller Error');
    {$ENDIF}
 end;
 
