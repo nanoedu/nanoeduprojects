@@ -167,6 +167,8 @@ Const
   const   mFastDrawing=3;
   const   mApproaching=4;
   const   mGetControllerParams=10;
+  const   lError=1;
+  const   lOK=0;
 //RENIShow error
  const XRightOver=2;
  const XLeftOver=3;
