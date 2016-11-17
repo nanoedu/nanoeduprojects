@@ -1,5 +1,6 @@
 
 {$A+,B-,C+,D+,E-,F-,G+,H+,I+,J+,K-,L+,M-,N+,O-,P+,Q+,R-,S-,T-,U-,V+,W-,X+,Y+,Z1}
+//16//11/17
 //280206    forward lithography - backward topography
 unit ScanDrawThreadLitho;
 
@@ -80,7 +81,8 @@ constructor TScanDrawLithoThread.Create;
 destructor TScanDrawLithoThread.Destroy;
 begin
    ThreadFlg:=mDrawing;
-   PostMessage(ScanWND.Handle,wm_ThreadDoneMsg,ThreadFlg,0);
+  if (ErrorController) then  PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,ThreadFlg,lError)
+                       else  PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,ThreadFlg,lOK);
   inherited Destroy;
 end;
 
@@ -146,7 +148,8 @@ begin
   // FOR MODEL !!??//
      //  value:=CurrentPoint;
        TempAquiData[i]:=value;
-       if value=1 then inc(counterr);
+       if value=1 then
+                 inc(counterr);
 
        if  CurrentPoint>=ScanParams.ScanPoints then
          begin
@@ -514,7 +517,7 @@ if CreateChannels(AlgParams.NChannels) then
    end; // nread > 0
   end; {while ScanCount}
    //flgend
-      PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,mScanning,integer(ErrorController));
+          PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,mScanning,0);
           if  CurrentP=0 then
           begin
               FlgScanError:=True;

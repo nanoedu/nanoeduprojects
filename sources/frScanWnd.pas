@@ -1,5 +1,5 @@
 {B-,C+,D+,E-,F-,G+,H+,I+,J+,K-,L+,M-,N+,O-,P+,Q+,R-,S-,T-,U-,V+,W-,X+,Y+,Z1}
-//251007
+//16/11/17
 unit frScanWnd;
 interface
 uses
@@ -2993,6 +2993,7 @@ var flgold:boolean;
      hr:Hresult;
     Sender:TObject;
     i:integer;
+    controllererror:integer;
     ww:TForm;
     label 100;
 procedure CommentPrepare;
@@ -3048,8 +3049,9 @@ end;
 
 begin
    RStartBtn.visible:=true;//false;
- if  (mDrawing=AMessage.WParam) or (mFastDrawing=AMessage.WParam) then
+  if  (mDrawing=AMessage.WParam) or (mFastDrawing=AMessage.WParam) then
   begin
+    controllererror:=AMessage.LParam;
     if assigned(ScDrawLithoThread) then
      begin
       ScDrawLithoThreadActive := false;
@@ -3160,17 +3162,14 @@ begin
     end;
               end;//errScan
  end;
-     if  flgControlerTurnON and flgStopPressed then
+     if  (flgControlerTurnON and flgStopPressed) or (controllererror=lError)then
      begin
-      if (AMessage.LParam=0) then
-      begin
        NanoEdu.ScanMoveToX0Y0Method(ScanParams.Xbegin,ScanParams.Ybegin);
        NanoEdu.Method.Launch;
        while assigned(ProgressMoveTo) do
        begin
         application.processmessages;
        end;
-      end;
      end;
         flgNew_XYBegin:=False;
         flgMoveToBeginbyRS:=flgold;

@@ -1,4 +1,5 @@
 package mlab;
+//16/11/17 new scheme
 //error testing right java exit 16/11/15
 //litholin new 12/05/16
 // move to zero point 16.05.16
@@ -19,6 +20,7 @@ public class Litholinnew
       	static  int M_ZUSTEP;
         static  int M_DACX;
         static  int M_DACY;
+        static  int M_DACZ;
 
 	static final int PORT_COS_X = ( 3 );
 	static final int PORT_COS_Y = ( 4 );
@@ -55,7 +57,8 @@ public class Litholinnew
 	public static void main(String[] arg)
 	{
 	    //	int[] arr;
-		int i,err;
+		int i;
+                int err;
 		int src_i;
 		int dst_i;
                 int s;
@@ -95,7 +98,7 @@ public class Litholinnew
 		int  JMPX_SUM = 0;
                 int  JMPY_SUM = 0; 
 
-
+                err=1;
                 //new
               	Dxchg dxchg;
 
@@ -104,6 +107,7 @@ public class Litholinnew
                 M_ZUSTEP = Simple.bramID("m_Z_ustep");
                 M_DACX   = Simple.bramID("dxchg_X");
                 M_DACY   = Simple.bramID("dxchg_Y");
+                M_DACZ   = Simple.bramID("dxchg_Z");
 
 		datain=Simple.xchgGet("algoritmparams.bin");
 
@@ -416,13 +420,40 @@ public class Litholinnew
 			}
 
 			stream_ch_data_out.Invalidate();
-			if(err!=1) break;
+			if(err!=1){ break;}
 		}//y                                 next lines
 
 		buf_drawdone[0]=done;
 
 // Simple.DumpInt(done);
 
+                if (err!=1)
+                {
+                 // Записываем 0 в выходные порты COS для остановки
+		 // возможного перемещения по X,Y,Z (см.топологию).
+                 dxchg = new Dxchg();
+	       	 dxchg.SetO(PORT_COS_X, 0);
+		 dxchg.SetO(PORT_COS_Y, 0);
+		 dxchg.SetO(PORT_COS_Z, 0);
+		 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(500);
+
+		// После того, как сканирование остановлено (dxchg.ena==1)
+		// можно считывать текущее состояние координат.
+	       	 dacX = Simple.bramRead(M_DACX) ;
+             	 dacY = Simple.bramRead(M_DACY) ;
+        	 dacZ = Simple.bramRead(M_DACZ) ;
+
+		// Перемещаем координату Z в нулевое положение.
+                 dxchg.SetScanPorts( new int[] {-1,-1, -1,
+      		                               -1,-1, -1,
+         	                               PORT_Z,PORT_COS_Z, dacZ} 
+                                    );
+
+ 		 dxchg.Goto(0,0,0x00000000);
+		 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(5000);
+                }
 		wr=0;
 		for (;  wr == 0; )
 		{
