@@ -965,10 +965,8 @@ begin
       ApproachPMSEMScrpt:=LowerCase(ReadString('Scripts','ApproachSEMPM', 'approachnew.jar'));
 //      ApproachPMSEMOneScrpt:=LowerCase(ReadString('Scripts','ApproachPMSEMOne', 'land1pmsemv1.bin'));
       PMSEMTestScrpt:=LowerCase(ReadString('Scripts','TestPMSEM', 'steptestpmsemv6.bin'));
-      Scheme:=LowerCase(ReadString('Scripts','Scheme', 'nl_ascan3d_v9d.bin'));
-      SchemeEng:=LowerCase(ReadString('Scripts','SchemeEng', 'nl_ascan3d_v9deng.bin'));
-      if (sLanguage='ENG')then Scheme:=SchemePath+SchemeEng
-      else Scheme:=SchemePath+Scheme;//  Scheme:=SchemePath+ 'nl_scheme_2.bin';
+      Scheme:=LowerCase(ReadString('Scripts','Scheme', 'nl_ascan3d_v7.bin'));
+      Scheme:=SchemePath+Scheme;//  Scheme:=SchemePath+ 'nl_scheme_2.bin';
       ReniShawTestScrpt:='renishaw.bin';
 
    (*   if FlgRenishawUnitExists then
@@ -1972,8 +1970,6 @@ begin
    tutvideorus:=ReadString('docs','videorus','');
    tutanimarus:=ReadString('docs','animarus','');
    tutvideoeng:=ReadString('docs','videoeng','');
-   flgShowSmeshariki:=boolean(ReadInteger('docs','showanima',1));
-   flgShow3DVideo:=boolean(ReadInteger('docs','show3dvideo',1))
   end;
  finally
   iniCSPM.Free;
