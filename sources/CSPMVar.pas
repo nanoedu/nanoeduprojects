@@ -1,6 +1,6 @@
 //290605
 unit CSPMVar;
-
+ //16/11/16
 interface
 uses  messages,classes,GlobalType,SyncObjs, mtplib_tlb,PortableDeviceApiLib_TLB,
       NL3LFBLib_TLB,MLPC_APILib_TLB,MLPC_APILib_Demo,MLPC_API2Lib_TLB,MLPC_API2DEMOLIB,UDeviceEvents;

@@ -87,7 +87,7 @@ uses
       destructor Destroy; override;
 end;
 
-var // FlgStopMulti:Boolean; //Multi pass
+var  FlgStopMulti:Boolean; //Multi pass
      ScDrawThread:TScanDrawThread;
      ScDrawThreadActive : boolean;
      tmaxph,tminph,tmax,tmin:single;
@@ -106,14 +106,14 @@ var
    DrawX2, DrawY2:integer;
    CFlag,PFlag:integer; // Flags of Visible for Current and Previous points;
 
-constructor TScanDrawThread.Create;
+   constructor TScanDrawThread.Create;
 begin
   inherited Create(True);
    CoInitializeEx(nil,COINIT_MULTITHREADED);
    FreeOnTerminate:=true;
    Priority := TThreadPriority(tpNormal);
    Suspended := false;// Resume;
-end;
+ end;
 
 destructor TScanDrawThread.Destroy;
 begin
@@ -179,16 +179,15 @@ var i,CurrentPoint,CurScan:integer;
     j:longint;
     value:apitype;
     LineSlowAxisPos:integer;
-begin
+begin                                                            
  LineSlowAxisPos:=0;
- j:=XPos;//was =0 for nanoeduII
+ j:=0; //nanoeduII
 // if flgCurrentUserLevel=Demo then  j:=n;
- if (ScanParams.ScanPath<>Multi) and (ScanParams.ScanPath<>MultiY) then CurScan:=ScanParams.CurrentScanCount
-           else CurScan:=0;
+ if (ScanParams.ScanPath<>Multi) and (ScanParams.ScanPath<>MultiY) then CurScan:=ScanParams.CurrentScanCount                                                                  else CurScan:=0;
  for i:=0 to lsz-1 do
- begin
+  begin
   // CurrentPoint:=(CurrentP div  ScanParams.sz)+i-CurScan*(ScanParams.ScanPoints+byte(flgRenishawUnit));
-   CurrentPoint:=i;//XPos+i;
+   CurrentPoint:=XPos+i;
    value := datatype(PIntegerArray(DataBuf)[j] shr 16);
  //  value :=round((MinAPITYPE+1)*(value-MaxAPITYPE)/(MaxAPITYPE-MinAPITYPE));
  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! для выяснения
@@ -198,16 +197,14 @@ begin
       if ((ScanParams.ScanPath=Multi) or (ScanParams.ScanPath=MultiY)) then ScanError[CurrentPoint]:=value;
     end;
      TempAquiData[i]:=value;
-  if  CurrentPoint<ScanParams.ScanPoints then
-  begin  // (**)
-     // Formlog.memolog.Lines.add('current scancount'+inttostr(ScanParams.CurrentScanCount));
-
+   if  CurrentPoint<ScanParams.ScanPoints then
+   begin  // (**)
        case ScanParams.ScanPath of
           Multi,OneX: Data.AquiTopo.Data[CurrentPoint,ScanParams.CurrentScanCount]:=value;
          MultiY,OneY: Data.AquiTopo.Data[ScanParams.CurrentScanCount,CurrentPoint]:=value;
          end;
 
-     if  ScanParams.ScanMethod  in ScanmethodSetAdd then
+    if  ScanParams.ScanMethod  in ScanmethodSetAdd then
      //Additional View
       begin
          inc(j);
@@ -234,7 +231,7 @@ begin
               Multi,OneX: Data.AquiAdd.Data[CurrentPoint,ScanParams.CurrentScanCount]:=value;
              MultiY,OneY: Data.AquiAdd.Data[ScanParams.CurrentScanCount,CurrentPoint]:=value;
                    end;
-      end;//add
+      end;
     if flgRenishawUnit then
      begin
          inc(j);
@@ -245,9 +242,9 @@ begin
            MultiY,OneY:Data.AquiRenishaw.Data[ScanParams.CurrentScanCount,CurrentPoint]:=value;
           end; {case}
            // Change Z to Model Value
-         {$IFDEF DEBUG}
-           if flgReniShawUnit {and ( ReniShowParams.StepScale>1)} then
-             begin
+     {$IFDEF DEBUG}
+      if flgReniShawUnit {and ( ReniShowParams.StepScale>1)} then
+              begin
                 if CurrentPoint=0 then TempAquiData[i]:=ZminGridModel
                 else
                          case RenishawParams.flgscriptname of
@@ -261,11 +258,11 @@ begin
                  Multi,OneX: Data.AquiTopo.Data[CurrentPoint,ScanParams.CurrentScanCount]:=TempAquiData[i];
                 MultiY,OneY: Data.AquiTopo.Data[ScanParams.CurrentScanCount,CurrentPoint]:=TempAquiData[i];
                 end;
-             end;
+              end;
             // model data   *)
        {$ENDIF}
          // dec(j);
-     end;
+       end;
       //inc(j, ScanParams.sz);
       inc(j);
   end   // (**)
@@ -286,8 +283,7 @@ begin
          end;
   end;
  end; //i
- // n:=j;//n+j;     //nanoeduII
-  XPos:=j+Scanparams.sz;
+  n:=j;//n+j;     //nanoeduII
 end;
 
 procedure  TScanDrawThread.deInit;
@@ -443,8 +439,6 @@ var
     hr:HResult;
     flgEnd:boolean;
     NChElements,CurChElements,nRead:integer;
-    nInLine:integer;    //numbers points in line + correction
-    nrepeat:integer;
     n,ID,nwrite,errorcountstop,count:integer;
     data:integer;
  //   pstopval:Pinteger;
@@ -565,13 +559,13 @@ if CreateChannels(AlgParams.NChannels) then
       {$ENDIF}
     CurChElements:=0;   // current of elements
   //  dataoutcount:=0;
-     nread:=0; XPos:=0;
+     nread:=0;
     GetCountDelays_cnt:=0;
-    GetTimeNow(StartHour, startMin, StartSec, startMsec);
+     GetTimeNow(StartHour, startMin, StartSec, startMsec);
  while (not Terminated) and (CurrentP<PointsNmb) and (not flgEnd) do
- begin
-       nread:=1;
-        if FlgStopJava then
+  begin
+      nread:=1;
+      if FlgStopJava then
          begin
       //     sleep(500);
            PintegerArray(StopBuf)[0]:=StopJava;
@@ -604,8 +598,8 @@ if CreateChannels(AlgParams.NChannels) then
       //      if flgCurrentUserLevel<>Demo then StopBuf^:=done;
             sleep(100);
           until  (PIntegerArray(DoneBuf)[0]=done) or (count=20);
-          if PIntegerArray(DoneBuf)[0]=done then   flgEnd:=true; //stop button press       stop scanning
-         end;//stopjava
+         if PIntegerArray(DoneBuf)[0]=done then   flgEnd:=true; //stop button press       stop scanning
+         end;
         // sleep(300);
         sleep(GETCOUNT_DELAY);
         inc(GetCountDelays_cnt);
@@ -614,17 +608,41 @@ if CreateChannels(AlgParams.NChannels) then
         if Failed(hr) then Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_31' (* 'error get count data ' *) )+inttostr(ntoread)+ScanWnd.siLangLinked1.GetTextOrDefault('IDS_5' (* 'hr=' *) )+inttostr(hr))
                       else Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_33' (* 'scandraw data to read ' *) )+inttostr(ntoread));
        {$ENDIF}
-    if GetCountDelays_cnt*GETCOUNT_DELAY > 1000 then  // мигать зеленой линией 1 раз/секунду
+       if GetCountDelays_cnt*GETCOUNT_DELAY > 1000 then  // мигать зеленой линией 1 раз/секунду
           begin
              synchronize(DrawVirtualline);
              GetCountDelays_cnt:=0;
           end;
-     if ntoread >= ScanParams.ScanPoints +mod512corr then   nhasread:=0; // +1 - лишняя точка, чтобы исключить передачу данных длиной,
-     nInLine:= (ScanParams.ScanPoints+mod512corr);
-      hr:=(arPCChannel[ch_Data_out].ChannelRead).Read(DataBuf,ntoread);
-     {$IFDEF DEBUG}
+    if ntoread >= ScanParams.ScanPoints +mod512corr then         // +1 - лишняя точка, чтобы исключить передачу данных длиной,
+                                             //  кратной 512 байт
+     nhasread:=0;
+     begin
+
+     while  (nhasread<ntoread) do
+     begin
+      if (XPos=0){ and ((i<>0))}then
+       begin
+       // synchronize(ClearSeries);
+        flgCurPlDelDraw:=ScanParams.flgTopoCurLinePlDel;
+        flgTopViewPlDelDraw:=ScanParams.flgTopoTopViewPlDel;
+        flgTopViewSDelDraw :=ScanParams.flgTopoTopViewSDel;
+       end;
+
+       nread:=ScanParams.ScanPoints+mod512corr;
+      hr:=(arPCChannel[ch_Data_out].ChannelRead).Read(DataBuf,nread);    /// read data //nread is not number of elements ????
+    (*  hasRead_nmb:=0;
+      left_toRead:=nread;                                                 // закомментировано для рисования бликования
+      while ( hasRead_nmb < nread) do
+         begin
+             nread:= left_toRead;
+             hr:=(arPCChannel[ch_Data_out].Main as IMLPCChannelRead2).ReadWait(DataBuf,nread,100);
+             hasRead_nmb := nread;
+             left_toRead:=left_toRead-  hasRead_nmb;
+             synchronize(DrawVirtualline);
+         end;   *)
+      {$IFDEF DEBUG}
        if Failed(hr) then Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_36' (* 'error read channel data ' *) )+inttostr(nread)+ScanWnd.siLangLinked1.GetTextOrDefault('IDS_5' (* 'hr=' *) )+inttostr(hr))
-                     else Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_39' (* 'scandraw data has read ' *) )+inttostr(ntoread));
+                     else Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_39' (* 'scandraw data has read ' *) )+inttostr(nread));
       {$ENDIF}
         if Failed(hr) then
                     begin
@@ -638,28 +656,16 @@ if CreateChannels(AlgParams.NChannels) then
                             Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_42' (* 'STOP : NMB of CHANNEL ERRORS =   ' *) )+inttostr(errcnt));
                       {$ENDIF}
                  end;
-      nrepeat:=(ntoread div nInLine);
-      XPos:=0;;
-  if (nrepeat>0) then
-begin
-   Formlog.memolog.Lines.add('nlines'+inttostr(nrepeat));
-   for i:=0 to nrepeat-1
-   do
-   begin
-       if (XPos=0){ and ((i<>0))}then
-       begin
-       // synchronize(ClearSeries);
-            flgCurPlDelDraw:=ScanParams.flgTopoCurLinePlDel;
-        flgTopViewPlDelDraw:=ScanParams.flgTopoTopViewPlDel;
-        flgTopViewSDelDraw :=ScanParams.flgTopoTopViewSDel;
-       end;
-        nread:=ScanParams.ScanPoints;
+     if nread<> 0  then
+     begin
+        nhasread:=nhasread+nread;
+        nread:=nread-mod512corr;
         ScanFlg:=True;
     if ScanFlg then    //flag the end line     //
-    begin
+     begin
         try
-             lsz:=nread;
-             NPC:=nread*Scanparams.sz;
+             lsz:=NRead;
+             NPC:=Nread*Scanparams.sz;
              SetLength(TempAquiData,lsz);
              SetLength(CurrentLine,lsz);
          if  ScanParams.flgAquiAdd then
@@ -695,7 +701,7 @@ begin
                                                                 end;
                                                           end;
 
-                                                 end;    //demo
+                                                 end;
 
                                    end
                              else  begin        // not flgFirstPass
@@ -728,7 +734,9 @@ begin
 
                            else SetPrevLine(ScanDataSecondPass);
        //
+
             Synchronize(DrawTopView);
+
         if not  FlgStopMulti then    Synchronize(DrawCurrentLine);
          if  not ScannerCorrect.flgHideLine then
                  begin
@@ -741,9 +749,9 @@ begin
               CurrentLine:=nil;
               if  ScanParams.flgAquiAdd then CurrentLineAdd:=nil;
         end;
-       CurrentP:=CurrentP+NPC;
-//     XPos:=XPos+nInLine;// +lsz; !!!!!!!  150616 //NPC
-//     if ScanFlg then    //flag the end line
+          CurrentP:=CurrentP+NPC;
+          XPos:=XPos+lsz;  //NPC
+//    if ScanFlg then    //flag the end line
 //     begin
         tminph:=0;
         tmaxph:=0;
@@ -761,34 +769,36 @@ begin
      Synchronize(SpeedBtnView);
      if not FlgStopMulti then   //011209
      begin
-      if flgTopViewSDelDraw and (ScanParams.ScanMethod<>OneLineScan) then
-       if ((ScanParams.CurrentScanCount>4) and (icountS>PointDrawS))  then
+     if flgTopViewSDelDraw and (ScanParams.ScanMethod<>OneLineScan) then
+      if ((ScanParams.CurrentScanCount>4) and (icountS>PointDrawS))  then
         begin
          icountS:=0;
          Synchronize(TopViewSurfDelete);
         end;
-      if flgTopViewPlDelDraw and (ScanParams.ScanMethod<>OneLineScan) then
-       if ((ScanParams.CurrentScanCount>4) and (icountPl>PointDrawPl))then
+     if flgTopViewPlDelDraw and (ScanParams.ScanMethod<>OneLineScan) then
+      if ((ScanParams.CurrentScanCount>4) and (icountPl>PointDrawPl))then
         begin
           Synchronize(TopViewPlaneDelete);
           icountPL:=0;
         end;
-      if Scanparams.Scanmethod in ScanmethodSetAdd then
-       if flgChangeMaxMinAdd then
-       begin
-        Synchronize(TopAddViewCorrect);
-        flgChangeMaxMinAdd:=false;
-       end;
+     if Scanparams.Scanmethod in ScanmethodSetAdd then
+      if flgChangeMaxMinAdd then
+      begin
+       Synchronize(TopAddViewCorrect);
+       flgChangeMaxMinAdd:=false;
+      end;
      end;
-      // XPos:=0;
-     //  PointInd:=0;
+       XPos:=0;
+       PointInd:=0;
        ScanFlg:=False;
        Synchronize(CountUpd);
-    end; //scanflg
-   end;// i
-   end;//repeat
- end; {while terminate ScanCount}
-end;  //ID not data channel
+     end; //scanflg
+    end; //nread<>0
+   end;// NewPpoint>0
+   end; // nread > 0
+ end; {while ScanCount}
+
+   end;  //ID not data channel
    //  if flgEnd then
       begin
          FlgScanError:=False;
@@ -1000,7 +1010,7 @@ with ScanWnd do
    k:=0;
    if flgFirstPass then
    begin
-                    it:=0;//=Xpos; changed 170616   //Dout;
+                    it:=Xpos;//Dout;
          if  ScanParams.ScanMethod in ScanmethodSetnoAdd then
                  begin
                     ChartTopo:=ScanWnd.ImgRChart;
@@ -1247,7 +1257,7 @@ end;
                                                        tmaxph:=ltmaxph;
                                                        flgchangeph:=true;
                                                       end;
-
+ 
  if not assigned(CurrentLineWnd) then
  begin
   if flgchangeph and ScanWnd.SeriesAddLine.Active  then ScanWnd.ChartCurrentLine.LeftAxis.SetMinMax(tminph,tmaxph*1.01);
@@ -2022,7 +2032,7 @@ begin
      Multi,OneX:   begin
                     if ImgH <= m then  linewidth:=( m div ImgH) +3;
                     if ddn = 0  then  inc( linewidth);
-
+                    
                     if Scanparams.ScanMethod <> Litho then
                          ScanWnd.ImgRChart.BackImage.Bitmap.Canvas.FillRect(Rect(0,m-ddn,n,m-ddn-linewidth)) ;
                      // ScanWnd.ImgRChart.BackImage.Bitmap.Canvas.FillRect(Rect(0,m-5,n,m-5-linewidth)) ;
