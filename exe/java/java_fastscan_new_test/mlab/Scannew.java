@@ -1,6 +1,6 @@
 package mlab;  // fastscan
 // 18/10/16 changed buffer
-               // 22/03/13  // additional element in buffer (  <> mod 512)
+// 22/03/13  // additional element in buffer (  <> mod 512)
 
 public class Scannew
 {

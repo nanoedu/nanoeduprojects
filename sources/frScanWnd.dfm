@@ -292,7 +292,7 @@ object ScanWnd: TScanWnd
           Top = 0
           Width = 238
           Height = 259
-          ActivePage = TabSheetCurLine
+          ActivePage = TabSheetScanArea
           Align = alRight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clMenu
@@ -307,10 +307,6 @@ object ScanWnd: TScanWnd
           OnChange = PageCtrlScanChange
           object TabSheetScanArea: TTabSheet
             Caption = 'Area'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object PanelScanM: TPanel
               Left = 0
               Top = 0
@@ -583,10 +579,6 @@ object ScanWnd: TScanWnd
                 ImageIndex = 1
                 TabVisible = False
                 OnShow = TabSheetCurLineAddShow
-                ExplicitLeft = 0
-                ExplicitTop = 0
-                ExplicitWidth = 0
-                ExplicitHeight = 0
                 object BitBtn1: TBitBtn
                   Left = 196
                   Top = -1
@@ -1587,10 +1579,6 @@ object ScanWnd: TScanWnd
         OnChange = PageCtlLeftChange
         object TabSheetSideL: TTabSheet
           Caption = 'Topography/ Side View'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ImageSideL: TImage
             Left = 16
             Top = 0
@@ -1603,10 +1591,6 @@ object ScanWnd: TScanWnd
         object TabSheetTopoL: TTabSheet
           Caption = 'Topography/ Top View'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PanelLChart: TPanel
             Left = 0
             Top = 0
@@ -2187,10 +2171,6 @@ object ScanWnd: TScanWnd
           Caption = 'Topography/Top View II Pass'
           ImageIndex = 3
           TabVisible = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PanelChartError: TPanel
             Left = 0
             Top = 0
@@ -2393,18 +2373,10 @@ object ScanWnd: TScanWnd
           Font.Style = [fsBold]
           ImageIndex = 1
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
         object TabSheetPhaseR: TTabSheet
           Caption = 'Phase shift'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
         object TabSheetUAMR: TTabSheet
           Caption = 'Force image'
@@ -2415,19 +2387,11 @@ object ScanWnd: TScanWnd
           Font.Style = [fsBold]
           ImageIndex = 2
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
         object TabSheetSpectrR: TTabSheet
           BorderWidth = 2
           Caption = 'Spectroscopy'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PanelSpectr: TPanel
             Left = 8
             Top = 40
@@ -2440,10 +2404,6 @@ object ScanWnd: TScanWnd
           BorderWidth = 2
           Caption = 'Current image'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
         object TabSheetFastTopo: TTabSheet
           Hint = 'Current Image'
@@ -2460,36 +2420,20 @@ object ScanWnd: TScanWnd
           Hint = 'Litography'
           Caption = 'Lithography'
           ImageIndex = 6
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
         object TabSheetScanTran: TTabSheet
           Hint = 'Multi times scanning along X-axes'
           Caption = 'One line scanning'
           ImageIndex = 7
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
         object TabSheetSens: TTabSheet
           Caption = 'Sensivity correction'
           ImageIndex = 8
           TabVisible = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
         object TabSheetProfiler: TTabSheet
           Caption = 'Profiler'
           ImageIndex = 9
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
       end
       object PanelRight: TPanel
@@ -3589,7 +3533,7 @@ object ScanWnd: TScanWnd
     Left = 248
     Top = 96
     Bitmap = {
-      494C010108000900100220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010108000900140220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

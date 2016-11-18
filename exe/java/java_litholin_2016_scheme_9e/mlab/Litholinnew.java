@@ -59,6 +59,8 @@ public class Litholinnew
 	    //	int[] arr;
 		int i;
                 int err;
+                int timewait;
+                int timewait_bw;
 		int src_i;
 		int dst_i;
                 int s;
@@ -96,12 +98,15 @@ public class Litholinnew
 		int[] JMPY;
 		int[] LINSTEPS;
 		int  JMPX_SUM = 0;
-                int  JMPY_SUM = 0; 
+                int  JMPY_SUM = 0;
 
                 err=1;
+                timewait=20000;
+                timewait_bw=-1;
                 //new
               	Dxchg dxchg;
-
+            //    Stopwatch timer;
+            //    timer = new Stopwatch();
                 M_BASE_K = Simple.bramID("m_BaseK");
                 M_USTEP  = Simple.bramID("m_ustep");
                 M_ZUSTEP = Simple.bramID("m_Z_ustep");
@@ -302,7 +307,10 @@ public class Litholinnew
 		     }
                       	Simple.bramWrite( M_USTEP, uVector );
                 	dxchg.ExecuteScan();
-         		err=dxchg.WaitScanComplete(20000); //-1
+                      //  timer.start();
+         		err=dxchg.WaitScanComplete(timewait); //-1
+                       // timer.stop();
+                       // timewait =timer.getElapsedTime()*100;
 	        	res = dxchg.GetResults();
                		src_i = 0;
 			dst_i = 0;

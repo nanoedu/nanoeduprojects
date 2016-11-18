@@ -4004,7 +4004,7 @@ end;
  *)
 function  TFastTopo.InitBuffers:integer;
 begin
-  Data_out_BufferLength:=5*(ScanParams.ScanPoints*ScanParams.ScanLines*ScanParams.sz+1);   //edited 210616
+  Data_out_BufferLength:=ScanParams.ScanPoints*ScanParams.ScanLines*ScanParams.sz+1;   //edited 210616
   GetMem(StopBuf,sizeof(Integer));   //3 need for demo
   GetMem(DoneBuf,sizeof(Integer));   //3 need for demo
   GetMem(DataBuf,Data_out_BufferLength*sizeof(data_out_type));

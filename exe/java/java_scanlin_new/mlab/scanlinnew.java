@@ -1,4 +1,7 @@
-package mlab;     //21.02.13  //oneline+; discrtinmicrostep
+package mlab;
+//16/11/18
+// add new bramid dac_z
+    //21.02.13  //oneline+; discrtinmicrostep
 // Get Linear Steps by Channel 
 		// 22/03/13  // additional element in buffer (  <> mod 512)	
 		
@@ -21,6 +24,7 @@ public class  scanlinnew
 	static  int M_USTEP;// = 21;
         static  int M_DACX;
         static  int M_DACY;
+        static  int M_DACZ;
 	static final int PORT_COS_X = ( 3 );
 	static final int PORT_COS_Y = ( 4 );
 	static final int PORT_COS_Z = ( 5 );
@@ -52,6 +56,7 @@ public class  scanlinnew
 		int[] arr;
               	int[] arradd;
 		int i;
+                int err;
 		int src_i;
 		int dst_i;
 		int[] datain;
@@ -86,14 +91,15 @@ public class  scanlinnew
 		int[] JMPY;
 		int[] LINSTEPS;
 		int  JMPX_SUM = 0;
-                int  JMPY_SUM = 0; 
+                int  JMPY_SUM = 0;
                //new
               	Dxchg dxchg;
-
+                err=1;
        M_BASE_K =Simple.bramID("m_BaseK");;
        M_USTEP = Simple.bramID("m_ustep");;
        M_DACX   = Simple.bramID("dxchg_X");
        M_DACY   = Simple.bramID("dxchg_Y");
+       M_DACZ   = Simple.bramID("dxchg_Z");
 
 		datain=Simple.xchgGet("algoritmparams.bin");
 
@@ -234,11 +240,6 @@ for(i=0; i<SZ*(fastlines+1); i++)
 
                        USTEP_DLYBW = buf_params[1];
 
-                    //   	Simple.DumpInt(USTEP_DLY);
-                    //   	Simple.DumpInt(USTEP_DLYBW);
-                    //   	Simple.DumpInt(0xAAAAAAAA);
-
-
                   uVector = (2 * DiscrNumInMicroStep / USTEP_DLY);
 
                 uVectorBW = (2 * DiscrNumInMicroStep / USTEP_DLYBW);
@@ -255,7 +256,7 @@ for(i=0; i<SZ*(fastlines+1); i++)
 				break;
 			}
 
-                                       	dxchg = new Dxchg();
+                       	dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
       		                               PORT_Y,PORT_COS_Y, dacY,
          	                               -1,-1, -1} );
@@ -278,17 +279,19 @@ for(i=0; i<SZ*(fastlines+1); i++)
                                            }  // Y Mode
 			}
                       	// run   foreward line
-
                        	Simple.bramWrite( M_USTEP, uVector );
         		dxchg.ExecuteScan();
-         		dxchg.WaitScanComplete(-1);
+         	   //	err=dxchg.WaitScanComplete(-1); //-1
+                        dxchg.WaitScanComplete(-1);
 	        	arr = dxchg.GetResults();
        			src_i = 0;
 			dst_i = 0;
                        	// Оставляем в массиве только нужные данные.
 			for(i=0; i<fastlines; i++)
 			{
-			    dataout[dst_i]  = arr[src_i];
+			  //  dataout[dst_i]  = arr[src_i];
+                            if (err==1)	dataout[dst_i] = arr[src_i];
+                             else     dataout[dst_i] = 1<<16;
                             if (SZ==2)
                               {
                                 if (ScanMethod == Phase) {dataout[dst_i+1] =arr[src_i+1];}
@@ -309,8 +312,8 @@ for(i=0; i<SZ*(fastlines+1); i++)
                           wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
 			}
 			stream_ch_data_out.Invalidate();
-
-                                      	dxchg = new Dxchg();
+                        if (err!=1) break;
+                       	dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
       		                               PORT_Y,PORT_COS_Y, dacY,
          	                               -1,-1, -1} );
@@ -345,7 +348,32 @@ for(i=0; i<SZ*(fastlines+1); i++)
          		dxchg.WaitScanComplete(-1);
 
 		}//y
+                if (err!=1)
+                {
+                 // Записываем 0 в выходные порты COS для остановки
+		 // возможного перемещения по X,Y,Z (см.топологию).
+                 dxchg = new Dxchg();
+	       	 dxchg.SetO(PORT_COS_X, 0);
+		 dxchg.SetO(PORT_COS_Y, 0);
+		 dxchg.SetO(PORT_COS_Z, 0);
+		 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(500);
 
+		// После того, как сканирование остановлено (dxchg.ena==1)
+		// можно считывать текущее состояние координат.
+	       	 dacX = Simple.bramRead(M_DACX) ;
+             	 dacY = Simple.bramRead(M_DACY) ;
+        	 dacZ = Simple.bramRead(M_DACZ) ;
+
+		// Перемещаем координату Z в нулевое положение.
+                 dxchg.SetScanPorts( new int[] {-1,-1, -1,
+      		                               -1,-1, -1,
+         	                               PORT_Z,PORT_COS_Z, dacZ}
+                                    );
+ 		 dxchg.Goto(0,0,0x00000000);
+		 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(5000);
+                }
 
 		buf_drawdone[0]=done;
 

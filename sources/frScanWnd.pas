@@ -2675,7 +2675,7 @@ begin
   flgProgressError:=false;
 
   Application.ProcessMessages;
-  PageCtrlScan.ActivePage:=TabSheetCurLine;
+  PageCtrlScan.ActivePage:=TabSheetScanArea;
   with PageCtrlScan do
   begin
    for i:=0 to PageCount-1 do Pages[i].HighLighted:=False;
@@ -2694,6 +2694,7 @@ begin
 
 //    StartBtn.Enabled := True;
     DisableTopPanel(false);
+ //   TabSheetCurLine.Tabvisible:=false;
   (* if  HardWareOpt.XYTune='Rough' then
          begin
               edScanRate.Enabled:=true;
@@ -3109,7 +3110,7 @@ begin
                Main.CreateMDIChild(Sender,WorkNameFile,FlgViewDef,true,FlgRenishawCorrection);
          flgScanDone:=True;
         end;
-   end;//drawthread
+     end;//drawthread
     if assigned(ScFastDrawThread) then
      begin
       ScFastDrawThreadActive := false;
@@ -3132,7 +3133,7 @@ begin
        if not flgStopTimer then Main.CreateMDIChild(Sender,WorkNameFile,FlgViewDef,true,FlgRenishawCorrection);
         flgScanDone:=True;
       end;
-   end;//fastdraw
+     end;//fastdraw
 100:    Caption:=CaptionBase+Captionadd+CaptionRenishaw;
       // disableTopPanel(true);
        while assigned(nanoedu.method) do application.ProcessMessages;  { TODO : 051207 }    //wait for  end scanning
