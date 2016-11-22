@@ -4517,7 +4517,8 @@ var code:integer;
          if assigned(ApproachOpt)then ApproachOpt.ScanCorrSheetInit;
          code:=TestErrorScannerIniFile;
          SetLinSplineZero;
-         if (Code=0) then LoadLinSpline(HardWareOpt.ScannerNumb);
+         if (Code=0) then //LoadLinSpline(HardWareOpt.ScannerNumb);
+                          LoadLinSplineFromAdapter;    // изменено 22/11/2016
          if (ScanParams.ScanMethod<>litho) and (ScanParams.ScanMethod<>lithoCurrent)  then
          begin
           edNx.Enabled:=false;

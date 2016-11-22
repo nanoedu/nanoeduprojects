@@ -562,16 +562,16 @@ if CreateChannels(AlgParams.NChannels) then
  begin
 
   if   ScannerCorrect.FlgXYLinear and (HardWareOpt.XYtune='Rough')and (not FlgReniShawUnit) then
-      begin     // Создание канала для передачи данных шагов линеаризации
-  hr:=arPCChannel[ch_LINEAR_STEPS].Main.get_Geometry(NChElements,ElementSize);
+   begin     // Создание канала для передачи данных шагов линеаризации
+        hr:=arPCChannel[ch_LINEAR_STEPS].Main.get_Geometry(NChElements,ElementSize);
        {$IFDEF DEBUG}
         if Failed(hr)
          then Formlog.memolog.Lines.add('ERR read Linear Steps'+inttostr(nread)+'hr='+inttostr(hr))
          else Formlog.memolog.Lines.add('Linear Steps: Elements='+inttostr(NChElements)+'size='+inttostr(ElementSize));
       {$ENDIF}
-    nwrite:=NChElements;
+      nwrite:=NChElements;
 
-    hr:=arPCChannel[ ch_LINEAR_STEPS].ChannelWrite.Write(LINEARSTEPSAct,nwrite);     //WRITE
+      hr:=arPCChannel[ ch_LINEAR_STEPS].ChannelWrite.Write(LINEARSTEPSAct,nwrite);     //WRITE
          {$IFDEF DEBUG}
              if Failed(hr) then
                   Formlog.memolog.Lines.add('error write Linear Steps'+inttostr(nwrite)+'hr='+inttostr(hr))

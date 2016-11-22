@@ -361,6 +361,7 @@ implementation
 {$R *.dfm}
 
 uses CSPMVar,GlobalVar,GlobalFunction, FourierFiltrat, nanoeduHelp, Interpolation2D, SurfaceTools,SystemConfig,FrReport,
+   uScannerCorrect,frExperimParams,frScanWnd, //add 22/1/16
   mMain;{,LCUnit}//,UReportClasses;
 // procedure TImgAnalysWnd.WMMOve(var Mes:TWMMove);
 {begin
@@ -2125,8 +2126,10 @@ end;
                     else     StoreSensitivToAdapter(PAdapterOptModY);
 
   flgSaveProcess:=false;
-  if ApproachOptFormHandle<>0 then PostMessage(ApproachOptFormHandle,MsgApproachOptBack,0,0);
-  if ScanFormHandle<>0        then PostMessage(ScanFormHandle, MsgScanBack,0,0);
+ // if ApproachOptFormHandle<>0 then PostMessage(ApproachOptFormHandle,MsgApproachOptBack,0,0);
+ // if ScanFormHandle<>0        then PostMessage(ScanFormHandle, MsgScanBack,0,0);
+ if assigned(ApproachOpt) then PostMessage(ApproachOpt.Handle,MsgApproachOptBack,0,0);
+ if assigned(ScanWnd)     then PostMessage(ScanWnd.Handle, MsgScanBack,0,0);
 end;
 
 procedure TImgAnalysWnd.BitBtnSaveClick(Sender: TObject);
@@ -2140,6 +2143,8 @@ var NLinFieldX, NLinFieldY:integer;
 
 begin
  flgSaveProcess:=true;
+ RealSens :=0;        // Вставлено 22.11.2016, чтобы исправить ситуацию обнуления чувствительностей
+                      // теперь если  RealSens =0, перезапись чувствит. в структурах не производится
  NLinFieldX:=StrToInt(EdNonLinFieldX.Text);
  NLinFieldY:=StrToInt(EdNonLinFieldY.Text);
  SetFileAttribute_ReadOnly(ScannerFileDLL,false);
@@ -2199,9 +2204,12 @@ end;
 
 
  WriteToAdapterLinStructure('Y', ScanModeDLL,NLinY,NLinFieldY, presentdate);
+ LoadLinSplineFromAdapter;    // изменено 22/11/2016
  flgSaveProcess:=false;
-   if ScanFormHandle<>0        then PostMessage(ScanFormHandle, MsgScanBack,1,0);
-   if ApproachOptFormHandle<>0 then PostMessage(ApproachOptFormHandle, MsgApproachOptBack,1,0);
+ if assigned(ApproachOpt) then PostMessage(ApproachOpt.Handle,MsgApproachOptBack,0,0);
+ if assigned(ScanWnd)     then PostMessage(ScanWnd.Handle, MsgScanBack,0,0);
+// if ScanFormHandle<>0        then PostMessage(ScanFormHandle, MsgScanBack,1,0);
+//   if ApproachOptFormHandle<>0 then PostMessage(ApproachOptFormHandle, MsgApproachOptBack,1,0);
 
 ///copy to scannery.ini!!!!!!!!!!!!!!!!
  end;
@@ -2576,13 +2584,14 @@ begin
         with PAdapterOptModX^ do
         begin
          NonLinFieldX:=NField;//StrToInt(EdNonLinField.Text);
-       //  GridCellSize:=PAdapterOptFloatRecord(databuf)^.GridCellSize; //nm
+         if(RealSens >0) then
          SensitivX:=RealSens;//single;
         end;
         with ScanneroptModX do
           begin
              NonLinFieldX:=NField;
-             SensitivX:=RealSens;
+             if(RealSens >0) then
+               SensitivX:=RealSens;
           end;
       end;
    1: begin
@@ -2598,11 +2607,13 @@ begin
        begin
         NonLinFieldX:=NField;//StrToInt(EdNonLinField.Text);
      //   GridCellSize:=PAdapterOptFloatRecord(databuf)^.GridCellSize; //nm
+        if(RealSens >0) then
         SensitivX:=RealSens;//single;
        end;
         with ScanneroptModY do
           begin
              NonLinFieldX:=NField;
+             if(RealSens >0) then
              SensitivX:=RealSens;
           end;
       end;
@@ -2625,11 +2636,13 @@ begin
         begin
          NonLinFieldY:=NField;//StrToInt(EdNonLinField.Text);
     //     GridCellSize:=PAdapterOptFloatRecord(databuf)^.GridCellSize; //nm
+         if(RealSens >0) then
          SensitivY:=RealSens;//single;
         end;
          with ScanneroptModX do
           begin
              NonLinFieldY:=NField;
+             if(RealSens >0) then
              SensitivY:=RealSens;
           end;
       end;
@@ -2646,11 +2659,13 @@ begin
        begin
         NonLinFieldY:=NField;//StrToInt(EdNonLinField.Text);
     //    GridCellSize:=PAdapterOptFloatRecord(databuf)^.GridCellSize; //nm
+        if(RealSens >0) then
         SensitivY:=RealSens;//single;
        end;
         with ScanneroptModY do
           begin
              NonLinFieldY:=NField;
+             if(RealSens >0) then
              SensitivY:=RealSens;
           end;
       end;
@@ -2717,10 +2732,12 @@ end;
 finally
   iniCSPM.Free;
 end; //with
-    WriteToAdapterLinStructure(dir,pathmode,LocMaxCount,NLinField,presentdate);
+    WriteToAdapterLinStructure(dir,pathmode,LocMaxCount,NLinField,presentdate);  
     SetFileAttribute_ReadOnly(ScannerFileName,true);
-   if ScanFormHandle<>0        then PostMessage(ScanFormHandle, MsgScanBack,0,0);
-   if ApproachOptFormHandle<>0 then PostMessage(ApproachOptFormHandle, MsgApproachOptBack,0,0);
+  // if ScanFormHandle<>0        then PostMessage(ScanFormHandle, MsgScanBack,0,0);
+  // if ApproachOptFormHandle<>0 then PostMessage(ApproachOptFormHandle, MsgApproachOptBack,0,0);
+ if assigned(ApproachOpt) then PostMessage(ApproachOpt.Handle,MsgApproachOptBack,0,0);
+ if assigned(ScanWnd)     then PostMessage(ScanWnd.Handle, MsgScanBack,0,0);
 end;
 
 procedure TImgAnalysWnd.BitBtnSaveAutoLinClick(Sender: TObject);
@@ -2742,9 +2759,12 @@ then
    OtherDirFile:=FPath+OtherDirFile;
   if SaveAutoLin(dir, OtherDirFile)>0 then exit; ;
   end;
+  LoadLinSplineFromAdapter;    // изменено 22/11/2016
   flgSaveProcess:=false;
-  if ApproachOptFormHandle<>0 then PostMessage(ApproachOptFormHandle,MsgApproachOptBack,1,0);
-  if ScanFormHandle<>0        then PostMessage(ScanFormHandle, MsgScanBack,1,0);
+ // if ApproachOptFormHandle<>0 then PostMessage(ApproachOptFormHandle,MsgApproachOptBack,1,0);
+ // if ScanFormHandle<>0        then PostMessage(ScanFormHandle, MsgScanBack,1,0);
+  if assigned(ApproachOpt) then PostMessage(ApproachOpt.Handle,MsgApproachOptBack,0,0);
+  if assigned(ScanWnd)     then PostMessage(ScanWnd.Handle, MsgScanBack,0,0);
  end;
 end;
 

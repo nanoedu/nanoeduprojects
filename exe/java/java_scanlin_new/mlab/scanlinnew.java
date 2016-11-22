@@ -1,5 +1,5 @@
 package mlab;
-//16/11/18
+//16/11/22
 // add new bramid dac_z
     //21.02.13  //oneline+; discrtinmicrostep
 // Get Linear Steps by Channel 
@@ -24,7 +24,7 @@ public class  scanlinnew
 	static  int M_USTEP;// = 21;
         static  int M_DACX;
         static  int M_DACY;
-        static  int M_DACZ;
+      //  static  int M_DACZ;
 	static final int PORT_COS_X = ( 3 );
 	static final int PORT_COS_Y = ( 4 );
 	static final int PORT_COS_Z = ( 5 );
@@ -99,7 +99,7 @@ public class  scanlinnew
        M_USTEP = Simple.bramID("m_ustep");;
        M_DACX   = Simple.bramID("dxchg_X");
        M_DACY   = Simple.bramID("dxchg_Y");
-       M_DACZ   = Simple.bramID("dxchg_Z");
+    //   M_DACZ   = Simple.bramID("dxchg_Z");
 
 		datain=Simple.xchgGet("algoritmparams.bin");
 
@@ -159,9 +159,9 @@ public class  scanlinnew
 	   	//dataout=new int[SZ*X_POINTS*Y_POINTS+slowlines];
 		dataout=new int[SZ*(fastlines+1)];
 
-for(i=0; i<SZ*(fastlines+1); i++)
-			{
-			    dataout[i] = (10*i) << 16;}
+               // for(i=0; i<SZ*(fastlines+1); i++)
+	       //		{
+	       //		    dataout[i] = (10*i) << 16;}
 
 		int[] buf_stop;
 		buf_stop = new int[1];
@@ -184,17 +184,11 @@ for(i=0; i<SZ*(fastlines+1); i++)
 		{
                  wr = stream_ch_params.Write(buf_params, 1, 1000);
 		}
-
-
-//Simple.DumpInt(0xCCAAAAAA);
 		 rd=0;
                  for(;(rd!=1) ;)
                    {
                      rd = stream_ch_linearsteps_in.Read(LINSTEPS, 1,-1,false);
                    }
-
-//Simple.DumpInt(0xCCCAAAAA);
-
 		JMPX = new int[X_POINTS];
                 JMPY = new int[Y_POINTS];
 
@@ -223,9 +217,7 @@ for(i=0; i<SZ*(fastlines+1); i++)
 
      		Simple.bramWrite( M_USTEP, uVector );
 
-                     slowlinescount=0;
-
-
+                slowlinescount=0;
 		// Цикл сканирования по строкам.
 		for(lines=slowlines; lines>0; --lines)
 		{
@@ -282,7 +274,7 @@ for(i=0; i<SZ*(fastlines+1); i++)
                        	Simple.bramWrite( M_USTEP, uVector );
         		dxchg.ExecuteScan();
          	   //	err=dxchg.WaitScanComplete(-1); //-1
-                        dxchg.WaitScanComplete(-1);
+                        err=dxchg.WaitScanComplete(-1);
 	        	arr = dxchg.GetResults();
        			src_i = 0;
 			dst_i = 0;
@@ -291,7 +283,7 @@ for(i=0; i<SZ*(fastlines+1); i++)
 			{
 			  //  dataout[dst_i]  = arr[src_i];
                             if (err==1)	dataout[dst_i] = arr[src_i];
-                             else     dataout[dst_i] = 1<<16;
+                               else     dataout[dst_i] = 1<<16;
                             if (SZ==2)
                               {
                                 if (ScanMethod == Phase) {dataout[dst_i+1] =arr[src_i+1];}
@@ -345,7 +337,8 @@ for(i=0; i<SZ*(fastlines+1); i++)
 
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
-         		dxchg.WaitScanComplete(-1);
+         		err=dxchg.WaitScanComplete(-1);
+                        if (err!=1)break;
 
 		}//y
                 if (err!=1)
@@ -355,7 +348,7 @@ for(i=0; i<SZ*(fastlines+1); i++)
                  dxchg = new Dxchg();
 	       	 dxchg.SetO(PORT_COS_X, 0);
 		 dxchg.SetO(PORT_COS_Y, 0);
-		 dxchg.SetO(PORT_COS_Z, 0);
+	   	 dxchg.SetO(PORT_COS_Z, 0);
 		 dxchg.ExecuteScan();
 		 dxchg.WaitScanComplete(500);
 
@@ -363,8 +356,14 @@ for(i=0; i<SZ*(fastlines+1); i++)
 		// можно считывать текущее состояние координат.
 	       	 dacX = Simple.bramRead(M_DACX) ;
              	 dacY = Simple.bramRead(M_DACY) ;
-        	 dacZ = Simple.bramRead(M_DACZ) ;
-
+           //	 dacZ = Simple.bramRead(M_DACZ) ;
+                //
+                        dxchg = new Dxchg();
+			dxchg.SetO(PORT_X, dacX);
+			dxchg.SetO(PORT_Y, dacY);
+	    //		dxchg.SetO(PORT_Z, dacZ);
+		dxchg.ExecuteScan();
+		dxchg.WaitScanComplete(500);
 		// Перемещаем координату Z в нулевое положение.
                  dxchg.SetScanPorts( new int[] {-1,-1, -1,
       		                               -1,-1, -1,

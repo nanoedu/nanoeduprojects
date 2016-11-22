@@ -34,14 +34,12 @@ object ImgAnalysWnd: TImgAnalysWnd
     Align = alRight
     Caption = 'PanelRight'
     TabOrder = 0
-    ExplicitLeft = 628
-    ExplicitHeight = 710
     object PageControlResults: TPageControl
       Left = 1
       Top = 1
       Width = 481
       Height = 716
-      ActivePage = TabSheetAutoLin
+      ActivePage = TabSheetCalibration
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -51,10 +49,8 @@ object ImgAnalysWnd: TImgAnalysWnd
       ParentFont = False
       TabOrder = 0
       OnChange = PageControlResultsChange
-      ExplicitHeight = 708
       object TabSheetRoughness: TTabSheet
         Caption = 'Roughness '
-        ExplicitHeight = 680
         object Panel4: TPanel
           Left = 0
           Top = 0
@@ -125,7 +121,6 @@ object ImgAnalysWnd: TImgAnalysWnd
       object tabSheetSpectr: TTabSheet
         Caption = 'Fourier Spectrum'
         ImageIndex = 1
-        ExplicitHeight = 680
         object PanelFourier: TPanel
           Left = 0
           Top = 47
@@ -141,7 +136,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          ExplicitHeight = 486
           object SpectrumChart: TChart
             Left = 0
             Top = 0
@@ -368,7 +362,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 2
-          ExplicitTop = 533
           object GroupBoxFiltration: TGroupBox
             Left = 9
             Top = 13
@@ -503,7 +496,6 @@ object ImgAnalysWnd: TImgAnalysWnd
       object TabSheetCalibration: TTabSheet
         Caption = 'Calibration'
         ImageIndex = 2
-        ExplicitHeight = 680
         object PanelCalibrTools: TPanel
           Left = 0
           Top = 0
@@ -603,7 +595,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Height = 374
           Align = alClient
           TabOrder = 1
-          ExplicitHeight = 366
           object PanelRightChart: TPanel
             Left = 1
             Top = 1
@@ -611,7 +602,6 @@ object ImgAnalysWnd: TImgAnalysWnd
             Height = 372
             Align = alClient
             TabOrder = 0
-            ExplicitHeight = 364
             object ImgCalibrateChart: TChart
               Left = -4
               Top = 1
@@ -653,7 +643,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Height = 276
           Align = alBottom
           TabOrder = 2
-          ExplicitTop = 404
           object PanelSensitiv: TPanel
             Left = 1
             Top = 1
@@ -849,7 +838,6 @@ object ImgAnalysWnd: TImgAnalysWnd
       object TabSheetAutoLin: TTabSheet
         Caption = 'Auto Linearization'
         ImageIndex = 3
-        ExplicitHeight = 680
         object PanelAutoLinChart: TPanel
           Left = 0
           Top = 0
@@ -857,7 +845,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Height = 485
           Align = alClient
           TabOrder = 0
-          ExplicitHeight = 477
           object AutoLinChart: TChart
             Left = 1
             Top = 1
@@ -873,7 +860,6 @@ object ImgAnalysWnd: TImgAnalysWnd
             View3D = False
             Align = alClient
             TabOrder = 0
-            ExplicitHeight = 475
             object Series6: TLineSeries
               Marks.Callout.Brush.Color = clBlack
               Marks.Visible = False
@@ -911,7 +897,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Height = 203
           Align = alBottom
           TabOrder = 1
-          ExplicitTop = 477
           object Bevel1: TBevel
             Left = 2
             Top = 5
@@ -1044,8 +1029,6 @@ object ImgAnalysWnd: TImgAnalysWnd
     Align = alClient
     Caption = 'PanelLeftBot'
     TabOrder = 1
-    ExplicitWidth = 628
-    ExplicitHeight = 710
     object PageControl1: TPageControl
       Left = 1
       Top = 1
@@ -1061,10 +1044,8 @@ object ImgAnalysWnd: TImgAnalysWnd
       ParentFont = False
       TabOrder = 0
       OnChange = PageControl1Change
-      ExplicitWidth = 626
       object TabSheetImage: TTabSheet
         Caption = 'Image'
-        ExplicitWidth = 618
         object PanelLeft: TPanel
           Left = 0
           Top = 0
@@ -1072,7 +1053,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Height = 681
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 618
           object PanelImgTools: TPanel
             Left = -2
             Top = -2
@@ -1519,7 +1499,6 @@ object ImgAnalysWnd: TImgAnalysWnd
         Caption = 'Linearization Curves'
         ImageIndex = 1
         TabVisible = False
-        ExplicitWidth = 618
         object PanelChart1: TPanel
           Left = 0
           Top = 0
@@ -1528,7 +1507,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Align = alClient
           Caption = 'PanelChart1'
           TabOrder = 0
-          ExplicitWidth = 618
           object Chart1: TChart
             Left = 1
             Top = 1
@@ -1551,7 +1529,6 @@ object ImgAnalysWnd: TImgAnalysWnd
             OnMouseDown = Chart1MouseDown
             OnMouseMove = Chart1MouseMove
             OnMouseUp = Chart1MouseUp
-            ExplicitWidth = 616
             object SeriesLinX: TLineSeries
               Marks.Callout.Brush.Color = clBlack
               Marks.Visible = False
@@ -1588,7 +1565,6 @@ object ImgAnalysWnd: TImgAnalysWnd
       object TabSheetBackFFT: TTabSheet
         Caption = 'Back Fourier Transform'
         ImageIndex = 2
-        ExplicitWidth = 618
         object PanelBackFFT: TPanel
           Left = 19
           Top = 55
@@ -1818,7 +1794,6 @@ object ImgAnalysWnd: TImgAnalysWnd
         Caption = 'Autolinearization  Curve'
         ImageIndex = 3
         TabVisible = False
-        ExplicitWidth = 618
         object ChartCorrLine: TChart
           Left = 0
           Top = 0
@@ -1834,7 +1809,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Zoom.Allow = False
           Align = alTop
           TabOrder = 0
-          ExplicitWidth = 618
           object Series9: TLineSeries
             Marks.Callout.Brush.Color = clBlack
             Marks.Visible = False
@@ -1856,7 +1830,6 @@ object ImgAnalysWnd: TImgAnalysWnd
           Height = 334
           Align = alClient
           TabOrder = 1
-          ExplicitWidth = 618
           object LabelDistStat: TLabel
             Left = 19
             Top = 9
