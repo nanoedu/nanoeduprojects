@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=ProBeam
-AppVerName=ProBeam ver 16.11.07.2
-OutputBaseFilename=ProBeamUpdate-16.11.07.2
+AppVerName=ProBeam ver 16.11.21.1
+OutputBaseFilename=ProBeamUpdate-16.11.21.1
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -35,9 +35,10 @@ Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescri
  
 [Files]
 Source: "ProBeam.exe";   DestDir: "{app}"; Flags: ignoreversion
-Source: "InterfaceProBeam.ini"; DestDir: "{app}"; DestName: "Interface.ini"; Flags: ignoreversion;
 Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
-
+Source: "SPMConfig.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "scheme\*.bin"; DestDir: "{app}\scheme"; Flags: ignoreversion recursesubdirs;
 [INI]
 [Icons]
 [Registry]

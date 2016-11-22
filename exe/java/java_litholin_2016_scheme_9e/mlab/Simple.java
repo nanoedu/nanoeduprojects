@@ -37,7 +37,7 @@ public class Simple
 	public static native void    timerSet(int tout);
 	public static native boolean timerCheck();
 	public static native int     timerGetTimeout();
-
+        public static native int   GetSystemTicks();
 	public static native void fcupBypass(int ID, boolean bBypassOn);
 
 }

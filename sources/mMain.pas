@@ -3696,7 +3696,7 @@ begin
         begin
          FlgXYLinear:=True;   { TODO : 041012 }
          FlgZLinear:=false;
-         FlgZLinAbs:=false;
+         FlgZLinAbs:=true;
          FlgZSurfCorr:=False;
          flgPlnDel:=True;
          flgPlnDelHW:=True;
@@ -3735,7 +3735,7 @@ begin
         begin
          FlgXYLinear:=false;
          FlgZLinear:=false;
-         FlgZLinAbs:=false;
+         FlgZLinAbs:=true;
          FlgZSurfCorr:=False;
          flgPlnDel:=True;
          flgPlnDelHW:=false;//True;
@@ -3779,7 +3779,7 @@ begin
         begin
          FlgXYLinear:= True; //false;  180713  //True;  { TODO : 041012 }
          FlgZLinear:=false;//          true;
-         FlgZLinAbs:=false;
+         FlgZLinAbs:=true;
          FlgZSurfCorr:=False;
          flgPlnDel:=True;
          flgPlnDelHW:=false;//True;

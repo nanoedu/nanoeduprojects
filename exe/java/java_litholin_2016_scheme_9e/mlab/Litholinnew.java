@@ -1,4 +1,4 @@
-package mlab;
+package mlab;// 16.11.21 edited
 //16/11/17 new scheme
 //error testing right java exit 16/11/15
 //litholin new 12/05/16
@@ -307,7 +307,7 @@ public class Litholinnew
 		     }
                       	Simple.bramWrite( M_USTEP, uVector );
                 	dxchg.ExecuteScan();
-                      //  timer.start();
+                      // Simple.GetSystemTicks();
          		err=dxchg.WaitScanComplete(timewait); //-1
                        // timer.stop();
                        // timewait =timer.getElapsedTime()*100;
@@ -437,12 +437,22 @@ public class Litholinnew
 
                 if (err!=1)
                 {
+                 dacX = Simple.bramRead(M_DACX) ;
+             	 dacY = Simple.bramRead(M_DACY) ;
+        	 dacZ = Simple.bramRead(M_DACZ) ;
+
                  // Записываем 0 в выходные порты COS для остановки
 		 // возможного перемещения по X,Y,Z (см.топологию).
                  dxchg = new Dxchg();
 	       	 dxchg.SetO(PORT_COS_X, 0);
 		 dxchg.SetO(PORT_COS_Y, 0);
 		 dxchg.SetO(PORT_COS_Z, 0);
+                 if ( err < 0 )
+                 {
+       	       	   dxchg.SetO(PORT_X, dacX);
+       	       	   dxchg.SetO(PORT_Y, dacY);
+       	       	   dxchg.SetO(PORT_Z, dacZ);
+                 }
 		 dxchg.ExecuteScan();
 		 dxchg.WaitScanComplete(500);
 
@@ -451,6 +461,13 @@ public class Litholinnew
 	       	 dacX = Simple.bramRead(M_DACX) ;
              	 dacY = Simple.bramRead(M_DACY) ;
         	 dacZ = Simple.bramRead(M_DACZ) ;
+
+                 dxchg = new Dxchg();
+			dxchg.SetO(PORT_X, dacX);
+			dxchg.SetO(PORT_Y, dacY);
+			dxchg.SetO(PORT_Z, dacZ);
+		dxchg.ExecuteScan();
+		dxchg.WaitScanComplete(500);
 
 		// Перемещаем координату Z в нулевое положение.
                  dxchg.SetScanPorts( new int[] {-1,-1, -1,

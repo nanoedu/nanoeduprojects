@@ -873,8 +873,7 @@ end;   {ReadRenishawData}
  procedure TExperiment.PrepareSaveData;
  var      maxScanData, minScanData, min:datatype;
                   j,i:integer;
-                  Zval:integer;
-                  ZCorr1,ZCorr2:integer;
+
  begin
  //   maxScanData:=AQuiTopo.max;    // Закомментировано 06/08/2013
   
@@ -889,33 +888,7 @@ end;   {ReadRenishawData}
     for i:=0 to AQuiTopo.Nx-1  do
       AQuiTopo.Data[i,j]:=maxScanData-AQuiTopo.Data[i,j];        //0212  *)
       { TODO : 121104 }
-
-  // Добавлено 06/08/2013
-  // линеаризация по  Z добавлена  28/10/2016
-  minScanData:=0;
-  if (ScannerCorrect.FlgZLinear) then
-  minScanData:=AQuiTopo.Datamin;
- for j:=0 to AQuiTopo.Ny-1 do
- for i:=0 to AQuiTopo.Nx-1  do
-  begin
-      if (ScannerCorrect.FlgZLinear) then
-      begin
-       if (ScannerCorrect.FlgZLinAbs) then
-           begin
-             ZCorr1 :=  ZLinCorrect(minScanData - minDATATYPE);     // discr
-             ZCorr2 :=  ZLinCorrect(AQuiTopo.Data[i,j] - minDATATYPE);     // discr
-             ZVal := ZCorr2 - ZCorr1;
-           end
-           else
-          Zval:= ZLinCorrect(AQuiTopo.Data[i,j] - minScanData)+ minScanData;
-      if(Zval > MaxDATATYPE) then Zval := MaxDATATYPE;
-      if(Zval < MinDATATYPE) then Zval := MinDATATYPE;
-       AQuiTopo.Data[i,j]:= datatype(Zval);
-      end
-      else
-      AQuiTopo.Data[i,j]:=AQuiTopo.Data[i,j] ;
-  end;
-
+ 
  if (FileHeadRcd.HAquiADD=Phase) or   (FileHeadRcd.HAquiADD=FastScanPhase) then
  begin
    min:=AQuiAdd.DataMin;

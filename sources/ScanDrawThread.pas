@@ -30,7 +30,7 @@ uses
     Line: array of TPoint;
     CurrentLine:array of TsinglePoint;  //   { TODO : 300506 }
     CurrentLineAdd:array of TSinglePoint;
-    TempAquiData,TempAquiAddData:TLine;
+    TempAquiData,TempAquiAddData,TempAquiDataZ:TLine;
     SideViewLine: array of TPoint;
     Pend,Pbegin:TPoint;
     ClipRgn: HRGN ;
@@ -179,6 +179,8 @@ var i,CurrentPoint,CurScan:integer;
     j:longint;
     value:apitype;
     LineSlowAxisPos:integer;
+     Zval:integer;
+     ZCorr1,ZCorr:integer;
 begin
  LineSlowAxisPos:=0;
  j:=XPos;//was =0 for nanoeduII
@@ -197,6 +199,29 @@ begin
     begin
       if ((ScanParams.ScanPath=Multi) or (ScanParams.ScanPath=MultiY)) then ScanError[CurrentPoint]:=value;
     end;
+    
+     TempAquiDataZ[i]:=value;
+     if(ScannerCorrect.flgZLinear) then  // Вставлено 27/10/2016 , чтобы линеаризовать Z
+     begin
+        if (ScannerCorrect.FlgZLinAbs) then
+           begin
+             (*ZCorr1 :=  ZLinCorrect(round(TempScanNormData.PreviousMin - minDATATYPE));     // discr
+             ZCorr2 :=  ZLinCorrect(round(valueCur - minDATATYPE));     // discr
+             ZCorr := ZCorr2 - ZCorr1;*)
+           //  ZCorr1 :=  ZLinCorrect(round(value - minDATATYPE));     // discr
+             ZCorr1 :=  ZLinCorrect(round(maxDATATYPE-value ));     // discr
+             ZCorr  := round(maxDATATYPE-ZCorr1);
+           end
+           else
+           begin
+             ZCorr1 := round( value-TempScanNormData.PreviousMin);  // discr
+             ZCorr := ZLinCorrect(ZCorr1);     // discr
+           end;
+           if(ZCorr > MaxDATATYPE) then ZCorr := MaxDATATYPE;
+           if(ZCorr < MinDATATYPE) then ZCorr := MinDATATYPE;
+      value :=  ZCorr;
+      end;
+
      TempAquiData[i]:=value;
   if  CurrentPoint<ScanParams.ScanPoints then
   begin  // (**)
@@ -218,6 +243,7 @@ begin
            end;
              end;
    *)
+
         TempAquiAddData[i]:=value;
         if value<TempScanNormData.datminph then
         begin
@@ -661,6 +687,7 @@ begin
              lsz:=nread;
              NPC:=nread*Scanparams.sz;
              SetLength(TempAquiData,lsz);
+             SetLength(TempAquiDataZ,lsz);
              SetLength(CurrentLine,lsz);
          if  ScanParams.flgAquiAdd then
            begin
@@ -875,6 +902,7 @@ finally
    end;
    SideViewLine:=nil;
    TempAquiData:=nil;
+   TempAquiDataZ:=nil;
   if ScanParams.flgAquiAdd then  TempAquiAddData:=nil;
 
   flgDrawVirtualLineNow :=false;
@@ -970,7 +998,7 @@ var i:integer;
     it,n,m,k,dmn,ddn:integer;
     PointColor:integer;
     currentMax,CurrentTopMax,sclx,scly:single;
-    value, valueCur,valueTop:single;//apitype;
+    value,valueZ, valueCur,valueTop:single;//apitype;
     RGBCol,RGBColScanArrea:TColor;
     ChartTopo,ChartAdd:TChart;
     ZCorr,valueCur_int :integer;
@@ -1034,10 +1062,12 @@ begin
 //
   ddn:=ScanParams.CurrentScanCount;
   value:=TempAquiData[i];
-  ZIndicatorNormVal:=(1- (value-MinAPITYPE)/(MaxAPITYPE-MinAPITYPE));  //(0 .. 1)
+  valueZ:=TempAquiDataZ[i];
+  ZIndicatorNormVal:=(1- (valueZ-MinAPITYPE)/(MaxAPITYPE-MinAPITYPE));  //(0 .. 1)
 //  ZIndicatorVal:=round(value);// corrected 081211 round((MinAPITYPE+1)*(TempAquiData[i]-MaxAPITYPE)/(MaxAPITYPE-MinAPITYPE));
   ZIndicatorVal:=round(ZIndicatorNormVal*MaxAPITYPE);   // (0.. 32767)
   Synchronize(sZIndicator);
+
   valueCur:=value- TempScanNormData.sfA;
   ValueTop:=ValueCur;
   value:=valueCur- TempScanNormData.sfB*dmn;
@@ -1050,26 +1080,7 @@ begin
     valueTop:=value;
 //  CurrentLine[i].y:=((CurrentMax-valueCur)*Z_d_nm);    { TODO : 300506 }
      // Изменено 01/08/2013
-
-
-      if(not ScannerCorrect.flgZLinear) then  // Вставлено 27/10/2016 , чтобы линеаризовать Z
-        CurrentLine[i].y:=(valueCur-TempScanNormData.PreviousMin)*Z_d_nm
-        // Вставлено 27/10/2016 , чтобы линеаризовать Z
-      else
-      begin
-        if (ScannerCorrect.FlgZLinAbs) then
-           begin
-             ZCorr1 :=  ZLinCorrect(round(TempScanNormData.PreviousMin - minDATATYPE));     // discr
-             ZCorr2 :=  ZLinCorrect(round(valueCur - minDATATYPE));     // discr
-             ZCorr := ZCorr2 - ZCorr1;
-           end
-           else
-           begin
-             valueCur_int := round( valueCur-TempScanNormData.PreviousMin);  // discr
-             ZCorr := ZLinCorrect(valueCur_int);     // discr
-           end;
-        CurrentLine[i].y:= ZCorr*Z_d_nm;
-      end;
+     CurrentLine[i].y:=(valueCur-TempScanNormData.PreviousMin)*Z_d_nm;
  //*******************Red point
     PointColor:=255;
     RGBCol:= TColor($02000000 or (RPaletteKoef[PointColor]));
