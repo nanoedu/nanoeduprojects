@@ -9,6 +9,7 @@
     <Projects Include="..\sources\SioCSPMDemo\SioCSPMDemo.dproj" />
     <Projects Include="..\sources\surfacetools\SurfTools.dproj" />
     <Projects Include="alfa.dproj" />
+    <Projects Include="MicProbe.dproj" />
     <Projects Include="NanoEduLE.dproj" />
     <Projects Include="NanoTutor.dproj" />
     <Projects Include="ProBeam.dproj" />
@@ -91,14 +92,23 @@
   <Target Name="ProBeam:Make">
     <MSBuild Projects="ProBeam.dproj" Targets="Make" />
   </Target>
+  <Target Name="MicProbe">
+    <MSBuild Projects="MicProbe.dproj" Targets="" />
+  </Target>
+  <Target Name="MicProbe:Clean">
+    <MSBuild Projects="MicProbe.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="MicProbe:Make">
+    <MSBuild Projects="MicProbe.dproj" Targets="Make" />
+  </Target>
   <Target Name="Build">
-    <CallTarget Targets="NanoEduLE;alfa;MSVideoLib;SioCSPMDemo;SurfTools;NTShPack;NanoTutor;ProBeam" />
+    <CallTarget Targets="NanoEduLE;alfa;MSVideoLib;SioCSPMDemo;SurfTools;NTShPack;NanoTutor;ProBeam;MicProbe" />
   </Target>
   <Target Name="Clean">
-    <CallTarget Targets="NanoEduLE:Clean;alfa:Clean;MSVideoLib:Clean;SioCSPMDemo:Clean;SurfTools:Clean;NTShPack:Clean;NanoTutor:Clean;ProBeam:Clean" />
+    <CallTarget Targets="NanoEduLE:Clean;alfa:Clean;MSVideoLib:Clean;SioCSPMDemo:Clean;SurfTools:Clean;NTShPack:Clean;NanoTutor:Clean;ProBeam:Clean;MicProbe:Clean" />
   </Target>
   <Target Name="Make">
-    <CallTarget Targets="NanoEduLE:Make;alfa:Make;MSVideoLib:Make;SioCSPMDemo:Make;SurfTools:Make;NTShPack:Make;NanoTutor:Make;ProBeam:Make" />
+    <CallTarget Targets="NanoEduLE:Make;alfa:Make;MSVideoLib:Make;SioCSPMDemo:Make;SurfTools:Make;NTShPack:Make;NanoTutor:Make;ProBeam:Make;MicProbe:Make" />
   </Target>
   <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
 </Project>

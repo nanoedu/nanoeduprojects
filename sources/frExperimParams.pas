@@ -1421,7 +1421,7 @@ begin
      LabelZlin.Visible:=true;
   end
   else
-   begin
+  begin
      CBoxZLin.Visible :=false;
      CBoxZLinAbs.Visible:=false;
      Labelabs.Visible:=false;

@@ -2,11 +2,11 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{0824661e-d086-4c7e-92f5-f1628bd17e35}</ProjectGuid>
-    <MainSource>ProBeam.dpr</MainSource>
+    <MainSource>MicProbe.dpr</MainSource>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
-    <DCC_DependencyCheckOutputName>ProBeam.exe</DCC_DependencyCheckOutputName>
+    <DCC_DependencyCheckOutputName>MicProbe.exe</DCC_DependencyCheckOutputName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -44,21 +44,17 @@
     <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
     <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
     <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
-    <DCC_Define>EUREKALOG;EUREKALOG_VER6;DEBUG;FULL</DCC_Define>
+    <DCC_Define>EUREKALOG;EUREKALOG_VER6;DEBUG</DCC_Define>
   </PropertyGroup>
   <ProjectExtensions>
     <Borland.Personality>Delphi.Personality</Borland.Personality>
     <Borland.ProjectType>VCLApplication</Borland.ProjectType>
     <BorlandProject>
-<BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">..\..\</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">16</VersionInfo><VersionInfo Name="MinorVer">11</VersionInfo><VersionInfo Name="Release">22</VersionInfo><VersionInfo Name="Build">3</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1049</VersionInfo><VersionInfo Name="CodePage">1251</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">NTSPB</VersionInfoKeys><VersionInfoKeys Name="FileDescription">NanoeducatorLE</VersionInfoKeys><VersionInfoKeys Name="FileVersion">16.11.22.3</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">ProBeam.dpr</Source></Source><Excluded_Packages>
-      <Excluded_Packages Name="$(BDS)\bin\dbx100.bpl">CodeGear SQL Explorer UI Package</Excluded_Packages>
-      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-      <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-    </Excluded_Packages></Delphi.Personality></BorlandProject></BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">..\..\</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">16</VersionInfo><VersionInfo Name="MinorVer">9</VersionInfo><VersionInfo Name="Release">16</VersionInfo><VersionInfo Name="Build">1</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1049</VersionInfo><VersionInfo Name="CodePage">1251</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">NTSPB</VersionInfoKeys><VersionInfoKeys Name="FileDescription">NanoTutor</VersionInfoKeys><VersionInfoKeys Name="FileVersion">16.9.16.1</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">MicProbe.dpr</Source></Source><Excluded_Packages /></Delphi.Personality></BorlandProject></BorlandProject>
   </ProjectExtensions>
   <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
   <ItemGroup>
-    <DelphiCompile Include="ProBeam.dpr">
+    <DelphiCompile Include="MicProbe.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
     <DCCReference Include="..\sources\ApproachThreadDrawNew.pas" />
@@ -384,10 +380,10 @@ Append to Log=0
 TerminateBtn Operation=2
 Errors Number=32
 Errors Terminate=3
-Email Address=mfelshtyn@ntspb.ru
+Email Address=mfelsztyn@gmail.com
 Email Object=bugs nanoeducator
 Email Send Options=1
-Output Path=UserProfile%%/EurekaLog/Nanoedule"
+Output Path=UserProfile%%/EurekaLog/NanoTutor"
 Encrypt Password=
 AutoCloseDialogSecs=0
 WebSendMode=0

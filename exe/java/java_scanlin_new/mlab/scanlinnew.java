@@ -1,9 +1,9 @@
 package mlab;
-//16/11/22
+//16/11/23       wait for =-1
 // add new bramid dac_z
-    //21.02.13  //oneline+; discrtinmicrostep
-// Get Linear Steps by Channel 
-		// 22/03/13  // additional element in buffer (  <> mod 512)	
+// 21.02.13  //oneline+; discrtinmicrostep
+// Get Linear Steps by Channel
+// 22/03/13   additional element in buffer (  <> mod 512)	
 		
 public class  scanlinnew
 {
@@ -95,11 +95,10 @@ public class  scanlinnew
                //new
               	Dxchg dxchg;
                 err=1;
-       M_BASE_K =Simple.bramID("m_BaseK");;
-       M_USTEP = Simple.bramID("m_ustep");;
-       M_DACX   = Simple.bramID("dxchg_X");
-       M_DACY   = Simple.bramID("dxchg_Y");
-    //   M_DACZ   = Simple.bramID("dxchg_Z");
+                M_BASE_K =Simple.bramID("m_BaseK");;
+                M_USTEP = Simple.bramID("m_ustep");;
+                M_DACX   = Simple.bramID("dxchg_X");
+                M_DACY   = Simple.bramID("dxchg_Y");
 
 		datain=Simple.xchgGet("algoritmparams.bin");
 
@@ -135,12 +134,6 @@ public class  scanlinnew
                  fastlines=Y_POINTS;
                  slowlines=X_POINTS;
                 }
-                 
-                
-
-//for (i=0;i<10; i++)  { Simple.DumpInt(datain[i]);}
-
-
                 if  (ScanMethod != OneLine)
                   {
                      JMPX_SUM = JMPX_SUM- lineshift;
@@ -158,11 +151,6 @@ public class  scanlinnew
        		int[] dataout;
 	   	//dataout=new int[SZ*X_POINTS*Y_POINTS+slowlines];
 		dataout=new int[SZ*(fastlines+1)];
-
-               // for(i=0; i<SZ*(fastlines+1); i++)
-	       //		{
-	       //		    dataout[i] = (10*i) << 16;}
-
 		int[] buf_stop;
 		buf_stop = new int[1];
 		buf_stop[0] =0;
@@ -250,8 +238,8 @@ public class  scanlinnew
 
                        	dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
-      		                               PORT_Y,PORT_COS_Y, dacY,
-         	                               -1,-1, -1} );
+      		                                      PORT_Y,PORT_COS_Y, dacY,
+         	                                      -1,-1, -1} );
 
 			for(point=0; point<fastlines; point++)
 			{
@@ -273,7 +261,6 @@ public class  scanlinnew
                       	// run   foreward line
                        	Simple.bramWrite( M_USTEP, uVector );
         		dxchg.ExecuteScan();
-         	   //	err=dxchg.WaitScanComplete(-1); //-1
                         err=dxchg.WaitScanComplete(-1);
 	        	arr = dxchg.GetResults();
        			src_i = 0;
@@ -332,15 +319,12 @@ public class  scanlinnew
 			          }
 			 dxchg.Goto( dacX,dacY,0);
                         }
-
-			// run    backward
-
+ 			// run    backward
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
          		err=dxchg.WaitScanComplete(-1);
                         if (err!=1)break;
-
-		}//y
+ 		}//y
                 if (err!=1)
                 {
                  // Записываем 0 в выходные порты COS для остановки
@@ -356,20 +340,18 @@ public class  scanlinnew
 		// можно считывать текущее состояние координат.
 	       	 dacX = Simple.bramRead(M_DACX) ;
              	 dacY = Simple.bramRead(M_DACY) ;
-           //	 dacZ = Simple.bramRead(M_DACZ) ;
-                //
-                        dxchg = new Dxchg();
-			dxchg.SetO(PORT_X, dacX);
-			dxchg.SetO(PORT_Y, dacY);
-	    //		dxchg.SetO(PORT_Z, dacZ);
-		dxchg.ExecuteScan();
-		dxchg.WaitScanComplete(500);
+                 dxchg = new Dxchg();
+                 dxchg.SetO(PORT_X, dacX);
+		 dxchg.SetO(PORT_Y, dacY);
+
+         	 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(500);
 		// Перемещаем координату Z в нулевое положение.
-                 dxchg.SetScanPorts( new int[] {-1,-1, -1,
-      		                               -1,-1, -1,
+                 dxchg.SetScanPorts( new int[] {-1,-1, -1,         //not use  port x
+      		                                -1,-1, -1,         // not use port y
          	                               PORT_Z,PORT_COS_Z, dacZ}
                                     );
- 		 dxchg.Goto(0,0,0x00000000);
+ 		 dxchg.Goto(0,0,0x00000000);   // goto dacz=0
 		 dxchg.ExecuteScan();
 		 dxchg.WaitScanComplete(5000);
                 }
