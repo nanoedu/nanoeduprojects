@@ -308,7 +308,8 @@ public class Litholinnew
                       	Simple.bramWrite( M_USTEP, uVector );
                 	dxchg.ExecuteScan();
                       // Simple.GetSystemTicks();
-         		err=dxchg.WaitScanComplete(timewait); //-1
+                      	err=dxchg.WaitScanComplete(-1); //-1
+//         		err=dxchg.WaitScanComplete(timewait); //-1
                        // timer.stop();
                        // timewait =timer.getElapsedTime()*100;
 	        	res = dxchg.GetResults();
@@ -403,8 +404,8 @@ public class Litholinnew
 
                 	Simple.bramWrite( M_USTEP, uVectorBW );
                		dxchg.ExecuteScan();
-//         	      ` err=dxchg.WaitScanComplete(-1);        //-1 infinite
-                        err=dxchg.WaitScanComplete(20000);
+         	        err=dxchg.WaitScanComplete(-1);        //-1 infinite
+ //                       err=dxchg.WaitScanComplete(20000);
 	         	res = dxchg.GetResults();
 
 			//Read data Оставляем в массиве только нужные данные.
