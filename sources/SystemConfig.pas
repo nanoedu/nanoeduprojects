@@ -553,7 +553,7 @@ begin
         ApproachParams.PMActiveTime:=500;//300;//ReadInteger('Approach Parameters','PM Active time',100);
         ApproachParams.PMPAUSE:=15;
         ApproachParams.NChannels:=4;
-        ApproachParams.flgControlTopPosition:=not FlgReniShawUnitExists and (flgUnit<>baby) and (flgUnit<>ProBeam);
+        ApproachParams.flgControlTopPosition:=not FlgReniShawUnitExists and (flgUnit<>baby) and (flgUnit<>ProBeam) and (flgUnit<>MicProbe);
 
                case flgUnit of
      baby:  begin
@@ -564,7 +564,8 @@ begin
                              ApproachParams.MaxSuppress:=0.5;
                              ApproachParams.flgControlTopPosition:=false;
             end;
-    probeam:begin
+    probeam,
+    micprobe:begin
                              ApproachNScrpt:=ApproachPMSEMScrpt;
                              ApproachNOneScrpt:=ApproachPMSEMOneScrpt;
                              MTestScrpt:=PMSEMTestScrpt;   //piezo
@@ -671,7 +672,8 @@ begin
                              ApproachParams.MaxSuppress:=0.5;
                              ApproachParams.flgControlTopPosition:=false;
              end;
-   ProBeam:      begin
+   ProBeam,
+   micprobe: begin
                              ApproachNScrpt:=ApproachPMSEMScrpt;
                              ApproachNOneScrpt:=ApproachPMSEMOneScrpt;
                              MTestScrpt:=PMSEMTestScrpt;   //piezo
@@ -1226,7 +1228,7 @@ begin
    LoadConfigOSC;
    HardWareOptLast;
    CSPMSignalsInit;
-   if flgUnit=ProBeam then ConfigSEMfile:=GetSEMConfigPath;
+   if (flgUnit=ProBeam)or (flgUnit=MicProbe) then ConfigSEMfile:=GetSEMConfigPath;
    SDSignalsLast;
    TransformUnitInit;
 
@@ -1252,7 +1254,8 @@ begin
           SetScanParamsDefAtom;
           SetScanParamsDefInitPrev;
         end;
-   ProBeam: begin
+   ProBeam,
+   MicProbe: begin
           if FlgReniShawUnitExists then  //????
           begin
            RenishawParamsDef;
@@ -1392,7 +1395,7 @@ begin
        WriteInteger('Scannermovexy Parameters','PM Active time', ScannermoveXYZParams.PMActiveTime);
        WriteInteger('Scannermovexy Parameters','PM PAUSE', ScannermoveXYZParams.PMPAUSE);
 
- if (flgUnit=Nano) or (flgUnit=pipette) or (flgUnit=terra) or (flgUnit=ProBeam)  then  WriteInteger('Approach Parameters','Control Top Position',integer(ApproachParams.flgControlTopPosition));
+ if (flgUnit=Nano) or (flgUnit=pipette) or (flgUnit=terra) or (flgUnit=ProBeam) or (flgUnit=MicProbe) then  WriteInteger('Approach Parameters','Control Top Position',integer(ApproachParams.flgControlTopPosition));
     if ApproachParams.TypeMover=0 then  WriteString('Approach Parameters','Type Mover','stepmover')
                                   else  WriteString('Approach Parameters','Type Mover','piezomover');
 
@@ -1404,7 +1407,7 @@ begin
 
              case  flgUNit of
   baby:        WriteString('Physical Unit Options','Scanner Number Atom Unit',HardWareOpt.ScannerNumb);
-  ProBeam:       ;
+  ProBeam,MicProbe:       ;
   nano,Pipette,terra:        begin
                       //debug
                       if HardWareOpt.ScannerNumb=' ' then  NoFormUnitLoc.silang1.showmessage('scanner= ');

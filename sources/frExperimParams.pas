@@ -819,7 +819,7 @@ begin
   end;
   EditImaxCut.Text:=FloatToStrF(ApproachParams.IMaxCut,fffixed,5,3);
   ComboBoxT.Enabled:=false;
-  CheckBoxControlTopPosition.Visible:= (flgUnit=nano) or (flgUnit=Pipette) or (flgUnit=Terra) or (flgUnit=ProBeam) ;
+  CheckBoxControlTopPosition.Visible:= (flgUnit=nano) or (flgUnit=Pipette) or (flgUnit=Terra) or (flgUnit=ProBeam) or (flgUnit=MicProbe);
   CheckBoxControlTopPosition.checked:=ApproachParams.flgControlTopPosition
 end;
 
@@ -1413,7 +1413,7 @@ begin
        if FlgHideLine  then  CBoxHideLine.ItemIndex:=0
                        else  CBoxHideLine.ItemIndex:=1;
 
-  if (flgUnit = PROBEAM)  then
+  if (flgUnit = PROBEAM) or (flgUnit=MicProbe) then
   begin
      CBoxZLin.Visible :=true;
      CBoxZLinAbs.Visible:=true;
@@ -2363,7 +2363,7 @@ begin
     end;
   1:begin                             //piezomotor
      case flgUnit of
-ProBeam:
+ProBeam,MicProbe:
      begin
       ApproachParams.TypeMover:=4;
       ApproachNScrpt:=ApproachPMSEMScrpt;
@@ -2544,7 +2544,8 @@ baby:  begin
       //  CheckBoxflash.Visible:=false;
       //  RadioGroup.Visible:=false;
        end;
-ProBeam:begin
+ProBeam,
+MicProbe:begin
             PanelZ.visible:=true;
             LabelPMTime.Caption:=inttostr(ApproachParams.PMActiveTime);
             ScrollBarPMTime.position:= ApproachParams.PMActiveTime;

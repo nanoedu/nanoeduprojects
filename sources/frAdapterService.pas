@@ -547,11 +547,11 @@ PanelControl.Enabled:=false;
           aflgUnit:= ComboboxUnit.ItemIndex;
           if (flgMotor = PiezoM) and (aflgUnit = Nano)  then
                begin
-                  ShowMessage(' Educator Device doesn''t suit to Piezo Mover; Choose ProBeam or Terra! ');
+                  ShowMessage(' Educator Device doesn''t suit to Piezo Mover; Choose ProBeam or Terra or MicProbe! ');
                   aflgUnit:= ProBeam;
                   ComboboxUnit.ItemIndex:= ProBeam;
                end;
-          if (flgMotor = StepM) and ((aflgUnit = ProBeam) or (aflgUnit = TERRA)) then
+          if (flgMotor = StepM) and ((aflgUnit = ProBeam) or (aflgUnit = TERRA) or (aflgUnit=MicProbe)) then
                begin
                   ShowMessage('  This Device doesn''t suit to Step Mover; Choose Educator! ');
                   aflgUnit:= Nano;

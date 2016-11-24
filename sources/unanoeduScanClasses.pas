@@ -2810,7 +2810,7 @@ end;
    NElements:=1;//1;  //dataout    channel
    SizeElements:=2;  //dataout channel
    NGetCountEvent:=1;
-    ////0 step; 1 piezo mover Z ;2 piezo mover X; 3 piezo mover-y; 4- piezo mover Z ProBeam ,Terra
+    ////0 step; 1 piezo mover Z ;2 piezo mover X; 3 piezo mover-y; 4- piezo mover Z ProBeam ,Terra ,MicProbe
    if (ScannerMoveXYZParams.TypeMover=4) then params[0]:=ByteInversion(-ScannerMoveXYZParams.StepsNumb shl 16) //sign z changed 200316
                                          else params[0]:=ByteInversion(ScannerMoveXYZParams.StepsNumb shl 16);
    params[1]:=ByteInversion(ScannerMoveXYZParams.TypeMover);

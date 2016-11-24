@@ -88,6 +88,10 @@ object AdapterService: TAdapterService
           object TabSheetScanner: TTabSheet
             Caption = 'Scanner'
             ImageIndex = 7
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object GroupBox3: TGroupBox
               Left = 302
               Top = 18
@@ -244,6 +248,10 @@ object AdapterService: TAdapterService
           end
           object TabSheetHeader: TTabSheet
             Caption = 'Header'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object StringGridHeader: TStringGrid
               Left = 0
               Top = 0
@@ -291,6 +299,10 @@ object AdapterService: TAdapterService
           object TabSheetParamsX: TTabSheet
             Caption = 'Parameters X+'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object StringGridParamsX: TStringGrid
               Left = 0
               Top = 0
@@ -323,6 +335,10 @@ object AdapterService: TAdapterService
           object TabSheetCurveXX: TTabSheet
             Caption = 'Curve  X+  ;X'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object StringGridXX: TStringGrid
               Left = 0
               Top = 0
@@ -441,6 +457,10 @@ object AdapterService: TAdapterService
           object TabSheetCurveXY: TTabSheet
             Caption = 'Curve X+;  Y'
             ImageIndex = 3
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object StringGridXY: TStringGrid
               Left = 0
               Top = 0
@@ -559,6 +579,10 @@ object AdapterService: TAdapterService
           object TabSheetParamsY: TTabSheet
             Caption = 'Parametrs Y+'
             ImageIndex = 4
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object StringGridParamsY: TStringGrid
               Left = 0
               Top = 0
@@ -591,6 +615,10 @@ object AdapterService: TAdapterService
           object TabSheetCurveYX: TTabSheet
             Caption = 'Curve Y+; X'
             ImageIndex = 5
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object StringGridYX: TStringGrid
               Left = 0
               Top = 0
@@ -608,6 +636,10 @@ object AdapterService: TAdapterService
           object TabSheetCurveYY: TTabSheet
             Caption = 'Curve Y+; Y'
             ImageIndex = 6
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object StringGridYY: TStringGrid
               Left = 0
               Top = 0

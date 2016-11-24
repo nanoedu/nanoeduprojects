@@ -651,7 +651,8 @@ begin
        end;
     end;
   Main.Scanning.Visible:=True;
-if FlgUnit<>ProBeam then    Main.Training.Visible:=(not FlgApproachOK) and (not FlgTooClose);//not FlgApproachOK;//false;
+//if FlgUnit<>ProBeam then     //comment 16/11/24
+  Main.Training.Visible:=(not FlgApproachOK) and (not FlgTooClose);//not FlgApproachOK;//false;
 if  not STMflg then
  begin
   Main.Resonance.visible:=(not FlgApproachOK) and (not FlgTooClose);
@@ -1159,7 +1160,8 @@ false:  NanoEdu.SetPoint:=ApproachParams.LandingSetPoint;
        TimerUp.Interval:=300;//1000; //300
        case  flgUnit of
  baby,
- ProBeam: begin
+ ProBeam,
+ MicProbe: begin
        PanelPM.Visible:=true;
        ScrollBarPMTime.Position:=ApproachParams.PMActiveTime;
        LabelTimeVal.Caption:=inttostr(ScrollBarPMTime.Position);

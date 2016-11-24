@@ -4858,7 +4858,7 @@ nano,terra,Pipette:begin
             end;
       end;
      end;
-ProBeam:begin
+ProBeam,MicProbe:begin
     (*  if WorkFlash then
       begin
         PathFlash:= GetPathFlash;

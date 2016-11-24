@@ -26,12 +26,14 @@ type
     Panel8: TPanel;
     ImageSEM: TImage;
     ImagePipette: TImage;
+    Image1: TImage;
     procedure ImageSEMClick(Sender: TObject);
     procedure ImagePipetteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ImageNanoEduClick(Sender: TObject);
     procedure ImageBabyClick(Sender: TObject);
     procedure ImageTerraClick(Sender: TObject);
+    procedure ImageMicProbeClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -95,6 +97,18 @@ end;
 procedure TFChooseUnit.ImageSEMClick(Sender: TObject);
 begin
     flgUnit:=ProBeam;
+    panel3.Color:=clSilver;
+    panel3.Color:=clBlue;
+    panel2.Color:=clSilver;
+    panel5.Color:=clsilver;
+    panel6.Color:=clsilver;
+    application.ProcessMessages;
+    sleep(1000);
+    modalresult:=idOK;
+end;
+procedure TFChooseUnit.ImageMicProbeClick(Sender: TObject);
+begin
+    flgUnit:=MicProbe;
     panel3.Color:=clSilver;
     panel3.Color:=clBlue;
     panel2.Color:=clSilver;

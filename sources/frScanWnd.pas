@@ -1508,7 +1508,7 @@ begin
 //   UpdateStrings;
   //     FlgApproachOK:=true; //291012
    flgNew_XYBegin:=true; // 11/02/13         or false; ??????
-if (flgUNit=ProBeam) then MinValidMicroStepDelay:=MinValidMicroStepDelaySEM;
+if (flgUNit=ProBeam) or (flgUnit=MicProbe)then MinValidMicroStepDelay:=MinValidMicroStepDelaySEM;
   // Nanoedu.GetCurrentPosition;
    CaptionAdd:='';
    StopBtn.Down:=true;
@@ -1714,7 +1714,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
             TabSheetPhaseR.TabVisible:=False;
             if true{FlgCurrentUserLevel>Beginner} then
             begin
-             if (flgUnit=ProBeam){HardWareOpt.XYTune=siLangLinked1.GetTextOrDefault('IDS_2' (* 'Fine' *) )} then
+             if (flgUnit=ProBeam)or (flgUnit=MicProbe){HardWareOpt.XYTune=siLangLinked1.GetTextOrDefault('IDS_2' (* 'Fine' *) )} then
              begin
               TabSheetFastTopo.TabVisible:=True;
               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_47' (* 'Sample Surface Scanning; STM Fine Regime' *) );
@@ -1846,7 +1846,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
      ChartCurrentLine.BottomAxis.Automatic:=false;
      ChartCurrentLine.LeftAxis.Automatic:=false;
      TabSheetCurLineAdd.TabVisible:=(ScanParams.ScanMethod<>Topography) and (ScanParams.ScanMethod<>OneLineScan);      //???
-     TabSheetProfiler.TabVisible:=(flgUnit=ProBeam);
+     TabSheetProfiler.TabVisible:=(flgUnit=ProBeam)or (flgUnit=MicProbe);
     // SignalsMode.FrequencyTrack.Position:= ApproachParams.FreqBandF;
        // FINE PID CONTROL
  (*   with PidParams do
@@ -1920,7 +1920,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
   EdScanRateBW.Enabled:=not flgSpeedLock;
   UpDownSpeedBW.Enabled:=not flgSpeedLock;
       case  flgUnit  of
-nano,ProBeam,
+nano,ProBeam, MicProbe,
 Pipette,
 terra: begin
         lblYmax.Caption:=InttoStr(round(ScanParams.Ymax/1000))+' '+mcrn{#181+'m'};  //micron
@@ -2183,7 +2183,7 @@ begin
                                       then TabSheetTopoL.TabVisible:=True
                                       else TabSheetTopoL.TabVisible:=False;
          //if HardWareOpt.XYtune='Fine' then
-         if (flgUnit=ProBeam) then TabSheetFastTopo.TabVisible:=true;//false;//True; 231215
+         if (flgUnit=ProBeam) or (flgUnit=MicProbe)then TabSheetFastTopo.TabVisible:=true;//false;//True; 231215
          if (ScanParams.ScanMethod=FastScan)   or (ScanParams.ScanMethod=FastScanPhase) then
          begin
           StopBtn.enabled:=true;
@@ -2310,7 +2310,7 @@ begin
               if Scanparams.ScanMethod in ScanmethodSetOneL then CheckBoxOnNets.Enabled:=true;
             end;
            main.setworkdirectory.enabled:=true;
-           TabSheetProfiler.TabVisible:=(flgUnit=ProBeam);
+           TabSheetProfiler.TabVisible:=(flgUnit=ProBeam)or (flgUnit=MicProbe);
            FlgStopScan:=True;
            FlgStopJava:=false;//  210113;
            StopBtn.Down:=true;
@@ -2371,7 +2371,7 @@ if   FlgStopScan then       //Start  Scanning
      end;
      if not flgRenishawUnit then
        if   HardWareOpt.XYtune<>'Fine'   then
-         if (not ScannerCorrect.FlgXYLinear) and ((flgUnit=nano) or (flgUnit=Pipette)or (flgUnit=ProBeam)) then
+         if (not ScannerCorrect.FlgXYLinear) and ((flgUnit=nano) or (flgUnit=Pipette)or (flgUnit=ProBeam) or (flgUnit=MicProbe)) then
            if siLangLinked1.MessageDlg(scan6{ 'You scan without linealization! Continue scan?' },mtConfirmation ,[mbYes,mbNo],0)=mrNo then exit;
      if assigned(ApproachOpt) then
     begin
@@ -4935,7 +4935,7 @@ if FlgStopScan then
   ClearTabImages;
   if Assigned(CurrentLineWnd)   then CurrentLineWnd.ReDraw;
            case  flgUnit  of
-nano,ProBeam,
+nano,ProBeam,MicProbe,
 Pipette,
 terra: begin
         lblYmax.Caption:=InttoStr(round(ScanParams.Ymax/1000))+' '+mcrn;  //micron
@@ -5397,7 +5397,7 @@ begin
    nano,
    Pipette,
    terra: SetScanParamsDef;
-   ProBeam: SetScanParamsDefSEM;
+   ProBeam,MicProbe: SetScanParamsDefSEM;
    baby: SetScanParamsDefAtom;
    grand: SetScanParamsDefGrand;
          end;
@@ -5435,7 +5435,7 @@ begin
    nano,
    Pipette,
    terra: SetScanParamsDefF;
- ProBeam: SetScanParamsDefSEMF;
+ ProBeam,MicProbe: SetScanParamsDefSEMF;
     baby: SetScanParamsDefAtomF;
    grand: SetScanParamsDefGrandF;
            end;
@@ -5453,7 +5453,7 @@ begin
       SetXYMax;
       if FlgCurrentUserLevel =Demo then  SetXYMaxDemo(PageCtlRight.ActivePageIndex);
           case  flgUnit  of
-nano,ProBeam,
+nano,ProBeam,MicProbe,
 Pipette,
 terra:
        begin
@@ -7994,7 +7994,7 @@ begin
      nano,
      Pipette,
      terra:  Setscanparamsdef;     //fine; rough
-    ProBeam:   SetScanParamsDefSEM;
+    ProBeam,MicProbe:   SetScanParamsDefSEM;
      baby:   SetscanparamsdefAtom;
     grand:   SetscanparamsdefGrand;
               end;
@@ -8015,7 +8015,7 @@ begin
      nano,
      Pipette,
      terra:  Setscanparamsdef;     //fine; rough
-    ProBeam:   SetScanParamsDefSEM;
+    ProBeam,MicProbe:   SetScanParamsDefSEM;
      baby:   SetscanparamsdefAtom;
     grand:   SetscanparamsdefGrand;
               end;

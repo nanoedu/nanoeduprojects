@@ -1682,7 +1682,8 @@ grand:begin
         ScanAreaStartXF:=0;
         ScanAreaStartYF:=0;
       end;
-ProBeam: begin
+ProBeam,
+MicProbe: begin
         ScanAreaStartXR:=1000;
         ScanAreaStartYR:=1000;
         ScanAreaStartXF:=100;
@@ -1737,7 +1738,8 @@ grand:begin
         ScanAreaStartXF:=0;
         ScanAreaStartYF:=0;
       end;
- ProBeam: begin
+ ProBeam,
+ micProbe: begin
         ScanAreaStartXR:=1000;
         ScanAreaStartYR:=1000;
         ScanAreaStartXF:=100;
@@ -1800,7 +1802,8 @@ grand:begin
         ScannerDefIniFilesPath:=ScannerIniBasePath+HardWareOpt.ScannerNumb+'\';
         PathFlash:='';
       end;
-ProBeam: begin
+ProBeam,
+MicProbe: begin
  //       ScannerIniFilesPath:=ExeFilePath+ScannerSEMUnitPath;
 //        ScannerDefIniFilesPath:=ExeFilePath+ScannerSEMUnitPath;
         ScannerIniFilesPath:=ScannerIniBasePath+HardWareOpt.ScannerNumb+'\';
@@ -1825,7 +1828,7 @@ baby,
 Nano,
 Pipette,
 terra,
-ProBeam,
+ProBeam,MicProbe,
 grand:begin
            ScannerIniFile:=     ScannerIniFileX;
            ScannerDefIniFile:=  ScannerDefIniFileX;
