@@ -307,10 +307,6 @@ object ScanWnd: TScanWnd
           OnChange = PageCtrlScanChange
           object TabSheetScanArea: TTabSheet
             Caption = 'Area'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object PanelScanM: TPanel
               Left = 0
               Top = 0
@@ -1827,10 +1823,6 @@ object ScanWnd: TScanWnd
         object TabSheetMatrix: TTabSheet
           Caption = 'Matrix for lithography'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PanelMatrix: TPanel
             Left = 0
             Top = 0
@@ -2461,10 +2453,6 @@ object ScanWnd: TScanWnd
           Hint = 'Current Image'
           Caption = 'Fast Scan/Phase shift'
           ImageIndex = 5
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ImageFastTopo: TImage
             Left = 96
             Top = 64
@@ -3605,7 +3593,7 @@ object ScanWnd: TScanWnd
     Left = 248
     Top = 96
     Bitmap = {
-      494C0101080009001C0220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010108000900200220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
