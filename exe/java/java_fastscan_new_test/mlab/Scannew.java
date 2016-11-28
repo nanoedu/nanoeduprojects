@@ -1,6 +1,7 @@
 package mlab;  // fastscan
-// 18/10/16 changed buffer
-// 22/03/13  // additional element in buffer (  <> mod 512)
+//16/11/28 waitfor error 
+// 19/10/16 changed buffer
+               // 22/03/13  // additional element in buffer (  <> mod 512)
 
 public class Scannew
 {
@@ -53,6 +54,7 @@ public class Scannew
 		int[] arr;
               	int[] arradd;
 		int i;
+                int err;
 		int src_i;
 		int dst_i;
 		int[] datain;
@@ -82,26 +84,26 @@ public class Scannew
                 int  slowlinescount;
                //new
               	Dxchg dxchg;
-
+                 err=1;
                 M_BASE_K =Simple.bramID("m_BaseK");;
                 M_USTEP = Simple.bramID("m_ustep");;
                 M_DACX   = Simple.bramID("dxchg_X");
                 M_DACY   = Simple.bramID("dxchg_Y");
 
-	//	datain=Simple.xchgGet("algoritmparams.bin");
+		datain=Simple.xchgGet("algoritmparams.bin");
 
                 int i0=4;
 
-		X_POINTS        =   100; // datain[i0];
-		Y_POINTS        =   100; // datain[i0+1];
-		ScanPath        =   0;//  datain[i0+2];
-		SZ              =   1;//  1; //datain[i0+3];
-		ScanMethod      =   8;//  datain[i0+4];
-		MicrostepDelay  =   5;//5;//  datain[i0+5];
-		MicrostepDelayBW=   5;//5;//  datain[i0+6];
-		DiscrNumInMicroStep= 1<<16;//  datain[i0+7] << 16;
-		XMicrostepNmb   =  -16;//  -datain[i0+8]; //<< **
-		YMicrostepNmb   =  -1;//  -datain[i0+9]; //<< **
+		X_POINTS        =     datain[i0];
+		Y_POINTS        =     datain[i0+1];
+		ScanPath        =     datain[i0+2];
+		SZ              =     1; //datain[i0+3];
+		ScanMethod      =     datain[i0+4];
+		MicrostepDelay  =     datain[i0+5];
+		MicrostepDelayBW=     datain[i0+6];
+		DiscrNumInMicroStep=  datain[i0+7] << 16;
+		XMicrostepNmb   =    -datain[i0+8]; //<< **
+		YMicrostepNmb   =    -datain[i0+9]; //<< **
 
 
                 int  flgUNit;
@@ -129,7 +131,30 @@ public class Scannew
 
 		dataout=new int[fastlines*slowlines+1];
 
-	
+		int[] buf_stop;
+		buf_stop = new int[1];
+		buf_stop[0] =0;
+		wr = stream_ch_stop.Write(buf_stop, 1, 1000);
+		stream_ch_stop.Invalidate();
+
+		int[] buf_drawdone;
+		buf_drawdone = new int[1];
+		buf_drawdone[0] =0;
+		wr = stream_ch_drawdone.Write(buf_drawdone, 1, 1000);
+/*
+                int[] buf_params;
+		buf_params=new int[2];
+                buf_params[0]=datain[i0+5]  ;    // speed foreward
+                buf_params[1]=datain[i0+6];      // speed backward
+
+
+                 wr=0;
+                for (;  wr == 0; )
+		{
+                 wr = stream_ch_params.Write(buf_params, 1, 1000);
+		}
+
+*/
 
 	        d_step_N = XMicrostepNmb;     //  ол-во микрошагов от точки к точке.
  		d_step = d_step_N * DAC_STEP; // ѕриращение ÷јѕ на шаге от точки к точке.
@@ -139,31 +164,41 @@ public class Scannew
         	dacZ =0;
 
 
-                USTEP_DLY = MicrostepDelay;
+                USTEP_DLY = MicrostepDelay;//buf_params[0];
 
-                USTEP_DLYBW =MicrostepDelayBW;
+                USTEP_DLYBW = MicrostepDelayBW;//buf_params[1];
 
       		uVector =   (2 * DiscrNumInMicroStep / USTEP_DLY);
-                if (uVector==0) uVector=1;
+               // if (uVector==0) uVector=1;
 
                 uVectorBW = (2 * DiscrNumInMicroStep / USTEP_DLYBW);
-                if (uVectorBW==0) uVectorBW=1;
+              //  if (uVectorBW==0) uVectorBW=1;
 
      		Simple.bramWrite( M_USTEP, uVector );
 
-      		// ÷икл сканировани€ по строкам.
+//                Simple.fcupBypass(0,true); //turn off   FB     false???
+
+
+   //   for (;;)
+   //   {	
+	// ÷икл сканировани€ по строкам.
                	rd=0;      	dst_i = 0;
+		/*	for (;  rd == 0; )
+			{
+				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
+			}
+
+			if (buf_stop[0] == MakeSTOP)
+			{
+				break;
+			}
+*/
                   slowlinescount=0;
 
 		for(lines=slowlines; lines>0; --lines)
-		{ 
-                    
-                         fastlinescount=0;
-                       //   read buffers params
-
-                  uVector = (2 * DiscrNumInMicroStep / USTEP_DLY);
-                  uVectorBW = (2 * DiscrNumInMicroStep / USTEP_DLYBW);
-                       	dxchg = new Dxchg();
+		{
+                       	 fastlinescount=0;
+			dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
       		                               PORT_Y,PORT_COS_Y, dacY,
          	                               -1,-1, -1} );
@@ -190,20 +225,24 @@ public class Scannew
 
                        	Simple.bramWrite( M_USTEP, uVector );
         		dxchg.ExecuteScan();
-         		dxchg.WaitScanComplete(-1);
+         	        err=dxchg.WaitScanComplete(20000);
 	        	arr = dxchg.GetResults();
                       	src_i = 0;
 
                        	// ќставл€ем в массиве только нужные данные.
 			for(i=0; i<fastlines; i++)
 			{
-			    dataout[dst_i]   = arr[src_i];
+			       if (err==1)	dataout[dst_i] = arr[src_i];
+                               else     dataout[dst_i] = 1<<16;
+                    //   dataout[dst_i]   = arr[src_i];
 			    dst_i += 1;
                             src_i += 1;
 			}
-
-                // run    backward                
-                  	dxchg = new Dxchg();
+                         if (err!=1)
+                         {
+                           break;
+                         }
+                       	dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
          		                               PORT_Y,PORT_COS_Y, dacY,
                 	                               -1,-1, -1} );
@@ -231,9 +270,34 @@ public class Scannew
 
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
-         		dxchg.WaitScanComplete(-1);
+         		err=dxchg.WaitScanComplete(20000);
+                        if (err!=1) break;
 
-		}//y
+
+	}//y
+                if (err!=1)
+                {
+                 // «аписываем 0 в выходные порты COS дл€ остановки
+		 // возможного перемещени€ по X,Y,Z (см.топологию).
+                 dxchg = new Dxchg();
+	       	 dxchg.SetO(PORT_COS_X, 0);
+		 dxchg.SetO(PORT_COS_Y, 0);
+	   	 dxchg.SetO(PORT_COS_Z, 0);
+		 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(500);
+
+		// ѕосле того, как сканирование остановлено (dxchg.ena==1)
+		// можно считывать текущее состо€ние координат.
+	       	 dacX = Simple.bramRead(M_DACX) ;
+             	 dacY = Simple.bramRead(M_DACY) ;
+                 dxchg = new Dxchg();
+                 dxchg.SetO(PORT_X, dacX);
+		 dxchg.SetO(PORT_Y, dacY);
+
+         	 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(500);
+                }
+           //send scan data
                 	wr=0;  rd=0;
 
 			int s = slowlines*fastlines +1;  // +1 чтобы размер данных был <> mod 512
@@ -242,14 +306,36 @@ public class Scannew
                           wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
 			}
 			stream_ch_data_out.Invalidate();
-// окончание работы
 
+           // окончание работы
+
+		buf_drawdone[0]=done;
+
+  //              Simple.fcupBypass(0,false); //turn on  FB
+
+		Simple.DumpInt(done);
+
+		wr=0;
+		for (;  wr == 0; )
+		{
+                  wr = stream_ch_drawdone.Write(buf_drawdone, 1, 300);
+		}
+                stream_ch_drawdone.Invalidate();
+
+		Simple.Sleep(1000);
+
+		rd=0;
+		int ccnt = 0;
+                 for(;(buf_stop[0]!=stop) ;)
+                {
+                  rd = stream_ch_stop.Read(buf_stop, 1,1000,false);
+                  ccnt+=1;
+                }
                 stream_ch_params.Close();
 		stream_ch_drawdone.Close();
 		stream_ch_data_out.Close();
 		stream_ch_stop.Close();
-   }
-	
+	}
 }
 
 
