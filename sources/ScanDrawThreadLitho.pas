@@ -324,13 +324,14 @@ if CreateChannels(AlgParams.NChannels) then
          else Formlog.memolog.Lines.add('Matrix Litho: Elements='+inttostr(NChElements)+'size='+inttostr(ElementSize));
       {$ENDIF}
     nwrite:=NChElements;  //1  20/02/13 error
+    // load the litho matrix to the controller
     hr:=arPCChannel[ ch_Data_MATRIX].ChannelWrite.Write(MatrixLithoAct,nwrite);     //WRITE
          {$IFDEF DEBUG}
              if Failed(hr) then
                   Formlog.memolog.Lines.add('error write litho matrix'+inttostr(nwrite)+'hr='+inttostr(hr))
                   else
                  Formlog.memolog.Lines.add('ok write litho matrix ' +' data size ='+inttostr(nwrite));
-             {$ENDIF}
+         {$ENDIF}
 
    arPCChannel[ch_Data_out].Main.Get_Id(ID);  //data out channel
   if ID=ch_Data_OUT then

@@ -130,7 +130,7 @@ public class Litholinnew
 		YMicrostepNmb   =    -datain[i0+9]; //<<
                 Amplifier       =    datain[i0+10]; //<<
                 dt              =    datain[i0+11]; //<<
-                //add 11/11/2016
+//add 11/11/2016
 //                twait           =    datain[i0+12];
 
               	//maskin=Simple.xchgGet("lithomask.bin"); //массив одномерный- правильно заполнить в дельфи
@@ -145,8 +145,6 @@ public class Litholinnew
                  fastlines=Y_POINTS;
                  slowlines=X_POINTS;
                 }
-
- // for (i=0;i<12; i++)  { Simple.DumpInt(datain[i]);}
 
 		JVIO stream_ch_stop      = new JVIO(CH_STOP,    1, 1,JVIO.BUF,  1, 0);                        // 0
 		JVIO stream_ch_drawdone  = new JVIO(CH_DRAWDONE,1, 1,JVIO.BUF,  1, 0);                        // 1
@@ -169,9 +167,6 @@ public class Litholinnew
 		buf_drawdone = new int[1];
 		buf_drawdone[0] =0;
 		wr = stream_ch_drawdone.Write(buf_drawdone, 1, 1000);
-
-//		Simple.DumpInt(0xBAAAAAAA);
-
                 int[] buf_params;
 		buf_params=new int[4];
                 buf_params[0]=datain[i0+5];    //<<   ???    // speed
@@ -179,30 +174,24 @@ public class Litholinnew
                 buf_params[2]=datain[i0+10];   //<<   ???    // amplifier
                 buf_params[3]=datain[i0+11];                 // dt
                  wr=0;
+//read parameters
                 for (;  wr == 0; )
 		{
                  wr = stream_ch_params.Write(buf_params, 1, 1000);
 		}
-
-
-//		Simple.DumpInt(0xCCAAAAAA);
 		 rd=0;
                  for(;(rd!=1) ;)
                    {
                      rd = stream_ch_linearsteps_in.Read(LINSTEPS, 1,-1,false);
                    }
 
-//Simple.DumpInt(0xCCCAAAAA);
-
-//		Simple.DumpInt(0xBBAAAAAA);
 		 rd=0;
+//read litho matrix
                  for(;(rd!=1) ;)
                    {
                      rd = stream_ch_data_in.Read(maskin, 1,-1,false);
                    }
-
-//Simple.DumpInt(0xBBBAAAAA);
-
+//
 		JMPX = new int[X_POINTS];
                 JMPY = new int[Y_POINTS];
 
@@ -276,19 +265,16 @@ public class Litholinnew
 
                       uVectorBW = (2 * DiscrNumInMicroStep / USTEP_DLYBW);
 
-                         	dxchg = new Dxchg();
+                       	dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
-      		                               PORT_Y,PORT_COS_Y, dacY,
-         	                               PORT_Z,PORT_COS_Z, dacZ} );
-
+            		                               PORT_Y,PORT_COS_Y, dacY,
+                 	                               PORT_Z,PORT_COS_Z, dacZ} );
 
 
                      for(point=0; point<fastlines; point++)  //forward
 		     {
-                               if (Amplifier > 0)
-                                 dacZ = maskin[( slowlines- lines)*fastlines+point]*Amplifier;
-                               else
-                                 dacZ = -maskin[( slowlines- lines)*fastlines+point]/Amplifier;
+                         if (Amplifier > 0) dacZ = maskin[( slowlines- lines)*fastlines+point]*Amplifier;
+                         else               dacZ = -maskin[( slowlines- lines)*fastlines+point]/Amplifier;
 
                        	dxchg.Goto( dacX,dacY,0);
                       	dxchg.Wait( 100 );
@@ -301,9 +287,8 @@ public class Litholinnew
                          dxchg.Goto(dacX,dacY,0);
                         }
                        	dxchg.Wait( 100 );
-                        if (  ScanPath == 0)                    // X Mode
-				           { dacX += JMPX[point];}
-				 else      { dacY += JMPY[point];}        // Y Mode
+                        if (  ScanPath == 0){ dacX += JMPX[point];}       // X Mode
+				 else       { dacY += JMPY[point];}       // Y Mode
 		     }
                       	Simple.bramWrite( M_USTEP, uVector );
                 	dxchg.ExecuteScan();
@@ -317,9 +302,8 @@ public class Litholinnew
 			dst_i = 0;
 			for(i=0; i<fastlines; i++)
 			{
-		//		dataout[dst_i] = res[src_i];
 		       	  if (err==1)	dataout[dst_i] = res[src_i];
-                          else     dataout[dst_i] = 1<<16;
+                          else          dataout[dst_i] = 1<<16;
 				dst_i += 1;
 				src_i += 1;  //9
 			}
@@ -335,7 +319,7 @@ public class Litholinnew
 
                         //backward
 
-                        	rd=0;
+                       	rd=0;
 			for (;  rd == 0; )
 			{
 				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
@@ -375,14 +359,13 @@ public class Litholinnew
                        	dxchg.Goto( dacX,dacY,0);
                         dxchg.Wait( 100 );
 	        	dxchg.GetI( PORT_H );
-   		       ;
               	      if (  ScanPath == 0)                    // X Mode                  // ќбратный путь, шаги
-				          // { dacX -= JMPX[fastlines-1-point];}                 // ¬ обратном пор€дке
-                                             { dacX -= JMPX[point];}                         // в 2016 изменено, и на обратном ходе
-                                                                                             // берутс€ шаги в пр€мом пор€дке
+				          // { dacX -= JMPX[fastlines-1-point];}         // ¬ обратном пор€дке
+                                             { dacX -= JMPX[point];}                     // в 2016 изменено, и на обратном ходе
+                                                                                         // берутс€ шаги в пр€мом пор€дке
 				 else        { dacY -= JMPY[point];}        // Y Mode
 		     }
-         //             if (  ScanPath == 0)  {dacY += JMPY[slowlines-lines];}           changed 16.05
+         //             if (  ScanPath == 0)  {dacY += JMPY[slowlines-lines];}           changed 16.05.16
          //                              else {dacX += JMPX[slowlines-lines];}
                       if ( lines > 1 )   // ѕереход к следующей строке
                                   {
@@ -405,7 +388,7 @@ public class Litholinnew
                 	Simple.bramWrite( M_USTEP, uVectorBW );
                		dxchg.ExecuteScan();
          	        err=dxchg.WaitScanComplete(-1);        //-1 infinite
- //                       err=dxchg.WaitScanComplete(20000);
+ //                     err=dxchg.WaitScanComplete(20000);
 	         	res = dxchg.GetResults();
 
 			//Read data ќставл€ем в массиве только нужные данные.
@@ -415,7 +398,7 @@ public class Litholinnew
 			{
 				//res[dst_i] = res[src_i];
 			  if (err==1)	dataout[dst_i] = res[src_i];
-                          else     dataout[dst_i] = 1<<16;
+                          else          dataout[dst_i] = 1<<16;
 				dst_i += 1;
 				src_i += 1;     //3
 			}

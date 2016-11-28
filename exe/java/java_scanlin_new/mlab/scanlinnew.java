@@ -1,6 +1,5 @@
 package mlab;
 //16/11/28   waitfor error    repeat  error  scan
-//16/11/28
 public class  scanlinnew
 {
 	static int X_POINTS = 50;
@@ -294,9 +293,9 @@ public class  scanlinnew
                           if (ScanMethod!=I) { dxchg.GetI( PORT_ERR );}
                                         else { dxchg.GetI( PORT_I );}
                       	// repeat  foreward line
-                       	Simple.bramWrite( M_USTEP, uVector );
-        		dxchg.ExecuteScan();
-                        err=dxchg.WaitScanComplete(-1);
+                       	    Simple.bramWrite( M_USTEP, uVector );
+        		    dxchg.ExecuteScan();
+                            err=dxchg.WaitScanComplete(-1);
                         }
                         *****************************/
 	        	arr = dxchg.GetResults();
@@ -333,11 +332,8 @@ public class  scanlinnew
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
       		                               PORT_Y,PORT_COS_Y, dacY,
          	                               -1,-1, -1} );
-
-
-                        if (  ScanPath == 0)
-			             {dacX -= JMPX_SUM;}
-			 else        {dacY -= JMPY_SUM;}
+                        if (  ScanPath == 0) {dacX -= JMPX_SUM;}
+			 else                {dacY -= JMPY_SUM;}
 
                         dxchg.Goto( dacX,dacY,0);
                         if  (ScanMethod != OneLine)

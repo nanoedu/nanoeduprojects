@@ -4310,7 +4310,7 @@ begin
           then LinearPath        else NonLinearPath;//non linear
 *)
 end;
- function   TLithoSFM.InitAlgorithmParamsFile:integer;   
+ function   TLithoSFM.InitAlgorithmParamsFile:integer;
  var cnt, DataLen,shift:integer;
  begin
    // shift <<16 ??? if need
@@ -4393,9 +4393,8 @@ var HNDL:integer;
               NoFormUnitLoc.siLang1.MessageDlg(strcom2{'OUT memory TopoSPM'}+' 2',mtWarning,[mbOk],0);
     end;
 
-    for i:=0 to L-1  do
-      PintegerArray(DatBuf)[i]:=DataArray[i];
-      icod:=FileWrite(HNDL,DatBuf^,L*sizeof(integer));
+    for i:=0 to L-1  do      PintegerArray(DatBuf)[i]:=DataArray[i];
+    icod:=FileWrite(HNDL,DatBuf^,L*sizeof(integer));
     if (icod<>L*sizeof(integer)) then
      raise Exception.Create('File Write ERROR (Datas)');
        FreeMem(DatBuf);

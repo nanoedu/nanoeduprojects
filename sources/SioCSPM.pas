@@ -1058,7 +1058,7 @@ begin
     {$ENDIF};
    if FlgCurrentUserLevel<>Demo then
     begin
-      repeat
+     repeat
       sleep(200);
       application.processmessages;
      until flgfilealguploaded;
