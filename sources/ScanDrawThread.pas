@@ -18,6 +18,7 @@ uses
     flgCurPlDelDraw:boolean;
     flgTopViewPlDelDraw:boolean;
     flgTopViewSDelDraw:boolean;
+    ErrorController:boolean;
     GreyEntr:byte;
     PointInd:integer;
     PointDrawS:integer;
@@ -109,6 +110,7 @@ var
 constructor TScanDrawThread.Create;
 begin
   inherited Create(True);
+   ErrorController:=false;
    CoInitializeEx(nil,COINIT_MULTITHREADED);
    FreeOnTerminate:=true;
    Priority := TThreadPriority(tpNormal);
@@ -119,8 +121,10 @@ destructor TScanDrawThread.Destroy;
 begin
     CoUnInitialize;
    ThreadFlg:=mDrawing;
-   if (ScanParams.ScanPath<>Multi) and (ScanParams.ScanPath<>MultiY) then PostMessage(ScanWND.Handle,wm_ThreadDoneMsg,ThreadFlg,0)
-                                                                     else PostMessage(ScanWND.Handle,wm_MultiThreadDoneMsg,ThreadFlg,0);
+//   if (ScanParams.ScanPath<>Multi) and (ScanParams.ScanPath<>MultiY) then PostMessage(ScanWND.Handle,wm_ThreadDoneMsg,ThreadFlg,0)
+//                                                                     else PostMessage(ScanWND.Handle,wm_MultiThreadDoneMsg,ThreadFlg,0);
+   if (ErrorController) then  PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,ThreadFlg,lError)
+                        else  PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,ThreadFlg,lOK);
    SideViewLine:=nil;
    inherited destroy;
 end;
@@ -181,8 +185,10 @@ var i,CurrentPoint,CurScan:integer;
     LineSlowAxisPos:integer;
      Zval:integer;
      ZCorr1,ZCorr:integer;
+     counterr:integer;
 begin
  LineSlowAxisPos:=0;
+ counterr:=0;
  j:=XPos;//was =0 for nanoeduII
 // if flgCurrentUserLevel=Demo then  j:=n;
  if (ScanParams.ScanPath<>Multi) and (ScanParams.ScanPath<>MultiY) then CurScan:=ScanParams.CurrentScanCount
@@ -199,8 +205,9 @@ begin
     begin
       if ((ScanParams.ScanPath=Multi) or (ScanParams.ScanPath=MultiY)) then ScanError[CurrentPoint]:=value;
     end;
-    
+
      TempAquiDataZ[i]:=value;
+      if value=1 then  inc(counterr);
      if(ScannerCorrect.flgZLinear) then  // Вставлено 27/10/2016 , чтобы линеаризовать Z
      begin
         if (ScannerCorrect.FlgZLinAbs) then
@@ -221,7 +228,6 @@ begin
            if(ZCorr < MinDATATYPE) then ZCorr := MinDATATYPE;
       value :=  ZCorr;
       end;
-
      TempAquiData[i]:=value;
   if  CurrentPoint<ScanParams.ScanPoints then
   begin  // (**)
@@ -313,6 +319,7 @@ begin
   end;
  end; //i
  // n:=j;//n+j;     //nanoeduII
+   if counterr>10 then ErrorController:=true;
   XPos:=j+Scanparams.sz;
 end;
 
@@ -594,7 +601,7 @@ if CreateChannels(AlgParams.NChannels) then
      nread:=0; XPos:=0;
     GetCountDelays_cnt:=0;
     GetTimeNow(StartHour, startMin, StartSec, startMsec);
- while (not Terminated) and (CurrentP<PointsNmb) and (not flgEnd) do
+ while (not Terminated) and (CurrentP<PointsNmb) and (not flgEnd) and (not ErrorController) do
  begin
        nread:=1;
         if FlgStopJava then
@@ -910,7 +917,8 @@ finally
   if (not Terminated) then  Self.Terminate;
 end;{finally}
      {$IFDEF DEBUG}
-         Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_46' (* 'End drawing' *) ));
+         Formlog.memolog.Lines.add('End drawing');
+         if ErrorController then   Formlog.memolog.Lines.add('The Controller Error');
     {$ENDIF}
 
 end;  //execute

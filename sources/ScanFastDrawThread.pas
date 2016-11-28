@@ -16,6 +16,7 @@ uses
  type
   TScanFastDrawThread = class(TThread)
   private
+    ErrorController:boolean;
     GreyEntr:byte;
     ZIndicatorVal:integer;
     ZIndicatorNormVal:single;
@@ -87,6 +88,7 @@ constructor TScanFastDrawThread.Create;
 begin
   inherited Create(True);
    CoInitializeEx(nil,COINIT_MULTITHREADED);
+   ErrorController:=false;
    FreeOnTerminate:=true;
    Priority := TThreadPriority(tpNormal);
    Suspended := false;// Resume;
@@ -104,7 +106,8 @@ begin
     CoUnInitialize;
    FreeAndNil(BiTmap);
    ThreadFlg:=mFastDrawing;
-   PostMessage(ScanWND.Handle,wm_ThreadDoneMsg,ThreadFlg,0);
+  if (ErrorController) then  PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,ThreadFlg,lError)
+                       else  PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,ThreadFlg,lOK);
    inherited destroy;
 end;
 
@@ -272,10 +275,10 @@ end;  //ID not data channel
 end; // create channel =true
 100:  ;
 //  if (not Terminated) then  Self.Terminate;
-    {$IFDEF DEBUG}
-         Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_46' (* 'End drawing' *) ));
-    {$ENDIF}
-end;  //execute
+  {$IFDEF DEBUG}
+         Formlog.memolog.Lines.add('End drawing');
+         if ErrorController then   Formlog.memolog.Lines.add('The Controller Error');
+   {$ENDIF}end;  //execute
 
 procedure TScanFastDrawThread.sZIndicator;
 var i:integer;
@@ -316,7 +319,9 @@ var i,j,k:integer;
     RGBCol:TColor;
     P:PByteArray;
     value:apitype;
+    counterr:integer;
 begin
+        counterr:=0;
         n:=ScanParams.Nx;
         m:=ScanParams.Ny;
         GreyEntr:=255;
@@ -325,6 +330,7 @@ begin
    for i:=0 to n-1 do
     begin
      value :=datatype(PIntegerArray(DataBuf)[k] shr 16);
+     if value=1 then   inc(counterr);
      ScanData.AquiADD.Data[i,j]:=value;
      inc(k);
     end;
@@ -350,6 +356,7 @@ begin
   ScanWnd.ImgRChart.BackImage.Assign(BitMap);
   ScanWnd.ImgRBitMapTemp.Assign(BitMap);
   ScanWnd.ImgRChart.Repaint;
+  if counterr>10 then ErrorController:=true;
 end;
 
 procedure TScanFastDrawThread.CountUpd;

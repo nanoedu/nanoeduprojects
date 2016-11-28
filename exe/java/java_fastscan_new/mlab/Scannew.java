@@ -1,4 +1,5 @@
 package mlab;  // fastscan
+//16/11/28 waitfor error 
 // 19/10/16 changed buffer
                // 22/03/13  // additional element in buffer (  <> mod 512)
 
@@ -53,6 +54,7 @@ public class Scannew
 		int[] arr;
               	int[] arradd;
 		int i;
+                int err;
 		int src_i;
 		int dst_i;
 		int[] datain;
@@ -82,7 +84,7 @@ public class Scannew
                 int  slowlinescount;
                //new
               	Dxchg dxchg;
-
+                 err=1;
                 M_BASE_K =Simple.bramID("m_BaseK");;
                 M_USTEP = Simple.bramID("m_ustep");;
                 M_DACX   = Simple.bramID("dxchg_X");
@@ -194,32 +196,7 @@ public class Scannew
                   slowlinescount=0;
 
 		for(lines=slowlines; lines>0; --lines)
-		{ /*  	rd=0;      	
-			for (;  rd == 0; )
-			{
-				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
-			}
-
-			if (buf_stop[0] == MakeSTOP)
-			{
-				break;
-			}                 
-                       
-                       //   read buffers params
-			rd=0;
-		       for (;  rd == 0; )
-			{
-			 rd = stream_ch_params.Read(buf_params, 1,200,true);
-			}
-                         USTEP_DLY = buf_params[0];
-                        
-                       USTEP_DLYBW = buf_params[1];
-
-                         uVector = (2 * DiscrNumInMicroStep / USTEP_DLY);
-                         if (uVector==0) uVector=1;
-                         uVectorBW = (2 * DiscrNumInMicroStep / USTEP_DLYBW);
-                        if (uVectorBW==0) uVectorBW=1;
-                    */
+		{
                        	 fastlinescount=0;
 			dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
@@ -248,18 +225,23 @@ public class Scannew
 
                        	Simple.bramWrite( M_USTEP, uVector );
         		dxchg.ExecuteScan();
-         		dxchg.WaitScanComplete(-1);
+         	        err=dxchg.WaitScanComplete(20000);
 	        	arr = dxchg.GetResults();
                       	src_i = 0;
 
                        	// Оставляем в массиве только нужные данные.
 			for(i=0; i<fastlines; i++)
 			{
-			    dataout[dst_i]   = arr[src_i];
+			       if (err==1)	dataout[dst_i] = arr[src_i];
+                               else     dataout[dst_i] = 1<<16;
+                    //   dataout[dst_i]   = arr[src_i];
 			    dst_i += 1;
                             src_i += 1;
 			}
-
+                         if (err!=1)
+                         {
+                           break;
+                         }
                        	dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
          		                               PORT_Y,PORT_COS_Y, dacY,
@@ -288,9 +270,34 @@ public class Scannew
 
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
-         		dxchg.WaitScanComplete(-1);
+         		err=dxchg.WaitScanComplete(20000);
+                        if (err!=1) break;
 
-		}//y
+
+	}//y
+                if (err!=1)
+                {
+                 // Записываем 0 в выходные порты COS для остановки
+		 // возможного перемещения по X,Y,Z (см.топологию).
+                 dxchg = new Dxchg();
+	       	 dxchg.SetO(PORT_COS_X, 0);
+		 dxchg.SetO(PORT_COS_Y, 0);
+	   	 dxchg.SetO(PORT_COS_Z, 0);
+		 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(500);
+
+		// После того, как сканирование остановлено (dxchg.ena==1)
+		// можно считывать текущее состояние координат.
+	       	 dacX = Simple.bramRead(M_DACX) ;
+             	 dacY = Simple.bramRead(M_DACY) ;
+                 dxchg = new Dxchg();
+                 dxchg.SetO(PORT_X, dacX);
+		 dxchg.SetO(PORT_Y, dacY);
+
+         	 dxchg.ExecuteScan();
+		 dxchg.WaitScanComplete(500);
+                }
+           //send scan data
                 	wr=0;  rd=0;
 
 			int s = slowlines*fastlines +1;  // +1 чтобы размер данных был <> mod 512
@@ -299,8 +306,8 @@ public class Scannew
                           wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
 			}
 			stream_ch_data_out.Invalidate();
-//      }  
-// окончание работы
+
+           // окончание работы
 
 		buf_drawdone[0]=done;
 

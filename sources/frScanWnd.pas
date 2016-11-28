@@ -429,8 +429,8 @@ type
     procedure ClearTabImages;
  // procedure ScanDataInit;
     Procedure SideViewInit;
-    procedure ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;     // Message to be sent back from thread when its done
-    procedure MultiThreadDone(var AMessage : TMessage); message WM_MultiThreadDoneMsg;     // Message to be sent back from thread when its done
+    procedure ThreadDone(var AMessage : TMessage);       message WM_ThreadDoneMsg;     // Message to be sent back from thread when its done
+    procedure MultiThreadDone(var AMessage : TMessage);  message WM_MultiThreadDoneMsg;     // Message to be sent back from thread when its done
     procedure ScanErrorMessage(var AMessage : TMessage); message WM_UserMsgScanError;
     procedure Scanning;
     procedure FastScanning;

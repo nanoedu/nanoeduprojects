@@ -1,3 +1,4 @@
+// corrected fast scan freebuffer 28/11/16
 //  250406  correction path and buffers set
  //190213  litho changed
 unit uNanoEduScanClasses;
@@ -322,6 +323,8 @@ TFastTopo=class(TTopography)
   function   InitAlgorithmParamsFile:integer;    override;
   function   InitBuffers: integer;       override;
  protected
+
+  function   FreeBuffers:integer; override;
   function   InitRegimeVars:integer;      override;
   procedure  StartDraw;          override;
 //  function   FreeBuffers:integer;   override;
@@ -2327,7 +2330,7 @@ function  TTopography.FreeBuffers:integer;
 begin
 inherited FreeBuffers;
  if   ScannerCorrect.FlgXYLinear and (HardWareOpt.XYtune='Rough')and (not FlgReniShawUnit) then
-  FreeMem(LINEARSTEPSAct);
+                     FreeMem(LINEARSTEPSAct);
 end;
 
 function  TTopography.CreateAlgorithmParamsFile:integer;
@@ -4008,6 +4011,14 @@ begin
   GetMem(StopBuf,sizeof(Integer));   //3 need for demo
   GetMem(DoneBuf,sizeof(Integer));   //3 need for demo
   GetMem(DataBuf,Data_out_BufferLength*sizeof(data_out_type));
+end;
+
+function  TFastTopo.FreeBuffers:integer;
+begin
+ FreeMem(StopBuf);
+ FreeMem(DoneBuf);
+ FreeMem(DataBuf);
+//  inherited TScanMethod.FreeBuffers;
 end;
 
  function  TFastTopo.InitRegimeVars:integer;
