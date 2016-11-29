@@ -167,7 +167,7 @@ if CreateChannels(AlgParams.NChannels) then
   while (not Terminated)  and (not flgEnd) do
   begin
       nread:=1;
- (*     if FlgStopJava then
+      if FlgStopJava then        //28/11/16
       begin
       //     sleep(500);
            PintegerArray(StopBuf)[0]:=StopJava;
@@ -201,7 +201,7 @@ if CreateChannels(AlgParams.NChannels) then
           until  (PIntegerArray(DoneBuf)[0]=done) or (count=20);
           if PIntegerArray(DoneBuf)[0]=done then   flgEnd:=true; //stop button press       stop scanning
       end;    //stop java
-*)
+
     sleep(4000); //
         hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(ntoread);     //get new data count
        {$IFDEF DEBUG}
@@ -251,7 +251,7 @@ if CreateChannels(AlgParams.NChannels) then
               ScanData.SaveExperiment;
              end;
    end; // i
-  flgEnd:=true;
+  //flgEnd:=true;        28/11/16
   end;
   // if nc=4 then
   end; {while NOT TERMINATE}

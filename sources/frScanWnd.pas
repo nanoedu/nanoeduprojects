@@ -2663,7 +2663,8 @@ begin
   Application.ProcessMessages;
   DisableTopPanel(false);
   self.enabled:=True;
-  StartBtn.Enabled:=false;  SaveExpBtn.Visible:=False;   StopBtn.Enabled:=false;   RStartBtn.Enabled:=false;
+  StartBtn.Enabled:=false;  SaveExpBtn.Visible:=False;     RStartBtn.Enabled:=false;
+  StopBtn.Enabled:=true;
   flgFirstPass:=true;
  // if (HardWareOpt.XYTune='Fine') and flgFineSpeedLock then
          begin

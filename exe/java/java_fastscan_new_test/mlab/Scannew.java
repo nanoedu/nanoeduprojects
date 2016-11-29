@@ -179,11 +179,11 @@ public class Scannew
 //                Simple.fcupBypass(0,true); //turn off   FB     false???
 
 
-   //   for (;;)
-   //   {	
+   for (;;)
+   {
 	// Цикл сканирования по строкам.
                	rd=0;      	dst_i = 0;
-		/*	for (;  rd == 0; )
+			for (;  rd == 0; )
 			{
 				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
 			}
@@ -192,7 +192,6 @@ public class Scannew
 			{
 				break;
 			}
-*/
                   slowlinescount=0;
 
 		for(lines=slowlines; lines>0; --lines)
@@ -242,6 +241,7 @@ public class Scannew
                          {
                            break;
                          }
+                      //run backward
                        	dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
          		                               PORT_Y,PORT_COS_Y, dacY,
@@ -271,10 +271,23 @@ public class Scannew
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
          		err=dxchg.WaitScanComplete(20000);
-                        if (err!=1) break;
+                   if (err!=1) break;
 
 
 	}//y
+         //send data
+                    	wr=0;  rd=0;
+
+			int s = slowlines*fastlines +1;  // +1 чтобы размер данных был <> mod 512
+			for (;  wr != s; )
+			{
+                          wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
+			}
+			stream_ch_data_out.Invalidate();
+///
+
+}
+
                 if (err!=1)
                 {
                  // Записываем 0 в выходные порты COS для остановки
@@ -298,7 +311,7 @@ public class Scannew
 		 dxchg.WaitScanComplete(500);
                 }
            //send scan data
-                	wr=0;  rd=0;
+ /*               	wr=0;  rd=0;
 
 			int s = slowlines*fastlines +1;  // +1 чтобы размер данных был <> mod 512
 			for (;  wr != s; )
@@ -306,6 +319,7 @@ public class Scannew
                           wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
 			}
 			stream_ch_data_out.Invalidate();
+*/
 
            // окончание работы
 
