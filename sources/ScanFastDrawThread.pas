@@ -199,10 +199,14 @@ if CreateChannels(AlgParams.NChannels) then
             inc(count);
             sleep(100);
           until  (PIntegerArray(DoneBuf)[0]=done) or (count=20);
-          if PIntegerArray(DoneBuf)[0]=done then   flgEnd:=true; //stop button press       stop scanning
+          if PIntegerArray(DoneBuf)[0]=done then
+           begin
+            flgEnd:=true; //stop button press       stop scanning
+            break;
+           end;
       end;    //stop java
 
-    sleep(4000); //
+        sleep(4000); //
         hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(ntoread);     //get new data count
        {$IFDEF DEBUG}
         if Failed(hr) then Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_31' (* 'error get count data ' *) )+inttostr(ntoread)+ScanWnd.siLangLinked1.GetTextOrDefault('IDS_5' (* 'hr=' *) )+inttostr(hr))
@@ -231,7 +235,7 @@ if CreateChannels(AlgParams.NChannels) then
                  end;
 
 //!!!!!!!!    10.04.15
-     nrepeat:=(ntoread div nInLine);
+      nrepeat:=(ntoread div nInLine);
       XPos:=0;
   if (nrepeat>0) and (not flgEnd)then
   begin
@@ -249,6 +253,8 @@ if CreateChannels(AlgParams.NChannels) then
               ScanData.HeaderPrepare;
               ScanData.PrepareSaveData;
               ScanData.SaveExperiment;
+              if assigned(WorkView) then
+                  PostMessage(WorkView.Handle,WM_UserUpdateWorkView,0,0)  ;
              end;
    end; // i
   //flgEnd:=true;        28/11/16

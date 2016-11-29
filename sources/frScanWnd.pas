@@ -1982,7 +1982,7 @@ grand: begin
 
         LabelZV.Font.color:=clNavy;
         ApplyBtnClick(sender);//;.Perform(BM_Click,0,0);
-
+        ImageList2.GetBitmap(9,SpdBtnRecord.glyph) ;
         FlgTimerActive:=false;
         flgStopTimer:=false;
         Timer.Enabled:=true;
@@ -2509,10 +2509,16 @@ if   FlgStopScan then       //Start  Scanning
 end;
 
 procedure TScanWnd.StopBtnClick(Sender: TObject);
+var bmp:TBitMap;
 begin
  if  not FlgStopScan then //Stop    Scanning
  begin
        flgStopPressed:=true;
+       bmp:=Tbitmap.Create();
+       flgRecord:= false;
+       ImageList2.GetBitmap(9,bmp) ;
+       SpdBtnRecord.glyph.assign(bmp);
+       FreeandNil(BMP);
        FlgReStart:=false;
        FlgStopMulti:=true;
        StartBtn.Down:=false;
@@ -7764,8 +7770,18 @@ begin
 end;
 
 procedure TScanWnd.SpdBtnRecordClick(Sender: TObject);
+var bmp:Tbitmap;
 begin
+bmp:=Tbitmap.Create();
     flgRecord:= not FlgRecord;
+          case flgRecord of
+     true: ImageList2.GetBitmap(8,bmp) ;
+     false:ImageList2.GetBitmap(9,bmp) ;
+     end;
+
+  SpdBtnRecord.glyph.assign(bmp);
+  FreeandNil(BMP);
+    application.ProcessMessages;
  //   SpdBTnRecord.Down:=not   SpdBTnRecord.Down;
 end;
 

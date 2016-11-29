@@ -45,6 +45,7 @@ type
     procedure SetActiveUp;
     procedure SetActiveDown;
     procedure WMMove(var Mes:TWMMove);                    message WM_Move;
+    procedure WMUpdate(var AMessage : TMessage);          message WM_UserUpdateWorkView;
     procedure WMSetLBFocus(var AMessage : TMessage);      message WM_UserLBViewFocus;
     procedure myFormKeyDown(Sender: TObject; var Key: Word;  Shift: TShiftState);
     procedure WMSizing(var Message: TMessage) ;           message WM_SIZING;
@@ -83,7 +84,10 @@ begin
   top:=msg.mfTop;
 end;
 end;
-
+ procedure  TfrSPMView.WMUpdate(var AMessage : TMessage);
+ begin
+   ReDraw;
+ end;
 function TfrSPMView.Stm_ActiveMY:boolean;
 var I:Integer;
 begin

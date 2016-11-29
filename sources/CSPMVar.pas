@@ -261,7 +261,7 @@ var
   const   WM_UserApproachOptUpdated = WM_User + 21;
   const   WM_UserScanWndUpdated   = WM_User + 22;
   const   WM_UserMsgScanError     = WM_User + 23;
-
+  const   WM_UserUpdateWorkView   = WM_User + 24;  
 type
   TPrilipalkaMSG = packed record
     Msg: Cardinal;

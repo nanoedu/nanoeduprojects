@@ -182,15 +182,16 @@ public class Scannew
    for (;;)
    {
 	// Цикл сканирования по строкам.
-               	rd=0;      	dst_i = 0;
+               	        rd=0;
+                   	dst_i = 0;
 			for (;  rd == 0; )
 			{
-				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
+			 rd=stream_ch_stop.Read(buf_stop, 1,300,true);
 			}
 
 			if (buf_stop[0] == MakeSTOP)
 			{
-				break;
+			 break;
 			}
                   slowlinescount=0;
 
@@ -248,22 +249,26 @@ public class Scannew
                 	                               -1,-1, -1} );
 
 
-                        if (  ScanPath == 0)
-			             {dacX -= fastlinescount*d_step;}
-			 else        {dacY -= fastlinescount*d_step;}
+                        if (  ScanPath == 0)  {dacX -= fastlinescount*d_step;}
+			 else                 {dacY -= fastlinescount*d_step;}
 
                         dxchg.Goto( dacX,dacY,0);
                         if ( lines > 1 )
-                                  {
-                                   if (  ScanPath == 0)
-                                       {if (dacY>(MinY-d_step)){dacY += d_step;slowlinescount+=1;}
-                                  }
-                                     else {if (dacX>(MinX-d_step)){dacX += d_step;slowlinescount+=1;}}
-                                  }
-			     else {
-                                   if (  ScanPath == 0)  dacY -= (slowlinescount-1)*d_step;         // Go to Start Point
-				                    else dacX -= (slowlinescount-1)*d_step;
-			          }
+                          {
+                           if (  ScanPath == 0)
+                           {
+                            if (dacY>(MinY-d_step)){dacY += d_step;slowlinescount+=1;}
+                           }
+                           else
+                           {
+                            if (dacX>(MinX-d_step)){dacX += d_step;slowlinescount+=1;}
+                           }
+                          }
+			  else
+                          {
+                            if (  ScanPath == 0)  dacY -= (slowlinescount)*d_step;         // Go to Start Point
+			                     else dacX -= (slowlinescount)*d_step;
+			  }
 			 dxchg.Goto( dacX,dacY,0);
 
 		// run    backward
@@ -277,15 +282,12 @@ public class Scannew
 	}//y
          //send data
                     	wr=0;  rd=0;
-
 			int s = slowlines*fastlines +1;  // +1 чтобы размер данных был <> mod 512
 			for (;  wr != s; )
 			{
                           wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
 			}
 			stream_ch_data_out.Invalidate();
-///
-
 }
 
                 if (err!=1)
@@ -310,24 +312,11 @@ public class Scannew
          	 dxchg.ExecuteScan();
 		 dxchg.WaitScanComplete(500);
                 }
-           //send scan data
- /*               	wr=0;  rd=0;
-
-			int s = slowlines*fastlines +1;  // +1 чтобы размер данных был <> mod 512
-			for (;  wr != s; )
-			{
-                          wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
-			}
-			stream_ch_data_out.Invalidate();
-*/
-
-           // окончание работы
+  // окончание работы
 
 		buf_drawdone[0]=done;
 
   //              Simple.fcupBypass(0,false); //turn on  FB
-
-		Simple.DumpInt(done);
 
 		wr=0;
 		for (;  wr == 0; )

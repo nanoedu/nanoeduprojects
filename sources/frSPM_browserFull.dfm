@@ -210,6 +210,12 @@ inherited frSPMViewFull: TfrSPMViewFull
     inherited ToolBarBrowser: TToolBar
       Width = 497
       ExplicitWidth = 497
+      inherited ToolBtnSaveAs: TToolButton
+        ExplicitWidth = 50
+      end
+      inherited ToolBtnDel: TToolButton
+        ExplicitWidth = 42
+      end
     end
   end
   inherited siLangLinked1: TsiLangLinked
