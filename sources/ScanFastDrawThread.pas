@@ -140,6 +140,7 @@ var
  nc:integer;
    label  100;
 begin
+   ErrorController:=false;
    mod512corr:=1;
    TopViewFromRGB:=$00000000;;
    TopViewToRGB:= $00FFFFFF;
@@ -164,10 +165,10 @@ if CreateChannels(AlgParams.NChannels) then
     CurChElements:=0;   // current of elements
     nread:=0;
     nc:=0;
-  while (not Terminated)  and (not flgEnd) do
+  while (not Terminated)  and (not flgEnd) and (not ErrorController) do
   begin
       nread:=1;
-      if FlgStopJava then        //28/11/16
+     (* if FlgStopJava then        //28/11/16          if   not video stream
       begin
       //     sleep(500);
            PintegerArray(StopBuf)[0]:=StopJava;
@@ -205,7 +206,7 @@ if CreateChannels(AlgParams.NChannels) then
             break;
            end;
       end;    //stop java
-
+      *)
         sleep(4000); //
         hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(ntoread);     //get new data count
        {$IFDEF DEBUG}
@@ -257,7 +258,7 @@ if CreateChannels(AlgParams.NChannels) then
                   PostMessage(WorkView.Handle,WM_UserUpdateWorkView,0,0)  ;
              end;
    end; // i
-  //flgEnd:=true;        28/11/16
+    flgEnd:=true;     //   28/11/16 if not video stream
   end;
   // if nc=4 then
   end; {while NOT TERMINATE}
@@ -336,7 +337,8 @@ begin
    for i:=0 to n-1 do
     begin
      value :=datatype(PIntegerArray(DataBuf)[k] shr 16);
-     if value=1 then   inc(counterr);
+     if value=9999 then
+      inc(counterr);
      ScanData.AquiADD.Data[i,j]:=value;
      inc(k);
     end;

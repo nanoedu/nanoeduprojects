@@ -261,9 +261,10 @@ public class  scanlinnew
                        	Simple.bramWrite( M_USTEP, uVector );
         		dxchg.ExecuteScan();
                         err=dxchg.WaitScanComplete(-1);
-                        /************************
+                        /************************       
                         if(err!=1)
                         {
+                  //    REPEAT SCAN
                          dxchg = new Dxchg();
         	       	 dxchg.SetO(PORT_COS_X, 0);
 	                 dxchg.SetO(PORT_COS_Y, 0);

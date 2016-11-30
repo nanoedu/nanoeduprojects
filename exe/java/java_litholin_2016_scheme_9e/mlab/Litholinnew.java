@@ -235,8 +235,7 @@ public class Litholinnew
 
 		for(lines=slowlines; lines>0; --lines)
 		{
-                //      Simple.DumpInt(lines);
-			rd=0;
+   			rd=0;
 			for (;  rd == 0; )
 			{
 				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
@@ -269,7 +268,7 @@ public class Litholinnew
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
             		                               PORT_Y,PORT_COS_Y, dacY,
                  	                               PORT_Z,PORT_COS_Z, dacZ} );
-
+//lithography
 
                      for(point=0; point<fastlines; point++)  //forward
 		     {
@@ -295,8 +294,6 @@ public class Litholinnew
                       // Simple.GetSystemTicks();
                       	err=dxchg.WaitScanComplete(-1); //-1
 //         		err=dxchg.WaitScanComplete(timewait); //-1
-                       // timer.stop();
-                       // timewait =timer.getElapsedTime()*100;
 	        	res = dxchg.GetResults();
                		src_i = 0;
 			dst_i = 0;
@@ -316,8 +313,8 @@ public class Litholinnew
 			}
                       	stream_ch_data_out.Invalidate();
                         if(err!=1) break;
-
-                        //backward
+// end lithography
+//backward  scan
 
                        	rd=0;
 			for (;  rd == 0; )
@@ -413,7 +410,7 @@ public class Litholinnew
 
 			stream_ch_data_out.Invalidate();
 			if(err!=1){ break;}
-		}//y                                 next lines
+ 	}//y                                 next lines
 
 		buf_drawdone[0]=done;
 
@@ -456,7 +453,7 @@ public class Litholinnew
 		// Перемещаем координату Z в нулевое положение.
                  dxchg.SetScanPorts( new int[] {-1,-1, -1,
       		                               -1,-1, -1,
-         	                               PORT_Z,PORT_COS_Z, dacZ} 
+         	                               PORT_Z,PORT_COS_Z, dacZ}
                                     );
 
  		 dxchg.Goto(0,0,0x00000000);

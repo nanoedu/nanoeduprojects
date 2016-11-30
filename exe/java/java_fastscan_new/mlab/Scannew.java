@@ -174,7 +174,7 @@ public class Scannew
                 uVectorBW = (2 * DiscrNumInMicroStep / USTEP_DLYBW);
               //  if (uVectorBW==0) uVectorBW=1;
 
-     		Simple.bramWrite( M_USTEP, uVector );
+     	          Simple.bramWrite( M_USTEP, uVector );
 
 //                Simple.fcupBypass(0,true); //turn off   FB     false???
 
@@ -183,17 +183,8 @@ public class Scannew
    //   {	
 	// Цикл сканирования по строкам.
                	rd=0;      	dst_i = 0;
-		/*	for (;  rd == 0; )
-			{
-				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
-			}
 
-			if (buf_stop[0] == MakeSTOP)
-			{
-				break;
-			}
-*/
-                  slowlinescount=0;
+                 slowlinescount=0;
 
 		for(lines=slowlines; lines>0; --lines)
 		{
@@ -225,7 +216,7 @@ public class Scannew
 
                        	Simple.bramWrite( M_USTEP, uVector );
         		dxchg.ExecuteScan();
-         	        err=dxchg.WaitScanComplete(20000);
+         	        err=dxchg.WaitScanComplete(30000);
 	        	arr = dxchg.GetResults();
                       	src_i = 0;
 
@@ -233,8 +224,7 @@ public class Scannew
 			for(i=0; i<fastlines; i++)
 			{
 			       if (err==1)	dataout[dst_i] = arr[src_i];
-                               else     dataout[dst_i] = 1<<16;
-                    //   dataout[dst_i]   = arr[src_i];
+                               else             dataout[dst_i] = 9999<<16;
 			    dst_i += 1;
                             src_i += 1;
 			}
@@ -261,8 +251,8 @@ public class Scannew
                                      else {if (dacX>(MinX-d_step)){dacX += d_step;slowlinescount+=1;}}
                                   }
 			     else {
-                                   if (  ScanPath == 0)  dacY -= (slowlinescount-1)*d_step;         // Go to Start Point
-				                    else dacX -= (slowlinescount-1)*d_step;
+                                   if (  ScanPath == 0)  dacY -= (slowlinescount)*d_step;         // Go to Start Point
+				                    else dacX -= (slowlinescount)*d_step;
 			          }
 			 dxchg.Goto( dacX,dacY,0);
 
@@ -272,7 +262,6 @@ public class Scannew
                       	dxchg.ExecuteScan();
          		err=dxchg.WaitScanComplete(20000);
                         if (err!=1) break;
-
 
 	}//y
                 if (err!=1)
@@ -313,7 +302,7 @@ public class Scannew
 
   //              Simple.fcupBypass(0,false); //turn on  FB
 
-		Simple.DumpInt(done);
+  //		Simple.DumpInt(done);
 
 		wr=0;
 		for (;  wr == 0; )
