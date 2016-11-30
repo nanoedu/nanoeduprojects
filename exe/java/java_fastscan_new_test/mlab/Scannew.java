@@ -1,4 +1,5 @@
 package mlab;  // fastscan
+//30/11/16 err
 //16/11/28 waitfor error 
 // 19/10/16 changed buffer
                // 22/03/13  // additional element in buffer (  <> mod 512)
@@ -84,7 +85,7 @@ public class Scannew
                 int  slowlinescount;
                //new
               	Dxchg dxchg;
-                 err=1;
+      
                 M_BASE_K =Simple.bramID("m_BaseK");;
                 M_USTEP = Simple.bramID("m_ustep");;
                 M_DACX   = Simple.bramID("dxchg_X");
@@ -178,9 +179,14 @@ public class Scannew
 
 //                Simple.fcupBypass(0,true); //turn off   FB     false???
 
+                  err=1;
 
    for (;;)
    {
+                        if (err!=1)
+                         {
+                           break;
+                         }
 	// ÷икл сканировани€ по строкам.
                	        rd=0;
                    	dst_i = 0;
@@ -197,7 +203,7 @@ public class Scannew
 
 		for(lines=slowlines; lines>0; --lines)
 		{
-                       	 fastlinescount=0;
+                        fastlinescount=0;
 			dxchg = new Dxchg();
                      	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
       		                               PORT_Y,PORT_COS_Y, dacY,
@@ -229,11 +235,11 @@ public class Scannew
 	        	arr = dxchg.GetResults();
                       	src_i = 0;
 
-                       	// ќставл€ем в массиве только нужные данные.
+              	// ќставл€ем в массиве только нужные данные.
 			for(i=0; i<fastlines; i++)
 			{
 			       if (err==1)	dataout[dst_i] = arr[src_i];
-                               else     dataout[dst_i] = 1<<16;
+                               else             dataout[dst_i] = 1<<16;
                     //   dataout[dst_i]   = arr[src_i];
 			    dst_i += 1;
                             src_i += 1;
@@ -277,8 +283,6 @@ public class Scannew
                       	dxchg.ExecuteScan();
          		err=dxchg.WaitScanComplete(20000);
                    if (err!=1) break;
-
-
 	}//y
          //send data
                     	wr=0;  rd=0;
@@ -289,7 +293,6 @@ public class Scannew
 			}
 			stream_ch_data_out.Invalidate();
 }
-
                 if (err!=1)
                 {
                  // «аписываем 0 в выходные порты COS дл€ остановки
