@@ -148,7 +148,7 @@ begin
   // FOR MODEL !!??//
      //  value:=CurrentPoint;
        TempAquiData[i]:=value;
-       if value=1 then
+       if value=9999 then
                  inc(counterr);
 
        if  CurrentPoint>=ScanParams.ScanPoints then

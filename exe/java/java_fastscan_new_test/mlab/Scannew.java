@@ -239,7 +239,7 @@ public class Scannew
 			for(i=0; i<fastlines; i++)
 			{
 			       if (err==1)	dataout[dst_i] = arr[src_i];
-                               else             dataout[dst_i] = 1<<16;
+                               else             dataout[dst_i] = 9999<<16;
                     //   dataout[dst_i]   = arr[src_i];
 			    dst_i += 1;
                             src_i += 1;

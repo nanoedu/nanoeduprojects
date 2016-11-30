@@ -1,0 +1,44 @@
+nl_ascan3d_v9 (12.02.2013)
+-------------
+Добавлена ячейка m_dacZ для добавления подставки в результату ПИД-регулятора.
+
+nl_ascan3d_v8
+------------- 
+На основе версии "nl_ascan3d_v7" от 06.11.2012.
+
+
+
+
+Управление опорным напряжением
+------------------------------
+
+Ячейка m_sel_Uopora выбирает сигнал(1 из 2), который выводится в ЦАП для задания
+напряжения на иголке:
+Значение m_sel_Uopora       Выбираемый сигнал
+      0x00000000              m_DAC_I.dout
+      0x80000000              dxchg.DO6
+
+
+Блок DXCHG
+----------
+
+Назначение входных сигналов:
+
+dxchg.DI0      sdP.Dout                  // фаза  
+dxchg.DI1      sel_err.out               // ошибка слежения(из мульиплексора)
+dxchg.DI2      m_pid_Y_sav.Dout_Correct  // ПИД (!а не выходной сигнал Z)
+dxchg.DI3                                // сигнал разрешения работы(ENA)
+dxchg.DI4      lrx_0.Value               // ток
+
+
+Назначение выходных сигналов:
+
+dxchg.DO0      m_DAC_U_scanX.Din1        // X  (требуемое положение)
+dxchg.DO1      m_DAC_U_scanY.Din1        // Y  (требуемое положение)
+dxchg.DO2      m_DAC_U_scanZ.Din1        // Z  (требуемое положение)
+
+dxchg.DO3      multV_U_scanX.A           // cosX
+dxchg.DO4      multV_U_scanY.A           // cosY
+dxchg.DO5      multV_U_scanZ.A           // cosZ
+
+dxchg.DO6      sel_Uopora.in1            // опорное напряжение иголки

@@ -165,10 +165,10 @@ if CreateChannels(AlgParams.NChannels) then
     CurChElements:=0;   // current of elements
     nread:=0;
     nc:=0;
-  while (not Terminated)  and (not flgEnd) and (not ErrorController) do
-  begin
+ while (not Terminated)  and (not flgEnd) and (not ErrorController) do
+ begin
       nread:=1;
-     (* if FlgStopJava then        //28/11/16          if   not video stream
+      if FlgStopJava then        //28/11/16          if   not video stream
       begin
       //     sleep(500);
            PintegerArray(StopBuf)[0]:=StopJava;
@@ -206,7 +206,7 @@ if CreateChannels(AlgParams.NChannels) then
             break;
            end;
       end;    //stop java
-      *)
+
         sleep(4000); //
         hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(ntoread);     //get new data count
        {$IFDEF DEBUG}
@@ -239,10 +239,10 @@ if CreateChannels(AlgParams.NChannels) then
       nrepeat:=(ntoread div nInLine);
       XPos:=0;
   if (nrepeat>0) and (not flgEnd)then
-  begin
-   for i:=0 to nrepeat-1
-   do
    begin
+    for i:=0 to nrepeat-1
+    do
+    begin
    //    nread:=ScanParams.ScanLines*ScanParams.ScanPoints+mod512corr;
        Synchronize(RenderImg);
        Synchronize(SpeedBtnView);
@@ -257,11 +257,11 @@ if CreateChannels(AlgParams.NChannels) then
               if assigned(WorkView) then
                   PostMessage(WorkView.Handle,WM_UserUpdateWorkView,0,0)  ;
              end;
-   end; // i
-    flgEnd:=true;     //   28/11/16 if not video stream
-  end;
+    end; // i
+   // flgEnd:=true;     //   28/11/16 if not video stream
+   end;
   // if nc=4 then
-  end; {while NOT TERMINATE}
+ end; {while NOT TERMINATE}
 end;  //ID not data channel
      FlgScanError:=False;
      ScanDone;
@@ -337,8 +337,7 @@ begin
    for i:=0 to n-1 do
     begin
      value :=datatype(PIntegerArray(DataBuf)[k] shr 16);
-     if value=9999 then
-      inc(counterr);
+     if value=9999 then        inc(counterr);
      ScanData.AquiADD.Data[i,j]:=value;
      inc(k);
     end;

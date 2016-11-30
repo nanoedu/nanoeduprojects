@@ -120,7 +120,7 @@ Contact GitHub API Training Shop Blog About
 exe/hardwaresoft
 exe/oscilloscope
 exe/ScannerIniDBase
-exe/scheme
+#exe/scheme
 exe/data
 exe/demodata
 exe/bpl

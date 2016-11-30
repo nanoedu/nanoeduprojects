@@ -1,0 +1,381 @@
+"firmware.bin"
+
+cell_ena sdA_fltr(Breakable=true;N=1;Skip=false); // Ячейка-фильтр.
+
+addsub acc1(M=0;P=2);
+addsub acc6(M=1;P=1);
+addsub acc7(M=1;P=1);
+addsub accDAC_U_scanX(M=0;P=3);
+addsub accDAC_U_scanY(M=0;P=3);
+addsub accDAC_U_scanZ(M=0;P=3);
+addsub accOVER_U_scanX(M=1;P=1);
+addsub accOVER_U_scanY(M=1;P=1);
+addsub accOVER_U_scanZ(M=1;P=1);
+addsub acc_pid(M=0;P=2);
+cctrl CCTRL;
+check CHK_U_scanX(Breakable=false;Invalid0=false;Invalid1=false;Invalid2=false;LUT0=0x82;LUT1=0xC3;M=2;N=3;Operation0="<";Operation1="<";Operation2="<";Valid0=false;Valid1=false;Valid2=false);
+check CHK_U_scanY(Breakable=false;Invalid0=false;Invalid1=false;Invalid2=false;LUT0=0x82;LUT1=0xC3;M=2;N=3;Operation0="<";Operation1="<";Operation2="<";Valid0=false;Valid1=false;Valid2=false);
+check CHK_U_scanZ(Breakable=false;Invalid0=false;Invalid1=false;Invalid2=false;LUT0=0x82;LUT1=0xC3;M=2;N=3;Operation0="<";Operation1="<";Operation2="<";Valid0=false;Valid1=false;Valid2=false);
+cordic CORDIC;
+dxchg dxchg(N=7;Value0=0;Value1=0;Value2=0;Value3=0;Value4=0;Value5=0;Value6=0);
+addsub feacc1_COS(M=1;P=1);
+addsub feacc1_SIN(M=1;P=1);
+mult femul_COS;
+mult femul_SIN;
+mux fesel_COS(N=2;Shift=0);
+mux fesel_SIN(N=2;Shift=0);
+cell fesum_COS(Breakable=true);
+cell fesum_SIN(Breakable=true);
+table ktbl(Const=true;FileName="tbls\ktbl.bin";N=64);
+cell_ena limZ(N=1;Skip=true);
+lrx lrx_0(Channel=0);
+ltx ltx_0(Channel=0);
+lrx lrx_1(Channel=1);
+lrx lrx_mx(Channel=2);
+lrx lrx_my(Channel=3);
+lrx lrx_mz(Channel=4);
+lrx lrx_din(Channel=6);
+ltx ltx_1(Channel=1);
+ltx ltx_mx(Channel=2);
+ltx ltx_my(Channel=3);
+ltx ltx_mz(Channel=4);
+ltx ltx_speed(Channel=5);
+
+cell_ena m_1divNcur(Breakable=false;N=1;Skip=false);
+cell_ena m_1divNprev(Breakable=true;N=1;Skip=false);
+cell m_A;
+cell_input m_A_rez(Value=0);
+cell_input m_BaseK(Value=0.9);
+cell m_cctrl_state(Breakable=true);
+cell_ena m_DAC_U_scanX(Breakable=true;N=2;Skip=true);
+cell_ena m_DAC_U_scanY(Breakable=true;N=2;Skip=true);
+cell_ena m_DAC_U_scanZ(Breakable=true;N=2;Skip=true);
+cell_input m_dfi_pin(Value=0);
+cell_input m_F_k(Value=0.015);
+cell m_P;
+cell_input m_pid_ON(Value=0xC0000000);// Выбрали вход bypass.
+cell_const m_ram_true(Value=-1.0);
+cell_const m_ram_zero(Value=0);
+cell_input m_smZ_ctrl(Value=0);
+cell m_smZ_status;
+cell_ena m_Nprev(Breakable=true;N=1;Skip=false);
+cell m_dxchg_ena(Breakable=true);
+cell_ena m_pid_sav_tmp(Breakable=true;N=1;Skip=true);
+cell_ena m_pid_Y_sav(N=1;Skip=true);
+cell_ena m_X_sav(Breakable=false;N=2;Skip=true);
+mult mul;
+mult mul1;
+mult mul2;
+mult_int mul7;
+mult mul10;
+mult_int mul11;
+mult multV_U_scanX;
+mult multV_U_scanY;
+mult multV_U_scanZ;
+vscope OSC1(N=11;
+Name0="LRX";     Min0=-10;   Max0=10;    Unit0="В";
+Name1="A";       Min1=-5;    Max1=5;     Unit1="В";
+Name2="Ph";      Min2=-3.14; Max2=3.14;  Unit2="Рад";
+Name3="*Z";      Min3=150;   Max3=-50;   Unit3="В";
+Name4="U";       Min4=-10;   Max4=10;    Unit4="В";
+Name5="*X";      Min5=150;   Max5=-50;   Unit5="В";
+Name6="*Y";      Min6=150;   Max6=-50;   Unit6="В";
+Name7="I";       Min7=-25;   Max7=25;    Unit7="В";
+Name8="H";       Min8=150;   Max8=-50;   Unit8="В";
+Name9="err";     Min9=-1;    Max9=1;     Unit9="Ед";
+Name10="dZ";     Min10=-1;   Max10=1;    Unit10="Ед");
+cell_ena p_phase(Breakable=true;N=1;Skip=true);
+pid pid(Breakable=0;NSelect=0);
+//cell_ena sdA(Breakable=true;N=1;Skip=false);
+cell_ena sdP(Breakable=true;N=1;Skip=false);
+mux sel_err(N=4;Shift=1);
+addsub sZ(M=0;P=3);
+table tbl0(Const=true;FileName="tbls\cos.bin";N=128);
+xyz XYZ;
+
+cell m1;
+cell m2;
+cell m3;
+cell m4;
+cell m_pid_out;
+
+cell_input m_ustep(Value=0x00000400);
+cell m_ustep_rw;
+
+cell_input m_DAC_I(Value=0);
+cell       m_ADC_I;
+
+cell_input m_I_BASE(Value=0);
+cell_input m_user_err(Value=0);
+
+cell_input m_Z_ustep(Value=0x00000400);
+cell m_Z_ustep_rw;
+
+absmax amax(Max=true; SIGN=false);
+
+mux sel_Uopora(N=2;Shift=0);
+cell_input m_sel_Uopora(Value=0);
+
+cell_input m_smX_ctrl(Value=0);
+cell m_smX_status;
+cell_input m_smY_ctrl(Value=0);
+cell m_smY_status;
+
+cell_input speed(Value=0x3E8F0000);
+
+cell dxchg_X;
+cell dxchg_Y;
+
+//+cntr
+//	addsub acc_cntr(M=0;P=2);
+//	cell_ena cntr(Breakable=true;N=1;Skip=true);
+//	cell_input m_cntr_one(Value=0x00010000);
+//-cntr
+
+cell_input m_dacZ(Value=0x00000000);
+
+cell din;
+
+(m_ustep.dout, m_ustep_rw.din);
+(m_Z_ustep.dout, m_Z_ustep_rw.din);
+
+// Net: NetCHK_U_scanY_5 (2)
+(CHK_U_scanY.LUT0,CHK_U_scanZ.IN0);
+// Net: NetCHK_U_scanX_5 (2)
+(CHK_U_scanX.LUT0,CHK_U_scanY.IN0);
+// Net: Netdxchg_0 (1)
+// Net: Netdxchg_1 (1)
+// Net: NetaccOVER_U_scanX_1 (3)
+(dxchg.DO0,accOVER_U_scanX.M0,m_DAC_U_scanX.Din1);
+// Net: Netdxchg_3 (1)
+// Net: NetaccOVER_U_scanY_1 (3)
+(dxchg.DO1,accOVER_U_scanY.M0,m_DAC_U_scanY.Din1);
+// Net: NetaccOVER_U_scanZ_1 (3)
+(dxchg.DO2,accOVER_U_scanZ.M0,m_DAC_U_scanZ.Din1);
+// Net: Netdxchg_7 (2)
+(m_dxchg_ena.Dout,dxchg.DI3);
+// Net: NetCHK_U_scanX_1 (3)
+(dxchg.DO3,CHK_U_scanX.IN1,multV_U_scanX.A);
+// Net: Netdxchg_9 (1)
+// Net: NetCHK_U_scanY_1 (3)
+(dxchg.DO4,CHK_U_scanY.IN1,multV_U_scanY.A);
+// Net: Netdxchg_11 (1)
+// Net: NetCHK_U_scanZ_1 (3)
+(dxchg.DO5,CHK_U_scanZ.IN1,multV_U_scanZ.A);
+// Net: Netdxchg_13 (1)
+// Net: Netdxchg_14 (4)
+	//(dxchg.DO6,multV_U_scanX.B,multV_U_scanY.B,multV_U_scanZ.B);
+	//(m_ustep_rw.dout,multV_U_scanX.B,multV_U_scanY.B,multV_U_scanZ.B);
+	(m_ustep_rw.dout,multV_U_scanX.B,multV_U_scanY.B);
+	(m_Z_ustep_rw.dout, multV_U_scanZ.B);
+// Net: NetlimZ_1 (2)
+(sZ.Value,limZ.Din0);
+// Net: NetlimZ_5 (3)
+(limZ.Dout_Correct,OSC1.ch3,XYZ.Z);
+// Net: NetCHK_U_scanZ_5 (2)
+(CHK_U_scanZ.LUT0,m_dxchg_ena.Din);
+// Net: NetaccDAC_U_scanX_1 (4)
+(m_DAC_U_scanX.Dout,accDAC_U_scanX.P1,OSC1.ch5,XYZ.X);
+// Net: NetaccDAC_U_scanY_1 (4)
+(m_DAC_U_scanY.Dout,accDAC_U_scanY.P1,OSC1.ch6,XYZ.Y);
+// Net: NetaccDAC_U_scanZ_1 (3)
+(m_DAC_U_scanZ.Dout,accDAC_U_scanZ.P1,sZ.P0);
+// Net: NetaccDAC_U_scanZ_0 (2)
+(multV_U_scanZ.PRODLSB,accDAC_U_scanZ.P0);
+(multV_U_scanZ.PRODMSB,accDAC_U_scanZ.P2);
+// Net: NetaccDAC_U_scanZ_2 (3)
+(accDAC_U_scanZ.Value,accOVER_U_scanZ.P0,m_DAC_U_scanZ.Din0);
+// Net: NetaccOVER_U_scanZ_2 (2)
+(accOVER_U_scanZ.Value,CHK_U_scanZ.IN2);
+// Net: NetCHK_U_scanZ_6 (2)
+(CHK_U_scanZ.LUT1,m_DAC_U_scanZ.ENA1);
+// Net: NetaccDAC_U_scanY_0 (2)
+(multV_U_scanY.PRODLSB,accDAC_U_scanY.P0);
+(multV_U_scanY.PRODMSB,accDAC_U_scanY.P2);
+// Net: NetaccDAC_U_scanY_2 (3)
+(accDAC_U_scanY.Value,accOVER_U_scanY.P0,m_DAC_U_scanY.Din0);
+// Net: NetaccOVER_U_scanY_2 (2)
+(accOVER_U_scanY.Value,CHK_U_scanY.IN2);
+// Net: NetCHK_U_scanY_6 (2)
+(CHK_U_scanY.LUT1,m_DAC_U_scanY.ENA1);
+// Net: NetaccDAC_U_scanX_0 (2)
+(multV_U_scanX.PRODLSB,accDAC_U_scanX.P0);
+(multV_U_scanX.PRODMSB,accDAC_U_scanX.P2);
+// Net: NetaccDAC_U_scanX_2 (3)
+(accDAC_U_scanX.Value,accOVER_U_scanX.P0,m_DAC_U_scanX.Din0);
+// Net: NetaccOVER_U_scanX_2 (2)
+(accOVER_U_scanX.Value,CHK_U_scanX.IN2);
+// Net: NetCHK_U_scanX_6 (2)
+(CHK_U_scanX.LUT1,m_DAC_U_scanX.ENA1);
+// Net: Netm_A_rez_0 (2)
+(m_A_rez.Dout,mul.B);
+// Net: Netm_BaseK_0 (2)
+(m_BaseK.Dout,mul.A);
+// Net: Netacc6_2 (3)
+(acc6.Value,/*OSC1.ch4,*/sel_err.in2);
+// Net: Netm_pid_ON_0 (2)
+(m_pid_ON.Dout,sel_err.select);
+// Net: Netm_pid_sav_tmp_1 (2)
+(m_pid_Y_sav.Dout,m_pid_sav_tmp.Din0);
+// Net: Netm_pid_sav_tmp_5 (2)
+(m_pid_sav_tmp.Dout_Correct,pid.Yprev);
+// Net: Netm_pid_Y_sav_1 (2)
+	//(mul7.PRODMSB,m_pid_Y_sav.Din0);
+(mul7.PRODMSB,  acc_pid.P0);
+(mul7.PRODLSB,  acc_pid.P1);
+(acc_pid.Value, m_pid_Y_sav.Din0);
+
+// Net: Netmul7_0 (2)
+(pid.K,mul7.A);
+// Net: Netmul7_1 (2)
+(pid.Y,mul7.B);
+// Net: Netpid_1 (2)
+(sel_err.out,pid.X);
+// Net: Netacc6_1 (2)
+(mul.PRODMSB,acc6.M0);
+// Net: Netlrx_1_0 (3)
+(lrx_1.Value,mul2.B,OSC1.ch0);
+// Net: Netlrx_mz_0 (2)
+(lrx_mz.Value,m_smZ_status.Din);
+// Net: Netltx_1_0 (2)
+(mul1.PRODMSB,ltx_1.dac);
+// Net: Netltx_mz_0 (2)
+(m_smZ_ctrl.Dout,ltx_mz.dac);
+// Net: Netacc1_1 (2)
+(m_dfi_pin.Dout,acc1.P1);
+// Net: Netacc6_0 (4)
+(sdA_fltr.Dout,acc6.P0,m_A.Din,OSC1.ch1);
+// Net: Netm_P_0 (3)
+(sdP.Dout,m_P.Din,OSC1.ch2);
+// Net: Netdxchg_5 (4)
+(m_pid_Y_sav.Dout_Correct,dxchg.DI2,/*OSC1.ch3,*/sZ.P1);
+// Net: MIN (3)
+(m_ram_true.Dout,CHK_U_scanX.IN0);/*,sel_err.in0);*/
+// Net: Netfeacc1_SIN_0 (2)
+(fesel_SIN.out,feacc1_SIN.P0);
+// Net: Netfeacc1_SIN_1 (2)
+(femul_SIN.PRODMSB,feacc1_SIN.M0);
+// Net: Netfeacc1_SIN_2 (2)
+(feacc1_SIN.Value,fesum_SIN.Din);
+// Net: Netfeacc1_COS_0 (2)
+(fesel_COS.out,feacc1_COS.P0);
+// Net: Netfeacc1_COS_1 (2)
+(femul_COS.PRODMSB,feacc1_COS.M0);
+// Net: Netfeacc1_COS_2 (2)
+(feacc1_COS.Value,fesum_COS.Din);
+// Net: ZERO (4)
+(m_ram_zero.Dout,fesel_COS.in1,fesel_SIN.in1,m_X_sav.Din0);
+// Net: Netacc1_0 (2)
+(p_phase.Dout_Auto,acc1.P0);
+// Net: Netacc1_2 (4)
+(acc1.Value,CCTRL.PHASE,p_phase.Din0,tbl0.INDEX);
+// Net: NetCCTRL_0 (3)
+(m_cctrl_state.Dout,CCTRL.STATE_IN,ktbl.INDEX);
+// Net: NetCORDIC_0 (3)
+(fesum_COS.Dout,CORDIC.X,fesel_COS.in0);
+// Net: NetCORDIC_1 (3)
+(fesum_SIN.Dout,CORDIC.Y,fesel_SIN.in0);
+// Net: NetCORDIC_2 (2)
+(CORDIC.A,mul10.B);
+// Net: NetCORDIC_3 (2)
+(CORDIC.Phi,sdP.Din0);
+// Net: Netktbl_2 (2)
+(ktbl.RES0,m_Nprev.Din0);
+// Net: Netktbl_4 (3)
+(ktbl.RES2,m_1divNcur.Din0,m_1divNprev.Din0);
+// Net: Netm_1divNcur_2 (2)
+(m_1divNcur.Dout,mul10.A);
+// Net: Netm_1divNprev_2 (2)
+(m_1divNprev.Dout,mul2.A);
+// Net: Netm_F_k_0 (2)
+(m_F_k.Dout,mul1.A);
+// Net: Netm_Nprev_2 (2)
+(m_Nprev.Dout,mul11.A);
+// Net: Netm_X_sav_2 (2)
+(mul2.PRODMSB,m_X_sav.Din1);
+// Net: Netfemul_COS_0 (3)
+(m_X_sav.Dout,femul_COS.A,femul_SIN.A);
+// Net: Netfemul_COS_1 (3)
+(tbl0.RES0,femul_COS.B,mul1.B);
+// Net: Netmul10_3 (2)
+(mul10.PRODMSB,mul11.B);
+// Net: Netmul11_3 (2)
+(mul11.PRODMSB,sdA_fltr.Din0);
+// Net: Netfemul_SIN_1 (2)
+(tbl0.RES3,femul_SIN.B);
+// Net: B_WORK (2)
+(CCTRL.bWORK,m_X_sav.ENA1);
+// Net: B_INIT (4)
+(CCTRL.bINIT,fesel_COS.select,fesel_SIN.select,m_cctrl_state.Din);
+// Net: B_DONE (6)
+(CCTRL.bDONE,m_1divNcur.ENA0,m_1divNprev.ENA0,m_Nprev.ENA0,sdA_fltr.ENA0,sdP.ENA0);
+
+//(DXCHG.do0,OSC1.ch7);
+//(DXCHG.do1,OSC1.ch4);
+
+(limZ.Dout_Correct, m_pid_out.din);
+(m1.dout, m2.din);
+
+//(m_DAC_I.dout, ltx_0.dac,OSC1.ch4);
+(sel_Uopora.out, ltx_0.dac,OSC1.ch4);
+(lrx_0.Value,  m_ADC_I.din,OSC1.ch7);
+
+(sdP.Dout,    dxchg.DI0);
+(sel_err.out, dxchg.DI1); // err
+(lrx_0.Value, dxchg.DI4); // currnt
+
+
+(m_pid_Y_sav.Dout_Correct, OSC1.ch8); // pid
+(sel_err.out,              OSC1.ch9); // err
+(m_DAC_U_scanZ.Dout,       OSC1.ch10);// подставка z из dxchg
+
+
+(lrx_0.Value,     amax.X);
+(m_ram_zero.Dout, amax.M);
+
+(amax.Y,        acc7.P0); //(lrx_0.Value,  acc7.P0);
+(m_I_BASE.dout, acc7.M0);
+(acc7.Value,       sel_err.in1);
+(m_ram_zero.dout,  sel_err.in3);
+
+(m_user_err.dout,  sel_err.in0);
+
+(m_DAC_I.dout,      sel_Uopora.in0);
+(dxchg.DO6,         sel_Uopora.in1);
+(m_sel_Uopora.dout, sel_Uopora.select);
+
+(lrx_mx.Value,m_smX_status.Din);
+(lrx_my.Value,m_smY_status.Din);
+
+(m_smX_ctrl.Dout,ltx_mx.dac);
+(m_smY_ctrl.Dout,ltx_my.dac);
+
+(speed.dout,ltx_speed.dac);
+
+(m_DAC_U_scanX.Dout, dxchg_X.Din); // dxchg.do0
+(m_DAC_U_scanY.Dout, dxchg_Y.Din); // dxchg.do1
+
+//+cntr
+//	(cntr.Dout_Auto,acc_cntr.P0);
+//	(acc_cntr.Value,cntr.Din0);
+//	(m_cntr_one.Dout,acc_cntr.P1);
+//	(acc_cntr.Value,dxchg.DI5);
+//-cntr
+
+(m_dacZ.Dout,sZ.P2);
+
+(lrx_din.Value, din.din);
+
+sel_err<fesel_SIN;
+fesel_SIN<fesel_COS;
+
+ktbl<tbl0;
+
+feacc1_SIN<feacc1_COS;
+femul_SIN<femul_COS;
+
+acc6<acc_pid;
+acc_pid<sZ;
+
+
+
