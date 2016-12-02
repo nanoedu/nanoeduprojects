@@ -1,1 +1,0 @@
-txt2bin kevmpack.txt ..\..\javabin\scan_scheme_2.bin

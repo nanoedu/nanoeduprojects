@@ -494,6 +494,7 @@ end;
 	strsdrw3: string = ''; (* Force,mv *)
 	strsdrw4: string = ''; (* Current,nA *)
   strtime:string='';
+	errorscan: string = ''; (* Scannning error! *) // TSI: Localized (Don't modify!)
 	scan1: string = ''; (* Max Valid Points Number for this Scan length is: %d  *)
 	scan2: string = ''; (* ;  Scan Field Error!!! *)
 	scan3: string = ''; (* No Interaction!!!! *)
@@ -3172,6 +3173,8 @@ begin
  end;
      if  (flgControlerTurnON and flgStopPressed) or (controllererror=lError)then
      begin
+       if (controllererror=lError) then      siLangLinked1.MessageDLG(errorscan, mtwarning,[mbOK],0);
+      
        NanoEdu.ScanMoveToX0Y0Method(ScanParams.Xbegin,ScanParams.Ybegin);
        NanoEdu.Method.Launch;
        while assigned(ProgressMoveTo) do
@@ -7413,6 +7416,7 @@ end;
 
 procedure TScanWnd.UpdateStrings;
 begin
+  errorscan := siLangLinked1.GetTextOrDefault('strerrorscan' (* 'Scannning error!' *) );
   scan40 := siLangLinked1.GetTextOrDefault('strscan40');
   scan39 := siLangLinked1.GetTextOrDefault('strscan39');
   strsdrw4 := siLangLinked1.GetTextOrDefault('strstrsdrw4');
@@ -8065,6 +8069,7 @@ initialization
  end;
 
 end.
+
 
 
 

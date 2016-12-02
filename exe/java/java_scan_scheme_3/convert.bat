@@ -1,1 +1,0 @@
-txt2bin scan3.txt ..\..\javabin\scan_scheme_3.bin

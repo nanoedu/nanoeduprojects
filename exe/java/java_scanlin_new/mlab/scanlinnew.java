@@ -381,14 +381,6 @@ public class  scanlinnew
          	 dxchg.ExecuteScan();
 		 dxchg.WaitScanComplete(500);
 		// Перемещаем координату Z в нулевое положение.
-               /*  dxchg.SetScanPorts( new int[] {-1,-1, -1,         //not use  port x
-      		                                -1,-1, -1,         // not use port y
-         	                               PORT_Z,PORT_COS_Z, dacZ}
-                                    );
- 		 dxchg.Goto(0,0,0x00000000);   // goto dacz=0
-		 dxchg.ExecuteScan();
-		 dxchg.WaitScanComplete(5000);
-                 */
                 }
 
 		buf_drawdone[0]=done;
