@@ -300,7 +300,7 @@ public class Litholinnew
 			for(i=0; i<fastlines; i++)
 			{
 		       	  if (err==1)	dataout[dst_i] = res[src_i];
-                          else          dataout[dst_i] = 1<<16;
+                          else          dataout[dst_i] = 9999<<16;
 				dst_i += 1;
 				src_i += 1;  //9
 			}
@@ -395,7 +395,7 @@ public class Litholinnew
 			{
 				//res[dst_i] = res[src_i];
 			  if (err==1)	dataout[dst_i] = res[src_i];
-                          else          dataout[dst_i] = 1<<16;
+                          else          dataout[dst_i] = 9999<<16;
 				dst_i += 1;
 				src_i += 1;     //3
 			}
