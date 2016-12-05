@@ -2268,7 +2268,7 @@ begin
      //     StartBtn.Font.Color:=clBlack;
           StartBtn.Enabled:=True;
           flgStopTimer:=false;
-          Timer.Enabled:=true;
+          if assigned(Timer) then Timer.Enabled:=TRUE;//    Timer.Enabled:=true;
           ComboBoxPath.enabled:=true;
           ScrollBarLitho.Enabled:=true;
 
@@ -3114,8 +3114,8 @@ begin
          SaveExpBtn.Visible:=True;
          flgBlickSave:=True;
          Caption:=CaptionBase+Captionadd+CaptionRenishaw;
-         if not flgStopTimer then   //
-               Main.CreateMDIChild(Sender,WorkNameFile,FlgViewDef,true,FlgRenishawCorrection);
+//         if not flgStopTimer then   //
+          Main.CreateMDIChild(Sender,WorkNameFile,FlgViewDef,true,FlgRenishawCorrection);
          flgScanDone:=True;
         end;
      end;//drawthread
@@ -3138,7 +3138,8 @@ begin
         SaveExpBtn.Enabled:=True;    SaveExpBtn.Visible:=True;
         flgBlickSave:=True;
         Caption:=CaptionBase+Captionadd+CaptionRenishaw;
-       if not flgStopTimer then Main.CreateMDIChild(Sender,WorkNameFile,FlgViewDef,true,FlgRenishawCorrection);
+      // if not flgStopTimer then
+       Main.CreateMDIChild(Sender,WorkNameFile,FlgViewDef,true,FlgRenishawCorrection);
         flgScanDone:=True;
       end;
      end;//fastdraw
@@ -3174,7 +3175,7 @@ begin
      if  (flgControlerTurnON and flgStopPressed) or (controllererror=lError)then
      begin
        if (controllererror=lError) then      siLangLinked1.MessageDLG(errorscan, mtwarning,[mbOK],0);
-      
+
        NanoEdu.ScanMoveToX0Y0Method(ScanParams.Xbegin,ScanParams.Ybegin);
        NanoEdu.Method.Launch;
        while assigned(ProgressMoveTo) do
@@ -3202,7 +3203,7 @@ begin
 
 
       WaitforJavaNotActive;
-       RestoreStartSFM;       // Было в этом месте - я перенесла вниз, и перестал работать Рестарт
+      // RestoreStartSFM;       // Было в этом месте - я перенесла вниз, и перестал работать Рестарт
                                 // т.к. в RestoreStartSFM уст-ся флаг   FlgStopScan
 
    if  assigned(WorkView) and (not FlgScanError) then
@@ -3241,16 +3242,16 @@ begin
         begin
            while assigned(nanoedu.method) do sleep(100);    //add sleep 170616
            flgNew_XYBegin:=true;   //11/02/13
-         //  FlgStopScan:= true;     // 05/04/13
+           FlgStopScan:= true;     // 05/04/13
            StartBtnClick(self); StartBtn.down:=true;
         end
         else
         begin
-          flgStopTimer:=false;
-         if assigned(Timer) then Timer.Enabled:=TRUE;
-
+//          flgStopTimer:=false;
+//         if assigned(Timer) then Timer.Enabled:=TRUE;
+          RestoreStartSFM;
         end;
-        RestoreStartSFM;
+    //    RestoreStartSFM;
  end;
  //draw
    if mScanning=AMessage.WParam then
@@ -6766,7 +6767,6 @@ begin
   FlgReStart:=true;
   if  not FlgStopScan then //Stop    Scanning
    begin
-
    if assigned(ApproachOpt) then
     begin
      ApproachOpt.ScanCorSheet.enabled:=true;
@@ -6783,9 +6783,6 @@ begin
        flgStopMulti:=true;
       //  if ScanParams.ScanPath=Multi then  MultiPassThreadDone;
    end
- // if  not FlgStopScan then //Stop    Scanning
-
-
 end;
 
 procedure TScanWnd.PageCtlRightChanging(Sender: TObject; var AllowChange: Boolean);

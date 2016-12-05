@@ -36,6 +36,7 @@ uses
     procedure sZIndicator;
     procedure Execute; override;
     procedure RenderImg;
+    procedure RenderImgV2();
     procedure CountUpd;
     procedure UpdButtons;
     function  Sign(a:single):integer;
@@ -44,8 +45,7 @@ uses
       destructor Destroy; override;
 end;
 
-var // FlgStopMulti:Boolean; //Multi pass
-     ScFastDrawThread:TScanFastDrawThread;
+var  ScFastDrawThread:TScanFastDrawThread;
      ScFastDrawThreadActive : boolean;
 
 implementation
@@ -67,7 +67,7 @@ begin
     for i := 0 to 255 do
     begin
       pal.palPalEntry[i].peRed := i;
-      pal.palPalEntry[i].peGreen := i;
+      pal.palPalEntry[i].peGreen :=i;
       pal.palPalEntry[i].peBlue := i;
       pal^.palPalEntry[i].peFlags := pc_nocollapse;
     end;
@@ -94,7 +94,7 @@ begin
    Suspended := false;// Resume;
    OldPal:=ScanWnd.ImgRChart.BackImage.Bitmap.Palette;
    BiTmap:=TBitmap.Create;
-   BiTmap.PixelFormat:=OldPixelFormat;
+   OldPixelFormat:=ScanWnd.ImgRChart.BackImage.Bitmap.PixelFormat;
    BitMap.PixelFormat:=pf8bit ;
    BitMap.Height:=ScanParams.NY;
    BitMap.Width:=ScanParams.NX;
@@ -106,6 +106,8 @@ begin
     CoUnInitialize;
    FreeAndNil(BiTmap);
    ThreadFlg:=mFastDrawing;
+//   ScanWnd.ImgRChart.BackImage.Bitmap.Palette:=OLdPal;
+//   ScanWnd.ImgRChart.BackImage.Bitmap.PixelFormat:=OldPixelFormat;
   if (ErrorController) then  PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,ThreadFlg,lError)
                        else  PostMessage(ScanWnd.Handle,wm_ThreadDoneMsg,ThreadFlg,lOK);
    inherited destroy;
@@ -244,7 +246,7 @@ if CreateChannels(AlgParams.NChannels) then
     do
     begin
    //    nread:=ScanParams.ScanLines*ScanParams.ScanPoints+mod512corr;
-       Synchronize(RenderImg);
+       Synchronize(RenderImgV2);
        Synchronize(SpeedBtnView);
        Synchronize(CountUpd);
        inc(CurrentScanFrame );
@@ -342,13 +344,13 @@ begin
      inc(k);
     end;
     XPos:=k+1;
-  ZIndicatorNormVal:=(1- (value-MinAPITYPE)/(MaxAPITYPE-MinAPITYPE));  //(0 .. 1)
-  ZIndicatorVal:=round(ZIndicatorNormVal*MaxAPITYPE);   // (0.. 32767)
-  Synchronize(sZIndicator);
-     MinI:=ScanData.AquiADD.DataMin;
-     MaxI:=ScanData.AquiADD.DataMax;
-     ScanNormData.ScaleAdd:=maxI-minI;
-     ZScalePh:=GreyEntr/ScanNormData.ScaleAdd;
+    ZIndicatorNormVal:=(1- (value-MinAPITYPE)/(MaxAPITYPE-MinAPITYPE));  //(0 .. 1)
+    ZIndicatorVal:=round(ZIndicatorNormVal*MaxAPITYPE);   // (0.. 32767)
+    Synchronize(sZIndicator);
+    MinI:=ScanData.AquiADD.DataMin;
+    MaxI:=ScanData.AquiADD.DataMax;
+    ScanNormData.ScaleAdd:=maxI-minI;
+    ZScalePh:=GreyEntr/ScanNormData.ScaleAdd;
   for j:=0 to m-1 do
   begin
    P:=BitMap.ScanLine[m-j-1];
@@ -357,12 +359,65 @@ begin
      PointColor:=round((ZScalePH*( ScanData.AquiADD.Data[i,j]-MinI)));
      if (PointColor >255) then  PointColor:=255;
      if (PointColor<0)    then  PointColor:=0;
-     P[i]:=PointColor;
+         RGBCol:= TColor($02000000 or (RPaletteKoef[PointColor])
+                                or (GPaletteKoef[PointColor] shl 8)
+                                or (BPaletteKoef[PointColor] shl 16) );
+     P[i]:=RGBCol;
     end;
   end;
   ScanWnd.ImgRChart.BackImage.Assign(BitMap);
   ScanWnd.ImgRBitMapTemp.Assign(BitMap);
   ScanWnd.ImgRChart.Repaint;
+  if counterr>10 then ErrorController:=true;
+end;
+
+ procedure TScanFastDrawThread.RenderImgV2();
+var i,j,k:integer;
+    ZScale,ZScalePh:single;
+    mini,maxi:datatype;
+    GreyEntr,n,m:integer;
+    PointColor:integer;
+    RGBCol:TColor;
+    P:PByteArray;
+    value:apitype;
+    counterr:integer;
+begin
+        counterr:=0;
+        n:=ScanParams.Nx;
+        m:=ScanParams.Ny;
+        GreyEntr:=255;
+        k:=XPos;
+ for j:=0 to m-1 do
+   for i:=0 to n-1 do
+    begin
+     value :=datatype(PIntegerArray(DataBuf)[k] shr 16);
+     if value=9999 then        inc(counterr);
+     ScanData.AquiADD.Data[i,j]:=value;
+     inc(k);
+    end;
+    XPos:=k+1;
+    ZIndicatorNormVal:=(1- (value-MinAPITYPE)/(MaxAPITYPE-MinAPITYPE));  //(0 .. 1)
+    ZIndicatorVal:=round(ZIndicatorNormVal*MaxAPITYPE);   // (0.. 32767)
+    Synchronize(sZIndicator);
+    MinI:=ScanData.AquiADD.DataMin;
+    MaxI:=ScanData.AquiADD.DataMax;
+    ScanNormData.ScaleAdd:=maxI-minI;
+    ZScalePh:=GreyEntr/ScanNormData.ScaleAdd;
+  for j:=0 to m-1 do
+   for i:=0 to n-1 do
+    begin
+     PointColor:=round((ZScalePH*( ScanData.AquiADD.Data[i,j]-MinI)));
+     if (PointColor >255) then  PointColor:=255;
+     if (PointColor<0)    then  PointColor:=0;
+      RGBCol:= TColor($02000000 or (RPaletteKoef[PointColor])
+                                or (GPaletteKoef[PointColor] shl 8)
+                                or (BPaletteKoef[PointColor] shl 16) );
+     ScanWnd.ImgRChart.BackImage.BitMap.Canvas.Brush.Color:=RGBCol;
+     ScanWnd.ImgRChart.BackImage.BitMap.Canvas.FillRect(Rect(i,m-j,i+1,m-j-1));
+    end;
+//  ScanWnd.ImgRChart.BackImage.Assign(BitMap);
+  ScanWnd.ImgRBitMapTemp.Assign(ScanWnd.ImgRChart.BackImage.BitMap);
+//  ScanWnd.ImgRChart.Repaint;
   if counterr>10 then ErrorController:=true;
 end;
 
