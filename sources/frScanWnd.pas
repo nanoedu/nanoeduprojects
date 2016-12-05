@@ -3138,7 +3138,7 @@ begin
         SaveExpBtn.Enabled:=True;    SaveExpBtn.Visible:=True;
         flgBlickSave:=True;
         Caption:=CaptionBase+Captionadd+CaptionRenishaw;
-      // if not flgStopTimer then
+      // if not flgStopTimer then    ???????
        Main.CreateMDIChild(Sender,WorkNameFile,FlgViewDef,true,FlgRenishawCorrection);
         flgScanDone:=True;
       end;
@@ -3174,8 +3174,7 @@ begin
  end;
      if  (flgControlerTurnON and flgStopPressed) or (controllererror=lError)then
      begin
-       if (controllererror=lError) then      siLangLinked1.MessageDLG(errorscan, mtwarning,[mbOK],0);
-
+       if (controllererror=lError) then  siLangLinked1.MessageDLG(errorscan, mtwarning,[mbOK],0);
        NanoEdu.ScanMoveToX0Y0Method(ScanParams.Xbegin,ScanParams.Ybegin);
        NanoEdu.Method.Launch;
        while assigned(ProgressMoveTo) do

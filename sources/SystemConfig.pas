@@ -726,6 +726,7 @@ begin
        ScanParams.TerraTDelay:=ReadInteger('Scanning Parameters','TerraTDelay', 100);
        ScanParams.ScanDelay  :=ReadInteger('Scanning Parameters','ScanDelay', 300);//191211
        ScanParams.LithoDelay :=ReadInteger('Scanning Parameters','LithoDelay',400);//191211
+       ScanParams.FastDelay :=ReadInteger('Scanning Parameters','FastDelay',100);//05.12.16
        PidParams.Ti:= PidParams.TiApproach;
     end;
  finally

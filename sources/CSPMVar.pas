@@ -534,6 +534,7 @@ TYPE RScanParams=packed record
       ScanPoints:integer;
       ScanLines:integer;
       TerraTDelay:integer;  //miliseconds
+      FastDelay:integer; //miliseconds
       ScanRate:single;
       ScanRateBW:single;
       ScanPath:integer; {X+:0,Y+:1,multi:2}
