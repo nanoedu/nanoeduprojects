@@ -9,7 +9,7 @@ public class Dxchg
 	public static native void  CreateNewScan( );
 	public static native void  SetO( int port, int val );
 	public static native void  GetI( int port );
-	public static native void  Wait( int tout );
+	public static native void  Wait( int tout ); //mcr sec
 	public static native void  Goto( int x, int y, int z );
 	public static native void  SetScanPorts( int[] ports );
 	public static native  int  ExecuteScan( );
