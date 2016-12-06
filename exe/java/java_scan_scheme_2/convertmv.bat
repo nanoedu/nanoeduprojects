@@ -1,1 +1,0 @@
-txt2bin kevmpack.txt ..\..\javabin\moveto_scheme_2.bin

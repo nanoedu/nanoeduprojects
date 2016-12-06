@@ -1,7 +1,7 @@
 package mlab;  // fastscan
 //30/11/16 err
 //16/11/28 waitfor error 
-// 19/10/16 changed buffer
+//19/10/16 changed buffer
                // 22/03/13  // additional element in buffer (  <> mod 512)
 
 public class Scannew
@@ -79,13 +79,14 @@ public class Scannew
 		int  MicrostepDelay;
 		int  MicrostepDelayBW;
 		int  DiscrNumInMicroStep;
+                int  stepdelay;
 		int  XMicrostepNmb;
 		int  YMicrostepNmb;
                 int  fastlinescount;
                 int  slowlinescount;
                //new
               	Dxchg dxchg;
-      
+
                 M_BASE_K =Simple.bramID("m_BaseK");;
                 M_USTEP = Simple.bramID("m_ustep");;
                 M_DACX   = Simple.bramID("dxchg_X");
@@ -105,7 +106,7 @@ public class Scannew
 		DiscrNumInMicroStep=  datain[i0+7] << 16;
 		XMicrostepNmb   =    -datain[i0+8]; //<< **
 		YMicrostepNmb   =    -datain[i0+9]; //<< **
-
+                stepdelay       =     datain[i0+11]; //add 05.12.16
 
                 int  flgUNit;
                 int  MaxX=0x7fffffff;
@@ -142,21 +143,6 @@ public class Scannew
 		buf_drawdone = new int[1];
 		buf_drawdone[0] =0;
 		wr = stream_ch_drawdone.Write(buf_drawdone, 1, 1000);
-/*
-                int[] buf_params;
-		buf_params=new int[2];
-                buf_params[0]=datain[i0+5]  ;    // speed foreward
-                buf_params[1]=datain[i0+6];      // speed backward
-
-
-                 wr=0;
-                for (;  wr == 0; )
-		{
-                 wr = stream_ch_params.Write(buf_params, 1, 1000);
-		}
-
-*/
-
 	        d_step_N = XMicrostepNmb;     // Кол-во микрошагов от точки к точке.
  		d_step = d_step_N * DAC_STEP; // Приращение ЦАП на шаге от точки к точке.
 
@@ -212,7 +198,7 @@ public class Scannew
 			for(point=0; point<fastlines; point++)
 			{
 		          dxchg.Goto( dacX,dacY,0);
-                      	  dxchg.Wait( 100 );
+                      	  dxchg.Wait( stepdelay);
                           if (ScanMethod == FastScan) { dxchg.GetI( PORT_I);}
                           else
                           {
@@ -282,7 +268,7 @@ public class Scannew
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
          		err=dxchg.WaitScanComplete(20000);
-                   if (err!=1) break;
+                        if (err!=1) break;
 	}//y
          //send data
                     	wr=0;  rd=0;
