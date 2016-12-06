@@ -198,7 +198,7 @@ public class Scannew
 			for(point=0; point<fastlines; point++)
 			{
 		          dxchg.Goto( dacX,dacY,0);
-                      	  dxchg.Wait( stepdelay);
+                      	  dxchg.Wait( stepdelay); //100 microsec
                           if (ScanMethod == FastScan) { dxchg.GetI( PORT_I);}
                           else
                           {

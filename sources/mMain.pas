@@ -956,7 +956,7 @@ begin
     UnitInit;
     end;
 //            result:=0;//true;
-           NanoEdu.TurnOn;
+           NanoEdu.TurnOn;               // too early-  not set parameters
 end;
 procedure TMain.miFullScreenClick;
 begin

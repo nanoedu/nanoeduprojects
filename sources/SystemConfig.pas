@@ -597,6 +597,7 @@ begin
              end;
                end;
                 ScanParams.ScanDelay  :=400;
+                Nanoedu.TurnOn;  //add 16/12/06
   end;
 
 
@@ -728,6 +729,7 @@ begin
        ScanParams.LithoDelay :=ReadInteger('Scanning Parameters','LithoDelay',400);//191211
        ScanParams.FastDelay :=ReadInteger('Scanning Parameters','FastDelay',100);//05.12.16
        PidParams.Ti:= PidParams.TiApproach;
+       Nanoedu.TurnOn;       //add 16/12/06
     end;
  finally
    iniCSPM.Free;

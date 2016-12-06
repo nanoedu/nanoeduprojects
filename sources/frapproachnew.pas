@@ -107,6 +107,7 @@ uses
     procedure SignalsModebtnSetPointClick(Sender: TObject);
     procedure SignalsModeButton2Click(Sender: TObject);
     procedure ScrollBarTimeControlScroll(Sender: TObject; ScrollCode: TScrollCode;  var ScrollPos: Integer);
+    procedure SignalsModeBtnBiasVClick(Sender: TObject);
   private
      { Private declarations }
      ApproachActive:boolean;
@@ -949,6 +950,12 @@ begin
  {$IFNDEF FULL}
    else MessageDlgCtr(siLangLinked1.GetTextOrDefault('IDS_43' (* 'No Interaction!' *) ),mtwarning,[mbYes],0);
  {$ENDIF}
+end;
+
+procedure TApproach.SignalsModeBtnBiasVClick(Sender: TObject);
+begin
+  SignalsMode.btnBiasVClick(Sender);
+
 end;
 
 procedure TApproach.SignalsModebtnSetPointClick(Sender: TObject);

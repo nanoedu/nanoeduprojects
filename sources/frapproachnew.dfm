@@ -189,10 +189,13 @@ object Approach: TApproach
         end
       end
       inherited PageControl1: TPageControl
-        Left = 14
+        Left = 13
+        Top = 3
         Width = 191
         Height = 116
-        ExplicitLeft = 14
+        ActivePage = SignalsMode.tbSTM
+        ExplicitLeft = 13
+        ExplicitTop = 3
         ExplicitWidth = 191
         ExplicitHeight = 116
         inherited tbSFM: TTabSheet
@@ -258,6 +261,7 @@ object Approach: TApproach
           ExplicitWidth = 193
           ExplicitHeight = 116
           inherited Panel4: TPanel
+            Width = 183
             Height = 51
             ExplicitHeight = 51
             inherited Label1: TLabel
@@ -283,7 +287,8 @@ object Approach: TApproach
           end
           inherited PanelBias: TPanel
             Top = 51
-            Height = 65
+            Width = 183
+            Height = 54
             ExplicitTop = 51
             ExplicitHeight = 65
             inherited Label4: TLabel
@@ -297,6 +302,7 @@ object Approach: TApproach
               Top = 22
               Width = 130
               Height = 23
+              OnClick = SignalsModeBtnBiasVClick
               ExplicitLeft = 27
               ExplicitTop = 22
               ExplicitWidth = 130
@@ -310,6 +316,7 @@ object Approach: TApproach
           ExplicitWidth = 193
           ExplicitHeight = 116
           inherited Panel6: TPanel
+            Width = 183
             Height = 55
             ExplicitHeight = 55
             inherited Button2: TButton
@@ -329,7 +336,8 @@ object Approach: TApproach
           end
           inherited Panel7: TPanel
             Top = 55
-            Height = 61
+            Width = 183
+            Height = 50
             ExplicitTop = 55
             ExplicitHeight = 61
             inherited Label7: TLabel
@@ -557,13 +565,14 @@ object Approach: TApproach
         object Label6: TLabel
           Left = 1
           Top = 1
-          Width = 35
+          Width = 57
           Height = 13
           Align = alTop
           Alignment = taCenter
           Caption = 'Steps '
           Transparent = True
           Layout = tlCenter
+          ExplicitWidth = 35
         end
         object edstepscounter: TLabel
           Left = 23
