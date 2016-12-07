@@ -361,6 +361,7 @@ type
       var ScrollPos: Integer);
     procedure LineTimerTimer(Sender: TObject);
     procedure SignalsModeBtnBiasSFMClick(Sender: TObject);
+    procedure SignalsModebtnSetPointClick(Sender: TObject);
   private
      flgApproachClick:boolean;
      flgblw:boolean;
@@ -7961,6 +7962,12 @@ end;
 procedure TScanWnd.SignalsModeBtnBiasSFMClick(Sender: TObject);
 begin
   SignalsMode.btnBiasVClick(Sender);
+
+end;
+
+procedure TScanWnd.SignalsModebtnSetPointClick(Sender: TObject);
+begin
+  SignalsMode.btnSetPointClick(Sender);
 
 end;
 

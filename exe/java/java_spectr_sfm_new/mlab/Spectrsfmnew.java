@@ -1,4 +1,6 @@
-package mlab;      //201112
+package mlab;//07/12/16
+//I_Z fix bugs
+    //201112
 
 public class Spectrsfmnew
 {
@@ -74,7 +76,7 @@ public class Spectrsfmnew
                 VertMin         =   datain[i0+3];
 		MicrostepDelay  =   datain[i0+4];
                 flgSTM          =   datain[i0+5];
- for (i=0;i<6; i++)  { Simple.DumpInt(datain[i+i0]);}
+// for (i=0;i<6; i++)  { Simple.DumpInt(datain[i+i0]);}
 
        M_A=Simple.bramID("m_A");
        M_I=Simple.bramID("m_ADC_I");
@@ -162,7 +164,6 @@ public class Spectrsfmnew
          	                               PORT_Z,PORT_COS_Z, dacZ}
 				  );
 
-
         dxchg.Goto( dacX,dacY,dacZ);
 
         dxchg.Wait(MicrostepDelay);
@@ -177,20 +178,22 @@ public class Spectrsfmnew
  //         if (flgSTM==1) {  ampl=Simple.bramRead(M_I);} //  STM
  //         else           {  ampl=Simple.bramRead(M_A);}  //  SFM
 
-       ampl=arr[0]+setpoint;
+    ampl=arr[0]+setpoint;
+
     dataout[k]=ampl;
-
     dataout[k+1]=-(dacZ-dacZ0);
-
     dataout[k+2]=1;
 
-     Simple.DumpInt(0xAAAAAAAA);
-   Simple.DumpInt(ampl);
-     Simple.DumpInt(VertMin);
-      Simple.DumpInt(dacZ);
+ //    Simple.DumpInt(0xAAAAAAAA);
+ //    Simple.DumpInt(ampl);
+ //    Simple.DumpInt(VertMin);
+ //    Simple.DumpInt(dacZ);
   if (flgSTM==1)
    {
-   if (ampl<VertMin)
+    if (ampl<0)    ampl=-ampl;
+    int IMax =VertMin;
+    if (VertMin<0) IMax=-VertMin;
+    if (ampl<IMax)
      { dacZ=dacZ-ZStep;
       wr=0;
       wr= stream_ch_data_out.WriteEx(dataout, off,1, 1000);
@@ -200,14 +203,15 @@ public class Spectrsfmnew
      }
    }
    else
-    if (ampl>VertMin)
-   { dacZ=dacZ-ZStep;
+   if (ampl>VertMin)
+    {
+     dacZ=dacZ-ZStep;
      wr=0;
      wr= stream_ch_data_out.WriteEx(dataout, off,1, 1000);
      stream_ch_data_out.Invalidate();
      off +=wr;
      k+=3;
-   };
+    };
   } //forward
 
      dacZ=dacZ+ZStep;
@@ -220,30 +224,19 @@ public class Spectrsfmnew
       		                               PORT_Y,PORT_COS_Y, dacY,
          	                               PORT_Z,PORT_COS_Z, dacZ}
 				  );
-
         dxchg.Goto( dacX,dacY,dacZ);
-
         dxchg.Wait(MicrostepDelay);
-
         dxchg.GetI(PORT_ERR);
-
         dxchg.ExecuteScan();
-
         dxchg.WaitScanComplete(-1);
-          arr = dxchg.GetResults();
+        arr = dxchg.GetResults();
         ampl=arr[0]+setpoint;
 //       if (flgSTM==1) {  ampl=Simple.bramRead(M_I);} //  STM
 //       else           {  ampl=Simple.bramRead(M_A);}  //  SFM
-
-
     dataout[k]=ampl;
-
     dataout[k+1]=-(dacZ-dacZ0);
-
     dataout[k+2]=-1;
-
     dacZ=dacZ+ZStep;
-
     wr=0;
     wr= stream_ch_data_out.WriteEx(dataout, off,1, 1000);
     off+=wr;
@@ -252,31 +245,19 @@ public class Spectrsfmnew
    }
 
  //move to start point
-
-
-	dxchg = new Dxchg();
+	dxchg = new Dxchg();
       	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
       		                               PORT_Y,PORT_COS_Y, dacY,
          	                               PORT_Z,PORT_COS_Z, dacZ}
 			  );
 
         dacZ=dacZ0;
-
-
-        dxchg.Goto( dacX,dacY,dacZ);
-
-        dxchg.ExecuteScan();
-
+        dxchg.Goto( dacX,dacY,dacZ);
+        dxchg.ExecuteScan();
         dxchg.WaitScanComplete(-1);;
-
-
         Simple.fcupBypass(0,false); //turn on  FB
-
-
 		buf_drawdone[0]=done;
-
-		Simple.DumpInt(done);
-
+		Simple.DumpInt(done);
 		wr=0;
 		for (;  wr == 0; )
 		{
@@ -290,11 +271,11 @@ public class Spectrsfmnew
 		int ccnt = 0;
                   for(;(buf_stop[0]!=stop) ;)
                 {
-Simple.DumpInt(rd);
+//Simple.DumpInt(rd);
                   rd = stream_ch_stop.Read(buf_stop, 1,1000,false);
                   ccnt+=1;
                 }
-Simple.DumpInt(1);
+//Simple.DumpInt(1);
 
 		stream_ch_drawdone.Close();
 		stream_ch_data_out.Close();

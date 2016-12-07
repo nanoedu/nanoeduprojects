@@ -311,7 +311,6 @@ begin
     begin
      Lblwarning.Panels[0].Text:=siLangLinked.GetTextOrDefault('IDS_8' (* 'Warning! The set limit of current is achieved!!! ' *) ) ;
      Lblwarning.Panels[1].text:=siLangLinked.GetTextOrDefault('IDS_5' (* 'Change final point.' *) )  ;
-
      //     label1.caption:='Level IT'
     end
     else
