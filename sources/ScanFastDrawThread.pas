@@ -209,7 +209,7 @@ if CreateChannels(AlgParams.NChannels) then
            end;
       end;    //stop java
 
-        sleep(4000); //
+        sleep(ScanParams.FastDelay); //
         hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(ntoread);     //get new data count
        {$IFDEF DEBUG}
         if Failed(hr) then Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_31' (* 'error get count data ' *) )+inttostr(ntoread)+ScanWnd.siLangLinked1.GetTextOrDefault('IDS_5' (* 'hr=' *) )+inttostr(hr))
@@ -403,8 +403,8 @@ begin
     MaxI:=ScanData.AquiADD.DataMax;
     ScanNormData.ScaleAdd:=maxI-minI;
     ZScalePh:=GreyEntr/ScanNormData.ScaleAdd;
-  for j:=0 to m-1 do
-   for i:=0 to n-1 do
+  for j:=0 to m-1 do   //-1
+   for i:=0 to n-1 do   //-1
     begin
      PointColor:=round((ZScalePH*( ScanData.AquiADD.Data[i,j]-MinI)));
      if (PointColor >255) then  PointColor:=255;

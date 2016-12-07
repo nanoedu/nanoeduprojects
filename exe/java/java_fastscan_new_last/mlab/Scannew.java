@@ -91,7 +91,7 @@ public class Scannew
                 M_USTEP = Simple.bramID("m_ustep");;
                 M_DACX   = Simple.bramID("dxchg_X");
                 M_DACY   = Simple.bramID("dxchg_Y");
-
+                stepdelay=100;
 		datain=Simple.xchgGet("algoritmparams.bin");
 
                 int i0=4;
@@ -106,7 +106,7 @@ public class Scannew
 		DiscrNumInMicroStep=  datain[i0+7] << 16;
 		XMicrostepNmb   =    -datain[i0+8]; //<< **
 		YMicrostepNmb   =    -datain[i0+9]; //<< **
-                stepdelay       =     datain[i0+11]; //add 05.12.16
+               // stepdelay       =     datain[i0+11]; //add 05.12.16
 
                 int  flgUNit;
                 int  MaxX=0x7fffffff;

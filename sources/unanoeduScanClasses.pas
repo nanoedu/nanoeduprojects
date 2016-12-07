@@ -4082,10 +4082,9 @@ var cnt, DataLen,shift:integer;
    params[8]:=ByteInversion(ScanParams.XMicrostepNmb);
    params[9]:=ByteInversion(ScanParams.YMicrostepNmb);
    params[10]:=ByteInversion(ScanParams.ScanShift);
-   if flgUnit=Terra then params[11]:=ByteInversion(ScanParams.TerraTDelay)
-   else  params[11]:=ByteInversion(ScanParams.FastDelay);
+  if flgUnit=Terra then params[11]:=ByteInversion(ScanParams.TerraTDelay)
  end;
-   shift:=16;//Sizeof(AlgParams) div sizeof(Data_dig);
+   shift:=15;//Sizeof(AlgParams) div sizeof(Data_dig);
    if flgUnit=Terra then  shift:=shift+1;
     Finalize(DataArray);
 
@@ -4107,7 +4106,6 @@ var cnt, DataLen,shift:integer;
      DataArray[13]:= AlgParams.params[9];
      DataArray[14]:= AlgParams.params[10];
      if flgUnit=Terra then  DataArray[15]:= AlgParams.params[11]
-     else DataArray[15]:= AlgParams.params[11];
  end;
 
 procedure TFastTopo.StartDraw;

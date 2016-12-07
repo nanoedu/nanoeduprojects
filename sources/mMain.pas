@@ -3417,7 +3417,9 @@ begin
           Approach.flgCancel:=true;
           Approach.Close;
         end;
-
+        if flgfirsttimeSTM then ApproachParamsDef
+                            else ApproachParamsLast(ConfigUsersIniFile);
+        flgfirsttimeSTM:=false;
         FreeAndNil(NanoEdu);
   case FlgCurrentUserLevel of
   Beginner,
@@ -3450,9 +3452,6 @@ begin
        end;
    999:  begin RunCloseExecute(nil); ActionNew.Enabled:=true; exit; end;
         end;
-        if flgfirsttimeSTM then ApproachParamsDef
-                            else ApproachParamsLast(ConfigUsersIniFile);
-         flgfirsttimeSTM:=false;
          if FlgApproachOK then  LandingSlowExecute(nil);
         caption:=basecaption+addcaption+addworkdirectory;
         result:=true;
@@ -5246,10 +5245,9 @@ begin
         FlgApproachOK:=False;
         FlgStopScan:=True;
         SetIntActOnProgr:=False;
-  (*      if flgfirsttimeSFM then ApproachParamsDef
+        if flgfirsttimeSFM then ApproachParamsDef
                            else ApproachParamsLast(ConfigUsersIniFile);
         flgfirsttimeSFM:=false;
-        *)
         FreeAndNil(NanoEdu);
              case FlgCurrentUserLevel of
   Beginner,
@@ -5288,9 +5286,10 @@ begin
             exit;
          end;
             end;
-         if flgfirsttimeSFM then ApproachParamsDef
-                           else ApproachParamsLast(ConfigUsersIniFile);
+(*         if flgfirsttimeSFM then ApproachParamsDef
+                              else ApproachParamsLast(ConfigUsersIniFile);
          flgfirsttimeSFM:=false;
+ *)        
          Scanning.Hint:=siLang1.GetTextOrDefault('IDS_4' (* 'Make Resonance and Landing before Scanning' *) );
          Landing.Hint:=siLang1.GetTextOrDefault('IDS_5' (* 'Make Resonance before Landing' *) );
          Caption:=basecaption+addcaption+addworkdirectory;
