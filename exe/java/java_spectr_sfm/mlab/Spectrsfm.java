@@ -1,5 +1,6 @@
-package mlab;      //28/08/13 // По одному дискрету, c функциией и задержкой
-                 // error
+package mlab;
+    //08/12/16 fix bugs IZ
+    //28/08/13 // По одному дискрету, c функциией и задержкой
 public class Spectrsfm
 {
 	static final int DAC_STEP = 65536*1;
@@ -12,17 +13,13 @@ public class Spectrsfm
         static  int M_DACY;
 	public static  int M_DACZ;
 
-
-	static final int PORT_COS_X = ( Port.OUT | 3 );
-	static final int PORT_COS_Y = ( Port.OUT | 4 );
-	static final int PORT_COS_Z = ( Port.OUT | 5 );
-
-	static final int PORT_X = ( Port.OUT | 0 );
-	static final int PORT_Y = ( Port.OUT | 1 );
-	static final int PORT_Z = ( Port.OUT | 2 );
-
-	static final int PORT_uVector = ( Port.OUT | 6 );
-
+  	static final int PORT_COS_X   = ( Port.OUT | 3 );
+	static final int PORT_COS_Y   = ( Port.OUT | 4 );
+	static final int PORT_COS_Z   = ( Port.OUT | 5 );
+  	static final int PORT_X       = ( Port.OUT | 0 );
+	static final int PORT_Y       = ( Port.OUT | 1 );
+	static final int PORT_Z       = ( Port.OUT | 2 );
+  	static final int PORT_uVector = ( Port.OUT | 6 );
 
         // chanels ID
 	public static final int CH_STOP        = 0;
@@ -31,31 +28,26 @@ public class Spectrsfm
         public static final int CH_PARAMS      = 3;
 
         public static final int done=60;
-
         public static final int stop=100;
-
-	public static final int MakeSTOP =1;
+ 	public static final int MakeSTOP =1;
 
 public static int Zmove( int Z, int ndiscr, int st1, int delay )   // st1 = +-1
 	{
 	  int j,k;
   	  int cZ;	
-		cZ = Z;
-		for (j=0; j< ndiscr; j++)
-		{
-	          cZ=cZ+(st1 << 16 );
-                  for(k=0; k < delay; k++) { }// задержка в каждом дискрете
-                  Simple.bramRead(M_A);
-                  Simple.bramWrite(M_DACZ, cZ);
-		
-		}
+	  cZ = Z;
+	  for (j=0; j< ndiscr; j++)
+	  {
+	    cZ=cZ+(st1 << 16 );
+            for(k=0; k < delay; k++) { }// задержка в каждом дискрете
+            Simple.bramWrite(M_DACZ, cZ);
+	  }
 	  return(cZ);
 	}		
 
 	public static void main(String[] arg)
 	{
-
-		int i,j;
+ 		int i,j;
 		int[] datain;
 		Port[] port;
 		Span[] span_x_y_z;
@@ -85,10 +77,9 @@ public static int Zmove( int Z, int ndiscr, int st1, int delay )   // st1 = +-1
                 int  ZStart;
                 int  flgSTM;
 		int dlt;
-
-
-		datain=Simple.xchgGet("algoritmparams.bin");
+ 		datain=Simple.xchgGet("algoritmparams.bin");
         	int i0=4;
+
 		ZPoints        =    datain[i0];
 		ZStart		=   datain[i0+1];    //integer
 		ZStep		=   datain[i0+2];    //discrets word
@@ -96,13 +87,9 @@ public static int Zmove( int Z, int ndiscr, int st1, int delay )   // st1 = +-1
 		MicrostepDelay  =   datain[i0+4];
                 flgSTM          =   datain[i0+5];
 
-
-       M_A=Simple.bramID("m_A");
-       M_I=Simple.bramID("m_ADC_I");
-       M_DACX   = Simple.bramID("dxchg_X");
-       M_DACY   = Simple.bramID("dxchg_Y");
-       M_DACZ 	= Simple.bramID("m_dacZ");
-
+                M_A=Simple.bramID("m_A");
+                M_I=Simple.bramID("m_ADC_I");
+                M_DACZ 	= Simple.bramID("m_dacZ");
 
 		JVIO stream_ch_stop      = new JVIO(CH_STOP,    1, 1,JVIO.BUF,  1, 0);                 // 0
 		JVIO stream_ch_drawdone  = new JVIO(CH_DRAWDONE,1, 1,JVIO.BUF,  1, 0);                 // 1
@@ -124,72 +111,57 @@ public static int Zmove( int Z, int ndiscr, int st1, int delay )   // st1 = +-1
 		buf_drawdone[0] =0;
 		wr = stream_ch_drawdone.Write(buf_drawdone, 1, 1000);
               	stream_ch_drawdone.Invalidate();
-
-          	dacX =Simple.bramRead(M_DACX) ;
-             	dacY =Simple.bramRead(M_DACY) ;
-    //
 		dacZ = 0;
                	dacZ0=dacZ;
-    	i=0;
-        int k;
-        k=0;
-        off=0;
-
-//start
-int  st = 1 << 16;
-
-    Simple.fcupBypass(0,true); //turn off   FB
-
-   int workTim = Simple.GetSystemTicks();
-
+           	i=0;
+                int k;
+                k=0;
+                off=0;
+ //start
+                int  st = 1 << 16;
+                Simple.fcupBypass(0,true); //turn off   FB
+                int workTim = Simple.GetSystemTicks();
  //move to start point
-
-
-     //   dacZ=dacZ0-ZStart;
-
-
- dacZ = Zmove( dacZ, (-(ZStart >> 16)), 1, MicrostepDelay );
-	//Simple.bramWrite(M_DACZ, dacZ);
-	Simple.Sleep(100);	//
+                dacZ = Zmove( dacZ, (-(ZStart >> 16)), 1, MicrostepDelay );
+        	Simple.Sleep(100);	//
 
   for(i=0; i<ZPoints; i++)
   {
- //  ****  Simple.bramWrite(M_DACZ, dacZ);         //280813
-    if (flgSTM==1) {  ampl=Simple.bramRead(M_I);} //  STM
+    if (flgSTM==1) {  ampl=Simple.bramRead(M_I);}  //  STM
     else           {  ampl=Simple.bramRead(M_A);}  //  SFM
 
     dataout[k]=ampl;
-
     dataout[k+1]=-(dacZ-dacZ0);
-
     dataout[k+2]=1;
 
-  if (flgSTM==1)
-  { if (ampl<VertMin)
-     { // dacZ=dacZ-ZStep;
+   if (flgSTM==1)
+   {
+    if (ampl<0) ampl=-ampl;
+    int imax=VertMin;
+    if (imax<0) imax=-imax;
+    if (ampl<imax)
+     {
          dacZ = Zmove( dacZ, (ZStep >> 16), -1, MicrostepDelay );
          k+=3;
      }
-  }
-  else
-  { if (ampl>VertMin)
-    { // dacZ=dacZ-ZStep;
+   }
+   else
+   {
+    if (ampl>VertMin)
+    {
      dacZ = Zmove( dacZ, (ZStep >> 16), -1, MicrostepDelay );
       k+=3;
-     //Simple.DumpInt(k/3);
-    }
-    else Simple.DumpInt(0xEEEEEEEE);
- }
-}  // for
+    };
+   }
+ }  // for    i
 
-     dacZ=dacZ+ZStep;
-     ZPoints= k / 3;
+  //   dacZ=dacZ+ZStep;
+    ZPoints= k / 3;
     Simple.Sleep(300);
-
+     k=k+3;
   off = ZPoints;
   for(i=ZPoints; i>=1; i--)
   {
-    //Simple.bramWrite(M_DACZ, dacZ);
     if (flgSTM==1) {  ampl=Simple.bramRead(M_I);} //  STM
     else           {  ampl=Simple.bramRead(M_A);}  //  SFM
 
@@ -229,10 +201,6 @@ if (dacZ > 0) {dlt = dacZ;}
    }
 	 stream_ch_data_out.Invalidate();
 
-//Simple.DumpInt(off);
-//Simple.DumpInt(0xAAAABBBB);
-//Simple.DumpInt(workTim);
-
     Simple.fcupBypass(0,false); //turn on  FB
 
 
@@ -255,7 +223,7 @@ if (dacZ > 0) {dlt = dacZ;}
 		stream_ch_drawdone.Close();
 		stream_ch_data_out.Close();
 		stream_ch_stop.Close();
-Simple.DumpInt(0xDDDDDDDD); 
+//Simple.DumpInt(0xDDDDDDDD);
 	}
 
 }

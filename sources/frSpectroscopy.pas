@@ -272,24 +272,27 @@ begin
    end;
   with FrSupLevel do
    begin
-    ScrollBarFrm.Max:=100;
-    ScrollBarFrm.Min:= 0;
-    ScrollBarFrm.Position:=SpectrParams.LevelSFM ;
-    if  lflgIZ then
+     if  lflgIZ then
     begin
-    if (flgUnit<>pipette) then
-    begin
-     VertMin:=round(ScrollBarFrm.Position*0.01*MaxApiType);
-    end
-    else
-    begin
-     VertMin:=round((ScrollBarFrm.Position*0.01*ApproachParams.SetPoint*TransformUnit.nA_d));
-     Visible:=true;
-    end;
+      ScrollBarFrm.Max:=400;
+      ScrollBarFrm.Min:=100;
+      ScrollBarFrm.Position:=100+SpectrParams.LevelSFM ;
+     if (flgUnit<>pipette) then
+     begin
+      VertMin:=round(ScrollBarFrm.Position*0.01*MaxApiType);
+     end
+     else
+     begin
+      VertMin:=round((ScrollBarFrm.Position*0.01*ApproachParams.SetPoint*TransformUnit.nA_d));
+      Visible:=true;
+     end;
      BitBtnFrm.Caption:=siLangLinked.GetTextOrDefault('IDS_6' (* 'Limit IT %' *) )
     end
     else
     begin
+     ScrollBarFrm.Max:=100;
+     ScrollBarFrm.Min:= 0;
+     ScrollBarFrm.Position:=SpectrParams.LevelSFM ;
      VertMin:=round((ScrollBarFrm.Max-ScrollBarFrm.Position)*0.01*ApproachParams.UAMMax);   //discr
      BitBtnFrm.Caption:=siLangLinked.GetTextOrDefault('IDS_7' (* 'Suppression ' *) )
     end;
@@ -950,7 +953,7 @@ if not assigned(Approach) then
   end;
  end{Error=0}
  else
-    MessageDlgCtr(strs1{'no Demo Data!!!'}, mtInformation,[mbOk],0);
+  MessageDlgCtr(strs1{'no Demo Data!!!'}, mtInformation,[mbOk],0);
 end;
 
 procedure TSpectroscopy.StatusBar1DrawPanel(StatusBar: TStatusBar;
