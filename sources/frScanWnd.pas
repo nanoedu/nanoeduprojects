@@ -357,8 +357,7 @@ type
     procedure LblEditTTerraKeyPress(Sender: TObject; var Key: Char);
     procedure LblEditTTerraEnter(Sender: TObject);
     procedure LblEditTTerraExit(Sender: TObject);
-    procedure ScrollBarTTErraScroll(Sender: TObject; ScrollCode: TScrollCode;
-      var ScrollPos: Integer);
+    procedure ScrollBarTTErraScroll(Sender: TObject; ScrollCode: TScrollCode;      var ScrollPos: Integer);
     procedure LineTimerTimer(Sender: TObject);
     procedure SignalsModeBtnBiasSFMClick(Sender: TObject);
     procedure SignalsModebtnSetPointClick(Sender: TObject);
@@ -1716,7 +1715,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
             TabSheetPhaseR.TabVisible:=False;
             if true{FlgCurrentUserLevel>Beginner} then
             begin
-             if (flgUnit=ProBeam)or (flgUnit=MicProbe){HardWareOpt.XYTune=siLangLinked1.GetTextOrDefault('IDS_2' (* 'Fine' *) )} then
+             if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then
              begin
               TabSheetFastTopo.TabVisible:=True;
               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_47' (* 'Sample Surface Scanning; STM Fine Regime' *) );
@@ -1724,7 +1723,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
              end
              else
              begin
-              TabSheetFastTopo.TabVisible:=true;//True;        23/12/15
+            //  TabSheetFastTopo.TabVisible:=true;//True;        23/12/15
               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_48' (* 'Sample Surface Scanning; STM Rough Regime' *) );
               Caption:=CaptionBase+Captionadd+CaptionRenishaw;
              end;
@@ -1757,7 +1756,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
               TabSheetUAMR.TabVisible:=True;
               TabSheetPhaseR.TabVisible:=True ;
               TabSheetSpectrR.TabVisible:=True;
-              TabSheetLitho.TabVisible:=(flgUnit<>Pipette) and (flgUnit<>Terra);//and (flgUnit<>ProBeam);  //250116
+              TabSheetLitho.TabVisible:=(flgUnit<>Pipette) and (flgUnit<>Terra) and (FlgCurrentUserLevel<>Demo);//and (flgUnit<>ProBeam);  //250116
               TabSheetCurR.TabVisible:=False;
              if flgUnit=Terra then      TabSheetCurR.TabVisible:=true;
           //    TabSheetFastTopo.TabVisible:=false;
@@ -1770,7 +1769,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
              else
              *)
              begin
-              TabSheetFastTopo.TabVisible:=true;//True;   //231215
+             if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_53' (* 'Sample Surface Scanning; SFM Rough Regime' *) );
               Caption:=CaptionBase+Captionadd+CaptionRenishaw;
              end;
@@ -2150,7 +2149,7 @@ begin
         if true{FlgCurrentUserLevel>Beginner} then
         begin
          TabSheetUAMR.TabVisible:=True;
-         if (flgUnit<>Pipette) and (flgUnit<>Terra) (*and (flgUnit<>ProBeam)*) then TabSheetLitho.TabVisible:=True; //250116
+         if (flgUnit<>Pipette) and (flgUnit<>Terra)  then TabSheetLitho.TabVisible:=True; //250116
          TabSheetPhaseR.TabVisible:=True;
         // {$IFDEF FULL}
             TabSheetCurR.TabVisible:=flgUnit=Terra;//true;
@@ -2164,7 +2163,7 @@ begin
                                                  else TabSheetTopoL.TabVisible:=False;
          if (ScanParams.ScanMethod=Litho) or (ScanParams.ScanMethod=LithoCurrent) then TabSheetSideL.TabVisible:=False;
          //if HardWareOpt.XYtune='Fine'   then
-         TabSheetFastTopo.TabVisible:=true;//True;    231215
+        //if (FlgCurrentUserLevel<>Demo) then TabSheetFastTopo.TabVisible:=true;//True;    231215
         end
         else
         begin
@@ -2318,6 +2317,8 @@ begin
            StopBtn.Down:=true;
            StartBtn.Down:=false;
            LandingBtn.visible:=true;
+           if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then TabSheetFastTopo.tabvisible:=true
+            else TabSheetFastTopo.tabvisible:=false;
 end;
 
 procedure TScanWnd.StartBtnClick(Sender: TObject);

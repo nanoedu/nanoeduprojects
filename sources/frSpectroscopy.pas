@@ -45,14 +45,14 @@ uses
     StartBtn: TToolButton;
     ToolBar2: TToolBar;
     PrintBtn: TToolButton;
-    Lblwarning: TStatusBar;
     ToolButton1: TToolButton;
     PanelEditBtns: TPanel;
     PanelLabels: TPanel;
     PanelCurves: TPanel;
+    lblwarningn: TStatusBar;
     procedure StatusBar1DrawPanel(StatusBar: TStatusBar; Panel: TStatusPanel;
       const Rect: TRect);
-    procedure LblwarningDrawPanel(StatusBar: TStatusBar; Panel: TStatusPanel;
+    procedure LblwarningnDrawPanel(StatusBar: TStatusBar; Panel: TStatusPanel;
       const Rect: TRect);
     procedure CopytoClipboard1Click(Sender: TObject);
     procedure UpdateStrings;
@@ -203,7 +203,7 @@ begin
  Error:=0;
  lflgIZ:=SpectrParams.flgIZ;
  if assigned(ScanWnd) then Scanwnd.StartBtn.Enabled:=false;
- LblWarning.Visible:=false;
+ LblWarningn.Visible:=false;
  LabelStep.Caption:='';
  NPage:=SpectrParams.NSpectrPoints;
 
@@ -312,14 +312,14 @@ begin
    
     if  lflgIZ then
     begin
-     Lblwarning.Panels[0].Text:=siLangLinked.GetTextOrDefault('IDS_8' (* 'Warning! The set limit of current is achieved!!! ' *) ) ;
-     Lblwarning.Panels[1].text:=siLangLinked.GetTextOrDefault('IDS_5' (* 'Change final point.' *) )  ;
+     Lblwarningn.Panels[0].Text:=siLangLinked.GetTextOrDefault('IDS_8' (* 'Warning! The set limit of current is achieved!!! ' *) ) ;
+     Lblwarningn.Panels[1].text:=siLangLinked.GetTextOrDefault('IDS_5' (* 'Change final point.' *) )  ;
      //     label1.caption:='Level IT'
     end
     else
     begin
-     Lblwarning.Panels[0].text:=siLangLinked.GetTextOrDefault('IDS_9' (* 'Warning! The set limit of suppression of a amplitude oscillation is achieved!!! ' *) ) ;
-     Lblwarning.Panels[1].text:=siLangLinked.GetTextOrDefault('IDS_5' (* 'Change final point.' *) )  ;
+     Lblwarningn.Panels[0].text:=siLangLinked.GetTextOrDefault('IDS_9' (* 'Warning! The set limit of suppression of a amplitude oscillation is achieved!!! ' *) ) ;
+     Lblwarningn.Panels[1].text:=siLangLinked.GetTextOrDefault('IDS_5' (* 'Change final point.' *) )  ;
 //     label1.caption:='Amplitude suppression'
     end;
     StartPointZ:=StrToInt(FrStartP.EditFrm.Text);    //nm
@@ -382,7 +382,7 @@ begin
   baseCaption:=siLangLinked.GetTextOrDefault('IDS_2' (* 'Spectroscopy' *) );
   addCaption:=ExtractFileName(FileName);
   Caption:=baseCaption+' '+addCaption;
-  LblWarning.Visible:=false;
+  LblWarningn.Visible:=false;
   seriesColor[0]:=clblue;
   seriesColor[1]:=clred;
   seriesColor[2]:=clgreen;
@@ -853,7 +853,7 @@ SpectrParams.NCurves:=1;
     if FlgCurrentUserLevel = Demo then  NumbPUpdate:=NumbP
       else
       NumbPUpdate:=NumbP+nCor;
-    lblWarning.Visible:=false;
+    lblWarningn.Visible:=false;
    if ZStepD<1 then  begin  MessageDlg(strs4{siLangLinked1.GetTextOrDefault('IDS_46' (* 'Step too small!Change Parameters.' *) )},mtWarning,[mbOk],0); exit; end;
     LabelStep.Caption:=BaseCaptionStep+FloatToStrF(ZStep,ffFixed,5,2)+ siLangLinked.GetTextOrDefault('IDS_4' (* 'nm' *) );
     SpectrParams.StartP:=StartPointZ;    //nm
@@ -1044,7 +1044,7 @@ begin
         else flgLimitSpectr:=true;
              inc(m,2);
        end;
-        if not (flgCurrentUserLevel=Demo)and flgLimitSpectr then  lblwarning.Visible:=true;
+        if not (flgCurrentUserLevel=Demo)and flgLimitSpectr then  lblwarningn.Visible:=true;
 
            Application.ProcessMessages;
       end;
@@ -1398,7 +1398,7 @@ procedure TSpectroscopy.ThreadDone(var AMessage : TMessage);      // Message to 
        flgLimitSpectr:=true;
       end;
      ReStoreStart;
-     if not (flgCurrentUserLevel=Demo)and flgLimitSpectr then  lblwarning.Visible:=true;
+    if not (flgCurrentUserLevel=Demo)and flgLimitSpectr then      lblwarningn.Visible:=true;
      BitBtnSaveClick(Self);
    end;
  end;
@@ -1705,7 +1705,7 @@ try
   end;
 end;
 
-procedure TSpectroscopy.LblwarningDrawPanel(StatusBar: TStatusBar;
+procedure TSpectroscopy.LblwarningnDrawPanel(StatusBar: TStatusBar;
   Panel: TStatusPanel; const Rect: TRect);
 begin
   if Panel = StatusBar.Panels[0] then

@@ -93,13 +93,13 @@ public static int Zmove( int Z, int ndiscr, int st1, int delay )   // st1 = +-1
 
 		JVIO stream_ch_stop      = new JVIO(CH_STOP,    1, 1,JVIO.BUF,  1, 0);                 // 0
 		JVIO stream_ch_drawdone  = new JVIO(CH_DRAWDONE,1, 1,JVIO.BUF,  1, 0);                 // 1
-		JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,3,2*ZPoints,JVIO.FIFO,2*ZPoints, 1);   // 2 //(UAM,Z)
+		JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,3,2*ZPoints+1,JVIO.FIFO,2*ZPoints+1, 1);   // 2 //(UAM,Z)
 
                 flg=false; //flg limit achived
 
               	int ampl;
 		int[] dataout;
-		dataout=new int[6*ZPoints];
+		dataout=new int[6*ZPoints+6];
                 int[] buf_stop;
 		buf_stop = new int[1];
 		buf_stop[0] =0;
@@ -133,32 +133,32 @@ public static int Zmove( int Z, int ndiscr, int st1, int delay )   // st1 = +-1
     dataout[k]=ampl;
     dataout[k+1]=-(dacZ-dacZ0);
     dataout[k+2]=1;
-
+    k+=3;
    if (flgSTM==1)
    {
     if (ampl<0) ampl=-ampl;
     int imax=VertMin;
     if (imax<0) imax=-imax;
-    if (ampl<imax)
+    if ((ampl<imax) &(i!=ZPoints-1))
      {
          dacZ = Zmove( dacZ, (ZStep >> 16), -1, MicrostepDelay );
-         k+=3;
+         //k+=3;
      }
+     else break;
    }
    else
    {
-    if (ampl>VertMin)
+    if ((ampl>VertMin) &(i!=ZPoints-1))
     {
      dacZ = Zmove( dacZ, (ZStep >> 16), -1, MicrostepDelay );
-      k+=3;
-    };
+     // k+=3;
+    }
+    else break;
    }
  }  // for    i
-
-  //   dacZ=dacZ+ZStep;
     ZPoints= k / 3;
     Simple.Sleep(300);
-     k=k+3;
+
   off = ZPoints;
   for(i=ZPoints; i>=1; i--)
   {
@@ -171,11 +171,8 @@ public static int Zmove( int Z, int ndiscr, int st1, int delay )   // st1 = +-1
 
     dataout[k+2]=-1;
 
-  //  dacZ=dacZ+ZStep;
-
-   dacZ = Zmove( dacZ, (ZStep >> 16), +1, MicrostepDelay );
-
-   k+=3;
+    k+=3;
+    dacZ = Zmove( dacZ, (ZStep >> 16), +1, MicrostepDelay );
   }
 
  //move to start point

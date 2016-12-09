@@ -1336,12 +1336,10 @@ object ScanWnd: TScanWnd
           inherited tbSFM: TTabSheet
             ExplicitLeft = 4
             ExplicitTop = 7
-            ExplicitWidth = 200
-            ExplicitHeight = 123
+            ExplicitWidth = 193
+            ExplicitHeight = 116
             inherited Panel1: TPanel
-              Width = 200
               Height = 65
-              ExplicitWidth = 200
               ExplicitHeight = 65
               inherited LbSuppress: TLabel
                 Left = 72
@@ -1361,12 +1359,10 @@ object ScanWnd: TScanWnd
             end
             inherited PanelGain: TPanel
               Top = 65
-              Width = 200
-              Height = 58
+              Height = 51
               Hint = 'Set Phase Shift Amplifier Gain'
               ExplicitTop = 65
-              ExplicitWidth = 200
-              ExplicitHeight = 58
+              ExplicitHeight = 51
               inherited Label2: TLabel
                 Left = 49
                 Top = 6
@@ -1386,12 +1382,13 @@ object ScanWnd: TScanWnd
           inherited tbSTM: TTabSheet
             ExplicitLeft = 4
             ExplicitTop = 7
-            ExplicitWidth = 193
-            ExplicitHeight = 116
+            ExplicitWidth = 200
+            ExplicitHeight = 123
             inherited Panel4: TPanel
               Width = 200
               Height = 58
               ParentBackground = False
+              ExplicitWidth = 200
               ExplicitHeight = 58
               inherited Label1: TLabel
                 Left = 26
@@ -1418,7 +1415,8 @@ object ScanWnd: TScanWnd
               Height = 65
               ParentBackground = False
               ExplicitTop = 58
-              ExplicitHeight = 58
+              ExplicitWidth = 200
+              ExplicitHeight = 65
               inherited Label4: TLabel
                 Left = 51
                 Top = 2
@@ -2354,8 +2352,8 @@ object ScanWnd: TScanWnd
         Left = 0
         Top = 0
         Width = 477
-        Height = 65
-        ActivePage = TabSheetSpectrR
+        Height = 46
+        ActivePage = TabSheetScanTran
         Align = alTop
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -2377,10 +2375,12 @@ object ScanWnd: TScanWnd
           Font.Style = [fsBold]
           ImageIndex = 1
           ParentFont = False
+          ExplicitHeight = 19
         end
         object TabSheetPhaseR: TTabSheet
           Caption = 'Phase shift'
           ImageIndex = 1
+          ExplicitHeight = 19
         end
         object TabSheetUAMR: TTabSheet
           Caption = 'Force image'
@@ -2391,11 +2391,13 @@ object ScanWnd: TScanWnd
           Font.Style = [fsBold]
           ImageIndex = 2
           ParentFont = False
+          ExplicitHeight = 19
         end
         object TabSheetSpectrR: TTabSheet
           BorderWidth = 2
           Caption = 'Spectroscopy'
           ImageIndex = 3
+          ExplicitHeight = 19
           object PanelSpectr: TPanel
             Left = 8
             Top = 40
@@ -2408,11 +2410,14 @@ object ScanWnd: TScanWnd
           BorderWidth = 2
           Caption = 'Current image'
           ImageIndex = 4
+          ExplicitHeight = 19
         end
         object TabSheetFastTopo: TTabSheet
           Hint = 'Current Image'
           Caption = 'Fast Scan/Phase shift'
           ImageIndex = 5
+          TabVisible = False
+          ExplicitHeight = 4
           object ImageFastTopo: TImage
             Left = 96
             Top = 64
@@ -2424,30 +2429,36 @@ object ScanWnd: TScanWnd
           Hint = 'Litography'
           Caption = 'Lithography'
           ImageIndex = 6
+          ExplicitHeight = 19
         end
         object TabSheetScanTran: TTabSheet
           Hint = 'Multi times scanning along X-axes'
           Caption = 'One line scanning'
           ImageIndex = 7
+          ExplicitHeight = 19
         end
         object TabSheetSens: TTabSheet
           Caption = 'Sensivity correction'
           ImageIndex = 8
           TabVisible = False
+          ExplicitHeight = 19
         end
         object TabSheetProfiler: TTabSheet
           Caption = 'Profiler'
           ImageIndex = 9
+          ExplicitHeight = 19
         end
       end
       object PanelRight: TPanel
         Left = 0
-        Top = 65
+        Top = 46
         Width = 477
-        Height = 356
+        Height = 375
         Align = alClient
         Color = 14474715
         TabOrder = 1
+        ExplicitTop = 65
+        ExplicitHeight = 356
         object PanelChart: TPanel
           Left = 3
           Top = 44
@@ -3538,7 +3549,7 @@ object ScanWnd: TScanWnd
     Left = 248
     Top = 96
     Bitmap = {
-      494C01010A002C023C0220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A002C02400220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
