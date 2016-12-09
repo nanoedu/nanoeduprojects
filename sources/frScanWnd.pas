@@ -1751,38 +1751,25 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
     False: begin //SFM
              SignalsMode.lbSuppress.Caption:=FloatToStrF((1-ApproachParams.SetPoint),fffixed,4,2);
              SignalsMode.lbSuppressI.Caption:=FloatToStrF((1-ApproachParams.SetPoint),fffixed,4,2);
-            if true{FlgCurrentUserLevel>Beginner} then  //advanced, demo
-            begin
               TabSheetUAMR.TabVisible:=True;
               TabSheetPhaseR.TabVisible:=True ;
               TabSheetSpectrR.TabVisible:=True;
-              TabSheetLitho.TabVisible:=(flgUnit<>Pipette) and (flgUnit<>Terra) and (FlgCurrentUserLevel<>Demo);//and (flgUnit<>ProBeam);  //250116
+              TabSheetLitho.TabVisible:=(flgUnit<>Pipette) and (flgUnit<>Terra);//and (flgUnit<>ProBeam);  //250116
               TabSheetCurR.TabVisible:=False;
              if flgUnit=Terra then      TabSheetCurR.TabVisible:=true;
-          //    TabSheetFastTopo.TabVisible:=false;
-           (*  if HardWareOpt.XYTune='Fine' then
-             begin
-               TabSheetFastTopo.TabVisible:=True;
-               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_52' {'Sample Surface Scanning; SFM Fine Regime' } );
-               Caption:=CaptionBase+Captionadd+CaptionRenishaw;
-             end
-             else
-             *)
-             begin
              if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_53' (* 'Sample Surface Scanning; SFM Rough Regime' *) );
               Caption:=CaptionBase+Captionadd+CaptionRenishaw;
-             end;
-            TabSheetUAMR.HighLighted:=False;
-            TabSheetPhaseR.HighLighted:=False;
-            TabSheetSpectrR.HighLighted:=False;
-            TabSheetFastTopo.HighLighted:=False;
-            TabSheetLitho.HighLighted:=False;
-            SignalsMode.tbSFMCUR.TabVisible:=False;
-            SignalsMode.tbSFM.TabVisible:=True;
-            SignalsMode.tbSTM.TabVisible:=False;
-            if ApproachParams.BiasV<0 then  SignalsMode.btnBiasSFM.Font.Color:=clBlue
-                                      else  SignalsMode.btnBiasSFM.Font.Color:=clRed ;
+              TabSheetUAMR.HighLighted:=False;
+              TabSheetPhaseR.HighLighted:=False;
+              TabSheetSpectrR.HighLighted:=False;
+              TabSheetFastTopo.HighLighted:=False;
+              TabSheetLitho.HighLighted:=False;
+              SignalsMode.tbSFMCUR.TabVisible:=False;
+              SignalsMode.tbSFM.TabVisible:=True;
+              SignalsMode.tbSTM.TabVisible:=False;
+             if ApproachParams.BiasV<0 then  SignalsMode.btnBiasSFM.Font.Color:=clBlue
+                                       else  SignalsMode.btnBiasSFM.Font.Color:=clRed ;
              {$IFDEF FULL}
                  if flgUnit=Pipette  then
                   begin
@@ -1794,46 +1781,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
             SignalsMode.LabelFB.Caption:=FloatToStrf(PIDParams.Ti, fffixed,5,2);
             SignalsMode.GainFMbtn.Caption:=FloatToStrF(ApproachParams.Gain_FM,fffixed,5,2);
            end
-           else    //beginner
-           begin
-            labelAction.Caption:=siLangLinked1.GetTextOrDefault('IDS_40' (* 'Action nm' *) );
-            TabSheetTopoError.TabVisible:=false;
-            TabSheetUAMR.TabVisible:=false;
-            TabSheetPhaseR.TabVisible:=false;
-            TabSheetSpectrR.TabVisible:=false;
-            TabSheetCurR.TabVisible:=False;
-            if HardWareOpt.XYTune='Fine' then
-            begin
-              TabSheetFastTopo.TabVisible:=True;
-              CaptionBase:=siLangLinked1.GetTextOrDefault('IDS_52' (* 'Sample Surface Scanning; SFM Fine Regime' *) );
-              Caption:=CaptionBase+Captionadd+CaptionRenishaw;
-             end
-            else
-            begin
-              TabSheetFastTopo.TabVisible:=true;//True; 231215
-              CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_53' (* 'Sample Surface Scanning; SFM Rough Regime' *) );
-              Caption:=CaptionBase+Captionadd+CaptionRenishaw;
-            end;
-            TabSheetUAMR.HighLighted:=False;
-            TabSheetPhaseR.HighLighted:=False;
-            TabSheetSpectrR.HighLighted:=False;
-            TabSheetFastTopo.HighLighted:=False;
-            TabSheetLitho.HighLighted:=False;
-            SignalsMode.tbSFMCUR.TabVisible:=False;
-            SignalsMode.tbSFM.TabVisible:=True;
-            SignalsMode.tbSTM.TabVisible:=False;
-            {$IFDEF FULL}
-                  if flgUnit=Pipette  then
-                  begin
-                    SignalsMode.tbSTM.TabVisible:=False;
-                    SignalsMode.tbSFM.TabVisible:=False;
-                    SignalsMode.tbSFMCUR.TabVisible:=True;
-                  end;
-              {$ENDIF}
-            SignalsMode.GainFMbtn.Caption:=FloatToStrF(ApproachParams.Gain_FM,fffixed,5,2);
-          end;
-           end;
-             end;
+             end; //case STMflg
 
    if PageCtlRight.ActivePage.PageIndex=1   then    SignalsMode.PanelGain.Visible:= True;
    if STMflg  then TabSheetFastTopo.Caption:=siLangLinked1.GetTextOrDefault('IDS_185' (* 'Fast Scan/Current' *) )

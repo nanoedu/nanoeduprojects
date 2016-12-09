@@ -136,8 +136,8 @@ if CreateChannels(AlgParams.NChannels) then
            SetLength(TempAquiData,3*n);
            GetLineData;
            Synchronize(DrawCurrentLine);
-         //  if spectrdatacount>=NChElements*ElementSize then FlgEnd:=true;   //
-           FlgEnd:=true;
+          if spectrdatacount>=NChElements*ElementSize then FlgEnd:=true;   //
+         //  FlgEnd:=true;
      end;// NewPpoint>0
     end; //nread>=1
    end; {while ScanCount}

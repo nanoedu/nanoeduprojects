@@ -278,15 +278,15 @@ begin
    if assigned(ScanWnd)  then Position:=Max-round((1-ApproachParams.SetPoint)*Max/ApproachParams.MaxSuppress);
    Brush.Color:=clSilver;
   end;
-
-
  V1:=(ApproachParams.Amp_M)/ApproachParams.MaxAmp_M;
  V2:=(tbSuppress.Max-tbSuppress.Position)/tbSuppress.Max;
   Progressbar.position:=2*round(Progressbar.Max*V1*V2);
  lblSuppress.Caption:=FloatToStrF(ApproachParams.MaxSuppress*V2,fffixed,4,2);
  val:=ApproachParams.Amp_M;
     if val>0 then AMLabel.Caption:=FloattoStrF(val,ffFixed,5,0)+str1(* ' mV' *)
-             else AMLabel.Caption:=str1 (* '1 mV' *) end;
+             else AMLabel.Caption:=str1; (* '1 mV' *)
+ if (flgCurrentUserLevel=Demo) then BtnSpectr.Visible:=false;
+end;
 
 procedure TSetInteraction.BitBtnCancelClick(Sender: TObject);
 begin
