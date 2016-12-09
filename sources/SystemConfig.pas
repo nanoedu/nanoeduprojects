@@ -752,6 +752,7 @@ begin
    NCurves:=5;
    if flgUnit<>pipette then LevelSFM:=70
                        else LevelSFM:=30;
+   LevelIZ:=200;                       
    NAv:=3;
    StartV:=-5000;  //mV
    StopV:=5000;

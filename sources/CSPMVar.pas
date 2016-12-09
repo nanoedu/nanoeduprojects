@@ -643,7 +643,9 @@ TYPE RScanParams=packed record
        NewPoints:integer;    // need for sfm when  archived limit
        StartP:apitype;   //SFM
        Step:single;
-       LevelSFM:apitype;  //stop approach SFM
+       LevelIZ:apitype; 
+       LevelSFM:apitype;
+      //stop approach SFM
        LevelI_Pipe:apitype;    //stop approach I Pipettte
        LevelUAM_SFM:apitype; //stop approach SFM
        EndP:apitype;        //SFM

@@ -276,7 +276,7 @@ begin
     begin
       ScrollBarFrm.Max:=400;
       ScrollBarFrm.Min:=100;
-      ScrollBarFrm.Position:=100+SpectrParams.LevelSFM ;
+      ScrollBarFrm.Position:=SpectrParams.LevelIZ ;
      if (flgUnit<>pipette) then
      begin
       VertMin:=round(ScrollBarFrm.Position*0.01*MaxApiType);
@@ -835,8 +835,16 @@ SpectrParams.NCurves:=1;
     StartPointZ:=StrToInt(FrStartP.EditFrm.Text);        //nm
     EndPointZ:=StrToInt(FrEndPoint.EditFrm.Text);       //nm
     NumbP:=StrToInt(FrNPoints.EditFrm.Text);
-    if  lflgIZ then VertMin:=round(StrtoInt(FrSupLevel.EditFrm.Text)*0.01*MaxApiType)
-               else VertMin:=round((100-StrtoInt(FrSupLevel.EditFrm.Text))*0.01*ApproachParams.UAMMax);   //discr
+    if  lflgIZ then
+    begin
+     SpectrParams.LevelIZ:=StrtoInt(FrSupLevel.EditFrm.Text);
+     VertMin:=round(SpectrParams.LevelIZ*0.01*round(abs(ApproachParams.SetPoint*TransformUnit.nA_d)));
+    end
+    else
+    begin
+     SpectrParams.LevelSFM:=StrtoInt(FrSupLevel.EditFrm.Text);
+     VertMin:=round((100-SpectrParams.LevelSFM)*0.01*ApproachParams.UAMMax);   //discr
+    end;
 
 //    StartBtn.Font.Color:=clRed;
     ZStep:=(abs(StartPointZ)+EndPointZ)/(NumbP-1);
@@ -855,7 +863,6 @@ SpectrParams.NCurves:=1;
     T:=StrToInt(FrT.EditFrm.Text);     // mc
     SpectrParams.T:=    T ;    //mc       201211
     SpectrParams.TC:=ApproachParams.ScannerDecay;
-    SpectrParams.LevelSFM:=StrtoInt(FrSupLevel.EditFrm.Text);
     SpectrParams.Step:=ZStep;  { TODO : 220506 }
      j:=0;
    //

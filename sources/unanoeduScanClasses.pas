@@ -4807,7 +4807,7 @@ end;
    params[1]:=ByteInversion(round(SpectrParams.StartP*TransformUnit.Znm_d) shl 16 );   //SFM
    params[2]:=ByteInversion(round(SpectrParams.Step*TransformUnit.Znm_d) shl 16);
    if SpectrParams.flgIZ then params[3]:=
-    ByteInversion(round((SpectrParams.LevelSFM)*0.01*round(abs(ApproachParams.SetPoint*TransformUnit.nA_d))) shl 16)
+    ByteInversion(round((SpectrParams.LevelIZ)*0.01*round(abs(ApproachParams.SetPoint*TransformUnit.nA_d))) shl 16)
    else params[3]:=ByteInversion(round((100-SpectrParams.LevelSFM)*0.01*ApproachParams.UAMMax) shl 16) ;  //stop approach SFM
    mstepdelay:= round(1000*SpectrParams.T/(150*SpectrParams.Step*TransformUnit.Znm_d))-1;
    if mstepdelay < 0  then  mstepdelay:=0;
