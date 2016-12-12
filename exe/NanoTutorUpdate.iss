@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=NanoTutor
-AppVerName=NanoTutor ver 16.09.14.1
-OutputBaseFilename=NanoTutorUpdate-16.09.14.1
+AppVerName=NanoTutor ver 16.12.12.1
+OutputBaseFilename=NanoTutorUpdate-16.12.12.1
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -90,7 +90,7 @@ Source: "SPMConfigUsers.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignorev
 ;Source: "SPMPID.ini";   DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
 ;Source: "SPMvideo.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
 ;Source: "SPMupdates.ini"; DestDir: "{userappdata}\nanoeducator"; Flags: ignoreversion;
-;Source: "SPMConfigDefUsers.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMConfigDefUsers.ini"; DestDir: "{app}"; Flags: ignoreversion;
 ;Source: "SPMScanner.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
 ;Source: "SPMScannerDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 ;Source: "SPMScannerY.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
@@ -99,12 +99,12 @@ Source: "SPMConfigUsers.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignorev
 ;Source: "SPMPalettesDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 ;Source: "ScannerIniDBase\*.*"; DestDir: "{app}\ScannerIniDBase"; Flags: ignoreversion recursesubdirs
 ;Source: "oscilloscope\*.*"; DestDir: "{app}\oscilloscope"; Flags: ignoreversion;
-;Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
-;Source: "scheme\*.bin"; DestDir: "{app}\scheme"; Flags: ignoreversion recursesubdirs;
+Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
+Source: "scheme\*.bin"; DestDir: "{app}\scheme"; Flags: ignoreversion recursesubdirs;
 ;Source: "data\*.*";     DestDir: "{app}\data"; Flags: ignoreversion;
 ;Source: "data\Rus\*.*"; DestDir: "{app}\data\Rus"; Flags: skipifsourcedoesntexist;
 ;Source: "data\Eng\*.*"; DestDir: "{app}\data\Eng"; Flags: skipifsourcedoesntexist;
-;Source: "Demodata\*.*"; DestDir: "{app}\Demodata"; Flags:  ignoreversion    recursesubdirs;
+Source: "Demodata\*.*"; DestDir: "{app}\Demodata"; Flags:  ignoreversion    recursesubdirs;
 ;add
 ;Source: "D:\ntspbprojects\NanoTutor\CommonData\HardWareSoft\*.*"; DestDir: "{app}\HardwareSoft"; Flags: ignoreversion recursesubdirs;
 ;Source: "D:\ntspbprojects\NanoTutor\CommonData\gallery\*.*";  DestDir: "{commondocs}\NanoTutor\gallery"; Flags: ignoreversion    recursesubdirs
