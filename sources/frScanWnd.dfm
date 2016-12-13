@@ -509,10 +509,6 @@ object ScanWnd: TScanWnd
             Hint = 'Topography Line'
             Caption = 'Current line'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object PageCtrlAdd: TPageControl
               Left = 0
               Top = 0
@@ -526,10 +522,6 @@ object ScanWnd: TScanWnd
               object TabSheetCurScan: TTabSheet
                 Caption = 'Height, nm'
                 OnShow = TabSheetCurScanShow
-                ExplicitLeft = 0
-                ExplicitTop = 0
-                ExplicitWidth = 0
-                ExplicitHeight = 0
                 object Panel1: TPanel
                   Left = 0
                   Top = 0
@@ -587,10 +579,6 @@ object ScanWnd: TScanWnd
                 ImageIndex = 1
                 TabVisible = False
                 OnShow = TabSheetCurLineAddShow
-                ExplicitLeft = 0
-                ExplicitTop = 0
-                ExplicitWidth = 0
-                ExplicitHeight = 0
                 object BitBtn1: TBitBtn
                   Left = 196
                   Top = -1
@@ -1593,10 +1581,6 @@ object ScanWnd: TScanWnd
         OnChange = PageCtlLeftChange
         object TabSheetSideL: TTabSheet
           Caption = 'Topography/ Side View'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ImageSideL: TImage
             Left = 16
             Top = 0
@@ -1609,10 +1593,6 @@ object ScanWnd: TScanWnd
         object TabSheetTopoL: TTabSheet
           Caption = 'Topography/ Top View'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PanelLChart: TPanel
             Left = 0
             Top = 0
@@ -2193,10 +2173,6 @@ object ScanWnd: TScanWnd
           Caption = 'Topography/Top View II Pass'
           ImageIndex = 3
           TabVisible = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PanelChartError: TPanel
             Left = 0
             Top = 0
@@ -2376,8 +2352,8 @@ object ScanWnd: TScanWnd
         Left = 0
         Top = 0
         Width = 477
-        Height = 46
-        ActivePage = TabSheetScanTran
+        Height = 56
+        ActivePage = TabSheetLitho
         Align = alTop
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -2399,18 +2375,12 @@ object ScanWnd: TScanWnd
           Font.Style = [fsBold]
           ImageIndex = 1
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 19
+          ExplicitHeight = 4
         end
         object TabSheetPhaseR: TTabSheet
           Caption = 'Phase shift'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 19
+          ExplicitHeight = 4
         end
         object TabSheetUAMR: TTabSheet
           Caption = 'Force image'
@@ -2421,19 +2391,13 @@ object ScanWnd: TScanWnd
           Font.Style = [fsBold]
           ImageIndex = 2
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 19
+          ExplicitHeight = 4
         end
         object TabSheetSpectrR: TTabSheet
           BorderWidth = 2
           Caption = 'Spectroscopy'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 19
+          ExplicitHeight = 4
           object PanelSpectr: TPanel
             Left = 8
             Top = 40
@@ -2446,19 +2410,13 @@ object ScanWnd: TScanWnd
           BorderWidth = 2
           Caption = 'Current image'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 19
+          ExplicitHeight = 4
         end
         object TabSheetFastTopo: TTabSheet
           Hint = 'Current Image'
           Caption = 'Fast Scan/Phase shift'
           ImageIndex = 5
           TabVisible = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
           ExplicitHeight = 4
           object ImageFastTopo: TImage
             Left = 96
@@ -2471,42 +2429,36 @@ object ScanWnd: TScanWnd
           Hint = 'Litography'
           Caption = 'Lithography'
           ImageIndex = 6
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 19
+          ExplicitHeight = 4
         end
         object TabSheetScanTran: TTabSheet
           Hint = 'Multi times scanning along X-axes'
           Caption = 'One line scanning'
           ImageIndex = 7
+          ExplicitHeight = 0
         end
         object TabSheetSens: TTabSheet
           Caption = 'Sensivity correction'
           ImageIndex = 8
           TabVisible = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 19
+          ExplicitHeight = 4
         end
         object TabSheetProfiler: TTabSheet
           Caption = 'Profiler'
           ImageIndex = 9
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 19
+          ExplicitHeight = 4
         end
       end
       object PanelRight: TPanel
         Left = 0
-        Top = 46
+        Top = 56
         Width = 477
-        Height = 375
+        Height = 365
         Align = alClient
         Color = 14474715
         TabOrder = 1
+        ExplicitTop = 46
+        ExplicitHeight = 375
         object PanelChart: TPanel
           Left = 3
           Top = 44
@@ -3597,7 +3549,7 @@ object ScanWnd: TScanWnd
     Left = 248
     Top = 96
     Bitmap = {
-      494C01010A002C02440220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A002C02480220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

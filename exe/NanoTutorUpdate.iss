@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=NanoTutor
-AppVerName=NanoTutor ver 16.12.12.1
-OutputBaseFilename=NanoTutorUpdate-16.12.12.1
+AppVerName=NanoTutor ver 16.12.12.2
+OutputBaseFilename=NanoTutorUpdate-16.12.12.2
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
