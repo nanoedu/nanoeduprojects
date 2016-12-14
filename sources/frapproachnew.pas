@@ -1135,7 +1135,8 @@ begin
               //nanoeduII
        case STMflg of
 false:  NanoEdu.SetPoint:=ApproachParams.LandingSetPoint;
- true:  NanoEdu.SetPoint:=ApiType(round(ApproachParams.SetPoint*TransformUnit.nA_d));
+// true:  NanoEdu.SetPoint:=ApiType(round(ApproachParams.SetPoint*TransformUnit.nA_d));
+true:  NanoEdu.SetPoint:=ApiType(round(ApproachParams.LandingSetPoint*TransformUnit.nA_d));
       end;
 
        ScrollBarTimeControl.Position:=ApproachParams.IntegratorDelay;

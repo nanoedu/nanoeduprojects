@@ -199,8 +199,6 @@ object Approach: TApproach
         ExplicitWidth = 191
         ExplicitHeight = 116
         inherited tbSFM: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 7
           ExplicitWidth = 183
           ExplicitHeight = 105
           inherited Panel1: TPanel
@@ -256,13 +254,12 @@ object Approach: TApproach
           end
         end
         inherited tbSTM: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 7
-          ExplicitWidth = 193
-          ExplicitHeight = 116
+          ExplicitWidth = 183
+          ExplicitHeight = 105
           inherited Panel4: TPanel
             Width = 183
             Height = 51
+            ExplicitWidth = 183
             ExplicitHeight = 51
             inherited Label1: TLabel
               Left = 8
@@ -290,7 +287,8 @@ object Approach: TApproach
             Width = 183
             Height = 54
             ExplicitTop = 51
-            ExplicitHeight = 65
+            ExplicitWidth = 183
+            ExplicitHeight = 54
             inherited Label4: TLabel
               Left = 50
               Top = 2
@@ -311,13 +309,10 @@ object Approach: TApproach
           end
         end
         inherited tbSFMCUR: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 7
-          ExplicitWidth = 193
-          ExplicitHeight = 116
           inherited Panel6: TPanel
             Width = 183
             Height = 55
+            ExplicitWidth = 183
             ExplicitHeight = 55
             inherited Button2: TButton
               Left = 33
@@ -339,6 +334,7 @@ object Approach: TApproach
             Width = 183
             Height = 50
             ExplicitTop = 55
+            ExplicitWidth = 183
             ExplicitHeight = 61
             inherited Label7: TLabel
               Left = 41

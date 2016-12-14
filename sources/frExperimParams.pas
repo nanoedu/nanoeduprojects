@@ -208,6 +208,7 @@ uses
     Labelabs: TLabel;
     LabelZlin: TLabel;
     CboxZLin: TComboBox;
+    lblCutImaxinfo: TLabel;
     procedure cbBufferLenChange(Sender: TObject);
     procedure EdLineToLineTimeKeyPress(Sender: TObject; var Key: Char);
     procedure EdRenishawPeriodKoefKeyPress(Sender: TObject; var Key: Char);
@@ -300,6 +301,10 @@ uses
     procedure EditIMaxCutKeyPress(Sender: TObject; var Key: Char);
     procedure CboxZLinSelect(Sender: TObject);
     procedure CBoxZLinAbsSelect(Sender: TObject);
+    procedure EditIMaxCutKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure EditIMaxCutExit(Sender: TObject);
+    procedure EditIMaxCutChange(Sender: TObject);
 //    procedure BitBtn2Click(Sender: TObject);
   private
       { Private declarations }
@@ -905,8 +910,8 @@ begin
    if STMFlg then
     begin
          LevelIT:=StrToFloat(ApproachOptGrid.Cells[1,0])/ITCor;  //101210
-    if flgUnit<>pipette then ScaleMaxIT:=StrToFloat(ApproachOptGrid.Cells[1,8])
-                        else MaxITIndicator:=round(StrToFloat(ApproachOptGrid.Cells[1,8])) ;
+         if flgUnit<>pipette then ScaleMaxIT:=StrToFloat(ApproachOptGrid.Cells[1,8])
+                             else MaxITIndicator:=round(StrToFloat(ApproachOptGrid.Cells[1,8])) ;
          ApproachParams.IMaxCut:=StrToFloat(EditImaxCut.Text);
     end
     else
@@ -1044,12 +1049,11 @@ if assigned(Approach) then
         with Approach.SignalIndicator do
          begin
           HighLimit:=round(LevelUAM*ApproachParams.UAMMax);
-      //    LowLimit:= round(LevelUAM*ApproachParams.UAMMax);
           LowLimit:=round(ApproachParams.LandingSetPoint*ApproachParams.UAMMax);
          end;
         Approach.SignalsMode.LbSuppress.Caption:=FloattoStrF((1-LandingSetPoint),fffixed,4,2);
         Approach.SignalsMode.LbSuppressI.Caption:=FloattoStrF((1-LandingSetPoint),fffixed,4,2);
-  end;
+      end;
  True:begin
   //      NanoEdu.ScannerApproach.SetLevel;
   //      NanoEdu.SetPoint:=ApiType(-round(ApproachParams.LandingSetPoint*TransformUnit.nA_d));
@@ -1060,45 +1064,19 @@ if assigned(Approach) then
           Maximum:=round(MaxITIndicator*MaxApitype/100); //101210
          //                    else Maximum:=round(abs(LandingSetPoint*TransformUnit.nA_d*ScaleMaxIT){/ITCor});//101210
            HighLimit:=round(abs(LevelIT*TransformUnit.nA_d){/ITCor}); //101210
-       //    LowLimit:= round(abs(LevelIT*TransformUnit.nA_d)/ITCor);
            LowLimit:=round(ApproachParams.SetPoint*TransformUnit.nA_d{/ITCor}); //101210
           end;
          Approach.SignalsMode.btnSetPoint.Caption:=FloattoStrF(LandingSetPoint*ITCor,fffixed,5,3)+siLangLinked1.GetTextOrDefault('IDS_18' (* ' nA' *) );//101210
       end;
         end;  //case
- //   NanoEdu.ScannerApproach.ScannerDecay:=ScannerDecay;       // SetCommonVar(CT1,ScannerDecay);
- //   NanoEdu.ScannerApproach.IntegratorDelay:=IntegratorDelay;// SetCommonVar(CT2,IntegratorDelay);
- //   NanoEdu.ScannerApproach.ZMax:=(round(ZGateMax*Approach.ZMaxAbility));//SetCommonVar(CZMax,round(ZGateMax*Approach.ZMaxAbility));
- //   NanoEdu.ScannerApproach.ZMin:=(round(ZGateMin*Approach.ZMaxAbility));// SetCommonVar(CZMin,round(ZGateMin*Approach.ZMaxAbility));
-   if Assigned(Nanoedu.Method) and (Nanoedu.Method is TApproachSFM) then    Nanoedu.Method.SetUsersParams;
+    if Assigned(Nanoedu.Method) and (Nanoedu.Method is TApproachSFM) then    Nanoedu.Method.SetUsersParams;
     Approach.ZIndicator.HighLimit:=round(ZGateMax*Approach.ZMaxAbility);
     Approach.ZIndicator.LowLimit :=round(ZGateMin*Approach.ZMaxAbility);
     ApproachParams.ZMax:=(CSPMSignals[7].MaxDiscr-CSPMSignals[7].MinDiscr)/TransformUnit.Znm_d;     //edited  03/06/16
     Approach.LabelZMax.caption:='1 ('+FloattoStrF((round(ApproachParams.ZMax/100)/10),ffFixed,4,1)+' '+mcrn+')';
    end;
-  end;
-(*if assigned(FastLand) then
-begin
-   with ApproachParams do
-     begin
-         case STMFlg of
- False:begin
-        NanoEdu.ScannerApproach.SetLevel;// SetCommonVar(CLevel,round(ApproachParams.UAMMax*LevelUAM));
-        NanoEdu.SetPoint:=round(LandingSetPoint*UAMMax);
-       end;
- True:begin
-        NanoEdu.ScannerApproach.SetLevel;
-        NanoEdu.SetPoint:=(-round(ApproachParams.LandingSetPoint*TransformUnit.nA_d));
-        SetPoint:=LandingSetPoint;
-      end;
-        end;  //case
-    NanoEdu.ScannerApproach.ScannerDecay:=ScannerDecay;       // SetCommonVar(CT1,ScannerDecay);
-    NanoEdu.ScannerApproach.IntegratorDelay:=IntegratorDelay;// SetCommonVar(CT2,IntegratorDelay);
-    NanoEdu.ScannerApproach.ZMax:=(round(ZGateMax*MaxApitype));//SetCommonVar(CZMax,round(ZGateMax*Approach.ZMaxAbility));
-    NanoEdu.ScannerApproach.ZMin:=(round(ZGateMin*MaxApitype));// SetCommonVar(CZMin,round(ZGateMin*Approach.ZMaxAbility));
- end;
-end;
-*)
+  end;     //approach wnd
+
   if assigned(ScanWND) then
   begin
     ScanWnd.ScanAreaUpdate;
@@ -1114,7 +1092,7 @@ end;
         NanoEdu.ImaxCut:=round(ApproachParams.ImaxCut*dbltoint);
        end;
                 end;  //case
-  end;
+  end;   //scan wnd
   LoadLinSplineFromAdapter(); // заменено 25/04/2013
   Close;
  end;
@@ -2126,7 +2104,11 @@ begin
           BitBtnWriteController.Enabled:= not BitBtnWriteController.Enabled;
           BitBtnReadController.Enabled:= not BitBtnReadController.Enabled;
           LblEditNTSpb.Enabled:= not LblEditNTSpb.Enabled;
-          if STMFLG then   PanelCurThreshold.Visible:=not  PanelCurThreshold.Visible;
+          if STMFLG then
+          begin
+           PanelCurThreshold.Visible:=not  PanelCurThreshold.Visible;
+           lblCutImaxinfo.Visible:=not lblCutImaxinfo.Visible;
+          end;
           PanelDelay.Visible:=not  PanelDelay.Visible;
      //     HardWareSheet.TabVisible:=not HardWareSheet.TabVisible
       end;
@@ -2330,6 +2312,40 @@ end;
 procedure TApproachOpt.EditdTKeyPress(Sender: TObject; var Key: Char);
 begin
       if not(Key in ['0'..'9',#8,decimalseparator]) then Key :=#0;
+end;
+
+procedure TApproachOpt.EditIMaxCutChange(Sender: TObject);
+begin
+        case STMFlg of
+ True: begin
+         ApproachParams.IMaxCut:=StrToFloat(EditImaxCut.Text);
+          NanoEdu.ImaxCut:=round(ApproachParams.ImaxCut*dbltoint);
+       end;
+          end;
+end;
+
+procedure TApproachOpt.EditIMaxCutExit(Sender: TObject);
+begin
+      (*   case STMFlg of
+ True: begin
+         ApproachParams.IMaxCut:=StrToFloat(EditImaxCut.Text);
+          NanoEdu.ImaxCut:=round(ApproachParams.ImaxCut*dbltoint);
+       end;
+          end;
+          *)
+end;
+
+procedure TApproachOpt.EditIMaxCutKeyDown(Sender: TObject; var Key: Word;  Shift: TShiftState);
+begin
+    if (Key=VK_RETURN) then
+  begin
+         case STMFlg of
+ True: begin
+         ApproachParams.IMaxCut:=StrToFloat(EditImaxCut.Text);
+          NanoEdu.ImaxCut:=round(ApproachParams.ImaxCut*dbltoint);
+       end;
+          end;
+  end;
 end;
 
 procedure TApproachOpt.EditIMaxCutKeyPress(Sender: TObject; var Key: Char);

@@ -229,7 +229,8 @@ begin
  SD_GAM:=0;
  API.UserErr:=1;
  SD_GENF:=0;
- SetPoint:=ApiType(round(ApproachParams.SetPoint*TransformUnit.nA_d));
+// SetPoint:=ApiType(round(ApproachParams.SetPoint*TransformUnit.nA_d));
+ SetPoint:=ApiType(round(ApproachParams.LandingSetPoint*TransformUnit.nA_d));  //16/12/14
  IMaxCut:=round(ApproachParams.ImaxCut*dbltoint);
  ScannerProtract;
 end;

@@ -2818,7 +2818,8 @@ end;
                                          else params[0]:=ByteInversion(ScannerMoveXYZParams.StepsNumb shl 16);
    params[1]:=ByteInversion(ScannerMoveXYZParams.TypeMover);
    params[2]:=ByteInversion(ScannerMoveXYZParams.Speed shl 16);
-   params[3]:=ByteInversion(integer(Round(ApproachParams.LandingSetpoint*dbltoint)));
+   if STMFLG then  params[3]:=ByteInversion(integer(ApiType(round(ApproachParams.SetPoint*TransformUnit.nA_d)))) //16/12/14 edited
+             else  params[3]:=ByteInversion(integer(Round(ApproachParams.LandingSetpoint*dbltoint)));
    params[4]:=ByteInversion(integer(STMFLG));
  end;
  end;
