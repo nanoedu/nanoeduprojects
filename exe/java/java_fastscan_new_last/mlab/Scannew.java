@@ -1,5 +1,5 @@
 package mlab;  // fastscan
-//30/11/16 err
+//15/12/16 err
 //16/11/28 waitfor error 
 //19/10/16 changed buffer
                // 22/03/13  // additional element in buffer (  <> mod 512)
@@ -174,8 +174,8 @@ public class Scannew
                            break;
                          }
 	// ÷икл сканировани€ по строкам.
-               	        rd=0;
-                   	dst_i = 0;
+        //     stop 
+        	        rd=0;
 			for (;  rd == 0; )
 			{
 			 rd=stream_ch_stop.Read(buf_stop, 1,300,true);
@@ -186,15 +186,14 @@ public class Scannew
 			 break;
 			}
                   slowlinescount=0;
+              	  dxchg = new Dxchg();
+                  dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
+      		                               PORT_Y,PORT_COS_Y, dacY,
+         	                               -1,-1, -1} );
 
 		for(lines=slowlines; lines>0; --lines)
 		{
                         fastlinescount=0;
-			dxchg = new Dxchg();
-                     	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
-      		                               PORT_Y,PORT_COS_Y, dacY,
-         	                               -1,-1, -1} );
-
 			for(point=0; point<fastlines; point++)
 			{
 		          dxchg.Goto( dacX,dacY,0);
@@ -204,7 +203,7 @@ public class Scannew
                           {
                            dxchg.GetI( PORT_PH);
                           }
-  			      if (  ScanPath == 0)                    // X Mode
+  		         if (  ScanPath == 0)                    // X Mode
 				           {if (dacX>(MinX-d_step))
                                              {dacX += d_step;fastlinescount+=1;}
                                            }
@@ -213,33 +212,7 @@ public class Scannew
                                              {dacY += d_step;fastlinescount+=1;}
                                            }  // Y Mode
 			}
-               	// run   foreward line
-
-                       	Simple.bramWrite( M_USTEP, uVector );
-        		dxchg.ExecuteScan();
-         	        err=dxchg.WaitScanComplete(20000);
-	        	arr = dxchg.GetResults();
-                      	src_i = 0;
-
-              	// ќставл€ем в массиве только нужные данные.
-			for(i=0; i<fastlines; i++)
-			{
-			       if (err==1)	dataout[dst_i] = arr[src_i];
-                               else             dataout[dst_i] = 9999<<16;
-                    //   dataout[dst_i]   = arr[src_i];
-			    dst_i += 1;
-                            src_i += 1;
-			}
-                         if (err!=1)
-                         {
-                           break;
-                         }
                       //run backward
-                       	dxchg = new Dxchg();
-                     	dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
-         		                               PORT_Y,PORT_COS_Y, dacY,
-                	                               -1,-1, -1} );
-
 
                         if (  ScanPath == 0)  {dacX -= fastlinescount*d_step;}
 			 else                 {dacY -= fastlinescount*d_step;}
@@ -262,15 +235,24 @@ public class Scannew
 			                     else dacX -= (slowlinescount)*d_step;
 			  }
 			 dxchg.Goto( dacX,dacY,0);
-
-		// run    backward
-
+	}//y
+		// run    scan
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
          		err=dxchg.WaitScanComplete(20000);
-                        if (err!=1) break;
-	}//y
-         //send data
+	        	arr = dxchg.GetResults();
+                      	src_i = 0;
+                   	dst_i = 0;
+		
+              	// ќставл€ем в массиве только нужные данные.
+			for(i=0; i<fastlines; i++)
+			{
+			       if (err==1)	dataout[dst_i] = arr[src_i];
+                               else             dataout[dst_i] = 9999<<16;
+			    dst_i += 1;
+                            src_i += 1;
+			}
+               //send data
                     	wr=0;  rd=0;
 			int s = slowlines*fastlines +1;  // +1 чтобы размер данных был <> mod 512
 			for (;  wr != s; )
@@ -278,7 +260,8 @@ public class Scannew
                           wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
 			}
 			stream_ch_data_out.Invalidate();
-}
+                        if (err!=1) break;       
+} //next frame
                 if (err!=1)
                 {
                  // «аписываем 0 в выходные порты COS дл€ остановки
