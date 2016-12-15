@@ -85,6 +85,7 @@ public class Scannew
 		int  YMicrostepNmb;
                 int  fastlinescount;
                 int  slowlinescount;
+                boolean oneframe;
                //new
               	Dxchg dxchg;
 
@@ -107,7 +108,7 @@ public class Scannew
 		DiscrNumInMicroStep=  datain[i0+7] << 16;
 		XMicrostepNmb   =    -datain[i0+8]; //<< **
 		YMicrostepNmb   =    -datain[i0+9]; //<< **
-               // stepdelay       =     datain[i0+11]; //add 05.12.16
+                oneframe        =     datain[i0+11] > 0 ? true : false ;
 
                 int  flgUNit;
                 int  MaxX=0x7fffffff;
@@ -167,7 +168,7 @@ public class Scannew
 //                Simple.fcupBypass(0,true); //turn off   FB     false???
 
                   err=1;
-  boolean  oneframe=false;
+
    for (;;)
    {
                         if (err!=1)
@@ -175,7 +176,9 @@ public class Scannew
                           if (!oneframe) break;
                          }
 	// Цикл сканирования по строкам.
-        //     stop 
+        //     stop
+        if (!oneframe)
+        {
         	        rd=0;
 			for (;  rd == 0; )
 			{
@@ -186,6 +189,7 @@ public class Scannew
 			{
 			if (!oneframe) break;
 			}
+        }
                   slowlinescount=0;
               	  dxchg = new Dxchg();
                   dxchg.SetScanPorts( new int[] {PORT_X,PORT_COS_X, dacX,
@@ -240,13 +244,13 @@ public class Scannew
 		// run    scan
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
-         		err=dxchg.WaitScanComplete(20000);
+         		err=dxchg.WaitScanComplete(6000);
 	        	arr = dxchg.GetResults();
                       	src_i = 0;
                    	dst_i = 0;
-		
+
               	// Оставляем в массиве только нужные данные.
-	       for(int j=0; j<slowlines;j++)	
+	       for(int j=0; j<slowlines;j++)
                	for(i=0; i<fastlines; i++)
 			{
 			       if (err==1)	dataout[dst_i] = arr[src_i];
@@ -263,7 +267,7 @@ public class Scannew
 			}
 			stream_ch_data_out.Invalidate();
                         if (!oneframe)  { if (err!=1) break;       }
-			else break;				
+			else break;
 } //next frame
                 if (err!=1)
                 {

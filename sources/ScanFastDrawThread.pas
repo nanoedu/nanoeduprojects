@@ -1,6 +1,6 @@
 // 10.04.15 error when fast scanning- correction add (ScanParams.CurrentScanCount<>ScanParams.ScanLines)
+ //corrected 16/12/15    one frame or video stream
 
-//210616 limit only 5 frame       drawing
 {$A+,B-,C+,D+,E-,F-,G+,H+,I+,J+,K-,L+,M-,N+,O-,P+,Q+,R-,S-,T-,U-,V+,W-,X+,Y+,Z1}
 unit ScanFastDrawThread;
 
@@ -260,9 +260,9 @@ if CreateChannels(AlgParams.NChannels) then
                   PostMessage(WorkView.Handle,WM_UserUpdateWorkView,0,0)  ;
              end;
     end; // i
-   // flgEnd:=true;     //   28/11/16 if not video stream
+     if ( ScanParams.flgOneFrame) then  flgEnd:=true;     //   28/11/16 if not video stream
    end;
-  // if nc=4 then
+// if nc=4 then
  end; {while NOT TERMINATE}
 end;  //ID not data channel
      FlgScanError:=False;

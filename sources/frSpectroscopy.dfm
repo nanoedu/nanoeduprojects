@@ -121,7 +121,6 @@ object Spectroscopy: TSpectroscopy
             ShowCaptions = True
             TabOrder = 3
             Transparent = True
-            ExplicitHeight = 93
             object PrintBtn: TToolButton
               Left = 0
               Top = 0
@@ -144,7 +143,6 @@ object Spectroscopy: TSpectroscopy
             Height = 76
             Align = alClient
             TabOrder = 4
-            ExplicitHeight = 93
             object PanelLabels: TPanel
               Left = 1
               Top = 1
@@ -154,7 +152,6 @@ object Spectroscopy: TSpectroscopy
               BevelOuter = bvNone
               ParentBackground = False
               TabOrder = 0
-              ExplicitHeight = 91
             end
             object PanelCurves: TPanel
               Left = 433
@@ -165,7 +162,6 @@ object Spectroscopy: TSpectroscopy
               BevelOuter = bvNone
               ParentBackground = False
               TabOrder = 1
-              ExplicitHeight = 91
             end
           end
         end
@@ -183,8 +179,6 @@ object Spectroscopy: TSpectroscopy
               Text = 'Change the final point'
               Width = 50
             end>
-          ExplicitLeft = 0
-          ExplicitTop = 496
         end
       end
       object ControlPanel: TPanel

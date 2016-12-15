@@ -525,6 +525,7 @@ TYPE RScanParams=packed record
       flgAquiAdd:boolean;
       flgSpectr:boolean;
       flgProfile:boolean;
+      flgOneFrame:boolean;
       nchannels,
       NX,
       NY,

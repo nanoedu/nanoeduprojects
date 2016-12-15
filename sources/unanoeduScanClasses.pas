@@ -1,3 +1,4 @@
+//corrected fast scan video or one frame
 // corrected fast scan freebuffer 28/11/16
 //  250406  correction path and buffers set
  //190213  litho changed
@@ -4083,9 +4084,9 @@ var cnt, DataLen,shift:integer;
    params[8]:=ByteInversion(ScanParams.XMicrostepNmb);
    params[9]:=ByteInversion(ScanParams.YMicrostepNmb);
    params[10]:=ByteInversion(ScanParams.ScanShift);
-  if flgUnit=Terra then params[11]:=ByteInversion(ScanParams.TerraTDelay)
+   params[11]:=ByteInversion(integer(ScanParams.flgOneFrame));
  end;
-   shift:=15;//Sizeof(AlgParams) div sizeof(Data_dig);
+   shift:=16;//Sizeof(AlgParams) div sizeof(Data_dig);
    if flgUnit=Terra then  shift:=shift+1;
     Finalize(DataArray);
 
@@ -4106,7 +4107,7 @@ var cnt, DataLen,shift:integer;
      DataArray[12]:= AlgParams.params[8];
      DataArray[13]:= AlgParams.params[9];
      DataArray[14]:= AlgParams.params[10];
-     if flgUnit=Terra then  DataArray[15]:= AlgParams.params[11]
+     DataArray[15]:= AlgParams.params[11]
  end;
 
 procedure TFastTopo.StartDraw;

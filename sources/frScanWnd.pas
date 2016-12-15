@@ -1,6 +1,7 @@
 {B-,C+,D+,E-,F-,G+,H+,I+,J+,K-,L+,M-,N+,O-,P+,Q+,R-,S-,T-,U-,V+,W-,X+,Y+,Z1}
 //16/11/17
 unit frScanWnd;
+//corrected 16/12/15
 interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
@@ -224,6 +225,7 @@ type
     ScrollBarTTErra: TScrollBar;
     ScrollBarTime: TScrollBar;
     TabSheetProfiler: TTabSheet;
+    SpdBtnOneFrame: TSpeedButton;
     procedure EditDacZSpeedKeyPress(Sender: TObject; var Key: Char);
     procedure EditDacZSpeedChange(Sender: TObject);
     procedure LblEditDecayKeyPress(Sender: TObject; var Key: Char);
@@ -361,6 +363,7 @@ type
     procedure LineTimerTimer(Sender: TObject);
     procedure SignalsModeBtnBiasSFMClick(Sender: TObject);
     procedure SignalsModebtnSetPointClick(Sender: TObject);
+    procedure SpdBtnOneFrameClick(Sender: TObject);
   private
      flgApproachClick:boolean;
      flgblw:boolean;
@@ -1917,6 +1920,10 @@ grand: begin
 
   BitBtnMgOut.Visible:=false;//(HardWareOpt.XYTune='Fine');// and not FlgReniShawUnit;
   BitBtnMgIn.Visible:=false;//not (HardWareOpt.XYTune='Fine');// and not FlgReniShawUnit;
+   case  ScanParams.flgOneFrame of
+true: begin  SpdBtnOneFrame.Caption:='1'; SpdBtnRecord.visible:=false; end;
+false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
+             end;
   NanoEdu.FineXY:=(HardWareOpt.XYTune='Fine');
         TabSheetLItho.Visible:=true;
         UpDownNx.position:=0;
@@ -3614,14 +3621,16 @@ begin
          begin
           comboboxpath.items.add('X+X+');
           comboboxpath.items.add('Y+Y+');
-           SpdBtnRecord.Visible:=false;
-          SpdBtnFB.Visible:=false;
+          SpdBtnRecord.Visible:=false;
+          SpdBtnOneFRame.Visible:=false;
+     //     SpdBtnFB.Visible:=false;
          end;
-      
+
         {$ENDIF}
 //*)
           SpdBtnRecord.Visible:=false;
-          SpdBtnFB.Visible:=false;
+          SpdBtnOneFrame.Visible:=false;
+    //      SpdBtnFB.Visible:=false;
           ScanParams.flgSpectr:=false;
           ScanParams.flgProfile:=false;
           SpectrParams.flgIZ:=ComboBoxIZ.Visible and (ComboBoxIZ.ItemIndex=1);
@@ -3887,8 +3896,12 @@ begin
                ComboBoxPath.items.Delete(2);
             end;
           PanelSpectrF.Visible:=false;
-          SpdBtnRecord.Visible:=true;
-          SpdBtnFB.Visible:=true;//false;      { TODO : 071007 }
+          SpdBtnOneFRame.visible:=true;
+            case  ScanParams.flgOneFrame of
+true: begin  SpdBtnOneFrame.Caption:='1'; SpdBtnRecord.visible:=false; end;
+false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
+             end;
+       //   SpdBtnFB.Visible:=true;//false;      { TODO : 071007 }
           if not STMflg then
           begin
            if flgUnit<>Pipette  then
@@ -3898,7 +3911,11 @@ begin
                end;
           end;
         {$ENDIF}
-              SpdBtnRecord.Visible:=true;   //270515
+              SpdBtnOneFRame.visible:=true;
+                case  ScanParams.flgOneFrame of
+true: begin  SpdBtnOneFrame.Caption:='1'; SpdBtnRecord.visible:=false; end;
+false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
+             end;
           //    SpdBtnFB.Visible:=true;//270515
               flgScanDone:=false;
               ScanParams.flgAquiAdd:=false;
@@ -6966,6 +6983,15 @@ begin
  ScanParams.flgTopoTopViewSDel:=not ScanParams.flgTopoTopViewSDel;
  ScanParams.flgTopoTopViewPlDel:=false;
  SpeedBtnSDelTop.Down:=ScanParams.flgTopoTopViewSDel;
+end;
+
+procedure TScanWnd.SpdBtnOneFrameClick(Sender: TObject);
+begin
+  Scanparams.flgOneFrame:= not   Scanparams.flgOneFrame;
+   case  ScanParams.flgOneFrame of
+true: begin  SpdBtnOneFrame.Caption:='1'; SpdBtnRecord.visible:=false; end;
+false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
+             end;
 end;
 
 procedure TScanWnd.SpeedBtnContrastClick(Sender: TObject);
