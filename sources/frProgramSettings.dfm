@@ -132,6 +132,7 @@ object FormProgramSettings: TFormProgramSettings
       Height = 25
       Caption = 'Cancel'
       TabOrder = 0
+      Visible = False
       OnClick = BitBtnCancelClick
     end
     object BitBtnOK: TBitBtn

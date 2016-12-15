@@ -108,7 +108,7 @@ begin
     siLangLinked1.ActiveLanguage:=Lang;
    // UpdateStrings;
    PageControl.ActivePage:=TabSheetScheme;
-   BitBtnOk.Enabled:=Main.ToolBtnNew.Enabled;
+//   BitBtnOk.Enabled:=Main.ToolBtnNew.Enabled;
     GetScriptsName;
     newSchemeInd:=0;
     Application.processmessages;
