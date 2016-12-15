@@ -245,7 +245,8 @@ public class Scannew
                    	dst_i = 0;
 		
               	// Оставляем в массиве только нужные данные.
-			for(i=0; i<fastlines; i++)
+	       for(int j=0; j<slowlines;j++)	
+               	for(i=0; i<fastlines; i++)
 			{
 			       if (err==1)	dataout[dst_i] = arr[src_i];
                                else             dataout[dst_i] = 9999<<16;
