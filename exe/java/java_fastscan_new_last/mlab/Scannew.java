@@ -1,5 +1,6 @@
 package mlab;  // fastscan
-//15/12/16 err
+//15/12/16  change scan algorithm
+//err
 //16/11/28 waitfor error 
 //19/10/16 changed buffer
                // 22/03/13  // additional element in buffer (  <> mod 512)
@@ -166,12 +167,12 @@ public class Scannew
 //                Simple.fcupBypass(0,true); //turn off   FB     false???
 
                   err=1;
-
+  boolean  oneframe=false;
    for (;;)
    {
                         if (err!=1)
                          {
-                           break;
+                          if (!oneframe) break;
                          }
 	// Цикл сканирования по строкам.
         //     stop 
@@ -183,7 +184,7 @@ public class Scannew
 
 			if (buf_stop[0] == MakeSTOP)
 			{
-			 break;
+			if (!oneframe) break;
 			}
                   slowlinescount=0;
               	  dxchg = new Dxchg();
@@ -261,7 +262,8 @@ public class Scannew
                           wr += stream_ch_data_out.WriteEx(dataout, wr, s-wr, 1000);
 			}
 			stream_ch_data_out.Invalidate();
-                        if (err!=1) break;       
+                        if (!oneframe)  { if (err!=1) break;       }
+			else break;				
 } //next frame
                 if (err!=1)
                 {

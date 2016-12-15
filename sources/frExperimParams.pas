@@ -209,6 +209,8 @@ uses
     LabelZlin: TLabel;
     CboxZLin: TComboBox;
     lblCutImaxinfo: TLabel;
+    LblMaxIValue: TLabel;
+    Label44: TLabel;
     procedure cbBufferLenChange(Sender: TObject);
     procedure EdLineToLineTimeKeyPress(Sender: TObject; var Key: Char);
     procedure EdRenishawPeriodKoefKeyPress(Sender: TObject; var Key: Char);
@@ -2320,6 +2322,7 @@ begin
  True: begin
          ApproachParams.IMaxCut:=StrToFloat(EditImaxCut.Text);
           NanoEdu.ImaxCut:=round(ApproachParams.ImaxCut*dbltoint);
+          lblMaxIValue.Caption:=floattostrF(ApproachParams.ImaxCut*MaxAPITYPE/TransformUnit.nA_d,fffixed,5,2);
        end;
           end;
 end;
