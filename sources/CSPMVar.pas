@@ -568,7 +568,7 @@ TYPE RScanParams=packed record
       YBias0,
       XDigCor,   // Correction Voltage X  -50V +150V
       YDigCor:single;   // Correction Voltage Y  -50V +150V
-      TimeWait:integer;
+      TimeWait:integer;      // time waitfor fast scanning execute
       //profile
      //  SpeedXY :integer;
        Speed  :integer;

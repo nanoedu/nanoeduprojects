@@ -1721,7 +1721,8 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
              if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then
              begin
               TabSheetFastTopo.TabVisible:=True;
-              CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_47' (* 'Sample Surface Scanning; STM Fine Regime' *) );
+             // CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_47' (* 'Sample Surface Scanning; STM Fine Regime' *) );
+              CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_48' (* 'Sample Surface Scanning; STM Rough Regime' *) );
               Caption:=CaptionBase+Captionadd+CaptionRenishaw;
              end
              else
@@ -4111,8 +4112,8 @@ false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
    for i:=0 to PageCount-1 do Pages[i].HighLighted:=False;
       ActivePage.HighLighted:=True;
   end;
+  ScanParams.TimeWait:=round(t*1000); //ms
 end;
-
 
 procedure TScanWnd.PageCtlLeftChange(Sender: TObject);
 var i:integer;
@@ -4382,6 +4383,7 @@ OneY: begin
   if assigned(NanoEdu.Method) then
     if (NanoEdu.Method is TScanMoveToX0Y0) or (FlgCurrentUserLevel = Demo) then  NanoEdu.Method.SetSpeed
                                          else  NanoEdu.Method.SetUsersParams;
+    ScanParams.TimeWait:=round(t*1000); //ms                                     
 end;
 
 procedure TScanWND.SetLinearPathParameters;
