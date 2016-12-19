@@ -480,15 +480,16 @@ var
     nrepeat:integer;
     n,ID,nwrite,errorcountstop,count:integer;
     data:integer;
- //   pstopval:Pinteger;
+ ///   pstopval:Pinteger;
     errcnt:integer;
-
-    // Параметры для имитации в ДЕМО
-    smooth0_nm:single; noise0_discr, noise_speed0_discr:datatype; depth0_nm:single;
-                                  lithodepth0_nm:single;
-    smooth_nm:single; noise_discr, noise_speed_discr:datatype; depth_nm:single;
-                                  lithodepth_nm:single;
-
+ /// Параметры для имитации в ДЕМО
+    smooth0_nm:single;
+    noise0_discr, noise_speed0_discr:datatype; depth0_nm:single;
+    lithodepth0_nm:single;
+    smooth_nm:single;
+    noise_discr, noise_speed_discr:datatype; depth_nm:single;
+    lithodepth_nm:single;
+ ///
    hasRead_nmb, left_toRead:integer;
    label  100;
 begin
@@ -567,7 +568,6 @@ try
    {$ENDIF}
 if CreateChannels(AlgParams.NChannels) then
  begin
-
   if   ScannerCorrect.FlgXYLinear and (HardWareOpt.XYtune='Rough')and (not FlgReniShawUnit) then
    begin     // Создание канала для передачи данных шагов линеаризации
         hr:=arPCChannel[ch_LINEAR_STEPS].Main.get_Geometry(NChElements,ElementSize);

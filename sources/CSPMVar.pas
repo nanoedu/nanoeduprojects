@@ -408,7 +408,8 @@ end;
   SizeElements:data_dig;  //dataout channel
   NGetCountEvent:data_dig;   //add demo get count event!!!!!!!!!!!1
 //
-  params:array[0..11] of data_dig;
+ // params:array[0..11] of data_dig;
+ params:array[0..12] of data_dig;
  end;
 ////
  Type RAlgResonanceParams=record     //java algorithm parametrs

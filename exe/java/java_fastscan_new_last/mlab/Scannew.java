@@ -1,4 +1,5 @@
 package mlab;  // fastscan
+//16/12/16 new  var timewait   for
 //15/12/16  change scan algorithm
 //err
 //16/11/28 waitfor error 
@@ -86,6 +87,7 @@ public class Scannew
                 int  fastlinescount;
                 int  slowlinescount;
                 boolean oneframe;
+                int timewait;
                //new
               	Dxchg dxchg;
 
@@ -109,7 +111,7 @@ public class Scannew
 		XMicrostepNmb   =    -datain[i0+8]; //<< **
 		YMicrostepNmb   =    -datain[i0+9]; //<< **
                 oneframe        =     datain[i0+11] > 0 ? true : false ;
-
+                timewait        =     datain[i0+12];
                 int  flgUNit;
                 int  MaxX=0x7fffffff;
                 int  MinX=0x80000000;
@@ -244,7 +246,7 @@ public class Scannew
 		// run    scan
                        	Simple.bramWrite( M_USTEP, uVectorBW );
                       	dxchg.ExecuteScan();
-         		err=dxchg.WaitScanComplete(6000);
+         		err=dxchg.WaitScanComplete(timewait*3);
 	        	arr = dxchg.GetResults();
                       	src_i = 0;
                    	dst_i = 0;
