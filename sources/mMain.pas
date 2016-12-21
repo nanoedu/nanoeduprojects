@@ -254,6 +254,7 @@ type
     ActionChooseSample: TAction;
     SynchroSEM: TMenuItem;
     OpenDialogSEM: TOpenDialog;
+    RestoreUsersConfigFile1: TMenuItem;
     procedure PositionXYExecute(Sender: TObject);
     procedure ApplicationEvents1Exception(Sender: TObject; E: Exception);
     procedure ToolButtonRStestClick(Sender: TObject);
@@ -360,6 +361,7 @@ type
     procedure SmesharikiPinCodeClick(Sender: TObject);
     procedure ActionChooseSampleExecute(Sender: TObject);
     procedure SynchroSEMClick(Sender: TObject);
+    procedure RestoreUsersConfigFile1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -483,6 +485,7 @@ const
 	str463: string = ''; (* Turn on controller! *)
 	str50: string = ''; (* The videocamera firm software has not installed!! *)
 	str51: string = ''; (* Install software and set path to software!! *)
+	str52: string = ''; (* Restore Users Config File? *) // TSI: Localized (Don't modify!)
 	strHintNewTurnon: string = ''; (* turn on the controller *) // TSI: Localized (Don't modify!)
 	strHintNewOk: string = ''; (* start new experimnent *) // TSI: Localized (Don't modify!)
 	strfilenotexists: string = ''; (*  file not exists *)
@@ -977,6 +980,15 @@ false:begin
       end;
       end;
 end;
+procedure TMain.RestoreUsersConfigFile1Click(Sender: TObject);
+begin
+    if fileexists(ExeFilePath+ConfigUsersDefIniFile)   then
+       begin
+       if (silang1.MessageDlg(str52,mtConfirmation,[mbYes,mbNo],0)=mrYES) then
+          FileCopyStream(ExeFilePath+ConfigUsersDefIniFile,ConfigUsersIniFilePath+ConfigUsersIniFile);
+       end;
+end;
+
 function TMain.ExecAndWaitEtch(const FileName, Params: ShortString;const winname:string; const WinState: Word): boolean;
 var StartInfo: TStartupInfo;
      ProcInfo: TProcessInformation;
@@ -3417,8 +3429,8 @@ begin
           Approach.flgCancel:=true;
           Approach.Close;
         end;
-        if flgfirsttimeSTM then ApproachParamsDef
-                            else ApproachParamsLast(ConfigUsersIniFile);
+        if flgfirsttimeSTM then UsersParamsDef
+                            else UsersParamsLast(ConfigUsersIniFile);
         flgfirsttimeSTM:=false;
         FreeAndNil(NanoEdu);
   case FlgCurrentUserLevel of
@@ -3795,7 +3807,7 @@ begin
        with ScannerCorrect    do
         begin
          FlgXYLinear:= True; //false;  180713  //True;  { TODO : 041012 }
-         FlgZLinear:=false;//          true;
+         FlgZLinear:=true;
          FlgZLinAbs:=true;
          FlgZSurfCorr:=False;
          flgPlnDel:=True;
@@ -4769,6 +4781,7 @@ end;
 
 procedure TMain.UpdateStrings;
 begin
+  str52 := siLang1.GetTextOrDefault('strstr52' (* 'Restore Users Config File?' *) );
   strcontrer := siLang1.GetTextOrDefault('strstrcontrer' (* 'Controller parameters have not setted!' *) );
   strfilenotexists := siLang1.GetTextOrDefault('strstrfilenotexists');
   strHintNewOk := siLang1.GetTextOrDefault('strstrHintNewOk' (* 'start new experimnent' *) );
@@ -5245,8 +5258,8 @@ begin
         FlgApproachOK:=False;
         FlgStopScan:=True;
         SetIntActOnProgr:=False;
-        if flgfirsttimeSFM then ApproachParamsDef
-                           else ApproachParamsLast(ConfigUsersIniFile);
+        if flgfirsttimeSFM then UsersParamsDef
+                           else UsersParamsLast(ConfigUsersIniFile);
         flgfirsttimeSFM:=false;
         FreeAndNil(NanoEdu);
              case FlgCurrentUserLevel of
@@ -5801,6 +5814,7 @@ end;
     FindClose(sSR);
   //   SetFileAttribute_ReadOnly(true);
  end.
+
 
 
 

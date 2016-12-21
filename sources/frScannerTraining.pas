@@ -82,8 +82,8 @@ implementation
 uses  GlobalVar,globalfunction,nanoeduhelp,TrainDrawThread,ScanWorkThread,     { TODO : 250907 }
       UNanoEduBaseClasses, UNanoEduScanClasses,mMain;//,frInstruments;
 
- const   TimMicroStep=5;        // mks, Time of one microstep;
- const   TimMeasurePoint=1.5;    //mks, time of measure in the point
+// const   TimMicroStep=5;        // mks, Time of one microstep;
+// const   TimMeasurePoint=1.5;    //mks, time of measure in the point
  const   Fast=0;
  const   Middle=1;
  const   Slow =2;
@@ -345,7 +345,7 @@ LineTime:=ScanParams.DiscrNumInMicroStep*(ScanParams.MicrostepDelay+TimMicroStep
  *)
   ScanRateLimit:=900000; //nm/sec
   TrainingRate:=300000;   //nm/s
-  LineTime:=0.000001*(MaxApiType-MinApiType)/ScanParams.DiscrNumInMicroStep*(TimMicroStep+ScanParams.MicrostepDelay);             //s
+  LineTime:=0.000001*(MaxApiType-MinApiType)/ScanParams.DiscrNumInMicroStep*(ScanParams.TimMicroStep+ScanParams.MicrostepDelay);             //s
 // CycleTime:=4*LineTime+TimMeasurePoint*ScanParams.XMicrostepNmb;  260707
   TrainingRate:= XMax/LineTime;               // nm/s
   TrainingRateOut:=round(0.001*TrainingRate)*1000;

@@ -6,6 +6,7 @@ interface
 
 procedure SetScanRate(L:double;ScanDiscrNumb,NPoints:integer;var Rate:single; var Delay:integer);
 procedure SetScanRateFine(L:double;ScanDiscrNumb,NPoints:integer);
+procedure CalcScanRateDriverLimit(L:double; NPoints:integer; parameter:single;  var Rate:single);
 // L - nm, Scan length (X or Y in the dependence of scan direction);
 // FieldLen - nm, Max size of scaning field in given direction;
 // NPoints - Nx or Ny (depends of scan direction);
@@ -19,9 +20,9 @@ tMicroStepNmb: integer;       // Number of microsteps between
 NDiscrBetweenPoints:integer;  // Number of discrets between two points;
 const
 
-MaxDiscrNumb= $8000; // Maximum number of discrets;
-TimMicroStep=0.005;        // milisec, Time of one microstep;
-TimMeasurePoint:single=0.022 ;   // milisec, Time of measuring in one point;    //0,02
+//MaxDiscrNumb= $8000;        // Maximum number of discrets;
+//TimMicroStep=0.005;         // milisec, Time of one microstep;
+//TimMeasurePoint:single=0.01;// edited 19/12/16  //0.022 ;   // milisec, Time of measuring in one point;    //0,02
 
                       // then TMova:=TScan;
 //MinValidMicroStepDelay=0.005;//0.001; // milisec
@@ -36,6 +37,18 @@ uses CSPMVar;
 
 CONST  alfthr=0.01;          // if Sum(TMeasurePoint)/TScan <alfthr
 
+
+procedure CalcScanRateDriverLimit(L:double; NPoints:integer; parameter:single;  var Rate:single);
+var rateLimit:single;
+    lineTime_s:single;
+begin
+// parameter =  NPoints/lineTime_s;   - такой смысл имеет параметр
+  lineTime_s := NPoints/parameter;
+  rateLimit :=L/lineTime_s;
+  if(Rate > rateLimit) then Rate:= rateLimit;
+end;
+
+
 procedure SetScanRate(L:double;ScanDiscrNumb,NPoints:integer; var Rate:single; var Delay:integer);
 var
  {Scan Rate - physical rate of scanner moving}
@@ -47,13 +60,12 @@ var
  tMicroStepDelay:single;       //milisec
 begin
  {Calculate max possible Scan Rate}
-   MaxScanRate1:=1000*L/(NPoints*(TimMeasurePoint)+
-                        ScanDiscrNumb*(TimMicroStep+MinValidMicroStepDelay));
-   MaxScanRate2:=1000*L/(NPoints*(TimMeasurePoint+TimMicroStep+MinValidMicroStepDelay));
+   MaxScanRate1:=1000*L/(NPoints*(ScanParams.TimMeasurePoint)+ScanDiscrNumb*(ScanParams.TimMicroStep+MinValidMicroStepDelay));
+   MaxScanRate2:=1000*L/(NPoints*(ScanParams.TimMeasurePoint+ScanParams.TimMicroStep+MinValidMicroStepDelay));
  NDiscrBetweenPoints:=ScanDiscrNumb div NPoints;
  TimScan:=L/Rate;    {sec}
- alf:=TimMeasurePoint*NPoints/TimScan/1000;
- if (alf>alfthr) then    TimMove:=TimScan-TimMeasurePoint*NPoints/1000 {sec}
+ alf:=ScanParams.TimMeasurePoint*NPoints/TimScan/1000;
+ if (alf>alfthr) then    TimMove:=TimScan-ScanParams.TimMeasurePoint*NPoints/1000 {sec}
                  else    TimMove:=TimScan;         //TimMove - time of one way moving
  if  (TimMove<=0) then
      begin
@@ -77,10 +89,10 @@ begin
         Delay:=round(1000*tMicrostepDelay);
        exit;                  {Scanning with Max Valid Scan Rate}
      end;
-  NMicroStep:=round(1000*TimMove/(TimMicroStep+MinValidMicroStepDelay)); // Number of microsteps,which can be done;
+  NMicroStep:=round(1000*TimMove/(ScanParams.TimMicroStep+MinValidMicroStepDelay)); // Number of microsteps,which can be done;
   if (NMicroStep>=ScanDiscrNumb) then
    begin
-        tMicroStepDelay:=(1000*TimMove-ScanDiscrNumb*TimMicroStep)/ScanDiscrNumb;
+        tMicroStepDelay:=(1000*TimMove-ScanDiscrNumb*ScanParams.TimMicroStep)/ScanDiscrNumb;
        if  tMicroStepDelay<MinValidMicroStepDelay then
            begin
             tMicroStepDelay:=MinValidMicroStepDelay;
@@ -111,8 +123,8 @@ begin
          begin
            NMicroStep:=NPoints;
            tMicroStepNmb:=1;
-           TimMove:=0.001*TimMicroStep*NMicrostep;   //sec
-           TimScan:=TimMove+0.001*TimMeasurePoint*Npoints;
+           TimMove:=0.001*ScanParams.TimMicroStep*NMicrostep;   //sec
+           TimScan:=TimMove+0.001*ScanParams.TimMeasurePoint*Npoints;
            tMicroStepDelay:=MinValidMicroStepDelay;
            NMicroStep:=NPoints;
            tMicroStepNmb:=1;
@@ -122,17 +134,17 @@ begin
             Delay:=round(1000*tMicrostepDelay);
            exit;      {Scanning with Max Valid Scan Rate}
         end;
-       tMicroStepDelay:=(TimMove*1000-TimMicroStep*NMicrostep)/NMicroStep;//milisec ;
+       tMicroStepDelay:=(TimMove*1000-ScanParams.TimMicroStep*NMicrostep)/NMicroStep;//milisec ;
        if  tMicroStepDelay<MinValidMicroStepDelay then  tMicroStepDelay:=MinValidMicroStepDelay
       end;
      end;
       if tMicroStepDelay>MaxValidMicroStepDelay then
       begin
        tMicroStepDelay:=MaxValidMicroStepDelay;  // Scan with min valid Scan Rate
-       Rate:=1000*L/(TMicrostepNmb*NPoints*(TimMicroStep+TMicroStepDelay)+TimMeasurePoint*NPoints);
+       Rate:=1000*L/(TMicrostepNmb*NPoints*(ScanParams.TimMicroStep+TMicroStepDelay)+ScanParams.TimMeasurePoint*NPoints);
       end;
-     TimScan:=0.001*(TMicrostepNmb*NPoints*(TimMicroStep+TMicroStepDelay)+TimMeasurePoint*NPoints); //sec
-     if flgUnit=Terra then TimScan:=TimScan+0.001*(2*TimMeasurePoint+ScanParams.TerraTDelay)*NPoints;
+     TimScan:=0.001*(TMicrostepNmb*NPoints*(ScanParams.TimMicroStep+TMicroStepDelay)+ScanParams.TimMeasurePoint*NPoints); //sec
+     if flgUnit=Terra then TimScan:=TimScan+0.001*(2*ScanParams.TimMeasurePoint+ScanParams.TerraTDelay)*NPoints;
      TimFrame:=TimScan*2*ScanParams.NY;
 //  with ScanParams do
   begin
@@ -152,12 +164,12 @@ var
  tMicroStepDelay:single;
 begin
  {Calculate max possible Scan Rate}
-   MaxScanRate1:=1000*L/(NPoints*(TimMeasurePoint)+
-                        ScanDiscrNumb*(TimMicroStep+MinValidMicroStepDelay));
+   MaxScanRate1:=1000*L/(NPoints*(ScanParams.TimMeasurePoint)+
+                        ScanDiscrNumb*(ScanParams.TimMicroStep+MinValidMicroStepDelay));
  NDiscrBetweenPoints:=ScanDiscrNumb div NPoints;
  TimScan:=L/ScanParams.ScanRate;    {sec}
- alf:=TimMeasurePoint*NPoints/TimScan/1000;
- if (alf>alfthr) then    TimMove:=TimScan-TimMeasurePoint*NPoints/1000 {sec}
+ alf:=ScanParams.TimMeasurePoint*NPoints/TimScan/1000;
+ if (alf>alfthr) then    TimMove:=TimScan-ScanParams.TimMeasurePoint*NPoints/1000 {sec}
                  else    TimMove:=TimScan;         //TimMove - time of one way moving
    if  (TimMove<=0) then
      begin
@@ -169,10 +181,10 @@ begin
        exit;                  {Scanning with Max Valid Scan Rate}
      end;
 
-  NMicroStep:=round(1000*TimMove/(TimMicroStep+MinValidMicroStepDelay)); // Number of microsteps,which can be done;
+  NMicroStep:=round(1000*TimMove/(ScanParams.TimMicroStep+MinValidMicroStepDelay)); // Number of microsteps,which can be done;
   if (NMicroStep>=ScanDiscrNumb) then
    begin
-        tMicroStepDelay:=(1000*TimMove-ScanDiscrNumb*TimMicroStep)/ScanDiscrNumb;
+        tMicroStepDelay:=(1000*TimMove-ScanDiscrNumb*ScanParams.TimMicroStep)/ScanDiscrNumb;
        if  tMicroStepDelay<MinValidMicroStepDelay then
            begin
             tMicroStepDelay:=MinValidMicroStepDelay;
@@ -193,9 +205,9 @@ begin
     if tMicroStepDelay>MaxValidMicroStepDelay then
       begin
        tMicroStepDelay:=MaxValidMicroStepDelay;  // Scan with min valid Scan Rate
-       ScanParams.ScanRate:=1000*L/(TMicrostepNmb*NPoints*(TimMicroStep+TMicroStepDelay)+TimMeasurePoint*NPoints);
+       ScanParams.ScanRate:=1000*L/(TMicrostepNmb*NPoints*(ScanParams.TimMicroStep+TMicroStepDelay)+ScanParams.TimMeasurePoint*NPoints);
       end;
-     TimScan:=0.001*(TMicrostepNmb*NPoints*(TimMicroStep+TMicroStepDelay)+TimMeasurePoint*NPoints); //sec
+     TimScan:=0.001*(TMicrostepNmb*NPoints*(ScanParams.TimMicroStep+TMicroStepDelay)+ScanParams.TimMeasurePoint*NPoints); //sec
      TimFrame:=TimScan*2*ScanParams.NY;
   with ScanParams do
   begin

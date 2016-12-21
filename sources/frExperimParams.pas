@@ -211,6 +211,8 @@ uses
     lblCutImaxinfo: TLabel;
     LblMaxIValue: TLabel;
     Label44: TLabel;
+    LblEditRateLimitParam: TLabeledEdit;
+    LblEditFastDelay: TLabeledEdit;
     procedure cbBufferLenChange(Sender: TObject);
     procedure EdLineToLineTimeKeyPress(Sender: TObject; var Key: Char);
     procedure EdRenishawPeriodKoefKeyPress(Sender: TObject; var Key: Char);
@@ -307,6 +309,8 @@ uses
       Shift: TShiftState);
     procedure EditIMaxCutExit(Sender: TObject);
     procedure EditIMaxCutChange(Sender: TObject);
+    procedure LblEditRateLimitParamKeyPress(Sender: TObject; var Key: Char);
+    procedure LblEditFastDelayKeyPress(Sender: TObject; var Key: Char);
 //    procedure BitBtn2Click(Sender: TObject);
   private
       { Private declarations }
@@ -713,6 +717,11 @@ begin
 end;
 
 
+procedure TApproachOpt.LblEditFastDelayKeyPress(Sender: TObject; var Key: Char);
+begin
+ if not(Key in ['0'..'9',#8,decimalseparator]) then Key :=#0;
+end;
+
 procedure TApproachOpt.LblEditNTSPBExit(Sender: TObject);
 var i:integer;
 begin
@@ -720,6 +729,11 @@ begin
   PControllerParams^.SN_NTSPB[i]:=#0;
   for i:=0 to length(LblEditNTSPB.Text)-1 do
   PControllerParams^.SN_NTSPB[i]:=AnsiChar(LblEditNTSPB.Text[i+1]);
+end;
+
+procedure TApproachOpt.LblEditRateLimitParamKeyPress(Sender: TObject;  var Key: Char);
+begin
+  if not(Key in ['0'..'9',#8,decimalseparator]) then Key :=#0;
 end;
 
 procedure   TApproachOpt.ControllerSheetInit;
@@ -1006,8 +1020,10 @@ if flgCurrentUserLevel<>Demo then
        SetScanParamsDef;
        ScanParams.ScanPath:=savemode;
      end;
-      ScanParams.ScanDelay :=strToInt(EditScanDelay.text);
-      ScanParams.LithoDelay:=strToInt(EditLithoDelay.text);
+      ScanParams.ScanDrawDelay :=strToInt(EditScanDelay.text);
+      ScanParams.LithoDrawDelay:=strToInt(EditLithoDelay.text);
+      ScanParams.FastDrawDelay:=strToInt(lblEditFastDelay.text);
+      ScanParams.ScanRateLimParameter:= strToInt(lblEditRateLimitParam.text);
      flgSaveProcess:=false;
 // Save Parameters for New Scanner;
      flgOldBlock:=False;
@@ -1264,8 +1280,10 @@ if FlgCurrentUserLevel=Demo then
                                   else  Cells[1,10]:=Format('%d',[round(ScanParams.StepXY)]);
      Cells[1,11]:=Format('%d',[LinePointsMax]);
   end;
-     EditLithoDelay.Text:=IntToStr(ScanParams.LithoDelay);
-     EditScanDelay.Text :=IntToStr(ScanParams.ScanDelay);
+     EditLithoDelay.Text:=IntToStr(ScanParams.LithoDrawDelay);
+     EditScanDelay.Text :=IntToStr(ScanParams.ScanDrawDelay);
+     lblEditFastDelay.Text :=IntToStr(ScanParams.FastDrawDelay);
+     lblEditRateLimitParam.Text :=IntToStr(round(ScanParams.ScanRateLimParameter));
 end;
 
 procedure TApproachOpt.ScanOptGridKeyPress(Sender: TObject; var Key: Char);
@@ -1342,7 +1360,7 @@ end;
 procedure TApproachOpt.DefaultBtnClick(Sender: TObject);
 begin
 if PageControl.ActivePage=HardWareSheet then ControllerOptLast(ControllerDefIniFile);
-if PageControl.ActivePage=ApprOptSheet  then ApproachParamsDef;//ApproachParamsLast(ConfigDefIniFile);
+if PageControl.ActivePage=ApprOptSheet  then UsersParamsDef;//ApproachParamsLast(ConfigDefIniFile);
 if PageControl.ActivePage=ScanOptSheet  then SetScanParamsDef;
 if PageControl.ActivePage=ScanCorSheet  then
    begin
@@ -1382,8 +1400,16 @@ begin
   begin
        if FlgXYLinear  then  CBoxXYLin.Itemindex:=0
                        else  CBoxXYLin.Itemindex:=1;
-       if FlgZLinear  then  CBoxZLin.Itemindex:=0
-                       else  CBoxZLin.Itemindex:=1;
+       if FlgZLinear   then begin        //true
+                                CBoxZLin.Itemindex:=0;
+                                labelabs.Visible:=true;
+                                CBoxZLinAbs.visible:=true;
+                             end
+                       else  begin
+                                CBoxZLin.Itemindex:=1;
+                                labelabs.Visible:=false;
+                                CBoxZLinAbs.visible:=false;
+                             end;
 
         if FlgZLinAbs  then  CBoxZLinAbs.Itemindex:=0
                        else  CBoxZLinAbs.Itemindex:=1;
@@ -2112,6 +2138,8 @@ begin
            lblCutImaxinfo.Visible:=not lblCutImaxinfo.Visible;
           end;
           PanelDelay.Visible:=not  PanelDelay.Visible;
+           lblEditFastDelay.visible :=not lblEditFastDelay.visible;
+           lblEditRateLimitParam.visible:= not  lblEditRateLimitParam.visible;
      //     HardWareSheet.TabVisible:=not HardWareSheet.TabVisible
       end;
       if (key=ord('L')) then

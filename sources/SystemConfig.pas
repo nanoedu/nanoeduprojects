@@ -20,8 +20,8 @@ procedure LoadPIDSFMParamsDef;
 //procedure LoadPIDScanParamsDef;
 procedure ResonanceParamsDef;
 procedure ScannerMovXYZParamsDef;
-procedure ApproachParamsDef;
-procedure ApproachParamsLast(const FileName:string);
+procedure UsersParamsDef;
+procedure UsersParamsLast(const FileName:string);
 //procedure SpectrParamsDef;
 procedure ScannerCorrectLast;
 procedure SpectrParamsDef;
@@ -62,7 +62,6 @@ procedure SDSignalsDef;
 procedure LoadCurveLinFromIniFile(filename:string;var pAdapterLinModXX,pADapterLinModXY: PAdapterLinPointsRecord);
 procedure StoreScannerOpt( var ScannerOptMod,ScannerOptOtherMod:RScannerOptMod;
                            var PAdapterOptMod,PAdapterOptModOther:PAdapterOptFloatRecord);
-
 procedure StoreSensitivToAdapter(var PAdapterOptMod:PAdapterOptFloatRecord);
 procedure LoadScannerOptGeneral(const fileNameX,FileNameY:string);
 procedure LoadScannerOPtGeneralFromAdapter;
@@ -506,7 +505,7 @@ begin
        ScannerMoveXYZParams.NChannels:=4;
        ScannerMoveXYZParams.Speed:=(ScannerMoveXYZParams.PMActiveTime shl 4) +(ScannerMoveXYZParams.PMPause);
  end;
-procedure ApproachParamsDef;
+procedure UsersParamsDef;
 begin
    if  STMFlg then                // STM Regime
     begin
@@ -596,13 +595,18 @@ begin
                              ApproachParams.MaxSuppress:=1.0
              end;
                end;
-                ScanParams.ScanDelay  :=400;
+                ScanParams.ScanDrawDelay  :=400;
+                ScanParams.LithoDrawDelay  :=400;
+                ScanParams.FastDrawDelay  :=4000;
                 ScanParams.flgOneFrame:=true;
+                ScanParams.TimMeasurePoint:=0.01;//ms
+                ScanParams.TimMicroStep:=0.005;//      // milisec, Time of one microstep;
+                ScanParams.ScanRateLimParameter  := 300;  // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
  //               Nanoedu.TurnOn;  //add 16/12/06
   end;
 
 
-procedure ApproachParamsLast(const FileName:string);
+procedure UsersParamsLast(const FileName:string);
  var iniCSPM:TiniFile;
        sFile:string;
        str:string;
@@ -726,11 +730,14 @@ begin
        ScannerMoveXYZParams.StepsCountX:=0;
        ScannerMoveXYZParams.StepsCountZ:=0;
        ScanParams.TerraTDelay:=ReadInteger('Scanning Parameters','TerraTDelay', 100);
-       ScanParams.ScanDelay  :=ReadInteger('Scanning Parameters','ScanDelay', 300);//191211
-       ScanParams.LithoDelay :=ReadInteger('Scanning Parameters','LithoDelay',400);//191211
-       ScanParams.FastDelay :=ReadInteger('Scanning Parameters','FastDelay',4000);//05.12.16
+       ScanParams.ScanDrawDelay  :=ReadInteger('Scanning Parameters','ScanDrawDelay', 300);//191211
+       ScanParams.LithoDrawDelay :=ReadInteger('Scanning Parameters','LithoDrawDelay',400);//191211
+       ScanParams.FastDrawDelay  :=ReadInteger('Scanning Parameters','FastDrawDelay',4000);//05.12.16
        ScanParams.flgOneFrame:=boolean(ReadInteger('Scanning Parameters','OneFrame',1));
        PidParams.Ti:= PidParams.TiApproach;
+       ScanParams.TimMeasurePoint:=0.01;//ms
+       ScanParams.TimMicroStep:=0.005;// // milisec, minimum Time of one microstep;
+       ScanParams.ScanRateLimParameter  := ReadInteger('Scanning Parameters','Rate_Limit_Parameter',400);//300;  // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
  //      Nanoedu.TurnOn;       //add 16/12/06
     end;
  finally
@@ -754,7 +761,7 @@ begin
    NCurves:=5;
    if flgUnit<>pipette then LevelSFM:=70
                        else LevelSFM:=30;
-   LevelIZ:=200;                       
+   LevelIZ:=200;
    NAv:=3;
    StartV:=-5000;  //mV
    StopV:=5000;
@@ -793,8 +800,8 @@ begin
      flgTopoTopViewPlDel:=true; //delete plane Top View windows
      flgTopoTopViewSDel:=false; //delete surface Top View windows
      PiezoMoverSzStepsXY:=100;//nm
-     LithoDelay:=400;
-     ScanDelay:=300;
+//     LithoDrawDelay:=400;
+//     ScanDrawDelay:=300;
     end;
    with  LithoParams   do
    begin
@@ -827,8 +834,8 @@ begin
      flgTopoTopViewPlDel:=true; //delete plane Top View windows
      flgTopoTopViewSDel:=false; //delete surface Top View windows
      PiezoMoverSzStepsXY:=100; //nm
-     LithoDelay:=400;
-     ScanDelay:=300;
+     //LithoDelay:=400;
+     //ScanDelay:=300;
     end;
    with  LithoParams   do
    begin
@@ -851,8 +858,8 @@ begin
      ScanRate:= 4000; //double, nm/s;
      ScanRateBW:= 8000; //double, nm/s;
      ScanPath:=OneX;//integer; {X+:0;+:1,}
-     LithoDelay:=400;
-     ScanDelay:=300;
+    // LithoDelay:=400;
+    // ScanDelay:=300;
      Microstep:=1;//integer;
      MicrostepDelay:=5;//integer;
      XMicrostepNmb:=100;//integer;
@@ -924,8 +931,8 @@ begin
      PiezoMoverSzStepsXY:=100; //nm
      PiezoMoverStepsZUp:=100;
      PiezoMoverStepsZDown:=100;
-     LithoDelay:=400;
-     ScanDelay:=300;
+     //LithoDelay:=400;
+     //ScanDelay:=300;
     end;
      LithoParams.TimeAct:=100;   //time action for   lithography
      LithoParams.ScaleAct:=0.5;  //action for lithography
@@ -955,8 +962,8 @@ begin
      flgTopoCurLinePlDel:=true; //delete plane Current line windows
      flgTopoTopViewPlDel:=true; //delete plane Top View windows
      flgTopoTopViewSDel:=false; //delete surface Top View windows
-     LithoDelay:=400;
-     ScanDelay:=300;
+     //LithoDelay:=400;
+   //  ScanDelay:=300;
     end;
      LithoParams.TimeAct:=100;   //time action for   lithography
      LithoParams.ScaleAct:=0.5;  //action for lithography
@@ -1396,8 +1403,10 @@ begin
        WriteInteger('Approach Parameters','PM Active time', ApproachParams.PMActiveTime);
        WriteInteger('Approach Parameters','PM PAUSE', ApproachParams.PMPAUSE);
        WriteInteger('Scanning Parameters','TerraTDelay',ScanParams.TerraTDelay);
-       WriteInteger('Scanning Parameters','LithoDelay',ScanParams.LithoDelay);
-       WriteInteger('Scanning Parameters','ScanDelay',ScanParams.ScanDelay);
+       WriteInteger('Scanning Parameters','LithoDrawDelay',ScanParams.LithoDrawDelay);
+       WriteInteger('Scanning Parameters','ScanDrawDelay',ScanParams.ScanDrawDelay);
+       WriteInteger('Scanning Parameters','FastDrawDelay',ScanParams.FastDrawDelay);
+       WriteInteger('Scanning Parameters','Rate_Limit_Parameter',round(ScanParams.ScanRateLimParameter));
        WriteInteger('Scannermovexy Parameters','PM Active time', ScannermoveXYZParams.PMActiveTime);
        WriteInteger('Scannermovexy Parameters','PM PAUSE', ScannermoveXYZParams.PMPAUSE);
 

@@ -1,4 +1,4 @@
 javac @options mlab\Simple.java
-javac @options mlab\FastScannew.java
+javac @options mlab\scanlinnew.java
 pause
 convert.bat

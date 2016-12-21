@@ -1,1 +1,1 @@
-jar cfe ..\..\javabin\scan_fast.jar mlab.Scannew mlab\*.class  java\lang\*.class  
+jar cfe ..\..\javabin\scan_fast.jar mlab.FastScannew mlab\*.class  java\lang\*.class  

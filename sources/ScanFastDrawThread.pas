@@ -209,7 +209,7 @@ if CreateChannels(AlgParams.NChannels) then
            end;
       end;    //stop java
 
-        sleep(ScanParams.FastDelay); //
+        sleep(ScanParams.FastDrawDelay); //
         hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(ntoread);     //get new data count
        {$IFDEF DEBUG}
         if Failed(hr) then Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_31' (* 'error get count data ' *) )+inttostr(ntoread)+ScanWnd.siLangLinked1.GetTextOrDefault('IDS_5' (* 'hr=' *) )+inttostr(hr))

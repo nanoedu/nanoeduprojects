@@ -536,8 +536,9 @@ TYPE RScanParams=packed record
       ScanPoints:integer;
       ScanLines:integer;
       TerraTDelay:integer;  //miliseconds
-      FastDelay:integer; //miliseconds
+      FastDrawDelay:integer; //miliseconds
       ScanRate:single;
+      ScanRateLimParameter:single; // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
       ScanRateBW:single;
       ScanPath:integer; {X+:0,Y+:1,multi:2}
       sz:integer;   //=1 ; +add data =2
@@ -579,8 +580,10 @@ TYPE RScanParams=packed record
        PiezoMoverStepsZDown:integer;   //size step down discret
        IntegratorDelay:integer;
        ScannerDecay:integer ;
-       ScanDelay:integer;
-       LithoDelay:integer;
+       ScanDrawDelay:integer;
+       LithoDrawDelay:integer;
+       TimMeasurePoint:single; // ms - time need for waiting after moving scanner before get signals data
+       TimMicroStep:single;   // milisec, minimum  Time of one microstep;
       //
      end;
   TYPE RMoveToScanParams=record

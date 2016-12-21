@@ -2563,7 +2563,8 @@ flgShowLine:=True;
     NanoEdu.ScanningMethod;
 
     Application.ProcessMessages;
-    if NanoEdu.Method.Launch<>0 then
+     ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000/ScanParams.ScanLines); //ms
+     if NanoEdu.Method.Launch<>0 then
      begin FreeAndNil(NanoEdu.Method); RestoreStartSFM; exit end;
 
     StartBtn.Enabled := True;
@@ -2653,6 +2654,7 @@ begin
           edScanNmb.Text:='0';
           edDZ.Text:= floattostrf(ScanNormData.ScaleZ0*Z_d_nm,fffixed,5,0);
       end;
+   ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000); //ms
     NanoEdu.FastTopoMethod;
     Application.ProcessMessages;
     if NanoEdu.Method.Launch<>0 then
@@ -2734,7 +2736,8 @@ begin
    UpDownACT_position:=1;
    LithoParams.Amplifier:=1;   { TODO : 171008 }
    LithoAmplifierPow:=0;
-  Nanoedu.LithoSFMMethod;
+   ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000/ScanParams.ScanLines); //ms
+   Nanoedu.LithoSFMMethod;
    if NanoEdu.Method.Launch<>0 then
    begin   FreeAndNil(NanoEdu.Method); RestoreStartSFM; exit end;
    StartBtn.Enabled := True;
@@ -3587,7 +3590,7 @@ begin
                  if ScanParams.ScanMethod<>Topography then TabSheetTopoError.TabVisible:=True;
                 end;
                                end;
-
+    ///**************************?????????????
               with Scanparams do
               begin
                 case ScanPath of
@@ -3598,7 +3601,7 @@ begin
                   t:=ceil(Y*Nx/ScanRate+Y*Nx/ScanRateBW);
                 end;
                                 end;
-           if FlgUnit=terra then  t:=t+0.001*(2*0.001*TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
+           if FlgUnit=terra then  t:=t+0.001*(2*0.001*ScanParams.TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
               end;
 
         if (t<10)  then FrameTime.Caption:=FloatToStrF(t,ffFixed,7,1)
@@ -4002,7 +4005,7 @@ false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
     OneY:           t:=ceil(Y*Nx/ScanRate+Y*Nx/ScanRateBW+CurrentLithoTimeEtch(Nx,NY));
                       end;
               end;
-   //        if Flgterra then  t:=t+0.001*(2*TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
+   //        if Flgterra then  t:=t+0.001*(2*ScanParams.TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
 
               if (t<10)  then FrameTime.Caption:=FloatToStrF(t,ffFixed,7,1)
                  else FrameTime.Caption:=FloatToStrF(t,ffFixed,7,0);
@@ -4112,7 +4115,7 @@ false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
    for i:=0 to PageCount-1 do Pages[i].HighLighted:=False;
       ActivePage.HighLighted:=True;
   end;
-  ScanParams.TimeWait:=round(t*1000); //ms
+   ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000); //msScanParams.TimeWait:=round(t*1000); //ms
 end;
 
 procedure TScanWnd.PageCtlLeftChange(Sender: TObject);
@@ -4287,6 +4290,9 @@ OneX:begin
                end;
        if  FlgStopScan  then
                         begin
+                            if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
+                               CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate);
+
                             SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                             SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                         end
@@ -4294,6 +4300,8 @@ OneX:begin
                         if  (HardWareOpt.XYtune='Rough')
                               then
                                   begin
+                                   if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
+                                      CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate);
                                    SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                                    SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                                   end
@@ -4307,7 +4315,7 @@ OneX:begin
      Litho,LithoCurrent:      t:=ceil(X*Ny/ScanRate+X*Ny/ScanRateBW+CurrentLithoTimeEtch(Nx,Ny));
                    else       t:=ceil(X*Ny/ScanRate+X*Ny/ScanRateBW);
                  end;
-           if FlgUnit=terra then  t:=t+0.001*(2*0.001*TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
+           if FlgUnit=terra then  t:=t+0.001*(2*0.001*ScanParams.TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
           ScanParams.PiezoMoverNStepsXY:=round(ScanParams.X/ScanParams.PiezoMoverSzStepsXY);
                    if (t<10)  then FrameTime.Caption:=FloatToStrF(t,ffFixed,7,1)
                    else FrameTime.Caption:=FloatToStrF(t,ffFixed,7,0);
@@ -4328,6 +4336,8 @@ OneY: begin
                end;
         if  FlgStopScan  then
                          begin
+                          if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
+                               CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate);
                            SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                            SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                          end
@@ -4335,6 +4345,8 @@ OneY: begin
                          if  (HardWareOpt.XYtune='Rough')
                               then
                               begin
+                                if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
+                                   CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate);
                                 SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                                 SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                               end
@@ -4348,7 +4360,7 @@ OneY: begin
      Litho,LithoCurrent:    t:=ceil(Y*Nx/ScanRate+Y*Nx/ScanRateBW+Ny*Nx*LithoParams.TimeAct*TimeActScale);
                    else     t:=ceil(Y*Nx/ScanRate+Y*Nx/ScanRateBW);
              end;
-       if FlgUnit=terra then  t:=t+0.001*(2*0.001*TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
+       if FlgUnit=terra then  t:=t+0.001*(2*0.001*ScanParams.TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
                if (t<10)  then FrameTime.Caption:=FloatToStrF(t,ffFixed,7,1)
                  else FrameTime.Caption:=FloatToStrF(t,ffFixed,7,0);
    
@@ -4383,7 +4395,7 @@ OneY: begin
   if assigned(NanoEdu.Method) then
     if (NanoEdu.Method is TScanMoveToX0Y0) or (FlgCurrentUserLevel = Demo) then  NanoEdu.Method.SetSpeed
                                          else  NanoEdu.Method.SetUsersParams;
-    ScanParams.TimeWait:=round(t*1000); //ms                                     
+    //ScanParams.TimeWait:=round(t*1000); //ms
 end;
 
 procedure TScanWND.SetLinearPathParameters;
@@ -4930,8 +4942,12 @@ grand: begin
        end;           end;
 end; //flgstopscan
  if SetMotionParameters>0 then exit;
+    if (( ScanParams.ScanMethod = FastScan) or (ScanParams.ScanMethod = FastScanPhase)) then
+                         if (ScanParams.FastDrawDelay/1000) < strtofloat(FrameTime.caption) then
+                                siLangLinked1.MessageDlg('Increase FastDrawDelay or Speed' ,mtwarning,[mbOK],0);
+
  if  ScanParams.ScanMethod=OneLineScan then ImgRInit;
- 
+
      edX.Font.Color:=clBlack;
      edY.Font.Color:=clBlack;
      edNx.Font.Color:=clBlack;
@@ -4940,6 +4956,7 @@ end; //flgstopscan
      ApplyBitBtn.Font.Color:=clBlack;
      flgBlickApply:=False;
    // SideViewInit; only after Start  button press
+   ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000); //ms
  if  TestDiskFreeSpace>0 then exit;
 end;
 
@@ -6235,7 +6252,7 @@ begin
           OneX:       t:=ceil(X*Ny/ScanRate+X*Ny/ScanRateBW+CurrentLithoTimeEtch(Nx,NY));
           OneY:       t:=ceil(Y*Nx/ScanRate+Y*Nx/ScanRateBW+CurrentLithoTimeEtch(Nx,NY));
                       end;
-                   if FlgUnit=terra then  t:=t+0.001*(2*0.001*TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
+                   if FlgUnit=terra then  t:=t+0.001*(2*0.001*ScanParams.TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
            end;
                    if (t<10)  then FrameTime.Caption:=FloatToStrF(t,ffFixed,7,1)
                     else FrameTime.Caption:=FloatToStrF(t,ffFixed,7,0);
@@ -7158,7 +7175,7 @@ begin
           OneX:       t:=ceil(X*Ny/ScanRate+X*Ny/ScanRateBW+CurrentLithoTimeEtch(Nx,NY));
           OneY:       t:=ceil(Y*Nx/ScanRate+Y*Nx/ScanRateBW+CurrentLithoTimeEtch(Nx,NY));
                   end;
-               if FlgUnit=terra then  t:=t+0.001*(2*0.001*TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
+               if FlgUnit=terra then  t:=t+0.001*(2*0.001*ScanParams.TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
              end;
              if (t<10)  then FrameTime.Caption:=FloatToStrF(t,ffFixed,7,1)
                  else FrameTime.Caption:=FloatToStrF(t,ffFixed,7,0);

@@ -2192,7 +2192,7 @@ function  TTopography.InitRegimeVars:integer;
 var I,J:INTEGER;
 begin
 // GETCOUNT_DELAY:=300; // // 09/09/2013 интервал (мс), через который вызывается
- GETCOUNT_DELAY:= ScanParams.ScanDelay;                      //            ф-ция GetCount
+ GETCOUNT_DELAY:= ScanParams.ScanDrawDelay;                      //            ф-ция GetCount
  ScanParams.sz:=1+byte(flgRenishawUnit);
  ScanData.WorkFileName:=WorkNameFile;
       case  ScanParams.ScanMethod of
@@ -2273,7 +2273,7 @@ end;
  begin
   NChannels:=4;
   if   ScannerCorrect.FlgXYLinear and (HardWareOpt.XYtune='Rough')and (not FlgReniShawUnit) then
-  NChannels:=5;
+                                                                                    NChannels:=5;
    NElements:=ScanParams.NX*ScanParams.NY*ScanParams.sz;  //dataout    channel
    SizeElements:=ScanParams.sz;  //dataout channel
    NGetCountEvent:=ScanParams.ScanPoints ;
@@ -2289,9 +2289,9 @@ end;
    params[9]:=ByteInversion(ScanParams.YMicrostepNmb);
    params[10]:=ByteInversion(ScanParams.ScanShift);
    if flgUnit=Terra then params[11]:=ByteInversion(ScanParams.TerraTDelay);
-
+   params[12]:=ByteInversion(integer(ScanParams.TimeWait));
  end;
-   shift:=15;//Sizeof(AlgParams) div sizeof(Data_dig);
+   shift:=17;//Sizeof(AlgParams) div sizeof(Data_dig);
    if flgUnit=Terra then  shift:=shift+1;
     Finalize(DataArray);
      DataLen:=shift;
@@ -2312,6 +2312,7 @@ end;
      DataArray[13]:= AlgParams.params[9];
      DataArray[14]:= AlgParams.params[10];
      if flgUnit=Terra then  DataArray[15]:= AlgParams.params[11];
+     DataArray[16]:= AlgParams.params[12];
  end;
 procedure TTopography.SetDataIn;
 var cnt:integer;
@@ -4305,7 +4306,7 @@ begin
                  end;
   InitBuffers;
   SetSpeed;
-  GETCOUNT_DELAY:= ScanParams.LithoDelay;//400; //changed 300->400 13.05.16
+  GETCOUNT_DELAY:= ScanParams.LithoDrawDelay;//400; //changed 300->400 13.05.16
  end;
 
 Procedure TLithoSFM.SetPath;
