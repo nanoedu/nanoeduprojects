@@ -2,14 +2,14 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
-AppName=ProBeam
-AppVerName=ProBeam ver 16.11.22.3
-OutputBaseFilename=ProBeamUpdate-16.11.22.3
+AppName=MicProbe
+AppVerName=MicProbe ver 16.11.22.3
+OutputBaseFilename=MicProbeUpdate-16.11.22.3
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
 AppUpdatesURL=http://www.ntspb.ru
-DefaultDirName=C:\NT-SPb\ProBeam
+DefaultDirName=C:\NT-SPb\MicProbe
 DefaultGroupName=NT-SPb
 AllowNoIcons=yes
 WizardImageFile=data\screen.bmp
@@ -34,16 +34,19 @@ Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescri
 ;Name:"{commonappdata}\nanoeducator"
  
 [Files]
-Source: "ProBeam.exe";   DestDir: "{app}"; Flags: ignoreversion
-Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
+Source: "MicProbe.exe";   DestDir: "{app}"; Flags: ignoreversion
 Source: "SPMConfig.ini"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMConfigUsersMicProbe.ini";    DestDir: "{userappdata}\MicProbe"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
+Source: "SPMConfigDefUsersMicProbe.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
+Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
 Source: "scheme\*.bin"; DestDir: "{app}\scheme"; Flags: ignoreversion recursesubdirs;
+Source: "Demodata\*.*"; DestDir: "{app}\Demodata"; Flags:  ignoreversion    recursesubdirs;
 [INI]
 [Icons]
 [Registry]
 [Run]
- Filename: "{app}\ProBeam.exe";                                Description: "Launch ProBeam";                        Flags: nowait postinstall skipifsilent
+ Filename: "{app}\MicProbe.exe";                                Description: "Launch MicProbe";                        Flags: nowait postinstall skipifsilent
 [UninstallRun]
 ;Filename: "{app}\unregister.bat";            check: IsX32;   Flags:  waituntilterminated;
 ;Filename: "{app}\unregister64.bat";          check: IsWin64; Flags:  waituntilterminated;

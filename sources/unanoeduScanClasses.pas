@@ -1186,7 +1186,7 @@ begin
  XEnd:=Api.DacX;
  YEnd:=Api.DacY;
  t:= (Abs(X0-XEnd)+abs(Y0-YEnd))/Scanparams.DiscrNumInMicroStep*Scanparams.MicrostepDelay;
- ScanParams.TimeWait:=round(t);
+ ScanParams.ScanLineTime:=round(t);
 
 // Y0:=round((Y0nm+Scanparams.yshift)*TransformUnit.YPnm_d);       //Add P
 // X0:=round((X0nm+Scanparams.xshift)*TransformUnit.XPnm_d);       //discrets   add P/ Y0:=-round((Y0nm+Scanparams.yshift)*TransformUnit.YPnm_d*(MaxDATAType-MinDATATYPE)/MaxDATAType)+MaxDATAType;       //Add P
@@ -1228,7 +1228,7 @@ function  TScanMoveToX0Y0.InitAlgorithmParamsFile:integer;
    params[1]:=ByteInversion(Y0);
    params[2]:=ByteInversion(MoveToMicrostepDelay);
    params[3]:=ByteInversion(ScanParams.DiscrNumInMicroStep);
-   params[4]:=ByteInversion(ScanParams.TimeWait);
+   params[4]:=ByteInversion(ScanParams.ScanLineTime);
  end;
 end;
 
@@ -2289,7 +2289,7 @@ end;
    params[9]:=ByteInversion(ScanParams.YMicrostepNmb);
    params[10]:=ByteInversion(ScanParams.ScanShift);
    if flgUnit=Terra then params[11]:=ByteInversion(ScanParams.TerraTDelay);
-   params[12]:=ByteInversion(integer(ScanParams.TimeWait));
+   params[12]:=ByteInversion(integer(ScanParams.ScanLineTime));
  end;
    shift:=17;//Sizeof(AlgParams) div sizeof(Data_dig);
    if flgUnit=Terra then  shift:=shift+1;
@@ -4086,7 +4086,7 @@ var cnt, DataLen,shift:integer;
    params[9]:=ByteInversion(ScanParams.YMicrostepNmb);
    params[10]:=ByteInversion(ScanParams.ScanShift);
    params[11]:=ByteInversion(integer(ScanParams.flgOneFrame));
-   params[12]:=ByteInversion(integer(ScanParams.TimeWait));
+   params[12]:=ByteInversion(integer(ScanParams.ScanLineTime));
  end;
    shift:=17;//16;//Sizeof(AlgParams) div sizeof(Data_dig);
    if flgUnit=Terra then  shift:=shift+1;

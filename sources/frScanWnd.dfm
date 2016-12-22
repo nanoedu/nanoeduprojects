@@ -307,6 +307,10 @@ object ScanWnd: TScanWnd
           OnChange = PageCtrlScanChange
           object TabSheetScanArea: TTabSheet
             Caption = 'Area'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object PanelScanM: TPanel
               Left = 0
               Top = 0
@@ -1811,6 +1815,10 @@ object ScanWnd: TScanWnd
         object TabSheetMatrix: TTabSheet
           Caption = 'Matrix for lithography'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object PanelMatrix: TPanel
             Left = 0
             Top = 0
@@ -2457,6 +2465,10 @@ object ScanWnd: TScanWnd
           Hint = 'Litography'
           Caption = 'Lithography'
           ImageIndex = 6
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
         end
         object TabSheetScanTran: TTabSheet
           Hint = 'Multi times scanning along X-axes'
@@ -3593,7 +3605,7 @@ object ScanWnd: TScanWnd
     Left = 248
     Top = 96
     Bitmap = {
-      494C01010A002C02600220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A002C02640220002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

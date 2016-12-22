@@ -1,7 +1,6 @@
 {B-,C+,D+,E-,F-,G+,H+,I+,J+,K-,L+,M-,N+,O-,P+,Q+,R-,S-,T-,U-,V+,W-,X+,Y+,Z1}
-//16/11/17
 unit frScanWnd;
-//corrected 16/12/15
+//corrected 16/12/22
 interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
@@ -2563,7 +2562,7 @@ flgShowLine:=True;
     NanoEdu.ScanningMethod;
 
     Application.ProcessMessages;
-     ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000/ScanParams.ScanLines); //ms
+     ScanParams.ScanLineTime:=round(strtofloat(Frametime.Caption)*1000/ScanParams.ScanLines); //ms
      if NanoEdu.Method.Launch<>0 then
      begin FreeAndNil(NanoEdu.Method); RestoreStartSFM; exit end;
 
@@ -2654,7 +2653,7 @@ begin
           edScanNmb.Text:='0';
           edDZ.Text:= floattostrf(ScanNormData.ScaleZ0*Z_d_nm,fffixed,5,0);
       end;
-   ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000); //ms
+   ScanParams.ScanLineTime:=round(strtofloat(Frametime.Caption)*1000); //ms
     NanoEdu.FastTopoMethod;
     Application.ProcessMessages;
     if NanoEdu.Method.Launch<>0 then
@@ -2736,7 +2735,7 @@ begin
    UpDownACT_position:=1;
    LithoParams.Amplifier:=1;   { TODO : 171008 }
    LithoAmplifierPow:=0;
-   ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000/ScanParams.ScanLines); //ms
+   ScanParams.ScanLineTime:=round(strtofloat(Frametime.Caption)*1000/ScanParams.ScanLines); //ms
    Nanoedu.LithoSFMMethod;
    if NanoEdu.Method.Launch<>0 then
    begin   FreeAndNil(NanoEdu.Method); RestoreStartSFM; exit end;
@@ -4115,7 +4114,7 @@ false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
    for i:=0 to PageCount-1 do Pages[i].HighLighted:=False;
       ActivePage.HighLighted:=True;
   end;
-   ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000); //msScanParams.TimeWait:=round(t*1000); //ms
+   ScanParams.ScanLineTime:=round(strtofloat(Frametime.Caption)*1000); //msScanParams.TimeWait:=round(t*1000); //ms
 end;
 
 procedure TScanWnd.PageCtlLeftChange(Sender: TObject);
@@ -4956,7 +4955,7 @@ end; //flgstopscan
      ApplyBitBtn.Font.Color:=clBlack;
      flgBlickApply:=False;
    // SideViewInit; only after Start  button press
-   ScanParams.TimeWait:=round(strtofloat(Frametime.Caption)*1000); //ms
+   ScanParams.ScanLineTime:=round(strtofloat(Frametime.Caption)*1000); //ms
  if  TestDiskFreeSpace>0 then exit;
 end;
 
