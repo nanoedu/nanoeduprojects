@@ -898,7 +898,7 @@ var      i:integer;
 begin
  ApproachParams:=ApproachParamsEdited;
  ApproachParams.IMaxCut:=StrToFloat(EditImaxCut.Text);
- if flgRenishawUnitExists then
+  if flgRenishawUnitExists then
   begin
     RenishawParams.RenishawScale:=StrToFloat(EdRenishawPeriodKoef.Text);
      case cbRenishawType.ItemIndex of
@@ -946,8 +946,8 @@ begin
   //   FreqBandF:=StrToInt(ApproachOptGrid.Cells[1,10]);
      flgControlTopPosition:=CheckBoxControlTopPosition.checked;
   end;
-if flgCurrentUserLevel<>Demo then
- begin
+ if flgCurrentUserLevel<>Demo then
+  begin
    NXYMax:=StrToInt(ScanOptGrid.Cells[1,11]);
    if (NXYMax<>prevNXYMax) then
    begin
@@ -956,7 +956,7 @@ if flgCurrentUserLevel<>Demo then
     ScanParams.NX:=100;
     ScanParams.NY:=100;
    end;
- end;
+  end;
     for i:=0 to 12 do
      with CSPMSignalsTab do
       begin
@@ -972,9 +972,8 @@ if flgCurrentUserLevel<>Demo then
          FlgXYLinear:=CBoxXYLin.Text='True';
          FlgZLinear:=CBoxZLin.Text='True';
          FlgPlnDel:=CBoxDelP.Text='True';
-
          FlgHideLine:=CBoxHideLine.Text='True';
-          YBiasTan:=tan(pi*strToFloat(edYSectAngle.text)/180);
+         YBiasTan:=tan(pi*strToFloat(edYSectAngle.text)/180);
          SensitivZ:=StrToFloat(edSensZ.Text);
          SensitivX:=StrToFloat(edSensX.Text);
          SensitivY:=StrToFloat(edSensY.Text);
@@ -995,7 +994,10 @@ if flgCurrentUserLevel<>Demo then
  //    HardWareOpt.ElectronicNumb:=cbElectronicNum.Text;
      TestErrorScannerIniFile;
      flgSaveProcess:=true;
-
+     ScanParams.ScanDrawDelay :=strToInt(EditScanDelay.text);
+     ScanParams.LithoDrawDelay:=strToInt(EditLithoDelay.text);
+     ScanParams.FastDrawDelay:=strToInt(lblEditFastDelay.text);
+     ScanParams.ScanRateLimParameter:= strToInt(lblEditRateLimitParam.text);
     if flgCurrentUserLevel<>Demo then
     begin
 //     if flgAdmin then SaveConfig;
@@ -1020,10 +1022,6 @@ if flgCurrentUserLevel<>Demo then
        SetScanParamsDef;
        ScanParams.ScanPath:=savemode;
      end;
-      ScanParams.ScanDrawDelay :=strToInt(EditScanDelay.text);
-      ScanParams.LithoDrawDelay:=strToInt(EditLithoDelay.text);
-      ScanParams.FastDrawDelay:=strToInt(lblEditFastDelay.text);
-      ScanParams.ScanRateLimParameter:= strToInt(lblEditRateLimitParam.text);
      flgSaveProcess:=false;
 // Save Parameters for New Scanner;
      flgOldBlock:=False;
@@ -1035,10 +1033,10 @@ if flgCurrentUserLevel<>Demo then
           flgOldBlock:=True;
           break;
       end;
-  if ((Text<>'') and (not flgOldBlock )) then
-    begin
+     if ((Text<>'') and (not flgOldBlock )) then
+      begin
        Items.Add(Text);
-    end;
+      end;
   end;
 // Save Parameters for New Electronic;
    flgOldBlock:=False;

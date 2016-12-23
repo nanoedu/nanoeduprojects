@@ -147,17 +147,19 @@ public class FastScannew
 		buf_drawdone = new int[1];
 		buf_drawdone[0] =0;
 		wr = stream_ch_drawdone.Write(buf_drawdone, 1, 1000);
-	        d_step_N = XMicrostepNmb;     // Кол-во микрошагов от точки к точке.
- 		d_step = d_step_N * DAC_STEP; // Приращение ЦАП на шаге от точки к точке.
+
+ 	        if (  ScanPath == 0)   d_step_N = XMicrostepNmb;     // Кол-во микрошагов от точки к точке.
+                else   d_step_N = YMicrostepNmb;
+               	d_step = d_step_N * DAC_STEP; // Приращение ЦАП на шаге от точки к точке.
 
 	       	dacX =Simple.bramRead(M_DACX) ;
              	dacY =Simple.bramRead(M_DACY) ;
         	dacZ =0;
 
 
-                USTEP_DLY = MicrostepDelay;//buf_params[0];
+                USTEP_DLY = MicrostepDelay;
 
-                USTEP_DLYBW = MicrostepDelayBW;//buf_params[1];
+                USTEP_DLYBW = MicrostepDelayBW;
 
       		uVector =   (2 * DiscrNumInMicroStep / USTEP_DLY);
                // if (uVector==0) uVector=1;
@@ -255,8 +257,8 @@ public class FastScannew
 	       for(int j=0; j<slowlines;j++)
                	for(i=0; i<fastlines; i++)
 			{
-			       if (err==1)	dataout[dst_i] = arr[src_i];
-                               else             dataout[dst_i] = 9999<<16;
+			    if (err==1)	dataout[dst_i] = arr[src_i];
+                            else        dataout[dst_i] = 9999<<16;
 			    dst_i += 1;
                             src_i += 1;
 			}

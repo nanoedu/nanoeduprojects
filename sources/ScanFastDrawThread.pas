@@ -74,8 +74,7 @@ begin
     if hPal<>0 then     DeleteObject(hPal);
     hpal := CreatePalette(pal^);
     if hpal <> 0 then  BitMap.Palette := hpal; // Это место где созданная палитра присваиваеться Bitmap.
-                             // Если писать без классов то надо писать так Bitmap.Palette:=hpal
-
+                                               // Если писать без классов то надо писать так Bitmap.Palette:=hpal
   end
   finally
     FreeMem(pal);
@@ -113,8 +112,7 @@ begin
    inherited destroy;
 end;
 
-
-
+  
 procedure  TScanFastDrawThread.SpeedBtnView;
 begin
       if CurrentScanFrame>0 then
@@ -153,6 +151,7 @@ begin
    {$IFDEF DEBUG}
       Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_0' (* 'Start drawing' *) ));
    {$ENDIF}
+   sleep(ScanParams.WaitForPrepareFastPath);
 if CreateChannels(AlgParams.NChannels) then
  begin
   arPCChannel[ch_Data_out].Main.Get_Id(ID);  //data out channel
@@ -167,6 +166,7 @@ if CreateChannels(AlgParams.NChannels) then
     CurChElements:=0;   // current of elements
     nread:=0;
     nc:=0;
+
  while (not Terminated)  and (not flgEnd) and (not ErrorController) do
  begin
       nread:=1;
@@ -208,7 +208,6 @@ if CreateChannels(AlgParams.NChannels) then
             break;
            end;
       end;    //stop java
-
         sleep(ScanParams.FastDrawDelay); //
         hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(ntoread);     //get new data count
        {$IFDEF DEBUG}
@@ -339,7 +338,8 @@ begin
    for i:=0 to n-1 do
     begin
      value :=datatype(PIntegerArray(DataBuf)[k] shr 16);
-     if value=9999 then        inc(counterr);
+     if value=9999 then
+          inc(counterr);
      ScanData.AquiADD.Data[i,j]:=value;
      inc(k);
     end;

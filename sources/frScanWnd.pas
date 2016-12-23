@@ -2124,7 +2124,12 @@ begin
         begin
          if (flgUnit<>Pipette)  and  (flgUnit<>Terra) (*and (flgUnit<>ProBeam)*)then TabSheetLitho.TabVisible:=True;  //250116
         end;
-       end;
+        if  (ScanParams.ScanMethod=FastScanPhase) then
+         begin
+          StopBtn.enabled:=true;
+          RStartBtn.enabled:=true;
+         end;
+        end;
   True:begin
         if true{FlgCurrentUserLevel>Beginner} then
         begin
@@ -2140,15 +2145,15 @@ begin
                                       else TabSheetTopoL.TabVisible:=False;
          //if HardWareOpt.XYtune='Fine' then
          if (flgUnit=ProBeam) or (flgUnit=MicProbe)then TabSheetFastTopo.TabVisible:=true;//false;//True; 231215
-         if (ScanParams.ScanMethod=FastScan)   or (ScanParams.ScanMethod=FastScanPhase) then
+         if  (ScanParams.ScanMethod=FastScan) then
          begin
           StopBtn.enabled:=true;
           RStartBtn.enabled:=true;
          end;
-
-        end;
+         end;
        end;
-           end;
+           end;          //case
+
       if  true{FlgCurrentUserLevel>Beginner} then
       begin
        TabSheetSpectrR.TabVisible:=True;
@@ -2629,7 +2634,8 @@ begin
   DisableTopPanel(false);
   self.enabled:=True;
   StartBtn.Enabled:=false;  SaveExpBtn.Visible:=False;     RStartBtn.Enabled:=false;
-  StopBtn.Enabled:=true;
+  if (not ScanParams.flgOneFrame) then StopBtn.Enabled:=true
+                                  else StopBtn.Enabled:=false;
   flgFirstPass:=true;
  // if (HardWareOpt.XYTune='Fine') and flgFineSpeedLock then
          begin

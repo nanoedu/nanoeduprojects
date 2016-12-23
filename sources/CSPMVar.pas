@@ -580,8 +580,9 @@ TYPE RScanParams=packed record
        PiezoMoverStepsZDown:integer;   //size step down discret
        IntegratorDelay:integer;
        ScannerDecay:integer ;
-       ScanDrawDelay:integer;
-       LithoDrawDelay:integer;
+       ScanDrawDelay:integer;        //ms
+       LithoDrawDelay:integer;        //ms
+       WaitForPrepareFastPath:integer;//msec
        TimMeasurePoint:single; // ms - time need for waiting after moving scanner before get signals data
        TimMicroStep:single;   // milisec, minimum  Time of one microstep;
       //

@@ -4091,7 +4091,6 @@ var cnt, DataLen,shift:integer;
    shift:=17;//16;//Sizeof(AlgParams) div sizeof(Data_dig);
    if flgUnit=Terra then  shift:=shift+1;
     Finalize(DataArray);
-
      DataLen:=shift;
      SetLength(DataArray,DataLen);
      DataArray[0]:= AlgParams.NChannels;
