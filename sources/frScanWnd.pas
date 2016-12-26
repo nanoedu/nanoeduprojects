@@ -4628,7 +4628,11 @@ begin
        edY.text:=FloattostrF(floor(Y),fffixed,8,tol);
      if (X<0.00001) or (Y<0.00001) or (NX=0) or (Ny=0) then
       begin   siLangLinked1.messageDLg(scan21 (* 'zero input' *), mtWarning,[mbOk],0); result:=1;exit end;
-      if ((X+XBegin)>XMax) then
+     if (XBegin<0)  then
+      begin   siLangLinked1.messageDLg('X0<0' , mtWarning,[mbOk],0);XBegin:=0; result:=1;exit end;
+     if (YBegin<0)  then
+            begin   siLangLinked1.messageDLg('Y0<0' , mtWarning,[mbOk],0); YBegin:=0;; result:=1;exit end;
+     if ((X+XBegin)>XMax) then
        begin
         if not (Scanparams.scanmethod in ScanmethodSetLitho) then
          begin
@@ -4692,6 +4696,8 @@ Multi,OneX:begin
        dec(nx);
        edNx.text:=inttostr(nx);
       end;
+     if (XBegin<0) then begin   siLangLinked1.messageDLg('X0<0' , mtWarning,[mbOk],0); Xbegin:=0;result:=1;exit end;
+     if (YBegin<0) then begin   siLangLinked1.messageDLg('Y0<0' , mtWarning,[mbOk],0); YBegin:=0; result:=1;exit end;
      if (x<0.00001) or (y<0.00001) or (NX=0) then
       begin   siLangLinked1.messageDLg(scan21(* 'Zero input' *) , mtWarning,[mbOk],0); result:=1; exit end;
      StepXY:=X/NX;

@@ -108,6 +108,7 @@ uses
     procedure SignalsModeButton2Click(Sender: TObject);
     procedure ScrollBarTimeControlScroll(Sender: TObject; ScrollCode: TScrollCode;  var ScrollPos: Integer);
     procedure SignalsModeBtnBiasVClick(Sender: TObject);
+    procedure UpdateStrings;
   private
      { Private declarations }
      ApproachActive:boolean;
@@ -155,6 +156,9 @@ uses
 
 var
   Approach: TApproach;
+const
+	strv: string = ''; (* Voltage Bias=0. Set Voltage *) // TSI: Localized (Don't modify!)
+
 
 implementation
 
@@ -483,6 +487,12 @@ var
 begin
 ltag:=TControl(Sender).tag;
 if ((ltag = 1 ) or (ltag = 2 )) and (not CheckResonance) then exit;
+if STMFlg then
+ if (ApproachParams.BiasV=0) then
+    begin
+      siLangLinked1.MessageDLG(strv , mtwarning,[mbOK],0);
+      exit;
+    end;
 FlgStopJava:=false;
 
 if not ApproachOneActive then
@@ -748,6 +758,12 @@ begin
 end;
 
 
+procedure TApproach.UpdateStrings;
+begin
+  strv := siLangLinked1.GetTextOrDefault('strstrv' (* 'Voltage Bias=0. Set Voltage' *) );
+
+end;
+
 procedure TApproach.OptionsBtnClick(Sender: TObject);
 begin
 if not assigned(ApproachOpt) then
@@ -982,12 +998,14 @@ end;
 procedure TApproach.siLangLinked1ChangeLanguage(Sender: TObject);
 begin
  Application.ProcessMessages;
+  UpdateStrings;
 end;
 
 procedure TApproach.FormCreate(Sender: TObject);
 var tmpval:integer;
   NewItem:TMenuItem;
 begin
+  UpdateStrings;
 //  FormVar := @AFormVar;
 //  inherited Create(AOwner);
     Top:=TopStart;
@@ -1409,3 +1427,4 @@ if not FlgResonance then
        end;
 end;
 end.
+
