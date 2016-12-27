@@ -2627,7 +2627,7 @@ begin
     caption:=basecaption;
     flgOnlineService:=GetflgOnlineService;
     AskOnline.Visible:=boolean(flgOnLineService);
-    flgChangeUserLevel:=GetflgChangeUserLevel;
+    flgChangeUserLevel:=1;//true;//GetflgChangeUserLevel;
      case flgChangeUserLevel of
       1: ComboboxLevel.Enabled:=true;
       0: ComboboxLevel.Enabled:= false;
@@ -4945,7 +4945,7 @@ begin
    InitialDir:=CommonNanoeduDocumentsPath+'docs\rus';
      case ComboBoxLevel.ItemIndex of
   0: filename:=InitialDir+'\Experiment\'+tutexperiment;//Описание работы Nanoeducator LE.pdf';
-  1: filename:=InitialDir+'\Simulator\'+tutsimulator; //Описание работы Тренажер.pdf'
+  1: filename:=InitialDir+'\Simulator\' +tutsimulator; //Описание работы Тренажер.pdf'
             end;
   end
   else
@@ -4953,7 +4953,7 @@ begin
    InitialDir:=CommonNanoeduDocumentsPath+'docs\eng';
      case ComboBoxLevel.ItemIndex of
   0: filename:=InitialDir+'\Experiment\'+tutexperiment;//'Manual Nanoeducator LE.pdf';
-  1: filename:=InitialDir+'\Simulator\'+tutsimulator;//'Manual Simulator.pdf'
+  1: filename:=InitialDir+'\Simulator\' +tutsimulator;//'Manual Simulator.pdf'
             end;
   end;
   if FileExists(fileName) then

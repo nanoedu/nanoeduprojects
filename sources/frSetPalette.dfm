@@ -4,7 +4,7 @@ object PaletteForm: TPaletteForm
   BorderIcons = [biSystemMenu]
   Caption = 'Geo Palette '
   ClientHeight = 523
-  ClientWidth = 198
+  ClientWidth = 203
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,10 +22,11 @@ object PaletteForm: TPaletteForm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 198
+    Width = 203
     Height = 523
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 198
     object PaletteFieldImg: TImage
       Left = 0
       Top = 0
@@ -55,7 +56,7 @@ object PaletteForm: TPaletteForm
     object PanelB: TPanel
       Left = 0
       Top = 229
-      Width = 195
+      Width = 203
       Height = 193
       TabOrder = 1
       object Label1: TLabel
@@ -107,9 +108,9 @@ object PaletteForm: TPaletteForm
           'Color Zebra')
       end
       object BitBtnDef: TBitBtn
-        Left = 2
+        Left = 1
         Top = 110
-        Width = 191
+        Width = 201
         Height = 28
         Caption = 'Set  Current as Default'
         Font.Charset = DEFAULT_CHARSET
@@ -122,9 +123,9 @@ object PaletteForm: TPaletteForm
         OnClick = BitBtnDefClick
       end
       object BitBtnSave: TBitBtn
-        Left = 3
+        Left = 1
         Top = 66
-        Width = 185
+        Width = 200
         Height = 28
         Caption = 'Save Current Palette'
         Font.Charset = DEFAULT_CHARSET
