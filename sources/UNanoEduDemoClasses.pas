@@ -1568,6 +1568,7 @@ begin
    UAM:              FileName:=DemoDataDirectory+DemoSample+'\'+DemoForceFile;
                end;
   LoadDemoData(FileName);
+  if ScanParams.flgFastSimulator then GETCOUNT_DELAY:=10;
 end;
 procedure  TTopographyDemo.SetPathSpeed;
 var
@@ -1577,9 +1578,15 @@ begin
  if (ScanPath=OneX)  or (ScanPath=Multi) then
     //  DemoPointDelay:=round(1000*ScanParams.X/(ScanParams.ScanRate*ScanParams.Nx))  // mc
    // else     DemoPointDelay:=round(1000*ScanParams.Y/(ScanParams.ScanRate*ScanParams.NY));  // mc
-    DemoPointDelay:=round(1000*ScanParams.X/ScanParams.ScanRate)  // mc
-    else     DemoPointDelay:=round(1000*ScanParams.Y/ScanParams.ScanRate);  // mc
-
+  begin
+   if ScanParams.flgFastSimulator then DemoPointDelay:=round(100*ScanParams.X/ScanParams.ScanRate)
+     else DemoPointDelay:=round(1000*ScanParams.X/ScanParams.ScanRate)
+  end
+  else
+  begin
+   if ScanParams.flgFastSimulator then  DemoPointDelay:=round(100*ScanParams.Y/ScanParams.ScanRate)
+     else DemoPointDelay:=round(1000*ScanParams.Y/ScanParams.ScanRate)
+  end;
   case ScanParams.ScanMethod of
    TopoGraphy,
    OneLineScan,

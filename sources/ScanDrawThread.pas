@@ -494,7 +494,7 @@ var
    label  100;
 begin
  if currentUserLevel = 'Demo'  then
- calcDemoImitationParams(fsourceScanrate, fSourceFBGain, 0, smooth0_nm, noise0_discr, noise_speed0_discr, depth0_nm,
+   calcDemoImitationParams(fsourceScanrate, fSourceFBGain, 0, smooth0_nm, noise0_discr, noise_speed0_discr, depth0_nm,
                                                     lithodepth0_nm);
 // GetTimeNow(StartHour, startMin, StartSec, startMsec);
     //nanoeduII
@@ -708,7 +708,8 @@ begin
                                                     CalcDemoImitationParams(ScanParams.ScanRate, PidParams.Ti, 0, smooth_nm, noise_discr, noise_speed_discr, depth_nm,
                                                     lithodepth_nm);
 
-                                                    FBGain_Speed_DemoImitation((smooth_nm-smooth0_nm), noise_discr-noise0_discr,
+                                                  if (not ScanParams.flgFastSimulator)
+                                                     then   FBGain_Speed_DemoImitation((smooth_nm-smooth0_nm), noise_discr-noise0_discr,
                                                                                        noise_speed_discr-noise_speed0_discr,
                                                                                       (depth_nm-depth0_nm), 0, ScanData.AquiTopo, TempAquiData);
 
@@ -716,13 +717,15 @@ begin
                                                           begin
                                                                 case ScanParams.ScanMethod of
                                                                    Phase: begin
-                                                                                     FBGain_Speed_DemoImitation(0, noise_discr-noise0_discr,
+                                                                           if (not ScanParams.flgFastSimulator)
+                                                                                    then        FBGain_Speed_DemoImitation(0, noise_discr-noise0_discr,
                                                                                         noise_speed_discr-noise_speed0_discr,
                                                                                         0, 0, ScanData.AquiAdd, TempAquiAddData);
                                                                           end;
 
                                                                     UAM:   begin
-                                                                                    FBGain_Speed_DemoImitation(-(smooth_nm-smooth0_nm), noise_discr-noise0_discr,
+                                                                            if (not ScanParams.flgFastSimulator)
+                                                                                    then     FBGain_Speed_DemoImitation(-(smooth_nm-smooth0_nm), noise_discr-noise0_discr,
                                                                                        noise_speed_discr-noise_speed0_discr,
                                                                                       -(depth_nm-depth0_nm), 0, ScanData.AquiAdd, TempAquiAddData);
                                                                            end;

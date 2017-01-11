@@ -236,7 +236,7 @@ var i,j,k:integer;
 
   end;
 
-     if  ApprOnProgr   and                      // открыто окно Подвода
+  if  ApprOnProgr   and                      // открыто окно Подвода
          (((ApproachParams.ZStepsDone) < 0)    // Зонд выше зоны, в которой изменяется его длина
           or (ApproachParams.ZStepsNumb < 0))       //или  выполняется отвод
       then
@@ -262,8 +262,8 @@ var i,j,k:integer;
 
             result:=S_OK;
          end
-       else
-           if  ApprOnProgr   and                      // открыто окно Подвода
+    else
+      if  ApprOnProgr   and                      // открыто окно Подвода
               (ApproachParams.ZStepsNumb > 0) and // Подвод при уже захваченном взаимодействии
               (abs(DemoParams.Z) < abs(ZGatediscr_min)) and (abs(DemoParams.Z) < abs(ZGatediscr_max))  then
              begin
@@ -322,7 +322,7 @@ var i,j,k:integer;
      if  ApprOnProgr   and                      // открыто окно Подвода
          (((ApproachParams.ZStepsDone) < 0)    // Зонд выше зоны, в которой изменяется его длина
           or (ApproachParams.ZStepsNumb < 0))       //или  выполняется отвод
-      then
+      then   //approach simulation
          begin
            for i := 0 to pCount - 1 do
              begin
@@ -334,15 +334,12 @@ var i,j,k:integer;
 
                 PIntegerArray(DATA)[i*fSizeElements]:=0;
                 PIntegerArray(DATA)[i*fSizeElements+1]:=DemoParams.Z shl 16;
-                if STMFlg then
-                PIntegerArray(DATA)[i*fSizeElements+2]:=DemoParams.TunnelCurrent shl 16
-                  else
-                   PIntegerArray(DATA)[i*fSizeElements+2]:=DemoParams.oscAmp shl 16;
+                if STMFlg then    PIntegerArray(DATA)[i*fSizeElements+2]:=DemoParams.TunnelCurrent shl 16
+                  else            PIntegerArray(DATA)[i*fSizeElements+2]:=DemoParams.oscAmp shl 16;
                 ApproachParams.ZStepsDone:=ApproachParams.ZStepsDone+ApproachParams.ZStepsNumb;
                 PIntegerArray(DATA)[i*fSizeElements+3]:=ApproachParams.ZStepsDone;
                 inc (k,fSizeElements);
              end;
-
             result:=S_OK;
          end
        else

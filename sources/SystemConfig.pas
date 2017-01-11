@@ -603,7 +603,8 @@ begin
                 ScanParams.TimMicroStep:=0.005;//      // milisec, Time of one microstep;
                 ScanParams.ScanRateLimParameter  := 300;  // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
                 ScanParams.WaitForPrepareFastPath:=5000; //ms
- //               Nanoedu.TurnOn;  //add 16/12/06
+                ScanParams.flgFastSimulator:= false;
+   //               Nanoedu.TurnOn;  //add 16/12/06
   end;
 
 
@@ -739,6 +740,7 @@ begin
        ScanParams.TimMeasurePoint:=0.01;//ms
        ScanParams.TimMicroStep:=0.005;// // milisec, minimum Time of one microstep;
        ScanParams.ScanRateLimParameter:= ReadInteger('Scanning Parameters','Rate_Limit_Parameter',400);//300;  // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
+//       ScanParams.flgFastSimulator:= boolean(ReadInteger('Scanning Parameters','Fast_Simulation',0));
        ScanParams.WaitForPrepareFastPath:=6000; //ms
     end;
  finally
@@ -1408,6 +1410,7 @@ begin
        WriteInteger('Scanning Parameters','ScanDrawDelay',ScanParams.ScanDrawDelay);
        WriteInteger('Scanning Parameters','FastDrawDelay',ScanParams.FastDrawDelay);
        WriteInteger('Scanning Parameters','Rate_Limit_Parameter',round(ScanParams.ScanRateLimParameter));
+       WriteInteger('Scanning Parameters','Fast_Simulation',integer(ScanParams.flgFastSimulator));
        WriteInteger('Scannermovexy Parameters','PM Active time', ScannermoveXYZParams.PMActiveTime);
        WriteInteger('Scannermovexy Parameters','PM PAUSE', ScannermoveXYZParams.PMPAUSE);
 

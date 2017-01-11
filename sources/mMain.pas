@@ -388,6 +388,7 @@ type
     procedure  GetWorkDirAndFirstTimeDetectPath(Filename:STRING);
     function   PrepareScannerData:integer;
     function   SetUnit:boolean;
+    function   SetUnitDemo:boolean;
     procedure  WMGetMinMaxInfo(var Message : TWMGetMinMaxInfo); message WM_GETMINMAXINFO;
     function   FindNotSavedScans:boolean;
     procedure  RestoreState;
@@ -745,8 +746,9 @@ end;
 function   TMain.SetUnit:boolean;
 begin
 
+
               case flgUnit of
-                Probeam:begin
+             Probeam:begin
                        if flgMotor=PiezoM then
                          if fileexists(ExeFilePath+'Data\'+'sem.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'sem.jpg');
                        if flgMotor=StepM then
@@ -794,6 +796,49 @@ begin
                             if fileexists(ExeFilePath+'Data\'+'terrahrz.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'terrahrz.jpg');
                          end;
 
+                       if flgMotor=StepM then
+                          if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
+                       if flgMotor=PiezoM then
+                        begin
+                        ShowMessage(' Educator Device doesn''t suit to Piezo Mover; SEM Device is On! ');
+                         FlgUnit:=Probeam;
+                         pAdapterHead^.aflgUnit:=ProBeam;
+                         if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
+                        end;
+                    end;
+                                        end;
+
+end;
+function   TMain.SetUnitDemo:boolean;
+begin
+              case flgUnit of
+            Probeam:begin
+                      flgMotor:=PiezoM ;
+                       if fileexists(ExeFilePath+'Data\'+'sem.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'sem.jpg');
+                    end;
+           MicProbe:begin
+                       flgMotor:=PiezoM ;
+                       if fileexists(ExeFilePath+'Data\'+'micprobe.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'micprobe.jpg');
+                    end;
+              Terra:begin
+                         flgMotor:=PiezoM;
+                         flgUnit:=Terra;
+                         if flgUnit=Terra then
+                         begin
+                           ScanMScrpt:=ScanMScrptTerra;
+                           SpectrNScrpt:=SpectrNScrptTerra;
+                            if fileexists(ExeFilePath+'Data\'+'terrahrz.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'terrahrz.jpg');
+                         end;
+                    end;
+              Nano: begin
+                         flgUnit:=nano;
+                         flgMotor:=StepM;
+                       if flgUnit=Terra then
+                         begin
+                           ScanMScrpt:=ScanMScrptTerra;
+                           SpectrNScrpt:=SpectrNScrptTerra;
+                            if fileexists(ExeFilePath+'Data\'+'terrahrz.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'terrahrz.jpg');
+                         end;
                        if flgMotor=StepM then
                           if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
                        if flgMotor=PiezoM then
@@ -945,9 +990,10 @@ begin
                      SetDemoIniFilesPath;
                      initAdapterHeaderBufRecord;
                      //12.08.13
-                     flgUnit:=nano;
-                     flgMotor:=StepM;
-                     if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
+                     SetUnitDemo;
+                   //  flgUnit:=nano;  11/01/16
+                   //  flgMotor:=StepM; 11/01/16
+                   //  if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
                      //
                      UnitInit;
                    end;
@@ -2627,7 +2673,7 @@ begin
     caption:=basecaption;
     flgOnlineService:=GetflgOnlineService;
     AskOnline.Visible:=boolean(flgOnLineService);
-    flgChangeUserLevel:=1;//true;//GetflgChangeUserLevel;
+    flgChangeUserLevel:=GetflgChangeUserLevel;
      case flgChangeUserLevel of
       1: ComboboxLevel.Enabled:=true;
       0: ComboboxLevel.Enabled:= false;
@@ -2663,7 +2709,7 @@ begin
 
    FlgCurrentUserLevel:=ComboBoxLevel.ItemIndex;
 
-   WorkDEfDirectory:=UserNanoeduWorkDocumentsPath;
+   WorkDefDirectory:=UserNanoeduWorkDocumentsPath;
 
    if DirectoryExists(WorkDEfDirectory) then  CreateDir(WorkDEfDirectory);
 
@@ -2672,7 +2718,10 @@ begin
    sFile:=GetConfigUsersFileName;
 
    GetWorkDirAndFirstTimeDetectPath(sFile);
+
     flgUnit:=GetDeviceName;
+
+    ScanParams.flgFastSimulator:=GetFlgFastSimulation;
       case   flgUnit of
    nano: if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
    Terra:if fileexists(ExeFilePath+'Data\'+'terrahrz.jpg')    then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'terrahrz.jpg');

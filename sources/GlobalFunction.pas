@@ -112,6 +112,8 @@ function  GetUserAccountName:string;
 procedure SetFirstStartParams;
 function  GetUserLevel:string;
 procedure SetUserLevel;
+procedure SetFlgFastSimulation;
+function  GetFlgFastSimulation:boolean;
 function  GetDeviceInterfaceName:string;
 function  GetDeviceName:integer;
 procedure SetDeviceName(flg:integer);
@@ -680,7 +682,7 @@ begin
   try
     with iniCSPM do
     begin
-      if SectionExists ('Users')        then  result:=ReadInteger('Users','Flg Change User Level',1)
+      if SectionExists ('Users')  then  result:=integer(true) //ReadInteger('Users','Flg Change User Level',1)
       else
       begin
          WriteInteger('Users','Flg Change User Level',1);
@@ -711,8 +713,8 @@ begin
    finally
     iniCSPM.Free;
    end;
-
 end;
+
 function  GetDeviceName:integer;
  var SFile:string;
     iniCSPM:TiniFile;
@@ -749,6 +751,44 @@ begin
     iniCSPM.Free;
    end;
 end;
+
+function  GetFlgFastSimulation:boolean;
+ var SFile:string;
+    iniCSPM:TiniFile;
+begin
+  sFile:=GetConfigUsersFileName;
+    iniCSPM:=TIniFile.Create(sFile);
+  try
+    with iniCSPM do
+    begin
+      if SectionExists ('Scanning Parameters') then  result:=boolean(ReadInteger('Scanning Parameters','Fast_Simulation',0))
+        else
+       begin
+  //       SetFileAttribute_ReadOnly(sfile,false);
+         WriteInteger('Scanning Parameters','Fast_Simulation',0);
+  //       SetFileAttribute_ReadOnly(sfile,true);
+        end;
+     end;
+   finally
+    iniCSPM.Free;
+   end;
+end;
+procedure  SetFlgFastSimulation;
+ var SFile:string;
+    iniCSPM:TiniFile;
+begin
+  sFile:=GetConfigUsersFileName;
+    iniCSPM:=TIniFile.Create(sFile);
+  try
+    with iniCSPM do
+    begin
+         WriteInteger('Scanning Parameters','Fast_Simulation',integer(ScanParams.flgFastSimulator));
+     end;
+   finally
+    iniCSPM.Free;
+   end;
+end;
+
 
 procedure SetOnlineService;
 

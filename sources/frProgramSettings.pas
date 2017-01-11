@@ -25,6 +25,8 @@ type
     Panel2: TPanel;
     BitBtnCancel: TBitBtn;
     BitBtnOK: TBitBtn;
+    TabSheetSimulator: TTabSheet;
+    CheckBoxFastSimulation: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure BitBtnOKClick(Sender: TObject);
@@ -59,6 +61,8 @@ end;
 procedure TFormProgramSettings.BitBtnOKClick(Sender: TObject);
 begin
      SetSchemeName(Combobox1.Text);
+     ScanParams.flgFastSimulator:=CheckBoxFastSimulation.checked;
+     SetFlgFastSimulation;
      modalResult:=mrOK;
 end;
 
@@ -130,6 +134,7 @@ begin
          end;
     ComboboxProgram.ItemIndex:=Main.ComboBoxLevel.ItemIndex;
     RadioGroupchangeUserLevel.ItemIndex:=flgchangeUserLevel;
+    CheckBoxFastSimulation.Checked:=ScanParams.flgFastSimulator;
     checkbox.Checked:=boolean(flgOnlineService);
 end;
 
