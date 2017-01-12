@@ -182,7 +182,7 @@ const      //  device
   Baby=5;
   Grand=6;
   Pipette=7;
-//  NanoTutor=8;
+  NanoTutor=8;
   Unknown=12;// unknown=nano;
 const //motor
  stepm=1;

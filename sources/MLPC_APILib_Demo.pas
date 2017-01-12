@@ -107,7 +107,7 @@ type
    end;
   TMLPCChannelRead2Demo = class(TInterfacedObject,IMLPCChannelRead2Demo)
     function    Read( Data: PInteger; var pCount: Integer): HResult; stdcall;
-   function    get_Count(out pN: Integer): HResult; stdcall;
+    function    get_Count(out pN: Integer): HResult; stdcall;
     function    ReadWait(Data: PInteger; var pCount: Integer; Timeout: Integer): HResult; stdcall;
     constructor Create(DataBufIn:pinteger; iSizeElements,iNElements:integer);
   public
@@ -198,7 +198,6 @@ type
 
 resourcestring
   dtlServerPage = 'ActiveX';
-
   dtlOcxPage = 'ActiveX';
 
 implementation
@@ -233,10 +232,8 @@ var i,j,k:integer;
   begin
        ZGatediscr_min:= round(-65536*ApproachParams.ZGateMin + MaxApitype);   // нижняя риска - положит. значения
        ZGatediscr_max:= round(-65536*ApproachParams.ZGateMax + MaxApitype);    // верхняя риска - отрицат. значения
-
   end;
-
-  if  ApprOnProgr   and                      // открыто окно Подвода
+   if  ApprOnProgr   and                      // открыто окно Подвода
          (((ApproachParams.ZStepsDone) < 0)    // Зонд выше зоны, в которой изменяется его длина
           or (ApproachParams.ZStepsNumb < 0))       //или  выполняется отвод
       then
@@ -293,7 +290,7 @@ var i,j,k:integer;
        inc(k,1);   //280113
    end;
    end;
-   //    inc(fcount,pCount);        //280113
+  //    inc(fcount,pCount);        //280113
  //
      k:=k div fSizeElements;   //280113
      inc(fcount,k);       //280113
@@ -305,7 +302,6 @@ var i,j,k:integer;
      {$ENDIF}
   end;
  end;
-
  function  TMLPCChannelReadDemo.Read( Data: PInteger; var pCount: Integer): HResult; stdcall;
  var i,j,k:integer;
      ZGatediscr_min, ZGateDiscr_max:integer;
@@ -316,24 +312,18 @@ var i,j,k:integer;
   begin
        ZGatediscr_min:= round(-65536*ApproachParams.ZGateMin + MaxApitype);   // нижняя риска - положит. значения
        ZGatediscr_max:= round(-65536*ApproachParams.ZGateMax + MaxApitype);    // верхняя риска - отрицат. значения
-
   end;
-
-  if  ApprOnProgr   then                      // открыто окно Подвода
-   begin
-        if  (((ApproachParams.ZStepsDone) < 0)    // Зонд выше зоны, в которой изменяется его длина
-          or (ApproachParams.ZStepsNumb < 0))       //или  выполняется отвод
-         then   //approach simulation
-         begin
+  if  ApprOnProgr   and                     // открыто окно Подвода
+     (((ApproachParams.ZStepsDone) < 0)    // Зонд выше зоны, в которой изменяется его длина
+      or (ApproachParams.ZStepsNumb < 0))       //или  выполняется отвод
+   then   //approach simulation
+    begin
            for i := 0 to pCount - 1 do
              begin
                 DemoParams.Z:= -32767;
-                if STMFlg then
-                    DemoParams.TunnelCurrent:= 0
-                    else
-                    DemoParams.oscAmp:= 32767;
-
-                PIntegerArray(DATA)[i*fSizeElements]:=0;
+                if STMFlg then DemoParams.TunnelCurrent:= 0
+                          else DemoParams.oscAmp:= 32767;
+                  PIntegerArray(DATA)[i*fSizeElements]:=0;
                 PIntegerArray(DATA)[i*fSizeElements+1]:=DemoParams.Z shl 16;
                 if STMFlg then    PIntegerArray(DATA)[i*fSizeElements+2]:=DemoParams.TunnelCurrent shl 16
                   else            PIntegerArray(DATA)[i*fSizeElements+2]:=DemoParams.oscAmp shl 16;
@@ -342,25 +332,24 @@ var i,j,k:integer;
                 inc (k,fSizeElements);
              end;
             result:=S_OK;
-         end
-       else
-         if  (ApproachParams.ZStepsNumb > 0) and // Подвод при уже захваченном взаимодействии
-              (abs(DemoParams.Z) < abs(ZGatediscr_min)) and (abs(DemoParams.Z) < abs(ZGatediscr_max))  then
-         begin
+    end
+    else
+    if  ApprOnProgr   and
+       (ApproachParams.ZStepsNumb > 0) and // Подвод при уже захваченном взаимодействии
+       (abs(DemoParams.Z) < abs(ZGatediscr_min)) and (abs(DemoParams.Z) < abs(ZGatediscr_max))
+    then
+    begin
               for i := 0 to pCount - 1 do
                 begin
                    PIntegerArray(DATA)[i*fSizeElements]:=3;
                    PIntegerArray(DATA)[i*fSizeElements+1]:=DemoParams.Z shl 16;             // Z  в положени захвата
-                   if STMflg then
-                      PIntegerArray(DATA)[i*fSizeElements+2]:=round(-TransformUnit.nA_d*ApproachParams.LandingSetPoint) shl 16
-                     else
-                       PIntegerArray(DATA)[i*fSizeElements+2]:=round(maxApitype*ApproachParams.LandingSetPoint) shl 16 ;
+                   if STMflg then PIntegerArray(DATA)[i*fSizeElements+2]:=round(-TransformUnit.nA_d*ApproachParams.LandingSetPoint) shl 16
+                     else  PIntegerArray(DATA)[i*fSizeElements+2]:=round(maxApitype*ApproachParams.LandingSetPoint) shl 16 ;
                    ApproachParams.ZStepsDone:=ApproachParams.ZStepsDone;   // идти не надо
                    PIntegerArray(DATA)[i*fSizeElements+3]:= ApproachParams.ZStepsDone;
                    inc(k,AlgParams.SizeElements);
                 end;
               result:=S_OK;
-         end
    end
    else
    begin

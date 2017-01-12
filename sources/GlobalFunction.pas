@@ -2449,27 +2449,25 @@ var DemoCorrectLine:TLine;
     i,j,k:integer;
 begin
   // Вставить :
-                                 // 1) функцию, которая по соотношению скорости и усиления ОС
-                                 // вычисляет параметр сглаживания
-                                 // 2) По величине усиления ОС вычисляет шум
-                                 // Применять эти ф-ции при всех видах сканирования
-                                 // Определить скорость сканир. и усиление ОС Демо-файла по заголовку
+  // 1) функцию, которая по соотношению скорости и усиления ОС
+  // вычисляет параметр сглаживания
+  // 2) По величине усиления ОС вычисляет шум
+  // Применять эти ф-ции при всех видах сканирования
+  // Определить скорость сканир. и усиление ОС Демо-файла по заголовку
   SetLength( DemoCorrectLine,ScanParams.ScanPoints);
   case ScanParams.ScanPath of
-  OneX: for I := 0 to ScanParams.ScanPoints - 1 do DemoCorrectLine[i]:=AquiData.data[i,ScanParams.CurrentScanCount];
-  OneY: for I := 0 to ScanParams.ScanPoints - 1 do DemoCorrectLine[i]:=AquiData.data[ScanParams.CurrentScanCount,i];
+   OneX: for I := 0 to ScanParams.ScanPoints - 1 do DemoCorrectLine[i]:=AquiData.data[i,ScanParams.CurrentScanCount];
+   OneY: for I := 0 to ScanParams.ScanPoints - 1 do DemoCorrectLine[i]:=AquiData.data[ScanParams.CurrentScanCount,i];
   end;
     CorrectImgSection_Smooth(smooth_nm, DemoCorrectLine);
     CorrectImgSection_depth(depth_nm-smooth_nm, DemoCorrectLine) ;
     if ScanParams.ScanMethod = litho then CorrectImgSection_depth(lithodepth_nm, DemoCorrectLine) ;
     AddNoise( noise_discr+noise_speed_discr,  DemoCorrectLine);
  case ScanParams.ScanPath of
-  OneX:
-    for I := 0 to ScanParams.ScanPoints - 1 do AquiData.data[i,ScanParams.CurrentScanCount]:=DemoCorrectLine[i];
-  OneY:
-    for I := 0 to ScanParams.ScanPoints - 1 do AquiData.data[ScanParams.CurrentScanCount,i]:=DemoCorrectLine[i];
+  OneX: for I := 0 to ScanParams.ScanPoints - 1 do AquiData.data[i,ScanParams.CurrentScanCount]:=DemoCorrectLine[i];
+  OneY: for I := 0 to ScanParams.ScanPoints - 1 do AquiData.data[ScanParams.CurrentScanCount,i]:=DemoCorrectLine[i];
               end;
-    for I := 0 to ScanParams.ScanPoints - 1 do TempLineData[i]:=DemoCorrectLine[i];
+ for I := 0 to ScanParams.ScanPoints - 1 do TempLineData[i]:=DemoCorrectLine[i];
  Finalize( DemoCorrectLine);
 end;
 

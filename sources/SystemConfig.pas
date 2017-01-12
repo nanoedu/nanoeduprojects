@@ -572,8 +572,8 @@ begin
                              ApproachParams.MaxSuppress:=0.5;
                              ApproachParams.flgControlTopPosition:=false;
              end;
-    nano
-    ,terra:  begin
+    nano,nanotutor,
+    terra:  begin
                              ApproachNScrpt:=ApproachSMScrpt;
                              ApproachNOneScrpt:=ApproachSMOneScrpt;
                              MTestScrpt:=SMTestScrpt;     //stepmover
@@ -691,7 +691,7 @@ begin
                              ApproachParams.flgControlTopPosition:=false;
 
              end;
-    nano,
+    nano,nanotutor,
     terra:    begin
                              ApproachNScrpt:=ApproachSMScrpt;
                              ApproachNOneScrpt:=ApproachSMOneScrpt;

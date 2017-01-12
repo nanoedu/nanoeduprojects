@@ -806,15 +806,14 @@ begin
                          if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
                         end;
                     end;
-           (*  NanoTutor: begin
+           nanoTutor: begin
                           flgUnit:=nano;
                           if flgMotor<>PiezoM then
                           begin
                            ShowMessage(' Nanotutor device doesn''t suit to Step Mover; Naoeducator device is On! ');
                            if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
                           end;
-                         end;
-                         *)
+                     end;
                                      end;
 
 end;
@@ -851,11 +850,11 @@ begin
                        if flgMotor=StepM then
                           if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
                     end;
-        (* NanoTutor: begin
+         NanoTutor: begin
                           flgUnit:=nano;
                           flgMotor:=StepM;
                            if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
-                     end;*)
+                     end;
                                          end;
 
 end;
@@ -2730,18 +2729,19 @@ begin
 
     ScanParams.flgFastSimulator:=GetFlgFastSimulation;
       case   flgUnit of
-   nano: if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
-   Terra:if fileexists(ExeFilePath+'Data\'+'terrahrz.jpg')    then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'terrahrz.jpg');
-   baby: if fileexists(ExeFilePath+'Data\'+'babyunit.jpg')    then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'babyunit.jpg');
-  grand: if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
-  ProBeam: if fileexists(ExeFilePath+'Data\'+'sem.jpg')         then
+   nano,
+   nanotutor: if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg') then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
+   Terra:if fileexists(ExeFilePath+'Data\'+'terrahrz.jpg')         then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'terrahrz.jpg');
+   baby: if fileexists(ExeFilePath+'Data\'+'babyunit.jpg')         then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'babyunit.jpg');
+  grand: if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg')      then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
+  ProBeam: if fileexists(ExeFilePath+'Data\'+'sem.jpg')            then
             begin
               SynchroSEM.visible:=true;
                UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'sem.jpg');
             end;
-  MicProbe: if fileexists(ExeFilePath+'Data\'+'micporbe.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'micprobe.jpg');
+  MicProbe: if fileexists(ExeFilePath+'Data\'+'micporbe.jpg')      then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'micprobe.jpg');
 
-  Pipette:  if fileexists(ExeFilePath+'Data\'+'pipette.jpg')     then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'pipette.jpg');
+  Pipette:  if fileexists(ExeFilePath+'Data\'+'pipette.jpg')       then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'pipette.jpg');
                   end;
       SaveAsDirectory:=workdirectory;
       Main.ArrangeWindows1.Enabled:=False;
