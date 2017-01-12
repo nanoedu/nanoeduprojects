@@ -706,7 +706,7 @@ begin
                                      if (flgCurrentUserLevel = Demo) and (flgApproachOK) then
                                                  begin
                                                     CalcDemoImitationParams(ScanParams.ScanRate, PidParams.Ti, 0, smooth_nm, noise_discr, noise_speed_discr, depth_nm,
-                                                    lithodepth_nm);
+                                                                            lithodepth_nm);
 
                                                   if (not ScanParams.flgFastSimulator)
                                                      then   FBGain_Speed_DemoImitation((smooth_nm-smooth0_nm), noise_discr-noise0_discr,

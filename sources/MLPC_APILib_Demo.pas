@@ -319,7 +319,7 @@ var i,j,k:integer;
 
   end;
 
-     if  ApprOnProgr   and                      // открыто окно Подвода
+  if  ApprOnProgr   and                      // открыто окно Подвода
          (((ApproachParams.ZStepsDone) < 0)    // Зонд выше зоны, в которой изменяется его длина
           or (ApproachParams.ZStepsNumb < 0))       //или  выполняется отвод
       then   //approach simulation
