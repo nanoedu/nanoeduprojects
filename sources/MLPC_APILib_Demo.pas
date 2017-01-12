@@ -319,10 +319,11 @@ var i,j,k:integer;
 
   end;
 
-  if  ApprOnProgr   and                      // открыто окно Подвода
-         (((ApproachParams.ZStepsDone) < 0)    // Зонд выше зоны, в которой изменяется его длина
+  if  ApprOnProgr   then                      // открыто окно Подвода
+   begin
+        if  (((ApproachParams.ZStepsDone) < 0)    // Зонд выше зоны, в которой изменяется его длина
           or (ApproachParams.ZStepsNumb < 0))       //или  выполняется отвод
-      then   //approach simulation
+         then   //approach simulation
          begin
            for i := 0 to pCount - 1 do
              begin
@@ -343,10 +344,9 @@ var i,j,k:integer;
             result:=S_OK;
          end
        else
-           if  ApprOnProgr   and                      // открыто окно Подвода
-              (ApproachParams.ZStepsNumb > 0) and // Подвод при уже захваченном взаимодействии
+         if  (ApproachParams.ZStepsNumb > 0) and // Подвод при уже захваченном взаимодействии
               (abs(DemoParams.Z) < abs(ZGatediscr_min)) and (abs(DemoParams.Z) < abs(ZGatediscr_max))  then
-             begin
+         begin
               for i := 0 to pCount - 1 do
                 begin
                    PIntegerArray(DATA)[i*fSizeElements]:=3;
@@ -360,19 +360,19 @@ var i,j,k:integer;
                    inc(k,AlgParams.SizeElements);
                 end;
               result:=S_OK;
-             end
-
-  else
-  begin
-   k:=0;                  // Читать из буфера
-   for i:=0 to pCount*fSizeElements- 1 do
+         end
+   end
+   else
    begin
+    k:=0;                  // Читать из буфера
+    for i:=0 to pCount*fSizeElements- 1 do
+    begin
      if (fcount*fSizeElements+i)< fNElements*fSizeElements then    //     !!!
-   begin
+      begin
        PIntegerArray(DATA)[i]:=PIntegerArray(fDataBufIn)[(fcount*fSizeElements+i)];
        inc(k,1);   //280113
-   end;
-   end;
+      end;
+    end;
    //    inc(fcount,pCount);        //280113
  //
      k:=k div fSizeElements;   //280113
