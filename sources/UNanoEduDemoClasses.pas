@@ -1545,7 +1545,7 @@ function  TScannerTrainnigDemo.FreeBuffers:integer;
     inherited FreeBuffers;
     Finalize(ArDemoChannelParams) ;
     FreeMem(DataBufIn);
- 
+
  end;
 
 function  TTopographyDemo.InitRegimeVars:integer;
@@ -1568,7 +1568,7 @@ begin
    UAM:              FileName:=DemoDataDirectory+DemoSample+'\'+DemoForceFile;
                end;
   LoadDemoData(FileName);
-  if ScanParams.flgFastSimulator then GETCOUNT_DELAY:=10;
+  if ScanParams.flgFastSimulator then GETCOUNT_DELAY:=10;     //add 17/01/10
 end;
 procedure  TTopographyDemo.SetPathSpeed;
 var
@@ -2005,7 +2005,18 @@ procedure  TLithoSFMDemo.SetPathSpeed;
 var
 DemoPointDelay:integer;
 begin
-  DemoPointDelay:=round(1000*ScanParams.X/(ScanParams.ScanRate));  // mc
+//  DemoPointDelay:=round(1000*ScanParams.X/(ScanParams.ScanRate));  // mc
+ with ScanParams do
+ if (ScanPath=OneX) then
+  begin
+   if ScanParams.flgFastSimulator then DemoPointDelay:=round(100*ScanParams.X/ScanParams.ScanRate)
+     else DemoPointDelay:=round(1000*ScanParams.X/ScanParams.ScanRate)
+  end
+  else
+  begin
+   if ScanParams.flgFastSimulator then  DemoPointDelay:=round(100*ScanParams.Y/ScanParams.ScanRate)
+     else DemoPointDelay:=round(1000*ScanParams.Y/ScanParams.ScanRate)
+  end;
   PATH_SPDDemo:=round(1.5*DemoPointDelay);
  end;
 function  TLithoSFMDemo.InitRegimeVars:integer;
@@ -2015,6 +2026,7 @@ begin
  Inherited  InitRegimeVars;
  filename:=DemoDataDirectory+ DemoSampleLitho+'\'+DemoLithoSFMFile;
  LoadDemoData(filename);
+  if ScanParams.flgFastSimulator then GETCOUNT_DELAY:=10;
 end;
 
 procedure TLithoSFMDemo.StartDraw;

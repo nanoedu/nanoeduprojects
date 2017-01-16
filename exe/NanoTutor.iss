@@ -141,7 +141,8 @@ Filename: "{userappdata}\NanoTutor\SPMconfigUsers.ini"; Section: "Approach Param
 Filename: "{userappdata}\NanoTutor\SPMconfigUsers.ini"; Section: "Language"; Key: "Help"; String: "ENG"    
 ;disabled
 Filename: "{userappdata}\NanoTutor\SPMconfigUsers.ini"; Section: "Users"; Key: "Flg Change User Level"; String:  "1"  ; 
-Filename: "{userappdata}\NanoTutor\SPMconfigUsers.ini"; Section: "Users"; Key: "User Level"; String:  "{code:GetUser}"
+;Filename: "{userappdata}\NanoTutor\SPMconfigUsers.ini"; Section: "Users"; Key: "User Level"; String:  "{code:GetUser}"
+Filename: "{userappdata}\NanoTutor\SPMconfigUsers.ini"; Section: "Users"; Key: "User Level"; String:  "Advanced"
 [Icons]
 Name: "{group}\NanoTutor"; Filename: "{app}\NanoTutor.exe"
 ; NOTE: The following entry contains an English phrase ("on the Web"). You are free to translate it into another language if required.
@@ -240,7 +241,7 @@ begin
   result:=true;
   if lng='RUS' then result:=false;
 end;
-
+(*
 procedure InitializeWizard;
 begin
   { Create the pages }
@@ -289,5 +290,5 @@ begin
   { Could also be split into separate GetUserName and GetUserCompany functions }
   Result := userlevel;
  end;
-
+*)
  

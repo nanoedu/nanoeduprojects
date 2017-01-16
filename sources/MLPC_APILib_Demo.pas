@@ -397,7 +397,6 @@ end;
  else fPATH_SPDDemo:=PATH_SPDDemo;
   if FCount<(FNElements-AlgParams.NGetCountEvent) then pN:=AlgParams.NGetCountEvent
                                                   else pN:=FNElements-FCount;
-
  end;
 
  function TMLPCChannelWriteDemo.Write(Data: pInteger; var pCount: Integer): HResult; stdcall;

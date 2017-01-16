@@ -349,7 +349,7 @@ if CreateChannels(AlgParams.NChannels) then
   begin
     nread:=1;
 //       sleep(300);
-    // nread:=ScanParams.ScanPoints;
+// nread:=ScanParams.ScanPoints;
         if FlgStopJava then
          begin
       //     sleep(500);
@@ -441,15 +441,14 @@ if CreateChannels(AlgParams.NChannels) then
           GetScanData;
            if flgCurrentUserLevel = Demo then
                     begin
-                     if ScanParams.ScanMethod = litho then
-                       lithoAct_discr:= LithoParams.ScaleAct*255/TransformUnit.Znm_d
-                     else if  ScanParams.ScanMethod = lithoCurrent then
-                        lithoAct_discr:= LithoParams.ScaleAct*255/TransformUnit.BiasV_d;
-
-                     calcDemoImitationParams(ScanParams.ScanRate,PidParams.Ti, lithoAct_discr,
-                     smooth_nm, noise_discr, noise_speed_discr, depth_nm, lithodepth_nm);
-                     FBGain_Speed_DemoImitation((smooth_nm-smooth0_nm), noise_discr-noise0_discr, noise_speed_discr-noise_speed0_discr,
+                     if ScanParams.ScanMethod = litho then lithoAct_discr:= LithoParams.ScaleAct*255/TransformUnit.Znm_d
+                     else if  ScanParams.ScanMethod = lithoCurrent then lithoAct_discr:= LithoParams.ScaleAct*255/TransformUnit.BiasV_d;
+                      calcDemoImitationParams(ScanParams.ScanRate,PidParams.Ti, lithoAct_discr,smooth_nm, noise_discr, noise_speed_discr, depth_nm, lithodepth_nm);
+                      if (not ScanParams.flgFastSimulator) then     // cancel noise
+                      begin
+                       FBGain_Speed_DemoImitation((smooth_nm-smooth0_nm), noise_discr-noise0_discr, noise_speed_discr-noise_speed0_discr,
                                (depth_nm-depth0_nm),lithodepth_nm-lithodepth0_nm, ScanData.AquiTopo, TempAquiData);
+                      end;
                     end;
       try
           i0:=0;
