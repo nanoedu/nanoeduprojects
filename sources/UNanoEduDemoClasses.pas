@@ -2017,7 +2017,8 @@ begin
    if ScanParams.flgFastSimulator then  DemoPointDelay:=round(100*ScanParams.Y/ScanParams.ScanRate)
      else DemoPointDelay:=round(1000*ScanParams.Y/ScanParams.ScanRate)
   end;
-  PATH_SPDDemo:=round(1.5*DemoPointDelay);
+ API.PATHSPD:=round(1.5*DemoPointDelay);
+ // PATH_SPDDemo:=round(1.5*DemoPointDelay);
  end;
 function  TLithoSFMDemo.InitRegimeVars:integer;
  var I,J:INTEGER;

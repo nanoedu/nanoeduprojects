@@ -84,6 +84,10 @@ begin
   true:DemoSample:='stm\samples\'+ComboBoxSample.text;
  false:DemoSample:='sfm\samples\'+ComboBoxSample.text;
       end;
+    ScanParams.XBegin:=0;
+    ScanParams.YBegin:=0;
+    ScanParams.X:=5000;
+    ScanParams.Y:=5000;
   ModalResult := mrOK;
 end;
 

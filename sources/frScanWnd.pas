@@ -1511,7 +1511,7 @@ begin
 //   UpdateStrings;
   //     FlgApproachOK:=true; //291012
    flgNew_XYBegin:=true; // 11/02/13         or false; ??????
-if (flgUNit=ProBeam) or (flgUnit=MicProbe)then MinValidMicroStepDelay:=MinValidMicroStepDelaySEM;
+   if (flgUNit=ProBeam) or (flgUnit=MicProbe)then MinValidMicroStepDelay:=MinValidMicroStepDelaySEM;
   // Nanoedu.GetCurrentPosition;
    CaptionAdd:='';
    StopBtn.Down:=true;
@@ -1593,8 +1593,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
      RadioTypeLitho.itemindex:=0;
      LithoParams.VMax:=$7FFF;    // 10 V discret
      LithoParams.VMin:=apitype($8000);   //-10 Vdiscret
-
-      case RadioTypeLitho.itemindex of
+        case RadioTypeLitho.itemindex of
     0: begin   //Force
         Scanparams.ScanMethod:=Litho;
         TimeActScale:=1e-6;
@@ -1813,9 +1812,9 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
     end;
     *)
      ImageSideL.Stretch:=True;
-     ImgRChart.ControlStyle :=  ImgRChart.ControlStyle  + [csOpaque];
-     ImgLChart.ControlStyle :=  ImgRChart.ControlStyle  + [csOpaque];
-     ImageSideL.ControlStyle:=  ImageSideL.ControlStyle + [csOpaque];
+     ImgRChart.ControlStyle     :=  ImgRChart.ControlStyle  + [csOpaque];
+     ImgLChart.ControlStyle     :=  ImgRChart.ControlStyle  + [csOpaque];
+     ImageSideL.ControlStyle    :=  ImageSideL.ControlStyle + [csOpaque];
      PageCtrlScan.ControlStyle  := PageCtrlScan.ControlStyle + [csOpaque];
      ImageScanArea.ControlStyle := ImageScanArea.ControlStyle + [csOpaque];
   //   Panel8.Visible:=True;
@@ -1837,7 +1836,13 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
    if flgAllDataReadFromAdapter then ApprLinesParamsCalcFromAdapter
                                 else ApprLinesParamsCalc(HardWareOpt.ScannerNumb);
     SetXYMax;
-  if FlgCurrentUserLevel =Demo then   SetXYMaxDemo(PageCtlRight.ActivePageIndex);
+  if FlgCurrentUserLevel =Demo then
+   begin
+    //ScanParams.XBegin:=0;
+    //ScanParams.YBegin:=0;
+    SetXYMaxDemo(PageCtlRight.ActivePageIndex);
+   end;
+    
   InitWinScanAreaParams;
   PageCtrlScan.ActivePage:=TabSheetScanArea;
   PageCtrlScan.ActivePage.HighLighted:=True;
@@ -3532,6 +3537,8 @@ begin
    BitMapLTemp.Assign(ImgLChart.BackImage.Bitmap);
    if FlgCurrentUserLevel=Demo  then
     begin
+   // ScanParams.XBegin:=0;
+   // ScanParams.YBegin:=0;
      if DemoDataInfoArray[PageCtlRight.ActivePageIndex].Nx<>0 then SetXYMaxDemo(PageCtlRight.ActivePageIndex);
      ScanAreaUpdate;
      ApplyBtnClick(self);

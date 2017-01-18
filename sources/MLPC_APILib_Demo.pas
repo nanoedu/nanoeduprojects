@@ -388,6 +388,10 @@ end;
  function  TMLPCChannelReadDemo.get_Count(out pN: Integer): HResult; stdcall;
  begin
  result:=S_OK;
+ //  17/01/17
+// при старте сканирования или подобном процессе   fPATH_SPDDemo:=PATH_SPDDemo;
+// далее функция возвращает 0 пока          fPATH_SPDDemo>0
+// иначе количество прочитанных точек
  fPATH_SPDDemo:=fPATH_SPDDemo-GETCOUNT_DELAY;
  if fPATH_SPDDemo>0 then
  begin
