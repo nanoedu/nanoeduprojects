@@ -6,7 +6,7 @@ interface
 
 procedure SetScanRate(L:double;ScanDiscrNumb,NPoints:integer;var Rate:single; var Delay:integer);
 procedure SetScanRateFine(L:double;ScanDiscrNumb,NPoints:integer);
-procedure CalcScanRateDriverLimit(L:double; NPoints:integer; parameter:single;  var Rate:single);
+procedure CalcScanRateDriverLimit(L:double; NPoints:integer; parameter:single;  var Rate:single; var RateBW:single);
 // L - nm, Scan length (X or Y in the dependence of scan direction);
 // FieldLen - nm, Max size of scaning field in given direction;
 // NPoints - Nx or Ny (depends of scan direction);
@@ -38,14 +38,15 @@ uses CSPMVar;
 CONST  alfthr=0.01;          // if Sum(TMeasurePoint)/TScan <alfthr
 
 
-procedure CalcScanRateDriverLimit(L:double; NPoints:integer; parameter:single;  var Rate:single);
+procedure CalcScanRateDriverLimit(L:double; NPoints:integer; parameter:single;  var Rate:single; var RateBW:single);
 var rateLimit:single;
     lineTime_s:single;
 begin
 // parameter =  NPoints/lineTime_s;   - такой смысл имеет параметр
   lineTime_s := NPoints/parameter;
   rateLimit :=L/lineTime_s;
-  if(Rate > rateLimit) then Rate:= rateLimit;
+  if (Rate > rateLimit)     then Rate:= rateLimit;
+  if (RateBW>3*rateLimit)   then RateBW:=3*rateLimit;
 end;
 
 

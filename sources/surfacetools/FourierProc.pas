@@ -1,5 +1,5 @@
 unit FourierProc;
-
+//edited 19/01/17
 interface
 uses  SysUtils, Classes,GlobalType,Globalscandatatype{DCL}, Dialogs;
  type
@@ -751,7 +751,7 @@ begin
   FiltTemplateFile:=FileName;
   ReadFiltTemplate(FiltTemplateFile,Template);
   if (TNX=Template.NX)  and (TNY=Template.NY) then
-   begin
+  begin
     try
       SetLength(Hp,TNY*TNX);
       GenerateFilt();
@@ -771,8 +771,8 @@ begin
      cfft2(FilteredData,TNX,TNY,1);
      FiltrResultMinVal:=0;
      nxy:=1/NY0/NX0;
- for i1:=0 to TNY-1 do
-  for i2:=0 to TNX-1 do
+  for i1:=0 to TNY-1 do
+   for i2:=0 to TNX-1 do
    begin
     FilteredData[TNX*i1+i2].re:=FilteredData[TNX*i1+i2].re*nxy;{/NY0/NX0;}
     FilteredData[TNX*i1+i2].im:=FilteredData[TNX*i1+i2].im*nxy;{/NY0/NX0;}
@@ -780,8 +780,8 @@ begin
                                FiltrResultMinVal:=FilteredData[TNX*i1+i2].re;
    end;
   FiltrResultMinVal:=abs(FiltrResultMinVal);
- for i1:=0 to TNY-1 do
-  for i2:=0 to TNX-1 do
+  for i1:=0 to TNY-1 do
+   for i2:=0 to TNX-1 do
    begin
     FilteredData[TNX*i1+i2].re:=FilteredData[TNX*i1+i2].re+FiltrResultMinVal;
    end;
@@ -793,15 +793,24 @@ begin
              begin
                p[j,i]:=round(FilteredData[i*TNX+j].re);
              end;
-  
- finally
-   Template.data:=nil;
-   Hp:=nil;
-   FilteredData:=nil;
- end; {finally}
+
+  finally
+  // Template.data:=nil;
+  // Hp:=nil;
+  // FilteredData:=nil;
+   FreeAndNil(Template);
+   Finalize(Hp);//:=nil;
+   Finalize(FilteredData);
+  end; {finally}
  end
  else
+ begin
    ShowMessage('Wrong Filter Size; Build new Filter');
+   FreeAndNil(Template);
+   Finalize(Hp);//:=nil;
+   Finalize(FilteredData);
+
+ end;
 
 end; {procedure ExecuteFourierFiltrat();}
 

@@ -4303,7 +4303,10 @@ OneX:begin
        if  FlgStopScan  then
                         begin
                             if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
-                               if  FlgCurrentUserLevel<>Demo then  CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate);
+                               if  FlgCurrentUserLevel<>Demo then
+                               begin
+                                CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate,ScanParams.ScanRateBW);
+                               end;
                              SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                             SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                         end
@@ -4312,7 +4315,10 @@ OneX:begin
                               then
                                   begin
                                    if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
-                                   if  FlgCurrentUserLevel<>Demo then  CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate);
+                                   if  FlgCurrentUserLevel<>Demo then
+                                   begin
+                                    CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate,ScanParams.ScanRateBW);
+                                   end;
                                    SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                                    SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                                   end
@@ -4348,7 +4354,10 @@ OneY: begin
         if  FlgStopScan  then
                          begin
                           if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
-                                  if  FlgCurrentUserLevel<>Demo then CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate);
+                                  if  FlgCurrentUserLevel<>Demo then
+                                  begin
+                                   CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,ScanParams.ScanRate,ScanParams.ScanRateBW);
+                                  end;
                            SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                            SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                          end
@@ -4357,7 +4366,8 @@ OneY: begin
                               then
                               begin
                                 if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
-                                   if  FlgCurrentUserLevel<>Demo then   CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate);
+                                   if  FlgCurrentUserLevel<>Demo then
+                                    CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,ScanParams.ScanRate,ScanParams.ScanRateBW);
                                 SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                                 SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                               end

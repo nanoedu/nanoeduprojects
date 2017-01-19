@@ -448,7 +448,8 @@ if CreateChannels(AlgParams.NChannels) then
                       begin
                        FBGain_Speed_DemoImitation((smooth_nm-smooth0_nm), noise_discr-noise0_discr, noise_speed_discr-noise_speed0_discr,
                                (depth_nm-depth0_nm),lithodepth_nm-lithodepth0_nm, ScanData.AquiTopo, TempAquiData);
-                      end;
+                      end
+                      else  GETCOUNT_DELAY:=10;
                     end;
       try
           i0:=0;

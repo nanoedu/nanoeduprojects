@@ -62,7 +62,7 @@ procedure TFormProgramSettings.BitBtnOKClick(Sender: TObject);
 begin
      SetSchemeName(Combobox1.Text);
      ScanParams.flgFastSimulator:=CheckBoxFastSimulation.checked;
-     SetFlgFastSimulation;
+   //  SetFlgFastSimulation;
      modalResult:=mrOK;
 end;
 

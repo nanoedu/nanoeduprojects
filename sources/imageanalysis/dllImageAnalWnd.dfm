@@ -39,7 +39,7 @@ object ImgAnalysWnd: TImgAnalysWnd
       Top = 1
       Width = 481
       Height = 716
-      ActivePage = TabSheetCalibration
+      ActivePage = tabSheetSpectr
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText

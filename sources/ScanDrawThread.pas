@@ -711,7 +711,8 @@ begin
                                                   if (not ScanParams.flgFastSimulator)
                                                      then   FBGain_Speed_DemoImitation((smooth_nm-smooth0_nm), noise_discr-noise0_discr,
                                                                                        noise_speed_discr-noise_speed0_discr,
-                                                                                      (depth_nm-depth0_nm), 0, ScanData.AquiTopo, TempAquiData);
+                                                                                      (depth_nm-depth0_nm), 0, ScanData.AquiTopo, TempAquiData)
+                                                       else  GETCOUNT_DELAY:=10;
 
                                                     if  Scanparams.Scanmethod in ScanmethodSetAdd then
                                                           begin

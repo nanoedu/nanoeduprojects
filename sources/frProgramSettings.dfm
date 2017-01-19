@@ -26,6 +26,10 @@ object FormProgramSettings: TFormProgramSettings
     TabOrder = 0
     object TabSheetScheme: TTabSheet
       Caption = 'Scheme'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -45,7 +49,7 @@ object FormProgramSettings: TFormProgramSettings
           Top = 56
           Width = 201
           Height = 21
-          ItemHeight = 13
+          ItemHeight = 0
           TabOrder = 0
           Text = 'ComboBox1'
         end
@@ -54,6 +58,10 @@ object FormProgramSettings: TFormProgramSettings
     object TabSheetChangeLevel: TTabSheet
       Caption = ' Experiment/Simulator'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label1: TLabel
         Left = 16
         Top = 128
@@ -107,6 +115,10 @@ object FormProgramSettings: TFormProgramSettings
       Caption = 'Online service'
       ImageIndex = 2
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object CheckBox: TCheckBox
         Left = 96
         Top = 96
@@ -120,6 +132,10 @@ object FormProgramSettings: TFormProgramSettings
     object TabSheetSimulator: TTabSheet
       Caption = 'Simulator settings'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object CheckBoxFastSimulation: TCheckBox
         Left = 24
         Top = 40

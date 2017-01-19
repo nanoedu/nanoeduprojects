@@ -2717,7 +2717,7 @@ begin
 
    WorkDefDirectory:=UserNanoeduWorkDocumentsPath;
 
-   if DirectoryExists(WorkDEfDirectory) then  CreateDir(WorkDEfDirectory);
+   if DirectoryExists(WorkDefDirectory) then  CreateDir(WorkDefDirectory);
 
    WorkDirectory:=UserNanoeduWorkDocumentsPath;
 
@@ -3486,7 +3486,11 @@ begin
           Approach.Close;
         end;
         if flgfirsttimeSTM then UsersParamsDef
-                            else UsersParamsLast(ConfigUsersIniFile);
+                            else
+                            begin
+                             UsersParamsLast(ConfigUsersIniFile);
+                             ScanParams.flgFastSimulator:=false;
+                            end;
         flgfirsttimeSTM:=false;
         FreeAndNil(NanoEdu);
   case FlgCurrentUserLevel of
@@ -5270,8 +5274,14 @@ begin
         Application.HelpFile :=ExeFilePath+'NanoEduHelpEng.chm';
         ReportTemplPath:=CommonNanoeduDocumentsPath+ReportTemplEDefPath;
       end;
-      Application.ProcessMessages;
-    end;
+      if  assigned( WorkView) then
+       begin
+          WorkView.close;
+          Application.ProcessMessages;
+          CreateWorkViewWnd(true);
+       end;
+         Application.ProcessMessages;
+       end;
 
   if assigned(NoFormUnitLoc) then
   begin
@@ -5315,7 +5325,11 @@ begin
         FlgStopScan:=True;
         SetIntActOnProgr:=False;
         if flgfirsttimeSFM then UsersParamsDef
-                           else UsersParamsLast(ConfigUsersIniFile);
+                           else
+                           begin
+                            UsersParamsLast(ConfigUsersIniFile);
+                            ScanParams.flgFastSimulator:=false;
+                           end;
         flgfirsttimeSFM:=false;
         FreeAndNil(NanoEdu);
              case FlgCurrentUserLevel of

@@ -367,11 +367,12 @@ const
    D3Top=2;
    D2Geo=3;
    D3Geo=4;
+Const
 	strgl0: string = ''; (* OUT memory TopoSPM *)
 	strgl1: string = ''; (* Close all Fragments of the Image! *)
 	strgl2: string = ''; (* Library Load Error *)
 	strg13: string = ''; (* It is not enough points. Increase a fragment. *)
-
+	strg14: string = ''; (* The Fourier filter not exists!Use the Image Analysis tool to create one !! *) // TSI: Localized (Don't modify!)
 var
  smooth              : boolean = TRUE;
  lighting            : boolean = TRUE;
@@ -1558,6 +1559,7 @@ end;
 
 procedure TfrmGL.UpdateStrings;
 begin
+  strg14 := siLangLinked1.GetTextOrDefault('strstrg14' (* 'The Fourier filter not exists!Use the Image Analysis tool to create one !!' *) );
   str_s := siLangLinked1.GetTextOrDefault('strstr_s' (* ' s' *) );
   strg13 := siLangLinked1.GetTextOrDefault('strstrg13');
   strgl2 := siLangLinked1.GetTextOrDefault('strstrgl2');
@@ -3539,7 +3541,6 @@ end;
 procedure TfrmGL.FormCreate(Sender: TObject);
 begin
   UpdateStrings;
-
 end;
 
 procedure TfrmGL.FormDblClick(Sender: TObject);
@@ -5036,8 +5037,12 @@ procedure TfrmGL.FourierFiltration1Click(Sender: TObject);
    PFiltTemplFile:PChar;
 begin
     DC:=GetDC(handle);
+    if not fileexists(UserIniFilesPath+'DATA\'+FourierFiltTemplFile) then
+    begin
+      MessageDlgCtr(strg14{'The Fourier filter not exists!Use the Image Analysis tool to create one !!'}, mtInformation,[mbOk],0);
+      exit;
+    end;
     PFiltTemplFile:=PChar(UserIniFilesPath+'DATA\'+FourierFiltTemplFile);
-
     ExecuteFourierFiltrat(DataDraw.Nx,DataDraw.Ny,DataDraw.data, PFiltTemplFile);
     inc(CountUndo);
     new(PntFileName);
@@ -5055,7 +5060,6 @@ begin
     GradientLabels;
     CopyDataDrawToTopo;
   releaseDc(Handle,DC);
-
 end;
 
 
@@ -5341,6 +5345,7 @@ end;
 
 
 end.
+
 
 
 

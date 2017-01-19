@@ -74,7 +74,7 @@ uses  SysUtils, Classes,GlobalType,GlobalScanDataType,GlobalDCL;
   procedure ImgContinue(var dat:TDataFloatCount; convsize:integer);
   procedure DelConvSurf(var dat:TDataFloatCount; convsize:integer);
   procedure Conv2m2(var Data:TDataFloatCount; S:integer);
-  function BarlettW(sizeX,sizeY,sizeW:integer; var WX,WY:integer):PMas2Sing;
+  function  BarlettW(sizeX,sizeY,sizeW:integer; var WX,WY:integer):PMas2Sing;
   procedure Filter2(var Data:TDataFloatCount; Window:PMas2Sing;WX,WY:integer);
 implementation
 
