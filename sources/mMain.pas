@@ -1282,26 +1282,43 @@ begin
 end;
 
 procedure TMain.RunOscilloscopeExecute(Sender: TObject);
-   var H:HWnd;
-
+var H:HWnd;
 begin
+ begin
    RunOscilloscope.enabled:=False;
  if   flgVideoOscConflict then
  begin
   h:=FindWindow(nil,Pchar(strm41{'MSVideo'}));
    if h=0 then
    begin
-    ExecAndWaitMainOSC(ExeFilePath+'oscilloscope\oscilloscope.exe' ,'','Oscilloscope',SW_showNORMAL);
+   if sLanguage='RUS'  then
+  begin
+     ExecAndWaitMainOSC(ExeFilePath+'oscilloscope\oscilloscope.exe' ,'','Oscilloscope',SW_showNORMAL);
+  end
+  else
+  begin
+   ExecAndWaitMainOSC(ExeFilePath+'oscilloscope\eng\oscilloscope.exe' ,'','Oscilloscope',SW_showNORMAL);
+  end;
     sleep(300);
    end
    else  silang1.MessageDlg(strm33{'Close Video before Start!'},mtWarning ,[mbOK],0);
  end
  else
  begin             //SiGraph library test
-     ExecAndWaitMainOSC(ExeFilePath+'oscilloscope\oscilloscope' ,'','Oscilloscope',SW_showNORMAL);
+//     ExecAndWaitMainOSC(ExeFilePath+'oscilloscope\oscilloscope' ,'','Oscilloscope',SW_showNORMAL);
+  if sLanguage='RUS'  then
+  begin
+     ExecAndWaitMainOSC(ExeFilePath+'oscilloscope\oscilloscope.exe' ,'','Oscilloscope',SW_showNORMAL);
+  end
+  else
+  begin
+   ExecAndWaitMainOSC(ExeFilePath+'oscilloscope\eng\oscilloscope.exe' ,'','Oscilloscope',SW_showNORMAL);
+  end;
+
     sleep(300);
  end;
      RunOscilloscope.enabled:=True;
+end;
 end;
 
 procedure Tmain.MainStatusBarFill;
@@ -2606,6 +2623,7 @@ end;
 procedure TMain.FormCreate(Sender: TObject);
 var iniCSPM:TiniFile;
     sFile:string;
+    videofilename:string;
     deflang,verwindow:string;
        oSVER:STRING;
    MajVer,MinVer:BYTE;
@@ -2726,6 +2744,18 @@ begin
    GetWorkDirAndFirstTimeDetectPath(sFile);
 
     flgUnit:=GetDeviceName;
+
+  if sLanguage='RUS' then
+  begin
+   videofileName:=CommonNanoeduDocumentsPath+'video\rus\'+tutvideorus;//'\3D_Модель_NanoEducator_LE.mp4'
+  end
+  else
+  begin
+   videofileName:=CommonNanoeduDocumentsPath+'video\rus\'+tutvideoeng;//'\3D_Model_NanoEducator_LE.mp4'
+  end;
+   if Fileexists(videofilename) then VideoMenu.visible:=true
+                                else VideoMenu.visible:=false;
+
 
     ScanParams.flgFastSimulator:=GetFlgFastSimulation;
       case   flgUnit of

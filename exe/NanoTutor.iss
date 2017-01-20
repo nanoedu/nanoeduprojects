@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=NanoTutor
-AppVerName=NanoTutor ver 17.01.13.4
-OutputBaseFilename=NanoTutor-17.01.13.4
+AppVerName=NanoTutor ver 17.01.13.5
+OutputBaseFilename=NanoTutor-17.01.13.5
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -95,7 +95,7 @@ Source: "SPMPalettesDef.ini"; DestDir: "{app}";                  Flags: ignoreve
 Source: "ScannerIniDBase\*.*"; DestDir: "{app}\ScannerIniDBase"; Flags: ignoreversion recursesubdirs
 Source: "oscilloscope\*.*"; DestDir: "{app}\oscilloscope";       Flags: ignoreversion recursesubdirs;
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
-Source: "oscilloscope\*.dll"; DestDir: "{app}";    Flags: ignoreversion recursesubdirs;        
+Source: "oscilloscope\eng\*.dll"; DestDir: "{app}";    Flags: ignoreversion recursesubdirs;        
 Source: "javabin\*.jar";DestDir: "{app}\javabin";  Flags: ignoreversion recursesubdirs;
 Source: "scheme\*.bin"; DestDir: "{app}\scheme";   Flags: ignoreversion recursesubdirs;
 Source: "data\*.*";     DestDir: "{app}\data";     Flags: ignoreversion;
