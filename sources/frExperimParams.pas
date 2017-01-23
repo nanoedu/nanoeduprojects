@@ -2136,7 +2136,7 @@ begin
            lblCutImaxinfo.Visible:=not lblCutImaxinfo.Visible;
           end;
           PanelDelay.Visible:=not  PanelDelay.Visible;
-           lblEditFastDelay.visible :=not lblEditFastDelay.visible;
+         //  lblEditFastDelay.visible :=not lblEditFastDelay.visible;
            lblEditRateLimitParam.visible:= not  lblEditRateLimitParam.visible;
      //     HardWareSheet.TabVisible:=not HardWareSheet.TabVisible
       end;

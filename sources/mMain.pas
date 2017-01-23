@@ -2683,6 +2683,7 @@ begin
                         siLang1.ActiveLanguage:=1;
                         ReportTemplPath:=CommonNanoeduDocumentsPath+ReportTemplEDefPath;
                         Application.HelpFile :=ExeFilePath+'NanoEduHelpEng.chm';
+                        SmesharikiPinCode.Visible:=false;
                     end;
    UpdateStrings;
  if not assigned(NoFormUnitLoc) then  NoFormUnitLoc:= TNoFormUnitLoc.Create(self);
@@ -2691,6 +2692,7 @@ begin
              Formlog.memolog.Lines.add(deflang);
              Formlog.memolog.Lines.add(sLanguage);
       {$ENDIF}
+    DigNanoeduDevName:=ProgramName;
     basecaption:=ProgramName;//strm11{'Nanoeducator;'};
     baseworkdircaption:=strm12{' Work Directory - '};
     addcaption:='';

@@ -802,7 +802,7 @@ str:='';
     if AnsiPos(LowerCase(strvidcontroller),LowerCase(str))<>0 then
       begin
        {$IFDEF DEBUG}
-         Formlog.memolog.Lines.add(DigNanoeduDevName+'removed !');
+         Formlog.memolog.Lines.add(DigNanoeduDevName+' removed !');
 
       {$ENDIF}
         if FlgCurrentUserLevel<>Demo then   Main.ActionNew.Enabled:=false;

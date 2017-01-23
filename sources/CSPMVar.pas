@@ -2,7 +2,7 @@
 unit CSPMVar;
 //
 interface
-uses  messages,classes,GlobalType,SyncObjs, mtplib_tlb,PortableDeviceApiLib_TLB,
+uses  messages,classes,GlobalType,GlobalVar,SyncObjs, mtplib_tlb,PortableDeviceApiLib_TLB,
       NL3LFBLib_TLB,MLPC_APILib_TLB,MLPC_APILib_Demo,MLPC_API2Lib_TLB,MLPC_API2DEMOLIB,UDeviceEvents;
 
 const DAC12DiscrToVolt=$3FF8/5;
@@ -19,7 +19,7 @@ const VLimitSTM=7;  //STM Cutter V
 const  EDU_HARDWARE_ID :string= 'USB\VID_0438&PID_0FDF&REV_0100&MI_00';
 const  EDU_INSTANCE_ID_PREF:string ='USB#VID_0438&PID_0FDF';//&MI_00';  //   '\'
 const  EDU_NAME_PREFFIX: string     = '\\?\USB#VID_0438&PID_0FDF&MI_00#';   //digital
-const  DigNanoeduDevName='NanoTutor';//'NanoeducatorLE';//'Scanning Probe Microscope Controller';
+//const  DigNanoeduDevName='NanoTutor';//'NanoeducatorLE';//'Scanning Probe Microscope Controller';
 const  DigNanoeduDevOldName='NanoeducatorLE';//'Scanning Probe Microscope Controller';
 const  DigNanoeduDevBaseName='MLPC';
 //
@@ -225,6 +225,7 @@ const //motor
 //  Type pagetype=(empty,header,params,curve);
 
 var
+  DigNanoeduDevName:string='NanoTutor';
   ScanmethodSetTopo:TScanmethodSet;
   ScanmethodSetOneL:TScanmethodSet;
   ScanmethodSetLitho:TScanmethodSet;
