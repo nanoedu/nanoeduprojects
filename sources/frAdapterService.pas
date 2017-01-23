@@ -1006,12 +1006,20 @@ begin
      s:='';
      if AdapterVer_hi <10  then s:='0' ;
      lblAdapterVer.Caption:=inttostr(AdapterVer_lo)+'.'+s+ inttostr(AdapterVer_hi) ;
-     case AdapterID of
+ (*    case AdapterID of
  AdNotConnectedId:lblAdapterID.Caption:='Not connection'; // exit messages
          AdNanoId:lblAdapterID.Caption:='NanoeducatorLE';
          AdReniId:lblAdapterID.Caption:='NanoeducatorLE + ReniShaw';
            AdPMId:lblAdapterID.Caption:='NanoeducatorLE + Piezomover';
          AdDemoID:lblAdapterID.Caption:='Demo NanoeducatorLE';
+     end;
+     *)
+     case AdapterID of
+ AdNotConnectedId:lblAdapterID.Caption:='Not connection'; // exit messages
+         AdNanoId:lblAdapterID.Caption:='NanoTutor';
+         AdReniId:lblAdapterID.Caption:='NanoTutor + ReniShaw';
+           AdPMId:lblAdapterID.Caption:='NanoTutor + Piezomover';
+         AdDemoID:lblAdapterID.Caption:='Simulator NanoTutor';
      end;
      PageControl.ActivePage:=TabSheetScanner;
      CheckListBoxWrite.Checked[0]:=true;   CheckListBoxRead.Checked[0]:=true;
