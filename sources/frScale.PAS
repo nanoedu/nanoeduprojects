@@ -54,7 +54,7 @@ end;
 procedure TScaleGL.FormCreate(Sender: TObject);
 begin
 siLangLinked1.ActiveLanguage:=Lang;
-  height:=370;
+  height:=390;
   width:=40;
   top:=Main.clientHeight-self.Height-15;
   left:=Main.ClientWidth-self.width-5;

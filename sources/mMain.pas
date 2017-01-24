@@ -3105,6 +3105,7 @@ begin
                ActionCascadeExecute(Sender);
                exit;
            end;
+    APPLICATION.ProcessMessages ;
 
  with ActiveGLW do
  begin
@@ -3137,13 +3138,13 @@ begin
     end;
    end;
 //
-//   ToolsPanel.checked:=flgViewTools;
+   ToolsPanel.checked:=flgViewTools;
 ///
    if flgViewTools then   ActionImageTools.Visible:=false;
  end; //with
+
  if assigned(ImageTools)   then NotifyAllToPrilipat;
  APPLICATION.ProcessMessages ;
-
 end;
 
 (*

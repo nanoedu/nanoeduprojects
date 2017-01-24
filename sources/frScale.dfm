@@ -3,8 +3,8 @@ object ScaleGL: TScaleGL
   Top = 206
   BorderIcons = [biSystemMenu]
   Caption = 'Z Scale'
-  ClientHeight = 336
-  ClientWidth = 140
+  ClientHeight = 409
+  ClientWidth = 152
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object ScaleGL: TScaleGL
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 23
+    Left = 8
     Top = 380
     Width = 52
     Height = 13
@@ -34,7 +34,7 @@ object ScaleGL: TScaleGL
     Caption = 'Maximum'
   end
   object TrackBarSc: TTrackBar
-    Left = 97
+    Left = 121
     Top = 0
     Width = 30
     Height = 393
