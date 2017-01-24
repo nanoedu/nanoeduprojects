@@ -4,7 +4,7 @@ object SpectroScopyV: TSpectroScopyV
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'SpectroScopy  I-V '
-  ClientHeight = 470
+  ClientHeight = 480
   ClientWidth = 980
   Color = clGray
   Font.Charset = RUSSIAN_CHARSET
@@ -27,7 +27,7 @@ object SpectroScopyV: TSpectroScopyV
   TextHeight = 16
   object StatusBar: TStatusBar
     Left = 0
-    Top = 451
+    Top = 461
     Width = 980
     Height = 19
     Panels = <
@@ -44,24 +44,27 @@ object SpectroScopyV: TSpectroScopyV
     SimpleText = 
       'Click Left Button - PopUp Menu; Curves( Ctrl A -Average; Ctrl De' +
       'l- Delete ; Pg Up,Pg Down- Next;Previous)'
+    ExplicitTop = 451
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 980
-    Height = 451
+    Height = 461
     Align = alClient
     ParentBackground = False
     TabOrder = 1
+    ExplicitHeight = 451
     object Panel3: TPanel
       Left = 212
       Top = 1
       Width = 767
-      Height = 449
+      Height = 459
       Align = alClient
       Caption = 'Panel3'
       Color = 14474715
       TabOrder = 0
+      ExplicitHeight = 449
       object PanelMain: TPanel
         Left = 1
         Top = 1
@@ -83,10 +86,11 @@ object SpectroScopyV: TSpectroScopyV
         Left = 1
         Top = 395
         Width = 765
-        Height = 53
+        Height = 63
         Align = alClient
         Color = 14474715
         TabOrder = 1
+        ExplicitHeight = 53
         object BitBtnSave: TBitBtn
           Left = 120
           Top = 6
@@ -113,7 +117,7 @@ object SpectroScopyV: TSpectroScopyV
           Left = 630
           Top = 1
           Width = 134
-          Height = 51
+          Height = 61
           Align = alRight
           ButtonHeight = 55
           ButtonWidth = 58
@@ -123,6 +127,7 @@ object SpectroScopyV: TSpectroScopyV
           TabOrder = 2
           Transparent = True
           OnClick = BitBtnHelpClick
+          ExplicitHeight = 51
           object PrintBtn: TToolButton
             Left = 0
             Top = 0
@@ -143,21 +148,23 @@ object SpectroScopyV: TSpectroScopyV
       Left = 1
       Top = 1
       Width = 211
-      Height = 449
+      Height = 459
       Align = alLeft
       Color = 14474715
       TabOrder = 1
+      ExplicitHeight = 449
       object Panel6: TPanel
         Left = 1
         Top = 66
         Width = 209
-        Height = 382
+        Height = 392
         Align = alClient
         BevelInner = bvRaised
         BevelOuter = bvLowered
         BevelWidth = 2
         Color = 14474715
         TabOrder = 0
+        ExplicitHeight = 382
         inline FrT: TFrameParInput
           Left = 4
           Top = 322

@@ -98,15 +98,11 @@ type
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ScrollBarVScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
     procedure ToolButton2Click(Sender: TObject);
-    procedure sbAmpModScroll(Sender: TObject; ScrollCode: TScrollCode;
-      var ScrollPos: Integer);
-    procedure ScrollBarTScroll(Sender: TObject; ScrollCode: TScrollCode;
-      var ScrollPos: Integer);
+    procedure sbAmpModScroll(Sender: TObject; ScrollCode: TScrollCode;var ScrollPos: Integer);
+    procedure ScrollBarTScroll(Sender: TObject; ScrollCode: TScrollCode;var ScrollPos: Integer);
     procedure BitBtn1Click(Sender: TObject);
-    procedure ScrollBarFromScroll(Sender: TObject; ScrollCode: TScrollCode;
-      var ScrollPos: Integer);
-    procedure ScrollBarToScroll(Sender: TObject; ScrollCode: TScrollCode;
-      var ScrollPos: Integer);
+    procedure ScrollBarFromScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
+    procedure ScrollBarToScroll(Sender: TObject; ScrollCode: TScrollCode;  var ScrollPos: Integer);
     procedure ScrollBarToChange(Sender: TObject);
     procedure ScrollBarFromChange(Sender: TObject);
   private
@@ -117,6 +113,7 @@ type
      flgMadeRough:boolean;
      DBegin, AutomatFlag:Boolean;
      T:word;
+     fAmplMax:double;
      BottAxMin,BottAxMax:single;
      QuickRep: TQuickRep;
      QRLabel:TQRLabel;
@@ -165,13 +162,13 @@ uses GlobalVar,NL3LFBLib_TLB,MLPC_APILib_TLB,SioCSPM,nanoeduhelp,mMain,fShockwav
 const
 
 	strr0: string = ''; (* Printer is not connected.   *)
-
+	strr1: string = ''; (* Max amplitude>1,4. Decrease probe voltage modulation and repeat. *) // TSI: Localized (Don't modify!)
 
 function TAutoResonance.GetQ(iMax:integer):double;     //Check !!!!!
 var
  i:integer;
  i1,i2:integer;
- frq,UM,fAmplMax,fAmplMin:double;
+ frq,UM,{fAmplMax,}fAmplMin:double;
 begin
 if ChartPanel.Series1.XValues.Count>0 then
 begin
@@ -315,7 +312,6 @@ var
  val,i,im:integer;
      z:apitype;
      hr:Hresult;
-
  begin
  if  (mDrawing=AMessage.WParam)then
   begin
@@ -370,7 +366,8 @@ Manual:begin  //manual
         Application.ProcessMessages;
       end;
          end;
-
+    if (fAmplMax>1.4) then  silanglinked1.MessageDlg(strr1{'Max amplitude>1,4. Decrease probe voltage modulation and repeat.'},mtwarning,[mbYes],0);
+    
    end;//drawthread
  if mScanning=AMessage.WParam then
     begin
@@ -941,6 +938,7 @@ end;
 
 procedure TAutoResonance.UpdateStrings;
 begin
+  strr1 := siLangLinked1.GetTextOrDefault('strstrr1' (* 'Max amplitude>1,4. Decrease probe voltage modulation and repeat.' *) );
   strr0 := siLangLinked1.GetTextOrDefault('strstrr0');
 end;
 
@@ -1423,4 +1421,5 @@ begin
 end;
 
 end.
+
 

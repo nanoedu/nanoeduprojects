@@ -3073,8 +3073,7 @@ begin
         else
         if (flgGlReadBlock in  ScanmethodSetSpectr) then
            begin      //Topo + Spectr
-
-               case Head.HProbeType  of
+                  case Head.HProbeType  of
             1:begin
                case Head.HTypeSpectr of
                0:begin
@@ -3107,18 +3106,18 @@ begin
                exit;
            end;
 
-  with ActiveGLW do
-  begin
+ with ActiveGLW do
+ begin
   if flgViewTools  then
    if not flgScan or (not assigned(WorkView))  then
    begin
-     if not assigned(ImageTools) then
-     begin
+    if not assigned(ImageTools) then
+    begin
       ImageTools:=TImageTools.Create(application);
       Application.processmessages;
-     end;
-     if assigned(ImageTools) then
-     begin
+    end;
+    if assigned(ImageTools) then
+    begin
      if (flgView=D3Geo) or (flgView=D2Geo) then
      begin
       ImageTools.SpeedBtnPal.visible:=true;
@@ -3135,13 +3134,16 @@ begin
      ImageTools.SpeedBtnSect.Down:=False;
      ImageAnalysis1.enabled:=ImageTools.SpeedBtnData.Enabled;
      ImageAnalysis2.enabled:=ImageTools.SpeedBtnData.Enabled;
+    end;
    end;
-   end;
-   ToolsPanel.checked:=flgViewTools;
+//
+//   ToolsPanel.checked:=flgViewTools;
+///
    if flgViewTools then   ActionImageTools.Visible:=false;
  end; //with
  if assigned(ImageTools)   then NotifyAllToPrilipat;
- APPLICATION.ProcessMessages
+ APPLICATION.ProcessMessages ;
+
 end;
 
 (*
@@ -4108,8 +4110,8 @@ begin { Iiiauaai eiy oaeea ia?ao eaau?eaie, n niae?aaieai anao i?iaaeia a eiaiao
       GetWindowRect(h,R);
  // changed 220316   SetWindowPos(h,HWND_TOPMost,Main.Left+50+Main.ClientWidth-(R.right-R.left),0,50,50,SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW);
      if(Screen.MonitorCount=1)then
-                SetWindowPos(h,HWND_TOPMost,Left+50+ClientWidth-(R.right-R.left),50,50,50,SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW)
-      else      SetWindowPos(h,HWND_TOPMost,50+ClientWidth-(R.right-R.left),50,50,50,SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW)
+           SetWindowPos(h,HWND_TOPMost,Left+50+ClientWidth-(R.right-R.left),50,50,50,SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW)
+      else SetWindowPos(h,HWND_TOPMost,50+ClientWidth-(R.right-R.left),50,50,50,SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW)
   end;
    end
   else
@@ -4128,7 +4130,7 @@ begin { ѕомещаем им€ файла между кавычками, с соблюдением всех пробелов в именах
     if  Res<32 then
      begin
       fVideo:=TMedia.Create(Application);
-      //  two monitirs 
+      //  two monitirs
       fVideo.Show;
       fVideo.MediaPlayer.filename:=FileName;
       fVideo.MediaPlayer.open;

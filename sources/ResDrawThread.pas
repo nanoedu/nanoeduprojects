@@ -164,23 +164,19 @@ end;
 procedure TResDrawThread.DrawCurrentLine;
 var i,k:integer;
     ampl,frq:single;
-
 begin
        i:=0;
        for k:=0 to (nElements-1) do
        begin                               //            PVal*1000000 shr 32;    //freq  Hrz  -> word
            frq:=TempAquiData[i];//*ResonanceParams.Step;     //HRz
            Ampl:=TempAquiData[i+1]*ResonanceParams.AmplStep;
-
            AutoResonance.ResonanceCurve[pointscnt]:=Ampl;
            AutoResonance.ResonanceFreqVals[pointscnt]:=frq;
-
            inc(pointscnt);
         //   if (AutoResonance.flgMode=Manual) or                                             // changed 010316
         //   ((AutoResonance.flgMode=Auto) and (AutoResonance.flgRegime=Rough)) then
-                                           AutoResonance.ChartPanel.Series1.AddXY(frq,Ampl);     // Рисовать кривую
-
-          inc(i,2);
+           AutoResonance.ChartPanel.Series1.AddXY(frq,Ampl);     // Рисовать кривую
+           inc(i,2);
        end;
 end;
 
