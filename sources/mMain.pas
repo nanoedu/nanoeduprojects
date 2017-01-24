@@ -1643,7 +1643,7 @@ Advanced:begin
           ScanParams.XBegin:= ScanAreaBeginXR;  // nm
           ScanParams.YBegin:= ScanAreaBeginYR;  // nm
 
-          MoveToStartPoint(ScanAreaBeginXR, ScanAreaBeginYR);
+        if ScanParams.flgMovetoZero then   MoveToStartPoint(ScanAreaBeginXR, ScanAreaBeginYR);
      end;
       Application.ProcessMessages;
  end;

@@ -530,6 +530,7 @@ TYPE RScanParams=packed record
       flgProfile:boolean;
       flgOneFrame:boolean;
       flgFastSimulator:boolean;
+      flgMovetoZero:boolean;
       nchannels,
       NX,
       NY,
@@ -538,8 +539,6 @@ TYPE RScanParams=packed record
       CycleCount:integer;
       ScanPoints:integer;
       ScanLines:integer;
-      TerraTDelay:integer;  //miliseconds
-      FastDrawDelay:integer; //miliseconds
       ScanRate:single;
       ScanRateLimParameter:single; // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
       ScanRateBW:single;
@@ -585,6 +584,8 @@ TYPE RScanParams=packed record
        ScannerDecay:integer ;
        ScanDrawDelay:integer;        //ms
        LithoDrawDelay:integer;        //ms
+       TerraTDelay:integer;  //miliseconds
+       FastDrawDelay:integer; //miliseconds
        WaitForPrepareFastPath:integer;//msec
        TimMeasurePoint:single; // ms - time need for waiting after moving scanner before get signals data
        TimMicroStep:single;   // milisec, minimum  Time of one microstep;

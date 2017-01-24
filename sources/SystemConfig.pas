@@ -602,10 +602,11 @@ begin
                 ScanParams.flgOneFrame:=true;
                 ScanParams.TimMeasurePoint:=0.01;//ms
                 ScanParams.TimMicroStep:=0.005;//      // milisec, Time of one microstep;
-                ScanParams.ScanRateLimParameter  := 300;  // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
+                ScanParams.ScanRateLimParameter  := 400;  // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
                 ScanParams.WaitForPrepareFastPath:=5000; //ms
                 ScanParams.flgFastSimulator:= false;
-   //               Nanoedu.TurnOn;  //add 16/12/06
+                ScanParams.flgMovetoZero:=false;
+    //               Nanoedu.TurnOn;  //add 16/12/06
   end;
 
 
@@ -742,7 +743,8 @@ begin
        ScanParams.TimMeasurePoint:=0.01;//ms
        ScanParams.TimMicroStep:=0.005;// // milisec, minimum Time of one microstep;
        ScanParams.ScanRateLimParameter:= ReadInteger('Scanning Parameters','Rate_Limit_Parameter',400);//300;  // 20/12/2016 this parameter is max valid ratio: NPoints/lineTime_c
-//       ScanParams.flgFastSimulator:= boolean(ReadInteger('Scanning Parameters','Fast_Simulation',0));
+       ScanParams.flgMovetoZero:=boolean(ReadInteger('Scanning Parameters','Move to Zero',0));
+       //       ScanParams.flgFastSimulator:= boolean(ReadInteger('Scanning Parameters','Fast_Simulation',0));
        ScanParams.WaitForPrepareFastPath:=6000; //ms
     end;
  finally
@@ -1407,6 +1409,7 @@ begin
        WriteBool('Approach Parameters','Autorun Camera', ApproachParams.flgAutorunCamera);
        WriteInteger('Approach Parameters','PM Active time', ApproachParams.PMActiveTime);
        WriteInteger('Approach Parameters','PM PAUSE', ApproachParams.PMPAUSE);
+
        WriteInteger('Scanning Parameters','TerraTDelay',ScanParams.TerraTDelay);
        WriteInteger('Scanning Parameters','LithoDrawDelay',ScanParams.LithoDrawDelay);
        WriteInteger('Scanning Parameters','ScanDrawDelay',ScanParams.ScanDrawDelay);
