@@ -498,7 +498,7 @@ begin
     ReWrite(Fl);
     S:='File Format = ASCII';
     Writeln(Fl, S);
-    S:= 'Created by NanoTutor, NT-SPb, lmt. '+presentdate ;
+    S:= 'Created by'+ProgramName+', NT-SPb, lmt. '+presentdate ;
     Writeln(Fl, S);
     S:=LFileName;
     Writeln(Fl, S);
