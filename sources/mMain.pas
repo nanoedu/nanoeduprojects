@@ -1630,11 +1630,12 @@ Advanced:begin
                            ComboBoxSFMSTM.Enabled:=true;
      end
      else
-      begin
+     begin
           Voltage_toDiscr('X',0, DiscrVal, ScanAreaBeginXR)  ;     // Выход в точку 0 В по Х и Y
           Voltage_toDiscr('Y',0, DiscrVal, ScanAreaBeginYR)  ;
 
-          if flgCurrentUserLevel = Demo then begin
+          if flgCurrentUserLevel = Demo then
+                                         begin
                                            ScanAreaBeginXR:=0;
                                            ScanAreaBeginYR :=0;
                                          end;
@@ -1643,7 +1644,7 @@ Advanced:begin
           ScanParams.YBegin:= ScanAreaBeginYR;  // nm
 
           MoveToStartPoint(ScanAreaBeginXR, ScanAreaBeginYR);
-      end;
+     end;
       Application.ProcessMessages;
  end;
  flgCanClose:=true;
@@ -3961,7 +3962,8 @@ begin
   ScanParams.MicrostepDelay:=1;
   tmpDiscrNumInMicroStep:= Scanparams.DiscrNumInMicroStep;
   Scanparams.DiscrNumInMicroStep:=10;
-(*   NanoEdu.ScanMoveToX0Y0Method( XStartnm, YStartnm);   150416
+
+   NanoEdu.ScanMoveToX0Y0Method( XStartnm, YStartnm);  // 150416
        error:=NanoEdu.Method.Launch;
         if error<>0 then
         begin
@@ -3970,7 +3972,7 @@ begin
         end;
        while assigned(ProgressMoveTo) do
            begin sleep(10); application.processmessages; end;
-           *)
+           
   ScanParams.MicrostepDelay:= tmpdelay;
   Scanparams.DiscrNumInMicroStep:= tmpDiscrNumInMicroStep;
   ToolScanBar.Enabled:=true;    //13.08.13

@@ -472,18 +472,17 @@ var
     ind:integer;
 begin
 result:=0;
-if lowercase(dir) = lowercase('X') then
-       ind:=8
+if lowercase(dir) = lowercase('X')       then ind:=8
  else if lowercase(dir) = lowercase('Y') then ind:=9
- else begin ShowMessage('Wrong Direction in SetXYVoltage!!');
-            result:= -1;
+  else begin ShowMessage('Wrong Direction in SetXYVoltage!!');
+          result:= -1;
           exit;
-      end;
+       end;
      discrVal:=round( CSPMSignals[ind].MaxDiscr+(VoltVal-CSPMSignals[ind].MinV)*(CSPMSignals[ind].MinDiscr-CSPMSignals[ind].MaxDiscr)
                                        /(CSPMSignals[ind].MaxV-CSPMSignals[ind].MinV))  ;
     if discrVal < CSPMSignals[ind].MinDiscr then discrVal := CSPMSignals[ind].MinDiscr ;
     if discrVal > CSPMSignals[ind].MaxDiscr then discrVal := CSPMSignals[ind].MaxDiscr ;
-  if lowercase(dir) = lowercase('X') then
+    if lowercase(dir) = lowercase('X') then
        begin
         // API.DACX:= discrVal ;
          nmVal:= round((VoltVal- CSPMSignals[ind].MinV)*ScannerCorrect.SensitivX);    // nm
@@ -493,7 +492,5 @@ if lowercase(dir) = lowercase('X') then
        //  API.DACY:=discrVal;
          nmVal:= round((VoltVal- CSPMSignals[ind].MinV)*ScannerCorrect.SensitivY);  // nm
        end;
-
 end;
-
 end.
