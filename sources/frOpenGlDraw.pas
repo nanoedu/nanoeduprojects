@@ -825,7 +825,7 @@ begin
     ReWrite(Fl);
     S:='File Format = ASCII';
     Writeln(Fl, S);
-    S:= 'Created by NanoEducatorLE, NT-SPb, lmt. '+presentdate ;
+    S:= 'Created by'+ ProgramName +', NT-SPb, lmt. '+presentdate ;
     Writeln(Fl, S);
     S:='File: '+FileName;
     Writeln(Fl, S);
