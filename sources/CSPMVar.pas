@@ -71,8 +71,9 @@ const  CMP_VAL:widestring     = 'din' ;
    AdaptPgType_params =2;
    AdaptPgType_curve =3;
  const   //adapter id
-  AdNanoId=1;
-  AdReniId=2;
+//  AdNanoId=1;
+  AdNanoId=2;
+  AdReniId=4;//?????? 25/01/17
   AdPMId=3;
 //  AdTerraId=4;
   AdNotConnectedId=15;  //byte -1

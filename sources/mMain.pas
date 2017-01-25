@@ -2754,11 +2754,11 @@ begin
   end
   else
   begin
-   videofileName:=CommonNanoeduDocumentsPath+'video\rus\'+tutvideoeng;//'\3D_Model_NanoEducator_LE.mp4'
+   videofileName:=CommonNanoeduDocumentsPath+'video\eng\'+tutvideoeng;//'\3D_Model_NanoEducator_LE.mp4'
   end;
    if Fileexists(videofilename) then VideoMenu.visible:=true
                                 else VideoMenu.visible:=false;
-
+ //  VideoMenu.visible:=true;//for Muhin
 
     ScanParams.flgFastSimulator:=GetFlgFastSimulation;
       case   flgUnit of
@@ -5280,6 +5280,7 @@ end;
 
 procedure TMain.SetLanguage1Click(Sender: TObject);
 var res:integer;
+videofileName:string;
 begin
  if (MDIChildCount>0) then
  begin
@@ -5329,6 +5330,18 @@ begin
    siLangDispatcher1.ActiveLanguage:=lang;
  end;
   InitParametersAxes;
+   if sLanguage='RUS' then
+  begin
+   videofileName:=CommonNanoeduDocumentsPath+'video\rus\'+tutvideorus;//'\3D_Модель_NanoEducator_LE.mp4'
+  end
+  else
+  begin
+   videofileName:=CommonNanoeduDocumentsPath+'video\eng\'+tutvideoeng;//'\3D_Model_NanoEducator_LE.mp4'
+  end;
+   if Fileexists(videofilename) then VideoMenu.visible:=true
+                                else VideoMenu.visible:=false;
+ //                               VideoMenu.visible:=true;
+
 //  NoFormUnitLoc.UpdateStrings;
 end;
 

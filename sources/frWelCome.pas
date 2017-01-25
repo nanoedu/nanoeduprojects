@@ -88,9 +88,9 @@ procedure TWellCome.ToolButtonshowClick(Sender: TObject);
     res:Thandle;
   filename:string;
 begin
-filename:='GalleryShow.pps';
-if   siLangLinked1.ActiveLanguage=2     then  filename:='GalleryShow_R.pps';
- if not directoryexists(ScanGalleryDir) then
+ filename:='GalleryShow.ppsx';
+if  siLangLinked1.ActiveLanguage=2 then  filename:='GalleryShow_R.ppsx';
+if not directoryexists(ScanGalleryDir) then
   begin MessageDlgCtr(strm34{'Gallery directory do not exists!!'},mtwarning,[mbOk],0);   exit; end;
      res:= ShellExecute(handle,nil,Pchar(ScanGalleryDir+'\'+filename),nil,nil,SW_RESTORE);
 end;
