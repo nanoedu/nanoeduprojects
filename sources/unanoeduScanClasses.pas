@@ -3028,10 +3028,11 @@ begin
  Javacontrol.IsRunning(flgJavaRunning);
  if flgJavaRunning then
  begin
-     {$IFDEF DEBUG}
+  {$IFDEF DEBUG}
          Formlog.memolog.Lines.add('Start sending approach param');
-    {$ENDIF}
-
+  {$ENDIF}
+  if assigned(arPCChannel) then
+  begin
    arPCChannel[ch_UserParams].Main.Get_Id(ID);  //data out channel
    if ID=ch_UserParams then
    begin
@@ -3048,31 +3049,32 @@ begin
      PIntegerArray(dataparam)[7]:=integer(STMFLG);
      PIntegerArray(dataparam)[8]:=ApproachParams.Speed shl 16;
      result:=true;
- errcount:=0;
- repeat
-  begin
-     flgerr:=false;
-     n:=9;
-     hr:=arPCChannel[ch_MoverXYZUserParams].ChannelWrite.Write(dataparam,n);
-     if Failed(hr) then
+     errcount:=0;
+     repeat
      begin
+      flgerr:=false;
+      n:=9;
+      hr:=arPCChannel[ch_MoverXYZUserParams].ChannelWrite.Write(dataparam,n);
+      if Failed(hr) then
+      begin
      {$IFDEF DEBUG}
        Formlog.memolog.Lines.add('error write  userparam='+inttostr(n));
      {$ENDIF}
        flgerr:=true;
        inc(errCount);
        if errcount>10 then break;
-     end
-     else
-     begin
+      end
+      else
+      begin
       {$IFDEF DEBUG}
           Formlog.memolog.Lines.add('Done sending moverXYZ param');
       {$ENDIF}
-     end;
-  end
-  until not flgerr;
+      end;
+     end
+     until not flgerr;
     finally
       FreeMem(dataparam);
+    end;
     end;
    end;
   end;

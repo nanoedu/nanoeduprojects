@@ -528,8 +528,8 @@ const
     strManMes1='';
     strManMes2='';
     strManMes3='';
-//	  strManMesVer: string =  'Demo version!!;
-//	  strManMesTurnon: string ='Turn on Controller! ;
+//	strManMesVer: string =  'Demo version!!;
+//	strManMesTurnon: string ='Turn on Controller! ;
     strManMes4='';
 {$R *.DFM}
 var  flgCascadGL:Boolean;
@@ -711,7 +711,6 @@ begin
  if Fileexists(Filename) then   ExecAndWaitMainVideo(Filename,'','',SW_showNORMAL)
                          else   silang1.MessageDlg(Filename+strfilenotexists,mtWarning ,[mbOK],0);
    SmesharikiPinCode.enabled:=True;
-
 end;
 
 procedure  TMain.SMOtherInstanceExecuted(var Message: TMessage);
@@ -2639,7 +2638,7 @@ begin
 
  Events:=TEvent.Create(nil,true,false,'wait');
 
- tSaveExecutionState:= SetThreadExecutionState(ES_CONTINUOUS or ES_SYSTEM_REQUIRED or ES_DISPLAY_REQUIRED); //set not sleep system
+  tSaveExecutionState:= SetThreadExecutionState(ES_CONTINUOUS or ES_SYSTEM_REQUIRED or ES_DISPLAY_REQUIRED); //set not sleep system
   TimeLimitDetectDev:=0;
   widthrightpanel:=65;
   widthmonitor:=88;
@@ -2659,10 +2658,10 @@ begin
 
    if  ( AnsiContainsStr(deflang,'Russian'))  or ( AnsiContainsStr(deflang,'Русский')) then   sLanguage:='RUS'
    else   sLanguage:='ENG';
-// sLanguage:='ENG'; //for Torzo
+ sLanguage:='ENG'; //for Torzo
      InitTutor;
    if sLanguage='RUS' then
-                     begin
+                    begin
                         ReportTemplPath:=CommonNanoeduDocumentsPath+ReportTemplRDefPath;
                         Application.HelpFile :=ExeFilePath+'NanoEduHelp.chm';
                         tutsimulator:=tutsimulatorrus;
@@ -3106,7 +3105,8 @@ begin
                ActionCascadeExecute(Sender);
                exit;
            end;
-    APPLICATION.ProcessMessages ;
+
+  APPLICATION.ProcessMessages ;
 
  with ActiveGLW do
  begin
