@@ -2658,7 +2658,7 @@ begin
 
    if  ( AnsiContainsStr(deflang,'Russian'))  or ( AnsiContainsStr(deflang,'Русский')) then   sLanguage:='RUS'
    else   sLanguage:='ENG';
- sLanguage:='ENG'; //for Torzo
+// sLanguage:='ENG'; //for Torzo
      InitTutor;
    if sLanguage='RUS' then
                     begin
