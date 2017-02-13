@@ -862,7 +862,7 @@ var taskdata:integer;
     fname:string;
 begin
 //result   =0 ok, 1= not connection;    999- not define
-   if  (not FlgDataScannerHaveRead) or (flgCurrentUserLevel=Demo) then
+    if  (not FlgDataScannerHaveRead) or (flgCurrentUserLevel=Demo) then
    begin
      result:=0;
      flgAdapterLink:=false;
@@ -1414,6 +1414,7 @@ var dr:string;
 begin
 ActionNew.Enabled:=false;
 flgCanClose:=false;    //180114
+SetFlgSetScanArea;
   case FlgCurrentUserLevel of
   Beginner:;
   Advanced:  ;//   ActionChooseSample.Visible:=false;
@@ -1630,6 +1631,18 @@ Advanced:begin
      end
      else
      begin
+         //
+    with ScanParams do
+    begin
+     case  flgUnit of
+      nano,terra,Pipette:  SetScanAreaDefR ;
+      baby: ;
+      ProBeam,MicProbe:    SetScanAreaDefR;
+       end;
+    end;
+
+
+         //
           Voltage_toDiscr('X',0, DiscrVal, ScanAreaBeginXR)  ;     // Выход в точку 0 В по Х и Y
           Voltage_toDiscr('Y',0, DiscrVal, ScanAreaBeginYR)  ;
 
@@ -3765,15 +3778,8 @@ begin
  with ScanParams do
   begin
     case  flgUnit of
- nano,terra,Pipette:begin
-        ScanAreaStartXR:=5000;
-        ScanAreaStartYR:=5000;
-        ScanAreaStartXF:=1000;
-        ScanAreaStartYF:=1000;
-      //  ScanAreaBeginXR:=10;
-
-        ScanAreaBeginXF:=10;
-        ScanAreaBeginYF:=10;
+ nano,terra,
+ Pipette:begin
         flgAnodeLithoEnable:=true;
         flgRenishawEnable:=false;
   (*
@@ -3791,18 +3797,30 @@ begin
 
          LoadScannerParams(flgAllDataReadFromAdapter);  //  28/11/12
 
-
-          Voltage_toDiscr('X',0, DiscrVal, ScanAreaBeginXR)  ;     // Выход в точку 0 В по Х и Y
-          Voltage_toDiscr('Y',0, DiscrVal, ScanAreaBeginYR)  ;
-
-          if flgCurrentUserLevel = Demo then begin
+  /////*********************************************
+       if flgSetScanArea then
+       begin
+        ScanAreaStartXR:=5000;
+        ScanAreaStartYR:=5000;
+        ScanAreaStartXF:=1000;
+        ScanAreaStartYF:=1000;
+      //  ScanAreaBeginXR:=10;
+        ScanAreaBeginXR:=10;
+        ScanAreaBeginYR:=10;
+        ScanAreaBeginXF:=10;
+        ScanAreaBeginYF:=10;
+        Voltage_toDiscr('X',0, DiscrVal, ScanAreaBeginXR)  ;     // Выход в точку 0 В по Х и Y
+        Voltage_toDiscr('Y',0, DiscrVal, ScanAreaBeginYR)  ;
+        if flgCurrentUserLevel = Demo then begin
                                            ScanAreaBeginXR:=0;
                                            ScanAreaBeginYR :=0;
                                          end;
 
           ScanParams.XBegin:= ScanAreaBeginXR;  // nm
           ScanParams.YBegin:= ScanAreaBeginYR;  // nm
-
+          flgSetScanArea:=false;
+       end;
+  /////*******************
         //  MoveToStartPoint(ScanAreaBeginXR, ScanAreaBeginYR);
          if not flgAllDataReadFromAdapter then LinError:=TestErrorScannerIniFile
                                           else
@@ -3845,6 +3863,8 @@ begin
 
        end;
  baby: begin
+       if flgSetScanArea then
+       begin
         ScanAreaStartXR:=100;
         ScanAreaStartYR:=100;
         ScanAreaStartXF:=10;
@@ -3853,6 +3873,8 @@ begin
         ScanAreaBeginYR:=1;
         ScanAreaBeginXF:=1;
         ScanAreaBeginYF:=1;
+        flgSetScanArea:=false;
+       end;
         LoadConfig;
         SetLinSplineZero;
         with ScannerCorrect    do
@@ -3868,15 +3890,20 @@ begin
         FlgReniShawUnitExists:=false;  FlgReniShawUnit:=false;
       end;
  ProBeam,
- MicProbe: begin
-        ScanAreaStartXR:=1000;
-        ScanAreaStartYR:=1000;
-        ScanAreaStartXF:=100;
-        ScanAreaStartYF:=100;
-        ScanAreaBeginXR:=10;
-        ScanAreaBeginYR:=10;
-        ScanAreaBeginXF:=10;
-        ScanAreaBeginYF:=10;
+ MicProbe:
+        begin
+         if flgSetScanArea then
+         begin
+          ScanAreaStartXR:=1000;
+          ScanAreaStartYR:=1000;
+          ScanAreaStartXF:=100;
+          ScanAreaStartYF:=100;
+          ScanAreaBeginXR:=10;
+          ScanAreaBeginYR:=10;
+          ScanAreaBeginXF:=10;
+          ScanAreaBeginYF:=10;
+          flgSetScanArea:=false;
+         end;
         SynchroSEM.Visible:=true;
         if flgCurrentUserLevel<>Demo then  flgAnodeLithoEnable:=Nanoedu.TestForAnodeLitho
                                      else  flgAnodeLithoEnable:=true;
@@ -5394,9 +5421,10 @@ begin
    1:  begin
         if assigned(NanoeduDevice)    then
          begin
-          if assigned(formInitUnitEtape) then  begin
-          formInitUnitEtape.PageControl1.ActivePageIndex:=1;
-          formInitUnitEtape.TabSheetErr.TabVisible:=true;
+          if assigned(formInitUnitEtape) then
+          begin
+           formInitUnitEtape.PageControl1.ActivePageIndex:=1;
+           formInitUnitEtape.TabSheetErr.TabVisible:=true;
           end;
           Reloadscheme;
           if PrepareScannerData=1 then

@@ -520,6 +520,7 @@ TYPE RScannerMoveXYZParams=packed record
       end;
 
 TYPE RScanParams=packed record
+      flgSetScanArea:boolean;
       flgStepXY:Boolean;      //flg fix step
       flgSQ:boolean;         //flg Square Area  draw
       flgTopoLevelDel:boolean;     //delete base - min value

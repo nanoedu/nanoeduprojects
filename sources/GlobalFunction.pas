@@ -113,6 +113,7 @@ procedure SetFirstStartParams;
 function  GetUserLevel:string;
 procedure SetUserLevel;
 procedure SetFlgFastSimulation;
+procedure SetFlgSetScanArea;
 function  GetFlgFastSimulation:boolean;
 function  GetDeviceInterfaceName:string;
 function  GetDeviceName:integer;
@@ -788,7 +789,10 @@ begin
     iniCSPM.Free;
    end;
 end;
-
+procedure SetFlgSetScanArea;
+begin
+   Scanparams.flgSetScanArea:=true;
+end;
 
 procedure SetOnlineService;
 
