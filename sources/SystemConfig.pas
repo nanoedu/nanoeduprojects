@@ -1318,14 +1318,15 @@ begin
           SetScanParamsDefInitPrev;
         end;
    ProBeam,
-   MicProbe: begin
+   MicProbe:
+         begin
           if FlgReniShawUnitExists then  //????
           begin
            RenishawParamsDef;
            ReniShawOscParamsDef;
            RenishawParamsLast;
           end;
-          SetScanParamsDefAtom;
+          SetScanParamsDefSEM;
           SetScanParamsDefInitPrev;
         end;
   grand: SetScanParamsDefGrand;
