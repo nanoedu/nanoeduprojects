@@ -411,7 +411,7 @@ object AutoResonance: TAutoResonance
               Top = 64
               Width = 121
               Height = 17
-              Max = 64
+              Max = 80
               PageSize = 0
               Position = 1
               TabOrder = 1
