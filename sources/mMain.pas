@@ -3808,7 +3808,7 @@ begin
                                          end;
           ScanParams.XBegin:= ScanAreaBeginXR;  // nm
           ScanParams.YBegin:= ScanAreaBeginYR;  // nm
-         if flgUnit<>Demo then flgSetScanArea:=false;
+         if FlgCurrentUserLevel<>Demo then flgSetScanArea:=false;
        end;
   /////*******************
         //  MoveToStartPoint(ScanAreaBeginXR, ScanAreaBeginYR);
@@ -3856,7 +3856,7 @@ begin
         LoadConfig;
         if flgSetScanArea then
         begin
-          if flgUnit<>Demo then flgSetScanArea:=false;
+          if FlgCurrentUserLevel<>Demo then flgSetScanArea:=false;
         end;
         SetLinSplineZero;
         with ScannerCorrect    do
@@ -3885,7 +3885,7 @@ begin
         LoadConfig;
          if flgSetScanArea then
          begin
-          if flgUnit<>Demo then flgSetScanArea:=false;
+          if FlgCurrentUserLevel<>Demo then flgSetScanArea:=false;
          end;
 
         LoadScannerParams(flgAllDataReadFromAdapter);  //  28/11/12

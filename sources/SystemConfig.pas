@@ -787,9 +787,9 @@ end;
 
 procedure SetScanParamsDef;
 begin
-     SetScanAreaDefR;
    with ScanParams do
     begin
+     if flgSetScanArea then  SetSEMScanAreaDefR;
      nChannels:=4;
      CurrentScanCount:=Nx;
      DACZTimeDelay:=300;
@@ -822,9 +822,9 @@ begin
 end;
 procedure SetScanParamsDefSEM;
 begin
-     SetSEMScanAreaDefR;
    with ScanParams do
     begin
+     if flgSetScanArea then  SetSEMScanAreaDefR;
      CurrentScanCount:=Nx;
      nChannels:=3;
      DACZTimeDelay:=300;
@@ -855,9 +855,9 @@ begin
 end;
 procedure SetScanParamsDefF;
 begin
- SetScanAreaDefF;
   with ScanParams do
     begin
+     if flgSetScanArea then  SetScanAreaDefF;
      CurrentScanCount:=Nx;
      DACZTimeDelay:=300;
      nChannels:=3;
@@ -915,9 +915,9 @@ begin
 end;
 procedure SetScanParamsDefAtom;
 begin
- SetAtomScanAreaDefR;
   with ScanParams do
     begin
+    if flgSetScanArea then  SetSEMScanAreaDefR;
      nChannels:=3;
      CurrentScanCount:=Nx;
      ScanRate:= 500; //double, nm/s;
