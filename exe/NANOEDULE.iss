@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=NanoEducator LE
-AppVerName=NanoeducatorLE ver 16.11.07.02
-OutputBaseFilename=NanoEduLe-16.11.07.02
+AppVerName=NanoeducatorLE ver 17.01.13.08
+OutputBaseFilename=NanoEduLe-17.01.13.08
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
