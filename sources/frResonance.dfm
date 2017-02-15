@@ -399,7 +399,6 @@ object AutoResonance: TAutoResonance
               Top = 24
               Width = 121
               Height = 17
-              Max = 64
               PageSize = 0
               Position = 1
               TabOrder = 0
@@ -411,7 +410,6 @@ object AutoResonance: TAutoResonance
               Top = 64
               Width = 121
               Height = 17
-              Max = 64
               PageSize = 0
               Position = 1
               TabOrder = 1

@@ -376,14 +376,14 @@ TYPE CSPMSignalsArr=array [1..13] of RSignalCharacter;
 
 Type RResonanceParams=packed record
      nchannel:LongWord;
-     FreqStart:word;
-     FreqEnd:word;
-     FreqStartRough:word;
-     FreqStartFine:word;
-     FreqEndRough:word;
-     FreqEndFine:word;
-     FreqStartRoughDef:word;
-     FreqEndRoughDef:word;
+     FreqStart:longword;        //word->longword 150217
+     FreqEnd:longword;
+     FreqStartRough:longword;
+     FreqStartFine:longword;
+     FreqEndRough:longword;
+     FreqEndFine:longword;
+     FreqStartRoughDef:longword;
+     FreqEndRoughDef:longword;
      NPoints:word;
      Step:word;
      StepRough:word;
