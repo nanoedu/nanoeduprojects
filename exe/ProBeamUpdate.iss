@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=ProBeam
-AppVerName=ProBeam ver 17.01.13.9
-OutputBaseFilename=ProBeamUpdate-17.01.13.9
+AppVerName=ProBeam ver 17.01.13.10
+OutputBaseFilename=ProBeamUpdate-17.01.13.10
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
