@@ -1016,7 +1016,8 @@ begin
                    end
                    else
                    begin  //SD_GENF
-                    val64:=int64(word(CommonVarValue)) shl 32;
+                  //  val64:=int64(word(CommonVarValue)) shl 32; //20/02/2016
+                    val64:=int64(CommonVarValue) shl 32;
                     val:=integer(round(val64/million)); //freq
                    end;
                    PVal:=OleVariant(val);

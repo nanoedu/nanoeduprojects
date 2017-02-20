@@ -16,8 +16,8 @@ IpmApi05 = interface(IUnknown)
     function Get_Uam: apitype;     //amplitude
     function Get_Ufm: apitype;   //phase
     function Get_IT: apitype;    //current
-    function Get_Frequency: apitype;
-    procedure Set_Frequency(pVal: apitype);
+    function Get_Frequency: longword;//apitype;
+    procedure Set_Frequency(pVal:longword);
     function Get_SDGAM: apitype;    //probe voltage amplitude modulation
     procedure Set_SDGAM(pVal: apitype);
     function Get_SMZSTEP : apitype;
@@ -52,7 +52,7 @@ IpmApi05 = interface(IUnknown)
     property Z: apitype read Get_Z;
     property UAM: apitype read Get_Uam;
     property UFM: apitype read Get_Ufm;
-    property Frequency: apitype read Get_Frequency write Set_Frequency;
+    property Frequency: longword read Get_Frequency write Set_Frequency;
     property SDGAM:      apitype read Get_SDGAM write Set_SDGAM;
     property SMZSTEP:   apitype read Get_SMZSTEP write Set_SMZSTEP;
     property SMZSTATUS: apitype read Get_SMZSTATUS write Set_SMZSTATUS;
@@ -80,8 +80,8 @@ TpmAPI05=class(TInterfacedObject, IpmApi05)
     function Get_Z: apitype;
     function Get_Uam: apitype;
     function Get_Ufm: apitype;
-    function Get_Frequency: apitype;
-    procedure Set_Frequency(pVal: apitype);
+    function Get_Frequency: longword;
+    procedure Set_Frequency(pVal:longword);
     function Get_SDGAM: apitype;
     procedure Set_SDGAM(pVal: apitype);
     function Get_SMZSTEP : apitype;
@@ -117,7 +117,7 @@ TpmAPI05=class(TInterfacedObject, IpmApi05)
     property Z: apitype          read Get_Z;
     property UAM: apitype        read Get_Uam;
     property UFM: apitype        read Get_Ufm;
-    property Frequency: apitype  read Get_Frequency  write Set_Frequency;
+    property Frequency:longword  read Get_Frequency  write Set_Frequency;
     property SDGAM: apitype      read Get_SDGAM      write Set_SDGAM;
     property SMZSTEP: apitype    read Get_SMZSTEP    write Set_SMZSTEP;
     property SMZSTATUS: apitype  read Get_SMZSTATUS  write Set_SMZSTATUS;
@@ -199,11 +199,11 @@ uses SioCSPM, CSPMVar;
     begin
         Result:=GetCommonVar(ADC_UFM);
       end;
-   function TpmAPI05.Get_Frequency: apitype;
+   function TpmAPI05.Get_Frequency: longword;
     begin
         Result:=GetCommonVar(SD_GENF);
       end;
-   procedure TpmAPI05.Set_Frequency(pVal: apitype);
+   procedure TpmAPI05.Set_Frequency(pVal:longword);
    begin
        SetCommonVar(SD_GENF, pVal);
    end;

@@ -637,11 +637,11 @@ begin
 
 procedure TAutoResonance.SetPriborParameters(Sender: TObject);
 var Pos:single;
-    val:word;
+    val:longword;
 begin
       Pos:= ChartPanel.FindLine_pos;
-      val:=word(round(Pos));
-      Api.Frequency:=apitype(val);
+      val:=round(Pos);
+      Api.Frequency:=val;
       ResonanceParams.ResFreq:=round(Pos); //Hrz
 (*      case rgManual.ItemIndex of
  Rough: begin         //rough
