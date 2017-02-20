@@ -127,6 +127,7 @@ exe/bpl
 exe/output
 exe/register_nt-mdt
 exe/java/backup
+exe/ISS
 *.rar
 
 

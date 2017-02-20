@@ -35,6 +35,7 @@ procedure SetScanParamsDefSEMF;
 procedure SetScanParamsDefGrand;
 procedure SetScanParamsDefGrandF;
 procedure SetScanAreaDefR;
+procedure SetSEMScanAreaDefR;
 procedure SetScanAreaDefF;
 procedure SetAtomScanAreaDefR;
 procedure SetAtomScanAreaDefF;
@@ -786,9 +787,9 @@ end;
 
 procedure SetScanParamsDef;
 begin
-     SetScanAreaDefR;
    with ScanParams do
     begin
+     if flgSetScanArea then  SetSEMScanAreaDefR;
      nChannels:=4;
      CurrentScanCount:=Nx;
      DACZTimeDelay:=300;
@@ -821,9 +822,9 @@ begin
 end;
 procedure SetScanParamsDefSEM;
 begin
-     SetScanAreaDefR;
    with ScanParams do
     begin
+     if flgSetScanArea then  SetSEMScanAreaDefR;
      CurrentScanCount:=Nx;
      nChannels:=3;
      DACZTimeDelay:=300;
@@ -854,9 +855,9 @@ begin
 end;
 procedure SetScanParamsDefF;
 begin
- SetScanAreaDefF;
   with ScanParams do
     begin
+     if flgSetScanArea then  SetScanAreaDefF;
      CurrentScanCount:=Nx;
      DACZTimeDelay:=300;
      nChannels:=3;
@@ -914,10 +915,10 @@ begin
 end;
 procedure SetScanParamsDefAtom;
 begin
- SetAtomScanAreaDefR;
   with ScanParams do
     begin
-      nChannels:=3;
+    if flgSetScanArea then  SetSEMScanAreaDefR;
+     nChannels:=3;
      CurrentScanCount:=Nx;
      ScanRate:= 500; //double, nm/s;
      ScanRateBW:= 500; //double, nm/s;
@@ -1000,6 +1001,7 @@ begin
      PassIIDz:=-100; //nm
      flgStepXY:=false;      //flg fix step
      flgSQ:=true;         //flg Square Area  draw
+     flgSetScanArea:=true;
      flgTopoLevelDel:=true;
      flgTopoCurLinePlDel:=true; //delete plane Current line windows
      flgTopoTopViewPlDel:=true; //delete plane Top View windows
@@ -1032,6 +1034,7 @@ begin
      PassIIDz:=-100; //nm
      flgStepXY:=false;      //flg fix step
      flgSQ:=true;         //flg Square Area  draw
+     flgSetScanArea:=true;
      flgTopoLevelDel:=true;
      flgTopoCurLinePlDel:=true; //delete plane Current line windows
      flgTopoTopViewPlDel:=true; //delete plane Top View windows
@@ -1057,6 +1060,14 @@ begin
        *)
  with ScanParams do
     begin
+     ScanAreaStartXR:=5000;
+     ScanAreaStartYR:=5000;
+     ScanAreaStartXF:=1000;
+     ScanAreaStartYF:=1000;
+     ScanAreaBeginXF:=10;
+     ScanAreaBeginYF:=10;
+     ScanAreaBeginXR:=10;
+     ScanAreaBeginYR:=10;
      X:=ScanAreaStartXR;
      Y:=ScanAreaStartYR;
      XBegin:=ScanAreaBeginXR;
@@ -1076,6 +1087,38 @@ begin
      flgSQ:=true; //
   end;
 end;
+procedure SetSEMScanAreaDefR;
+begin
+ with ScanParams do
+    begin
+     ScanAreaStartXR:=3000;
+     ScanAreaStartYR:=3000;
+     ScanAreaStartXF:=1000;
+     ScanAreaStartYF:=1000;
+     ScanAreaBeginXF:=10;
+     ScanAreaBeginYF:=10;
+     ScanAreaBeginXR:=10;
+     ScanAreaBeginYR:=10;
+     X:=ScanAreaStartXR;
+     Y:=ScanAreaStartYR;
+     XBegin:=ScanAreaBeginXR;
+     YBegin:=ScanAreaBeginYR;
+     if flgReniShawUnit then
+     begin
+       Xshift:=100*Renishawparams.Period_nm;
+       Yshift:=100*Renishawparams.Period_nm; //shift zero point coordinate for renishaw
+     end
+     else
+     begin
+       Xshift:=0;//100;  { TODO : 041012 }
+       Yshift:=0;//100;
+     end;
+     NX:=100;
+     NY:=100;
+     flgSQ:=true; //
+  end;
+end;
+
 procedure SetScanAreaDefF;
 begin
  with ScanParams do
@@ -1275,14 +1318,15 @@ begin
           SetScanParamsDefInitPrev;
         end;
    ProBeam,
-   MicProbe: begin
+   MicProbe:
+         begin
           if FlgReniShawUnitExists then  //????
           begin
            RenishawParamsDef;
            ReniShawOscParamsDef;
            RenishawParamsLast;
           end;
-          SetScanParamsDefAtom;
+          SetScanParamsDefSEM;
           SetScanParamsDefInitPrev;
         end;
   grand: SetScanParamsDefGrand;

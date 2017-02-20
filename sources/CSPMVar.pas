@@ -376,14 +376,14 @@ TYPE CSPMSignalsArr=array [1..13] of RSignalCharacter;
 
 Type RResonanceParams=packed record
      nchannel:LongWord;
-     FreqStart:word;
-     FreqEnd:word;
-     FreqStartRough:word;
-     FreqStartFine:word;
-     FreqEndRough:word;
-     FreqEndFine:word;
-     FreqStartRoughDef:word;
-     FreqEndRoughDef:word;
+     FreqStart:longword;        //word->longword 150217
+     FreqEnd:longword;
+     FreqStartRough:longword;
+     FreqStartFine:longword;
+     FreqEndRough:longword;
+     FreqEndFine:longword;
+     FreqStartRoughDef:longword;
+     FreqEndRoughDef:longword;
      NPoints:word;
      Step:word;
      StepRough:word;
@@ -520,6 +520,7 @@ TYPE RScannerMoveXYZParams=packed record
       end;
 
 TYPE RScanParams=packed record
+      flgSetScanArea:boolean;
       flgStepXY:Boolean;      //flg fix step
       flgSQ:boolean;         //flg Square Area  draw
       flgTopoLevelDel:boolean;     //delete base - min value

@@ -134,7 +134,7 @@ begin
        else    //sfm
        begin
         Min:=1;
-        Max:=300;
+        Max:=1000;
        // largeChange:=10;
         Position:=round(ApproachParamsEdited.ExtremAmplitude);
         LabelValue.Caption:=FloattoStrF(ScrollBar.Position,fffixed,6,2);
