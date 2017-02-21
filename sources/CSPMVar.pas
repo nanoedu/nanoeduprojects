@@ -391,7 +391,7 @@ Type RResonanceParams=packed record
      AmplStep:single;
      DeltaFine:word; //  1/2 fine windows size
      Delay:word;
-     ResFreq:word;
+     ResFreq:longword;
      Q:single;
      NChannels:integer;
      Gain_AM:word;  //250112
