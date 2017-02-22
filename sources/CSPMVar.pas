@@ -520,7 +520,7 @@ TYPE RScannerMoveXYZParams=packed record
       end;
 
 TYPE RScanParams=packed record
-      flgSetScanArea:boolean;
+      flgSetScanArea:boolean; // set  def or not scanarea when change sfm->stm  device
       flgStepXY:Boolean;      //flg fix step
       flgSQ:boolean;         //flg Square Area  draw
       flgTopoLevelDel:boolean;     //delete base - min value
