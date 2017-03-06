@@ -95,7 +95,14 @@ begin
      Api.UserErr:=-1;
      SetPoint:=ApproachParams.LandingSetPoint;
      ScannerProtract;
-     SD_GAM:= round(ApproachParams.Amp_M/1000*TransformUnit.BiasV_d);
+  //   SD_GAM:= round(ApproachParams.Amp_M/1000*TransformUnit.BiasV_d);      06/03/17
+          case flgUnit of
+     Nano:  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M/1000*TransformUnit.BiasV_d);
+    Probeam,
+    MicProbe,
+      terra,
+    Pipette:  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M*10/1000*TransformUnit.BiasV_d);
+                  end;
      if flgUnit=pipette then  Bias:=round(ApproachParams.BiasV*TransformUnit.BiasV_d);
 end;
 
