@@ -1509,7 +1509,7 @@ var
     discrVal:integer;
 begin
 //   UpdateStrings;
-  //     FlgApproachOK:=true; //291012
+//   FlgApproachOK:=true; //291012
    flgNew_XYBegin:=true; // 11/02/13         or false; ??????
    if (flgUNit=ProBeam) or (flgUnit=MicProbe)then MinValidMicroStepDelay:=MinValidMicroStepDelaySEM;
   // Nanoedu.GetCurrentPosition;
@@ -1531,7 +1531,7 @@ begin
     CaptionDemo:='';
  //  if CurrentUserLevel='Demo' then CaptionDemo:=siLangLinked1.GetTextOrDefault('IDS_34' { 'Демо!!  ' } );
       UpdateStrings;
-     
+
 
     Application.ProcessMessages;
   //  RadioTypeLitho.visible:=false;
@@ -1553,7 +1553,11 @@ begin
      LinePointsMax:=ScanSizeMax;
 
      PidParams.Ti:=PidParams.TiScan;
-
+     case  flgUnit of
+ProBeam:begin
+           SignalsMode.sbTi.max:=1000;
+        end;
+              end;
     with PidParams do
     begin
       with SignalsMode do
@@ -1930,11 +1934,7 @@ true: begin  SpdBtnOneFrame.Caption:='1'; SpdBtnRecord.visible:=false; end;
 false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
              end;
   NanoEdu.FineXY:=(HardWareOpt.XYTune='Fine');
- case  flgUnit of
-ProBeam:begin
-           SignalsMode.sbTi.max:=1000;
-        end;
-              end;
+
         TabSheetLItho.Visible:=true;
         UpDownNx.position:=0;
         UpDownNy.position:=0;
