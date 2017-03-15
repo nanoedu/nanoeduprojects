@@ -1357,7 +1357,13 @@ end;
          Inform.labelinf.caption:=strm2{'Please wait, while the probe is rising to the start position!!!'};
          Inform.Show;
          Application.ProcessMessages;
-         if flgAutoRising then lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);
+         if flgAutoRising then
+         begin
+//          lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);    edited 14/03/17
+             if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30) else
+              if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30)       // need to known!!!!!!!!!!!!!!
+                                    else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
+         end;
         Inform.Close;
        end;
         flgApproachOK:=false;
@@ -3383,7 +3389,11 @@ if  flgApproachOK then
        Inform.labelinf.caption:=strm2{'Please wait, while the probe is rising to the start position!!!'};
        Inform.Show;
        Application.ProcessMessages;
-       lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);
+       //edited 14/03/17
+       if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30) else
+         if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30)       // need to known!!!!!!!!!!!!!!
+                               else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
+// lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);
        flgApproachOK:=false;
         Inform.Close;
         Application.ProcessMessages;

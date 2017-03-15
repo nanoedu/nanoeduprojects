@@ -179,6 +179,7 @@ var
  val,i:integer;
      z:apitype;
      hr:Hresult;
+     lFlgStatusStep:apitype;
   begin
  if  (mDrawing=AMessage.WParam)then
   begin
@@ -229,7 +230,7 @@ var
      False: begin
              LabelCur.Caption:=FloatToStrF(SignalIndicator.Value/ApproachParams.UAMMax,ffFixed ,8,2)
             end;
-     end; //case
+                      end; //case
              if  MessageDlgCtr( siLangLinked1.GetTextOrDefault('IDS_3' (* 'Error!!' *) ) +#13+siLangLinked1.GetTextOrDefault('IDS_4' (* 'Tip too close to a sample!' *) )+#13+ siLangLinked1.GetTextOrDefault('IDS_5' (* 'Verify landing option or physical unit state.' *) )+#13+siLangLinked1.GetTextOrDefault('IDS_6' (* 'Do you want to rise the probe in a save place?' *) ) ,mtWarning ,[mbYes,mbNo,mbHelp],IDH_error_landing_option)=mrYes then
              begin
                StartBtnDown.Down:=false;
@@ -237,9 +238,14 @@ var
                Application.ProcessMessages;
                StartBtnFastUp.Down:=true;
                ApproachActive :=true;
-               NanoEdu.RisingToStartPoint(20);
+           //    NanoEdu.RisingToStartPoint(20);
+           //edited 14/03/17
+               if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30) else
+                if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30)       // need to known!!!!!!!!!!!!!!
+                                      else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
+               Sleep(1000);
                StartBtnFastUp.Down:=false;
-               StepsCount:=StepsCount+20;
+               StepsCount:=StepsCount+30;
              end;
 
               Application.ProcessMessages;
@@ -1184,6 +1190,11 @@ true:  NanoEdu.SetPoint:=ApiType(round(ApproachParams.LandingSetPoint*TransformU
        flgTimerActive:=false;
        TimerUp.enabled:=true;
        TimerUp.Interval:=300;//1000; //300
+              case  flgUnit of
+ProBeam:begin
+           SignalsMode.sbTi.max:=1000;
+        end;
+              end;
        case  flgUnit of
  baby,
  ProBeam,

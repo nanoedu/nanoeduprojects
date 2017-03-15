@@ -465,9 +465,7 @@ begin
      FreqEndRough:=FreqEndRoughDef; // 10000;
      FreqStart:=FreqStartRough;  //Hrz
      FreqEnd:=FreqEndRough;
-     StepRough:=10; //Hrz
      StepFine:=1;//HRz
-     Step:=StepRough;
      NPoints:=400;//round((FreqEnd-FreqStart)/Step)-1;
      StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
      Step:=StepRough;
@@ -486,6 +484,23 @@ begin
    with iniCSPM do
   begin
       ResonanceParams.Delay:=ReadInteger('Resonance','Delay',2) ;
+   case flgUnit of
+Probeam:begin
+         with   ResonanceParams do
+        begin
+         FreqStartRoughDef:=ReadInteger('Resonance','FreqStartRough',6000);
+         FreqEndRoughDef:=ReadInteger('Resonance','FreqEndRough',12000) ;
+         FreqStartRough:=FreqStartRoughDef;//8000;
+         FreqEndRough:=FreqEndRoughDef; // 10000;
+         FreqStart:=FreqStartRough;  //Hrz
+         FreqEnd:=FreqEndRough;
+         StepFine:=1;//HRz
+         NPoints:=400;//round((FreqEnd-FreqStart)/Step)-1;
+         StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
+         Step:=StepRough;
+        end;
+        end;
+   end;
   end;
   finally
     iniCSPM.Free;
@@ -564,7 +579,14 @@ begin
                              ApproachParams.MaxSuppress:=0.5;
                              ApproachParams.flgControlTopPosition:=false;
             end;
-    probeam,
+    probeam:begin
+                             ApproachNScrpt:=ApproachPMSEMScrpt;
+                             ApproachNOneScrpt:=ApproachPMSEMOneScrpt;
+                             MTestScrpt:=PMSEMTestScrpt;   //piezo
+                             ApproachParams.TypeMover:=4; //pmz
+                             ApproachParams.MaxSuppress:=1;
+                             ApproachParams.flgControlTopPosition:=false;
+             end;
     micprobe:begin
                              ApproachNScrpt:=ApproachPMSEMScrpt;
                              ApproachNOneScrpt:=ApproachPMSEMOneScrpt;
@@ -683,7 +705,15 @@ begin
                              ApproachParams.MaxSuppress:=0.5;
                              ApproachParams.flgControlTopPosition:=false;
              end;
-   ProBeam,
+   ProBeam: begin
+                             ApproachNScrpt:=ApproachPMSEMScrpt;
+                             ApproachNOneScrpt:=ApproachPMSEMOneScrpt;
+                             MTestScrpt:=PMSEMTestScrpt;   //piezo
+                             ApproachParams.TypeMover:=4; //pmz
+                             ApproachParams.MaxSuppress:=1;
+                             ApproachParams.flgControlTopPosition:=false;
+
+             end;
    micprobe: begin
                              ApproachNScrpt:=ApproachPMSEMScrpt;
                              ApproachNOneScrpt:=ApproachPMSEMOneScrpt;
@@ -1329,7 +1359,9 @@ begin
           SetScanParamsDefSEM;
           SetScanParamsDefInitPrev;
         end;
-  grand: SetScanParamsDefGrand;
+  grand:begin
+         SetScanParamsDefGrand;
+        end;
          end;
    ResonanceParamsDef;
    SpectrParamsDef;
@@ -1475,12 +1507,15 @@ begin
 
              case  flgUNit of
   baby:        WriteString('Physical Unit Options','Scanner Number Atom Unit',HardWareOpt.ScannerNumb);
-  ProBeam,MicProbe:       ;
-  nano,Pipette,terra:        begin
+  ProBeam,MicProbe:  begin
+                       WriteInteger('Resonance','FreqStartRough',ResonanceParams.FreqStartRough);
+                       WriteInteger('Resonance','FreqEndRough',ResonanceParams.FreqEndRough);
+                     end;
+  nano,Pipette,terra:begin
                       //debug
                       if HardWareOpt.ScannerNumb=' ' then  NoFormUnitLoc.silang1.showmessage('scanner= ');
-                     WriteString('Physical Unit Options','Scanner Number',HardWareOpt.ScannerNumb);
-               end;
+                      WriteString('Physical Unit Options','Scanner Number',HardWareOpt.ScannerNumb);
+                    end;
   grand:
                      end;
      //Analog HardWare Options

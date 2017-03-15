@@ -151,12 +151,12 @@ object Approach: TApproach
       ExplicitWidth = 222
       ExplicitHeight = 220
       inherited Panel3: TPanel
-        Left = 6
+        Left = 10
         Top = 123
         Width = 209
         Height = 94
         Hint = 'Feed Back Loop Gain Adjustment'
-        ExplicitLeft = 6
+        ExplicitLeft = 10
         ExplicitTop = 123
         ExplicitWidth = 209
         ExplicitHeight = 94
@@ -182,10 +182,10 @@ object Approach: TApproach
         end
         inherited sbTi: TScrollBar
           Left = 5
-          Top = 63
+          Top = 62
           Max = 200
           ExplicitLeft = 5
-          ExplicitTop = 63
+          ExplicitTop = 62
         end
       end
       inherited PageControl1: TPageControl

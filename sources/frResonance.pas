@@ -817,7 +817,15 @@ begin
     end;
 //  {$ENDIF}
   ComboBoxFQ_SEL.ItemIndex:=0;
-  PanelCustom.Visible:=false;
+   PanelCustom.Visible:=false;
+   case  flgUnit   of
+   probeam:
+    begin
+     PanelCustom.visible:=true;
+     ComboBoxFQ_SEL.ItemIndex:=1;
+   end;
+   end;
+ 
   LblFromVal.caption:=inttostr(ResonanceParams.FreqStart div 1000);
   LblToVal.Caption:=inttostr(ResonanceParams.FreqEnd div 1000);
   ScrollBarFrom.Position:= ResonanceParams.FreqStart div 1000;
@@ -871,6 +879,8 @@ with ScrollBarT do
       Automatic:=false;//False;
       SetMinMax(0,2.5);
      end;
+
+
        NewItem := TMenuItem.Create(Self);
        NewItem.Caption :='-';
        Main.mWindows.Add(NewItem);
@@ -1228,10 +1238,22 @@ begin
   Main.ScanBtn.Hint:=siLangLinked1.GetTextOrDefault('IDS_31' (* 'Landing before Scanning' *) );
    with ResonanceParams do
    begin
-     FreqStartRough:=FreqStartRoughDef;
-     FreqStart:=FreqStartRough;
-     FreqEndRough:=FreqEndRoughDef;
-     FreqEnd:=FreqEndRough;
+ case  flgUnit of
+probeam,
+micprobe:begin
+         FreqStart:=FreqStartRough;
+         FreqEnd:=FreqEndRough;
+        end;
+nano,
+nanotutor,
+pipette,
+terra:begin
+           FreqStartRough:=FreqStartRoughDef;
+           FreqStart:=FreqStartRough;
+           FreqEndRough:=FreqEndRoughDef;
+           FreqEnd:=FreqEndRough;
+          end;
+         end;
      StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
      Step:=StepRough;
    end;
