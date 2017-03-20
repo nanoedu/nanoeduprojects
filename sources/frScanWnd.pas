@@ -1555,7 +1555,7 @@ begin
      PidParams.Ti:=PidParams.TiScan;
      case  flgUnit of
 ProBeam:begin
-           SignalsMode.sbTi.max:=1000;
+           SignalsMode.sbTi.max:=10000;      // 160317
         end;
               end;
     with PidParams do

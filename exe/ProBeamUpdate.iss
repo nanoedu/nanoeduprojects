@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=ProBeam
-AppVerName=ProBeam ver 17.01.13.17
-OutputBaseFilename=ProBeamUpdate-17.01.13.17
+AppVerName=ProBeam ver 17.01.13.18
+OutputBaseFilename=ProBeamUpdate-17.01.13.18
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -38,7 +38,7 @@ Source: "ProBeam.exe";   DestDir: "{app}"; Flags: ignoreversion
 Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
 Source: "SPMConfig.ini"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "SPMConfigUsersProBeam.ini";    DestDir: "{userappdata}\ProBeam"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
+;Source: "SPMConfigUsersProBeam.ini";    DestDir: "{userappdata}\ProBeam"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
 Source: "SPMConfigDefUsersProBeam.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
 Source: "scheme\*.bin"; DestDir: "{app}\scheme"; Flags: ignoreversion recursesubdirs;
 [INI]

@@ -294,7 +294,7 @@ with PIDSTMParams do
    dTAbsMax:=4000;
    TeAbsMax:=100;
    TdAbsMax:=100;
-   TiAbsMax:=1000;    //100
+   TiAbsMax:=10000;    //100     // 160317
    FineScale:=12;
    InitPIDFine(Te, TeAbsMax, pidTeL1,pidTeL2);
    InitPIDFine(Td, TdAbsMax, pidTdL1,pidTdL2);
@@ -316,7 +316,7 @@ with PIDSFMParams do
    dTAbsMax:=4000;
    TeAbsMax:=100;
    TdAbsMax:=100;
-   TiAbsMax:=1000; //100
+   TiAbsMax:=10000; //100          // 160317
    FineScale:=12;
    InitPIDFine(Te, TeAbsMax, pidTeL1,pidTeL2);
    InitPIDFine(Td, TdAbsMax, pidTdL1,pidTdL2);

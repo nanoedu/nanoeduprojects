@@ -561,14 +561,13 @@ object Approach: TApproach
         object Label6: TLabel
           Left = 1
           Top = 1
-          Width = 57
+          Width = 35
           Height = 13
           Align = alTop
           Alignment = taCenter
           Caption = 'Steps '
           Transparent = True
           Layout = tlCenter
-          ExplicitWidth = 35
         end
         object edstepscounter: TLabel
           Left = 23

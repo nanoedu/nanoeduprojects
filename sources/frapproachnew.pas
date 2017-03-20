@@ -1040,6 +1040,11 @@ begin
     PidParams.Ti:=PidParams.TiApproach;
     // FINE PID CONTROL
      SignalsMode.SpeedBtnFineTi.down:=false;
+                   case  flgUnit of
+ProBeam:begin
+           SignalsMode.sbTi.max:=10000;     // 160317
+        end;
+              end;
     with PidParams do
     begin
       // rough
@@ -1190,11 +1195,7 @@ true:  NanoEdu.SetPoint:=ApiType(round(ApproachParams.LandingSetPoint*TransformU
        flgTimerActive:=false;
        TimerUp.enabled:=true;
        TimerUp.Interval:=300;//1000; //300
-              case  flgUnit of
-ProBeam:begin
-           SignalsMode.sbTi.max:=1000;
-        end;
-              end;
+ 
        case  flgUnit of
  baby,
  ProBeam,
