@@ -86,10 +86,10 @@ Source: "SPMOSC.ini";   DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion
 Source: "SPMPID.ini";   DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
 Source: "SPMvideo.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
 ;Source: "SPMupdates.ini"; DestDir: "{userappdata}\nanoeducator"; Flags: ignoreversion;
-Source: "SPMScanner.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
-Source: "SPMScannerDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "SPMScannerY.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
-Source: "SPMScannerYDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
+;Source: "SPMScanner.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
+;Source: "SPMScannerDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
+;Source: "SPMScannerY.ini"; DestDir: "{userappdata}\NanoTutor"; Flags: ignoreversion;
+;Source: "SPMScannerYDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "SPMPalettes.ini"; DestDir: "{userappdata}\NanoTutor";   Flags: ignoreversion;
 Source: "SPMPalettesDef.ini"; DestDir: "{app}";                  Flags: ignoreversion;
 Source: "ScannerIniDBase\*.*"; DestDir: "{app}\ScannerIniDBase"; Flags: ignoreversion recursesubdirs

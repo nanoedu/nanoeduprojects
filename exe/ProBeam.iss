@@ -85,10 +85,10 @@ Source: "SPMvideo.ini"; DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
 ;Source: "SPMupdates.ini"; DestDir: "{userappdata}\nanoeducator"; Flags: ignoreversion;
 Source: "SPMConfigUsersProBeam.ini";    DestDir: "{userappdata}\ProBeam"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
 Source: "SPMConfigDefUsersProBeam.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
-Source: "SPMScanner.ini"; DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
-Source: "SPMScannerDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "SPMScannerY.ini"; DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
-Source: "SPMScannerYDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
+;Source: "SPMScanner.ini"; DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
+;Source: "SPMScannerDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
+;Source: "SPMScannerY.ini"; DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
+;Source: "SPMScannerYDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "SPMPalettes.ini"; DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
 Source: "SPMPalettesDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "ScannerIniDBase\*.*"; DestDir: "{app}\ScannerIniDBase"; Flags: ignoreversion recursesubdirs
