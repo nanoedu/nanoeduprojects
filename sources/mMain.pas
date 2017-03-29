@@ -1119,9 +1119,9 @@ begin
      if flgAutoRising then      //what about sfm->stm
      begin
       flgNanoeduUnitCreate:=true;
-      if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30)
+      if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)     //change sign - -> +
          else
-         if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30)       // need to known!!!!!!!!!!!!!!
+         if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)  //change sign - -> +      // need to known!!!!!!!!!!!!!!
                                else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
       flgNanoeduUnitCreate:=false;
       sleep(1000);   // 010913
@@ -1360,8 +1360,8 @@ end;
          if flgAutoRising then
          begin
 //          lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);    edited 14/03/17
-             if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30) else
-              if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30)       // need to known!!!!!!!!!!!!!!
+             if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100) else    //change sign - -> +
+              if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)       // need to known!!!!!!!!!!!!!!
                                     else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
          end;
         Inform.Close;
@@ -3390,9 +3390,9 @@ if  flgApproachOK then
        Inform.Show;
        Application.ProcessMessages;
        //edited 14/03/17
-       if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30) else
-         if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30)       // need to known!!!!!!!!!!!!!!
-                               else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
+       if (flgUnit=ProBeam) then  lFlgStatusStep:=NanoEdu.RisingToStartPoint(100) else       //change sign - -> +
+         if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)       // need to known!!!!!!!!!!!!!!
+                                 else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
 // lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);
        flgApproachOK:=false;
         Inform.Close;

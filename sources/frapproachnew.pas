@@ -240,8 +240,8 @@ var
                ApproachActive :=true;
            //    NanoEdu.RisingToStartPoint(20);
            //edited 14/03/17
-               if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30) else
-                if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(-30)       // need to known!!!!!!!!!!!!!!
+               if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(30) else
+                if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(30)       // need to known!!!!!!!!!!!!!!
                                       else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
                Sleep(1000);
                StartBtnFastUp.Down:=false;
@@ -530,11 +530,12 @@ begin
     ApproachParams.ZStepsNumb:=-1;
     NormBitBtn.Enabled:=True;
     BitBtnOK.Visible:=false;
-    panelRising.Font.Color:=clRed;  panelLanding.Font.Color:=clBlack;
+    panelRising.Font.Color:=clRed;
+    panelLanding.Font.Color:=clBlack;
     FlgApproachOK:=False;         //Rising
-               {$IFNDEF FULL}
-                   BitBtnStepTest.Enabled:=FlgApproachOK;
-               {$ENDIF}
+    {$IFNDEF FULL}
+          BitBtnStepTest.Enabled:=FlgApproachOK;
+    {$ENDIF}
    // panelfaststep.Visible:=false;
  //   SetDemoParamsDef;
     AddCaption:=siLangLinked1.GetTextOrDefault('IDS_35' (* ', rising' *) );
@@ -1309,7 +1310,7 @@ TControl(sender).Enabled:=false;
 
       case  ltag of
 6:begin
-                 //Rising
+     //Rising
      OneStep(1);
   end;
 3:begin

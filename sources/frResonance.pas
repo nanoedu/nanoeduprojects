@@ -239,7 +239,7 @@ var i,IMax:integer;
                    end;
                    inc(i);
                end;
-            until i>NPoints;
+            until i>(NPoints-1);     // edited 170227
            end;
 
 

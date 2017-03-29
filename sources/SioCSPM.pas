@@ -970,13 +970,13 @@ begin
                                                        else
                                                        if CommonVarName=USER_err then
                                                        begin
-                                                        if CommonVarValue=1 then  val:=$7FFFFFFF
-                                                                            else  val:=$80000000;//CommonVarValue;
+                                                        if CommonVarValue=1 then  val:=integer($7FFFFFFF)
+                                                                            else  val:=integer($80000000);// edited 170227
                                                        end
                                                        else
                                                        if CommonVarName=SelBRamU then
                                                        begin
-                                                         if CommonVarValue=1 then  val:=$80000000   //use dchange
+                                                         if CommonVarValue=1 then  val:=integer($80000000) //use dchange // edited 170227
                                                                              else  val:=0//use bram U;
                                                        end
                                                        else
@@ -985,8 +985,8 @@ begin
                                                             case flgRetract of
                                                           true: val:=0;
                                                          false:begin
-                                                                if STMflg  then  val:=$40000000
-                                                                           else  val:=$80000000;
+                                                                if STMflg  then  val:=integer($40000000)
+                                                                           else  val:=integer($80000000); // edited 170227
                                                                end;
                                                                      end;
                                                        end
@@ -1000,7 +1000,7 @@ begin
                                                          end
                                                          else
                                                          begin
-                                                           state:= MotorCurrentStatus shl 16;  //290113
+                                                           state:=0;//integer(MotorCurrentStatus shl 16);  //edited 170327  integer
                                                            val:=state and $FFFF7FFF;    //maskMotorOff
                                                          end
                                                        end

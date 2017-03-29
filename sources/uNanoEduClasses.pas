@@ -108,7 +108,7 @@ end;
 
 function TSFMNanoEdu.TurnOff:boolean;
 begin
- Api.SMZSTEP:=0;
+ //Api.SMZSTEP:=0;      //170327 edited
 // Finalize(arPCChannel);
 end;
 (*

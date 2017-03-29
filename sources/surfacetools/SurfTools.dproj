@@ -28,6 +28,8 @@
     <DCC_ResourcePath>..\</DCC_ResourcePath>
     <DCC_ObjPath>..\</DCC_ObjPath>
     <DCC_IncludePath>..\</DCC_IncludePath>
+    <DCC_IntegerOverflowCheck>True</DCC_IntegerOverflowCheck>
+    <DCC_RangeChecking>True</DCC_RangeChecking>
   </PropertyGroup>
   <ProjectExtensions>
     <Borland.Personality>Delphi.Personality</Borland.Personality>
