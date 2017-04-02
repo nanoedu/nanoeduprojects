@@ -25,7 +25,6 @@ public static  int DIN;
     public static final int waitsteps=40;//0
     public static final int none=30;     //0
     public static final int stop=100;
-
     public static final int ok=          3;
     public static final int touch=       2;
     public static final int outlimit=    4;
@@ -38,8 +37,6 @@ public static  int DIN;
 	public static final int CH_DATA_OUT    = 2;
         public static final int CH_PARAMS      = 3;
         public static final int CH_STEPS       = 1;
-
-
 
 
 public static void main(String[] arg)

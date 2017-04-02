@@ -72,9 +72,9 @@ begin
        if timemove=0 then timemove:=1;
            Present:= Now;
            DecodeTime(Present, Hour, Minut, Sec, MSec);
-           timestart:=Hour*3600+Minut*60+sec;
-           timeprev:=timestart;
-     //          caption:=siLangLinked1.GetTextOrDefault('IDS_2' (* 'Please, wait while scanner moves to the start point' *) );
+  //         timestart:=Hour*3600+Minut*60+sec;  170327 edited
+  //         timeprev:=timestart;        //        170327 edited
+ //          caption:=siLangLinked1.GetTextOrDefault('IDS_2' (* 'Please, wait while scanner moves to the start point' *) );
            ProgressBar.Max:=abs(x0-XEnd)+abs(y0-yend);
        if ProgressBar.Max=0 then ProgressBar.Max:=1;
            ProgressBar.Min:=0;

@@ -126,7 +126,7 @@ begin
   AdapterVer_lo  := val and $0000000F;
    val:=PIntegerArray(DataBuf)[1];
    FlgAdapterLink:=false;
-  if not boolean(val and $80000000) then
+  if not boolean(val and integer($80000000)) then          // edited 170227
             FlgAdapterLink:=boolean(val and $00000001);
    MoveMemory(Pinteger(PControllerParams),Pinteger(integer(databuf)+8),sizeof(RControllerParamsRecord));
 end;
