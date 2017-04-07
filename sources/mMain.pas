@@ -1119,9 +1119,9 @@ begin
      if flgAutoRising then      //what about sfm->stm
      begin
       flgNanoeduUnitCreate:=true;
-      if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)     //change sign - -> +
+      if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)     //changed sign - -> +
          else
-         if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)  //change sign - -> +      // need to known!!!!!!!!!!!!!!
+         if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)  //changed sign - -> +      // need to known!!!!!!!!!!!!!!
                                else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
       flgNanoeduUnitCreate:=false;
       sleep(1000);   // 010913
