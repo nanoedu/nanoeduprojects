@@ -1043,7 +1043,7 @@ begin
      SignalsMode.SpeedBtnFineTi.down:=false;
                    case  flgUnit of
 ProBeam:begin
-           SignalsMode.sbTi.max:=10000;     // 160317
+           SignalsMode.sbTi.max:=1000;//0;     // 160317
         end;
               end;
     with PidParams do
@@ -1134,7 +1134,7 @@ ProBeam:begin
               LabelCur.Visible:=true;//False;
               SignalsMode.tbSTM.TabVisible:=False;
               SignalsMode.tbSFM.TabVisible:=True;
-              SignalsMode.tbSFMCUR.TabVisible:=False;
+              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam);
               SignalsMode.LabelFB.Caption:=FloatToStrf(PIDParams.Ti, fffixed,5,2);
               {$IFDEF FULL}
                   if flgUnit=Pipette  then
