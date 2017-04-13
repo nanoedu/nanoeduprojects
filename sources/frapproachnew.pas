@@ -1040,7 +1040,7 @@ begin
     BitBtnLog.Visible:=false;
     PidParams.Ti:=PidParams.TiApproach;
     // FINE PID CONTROL
-     SignalsMode.SpeedBtnFineTi.down:=false;
+    SignalsMode.SpeedBtnFineTi.down:=false;
                    case  flgUnit of
 ProBeam:begin
            SignalsMode.sbTi.max:=1000;//0;     // 160317
@@ -1158,6 +1158,7 @@ ProBeam:begin
                   OnSetPointValue:=SetUAMSetPointValue;
                   SFM:=not STMflg;
                   LowLimit:=round(ApproachParams.LandingSetPoint*ApproachParams.UAMMax);
+                  if (HighLimit<LowLimit) then  HighLimit:=LowLimit+1000;
                end;
               MainCaption:=siLangLinked1.GetTextOrDefault('IDS_65' (* 'Scanning Force Microscope; ' *) );
          end;

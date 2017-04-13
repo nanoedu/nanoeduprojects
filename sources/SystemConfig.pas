@@ -19,6 +19,7 @@ procedure LoadPIDSTMParamsDef;
 procedure LoadPIDSFMParamsDef;
 //procedure LoadPIDScanParamsDef;
 procedure ResonanceParamsDef;
+procedure ResonanceParamsLast;
 procedure ScannerMovXYZParamsDef;
 procedure UsersParamsDef;
 procedure UsersParamsLast(const FileName:string);
@@ -450,8 +451,7 @@ begin
     iniCSPM.Free;
   end;
 end;
-
-procedure ResonanceParamsDef;
+procedure ResonanceParamsLast;
    var iniCSPM:TiniFile;
        sFile:string;
        str:string;
@@ -505,6 +505,62 @@ Probeam:begin
   finally
     iniCSPM.Free;
   end;
+end;
+procedure ResonanceParamsDef;
+   var iniCSPM:TiniFile;
+       sFile:string;
+       str:string;
+begin
+   with   ResonanceParams do
+   begin
+     Delay:=2;      //ms
+     FreqStartRoughDef:=6000;
+     FreqEndRoughDef:=12000;
+     FreqStartRough:=FreqStartRoughDef;//8000;
+     FreqEndRough:=FreqEndRoughDef; // 10000;
+     FreqStart:=FreqStartRough;  //Hrz
+     FreqEnd:=FreqEndRough;
+     StepFine:=1;//HRz
+     NPoints:=400;//round((FreqEnd-FreqStart)/Step)-1;
+     StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
+     Step:=StepRough;
+     DeltaFine:=210; //500 Hrz   1/2 fine windows size
+     AmplStep:=1/TransformUnit.AmplV_d;
+     Nchannels:=4;       //add drawdone channel number 2
+     // number of java channel; 1:  freq{i},Ampl[i]- outchannel; freqres
+     //  write delay
+  //   Gain_AM:=491;
+   end;
+   // add 160911
+// Reading Params Value from IniFile
+(*  sFile:=GetConfigUsersFileName;
+  iniCSPM:=TIniFile.Create(sFile);
+  try
+   with iniCSPM do
+  begin
+      ResonanceParams.Delay:=ReadInteger('Resonance','Delay',2) ;
+   case flgUnit of
+Probeam:begin
+         with   ResonanceParams do
+        begin
+         FreqStartRoughDef:=ReadInteger('Resonance','FreqStartRough',6000);
+         FreqEndRoughDef:=ReadInteger('Resonance','FreqEndRough',12000) ;
+         FreqStartRough:=FreqStartRoughDef;//8000;
+         FreqEndRough:=FreqEndRoughDef; // 10000;
+         FreqStart:=FreqStartRough;  //Hrz
+         FreqEnd:=FreqEndRough;
+         StepFine:=1;//HRz
+         NPoints:=400;//round((FreqEnd-FreqStart)/Step)-1;
+         StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
+         Step:=StepRough;
+        end;
+        end;
+   end;
+  end;
+  finally
+    iniCSPM.Free;
+  end;
+  *)
  //
 end;
 procedure ScannerMovXYZParamsDef;
@@ -1364,6 +1420,7 @@ begin
         end;
          end;
    ResonanceParamsDef;
+   if (flgUnit=ProBeam) then  ResonanceParamsLast;
    SpectrParamsDef;
    SetDemoParamsDef;
    ScannerMovXYZParamsDef;

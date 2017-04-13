@@ -155,7 +155,7 @@ var
 
 implementation
 
-uses GlobalVar,NL3LFBLib_TLB,MLPC_APILib_TLB,SioCSPM,nanoeduhelp,mMain,fShockwave,UNanoEduBaseClasses,
+uses GlobalVar,NL3LFBLib_TLB,MLPC_APILib_TLB,SioCSPM,nanoeduhelp,SystemConfig,mMain,fShockwave,UNanoEduBaseClasses,
      UNanoEduInterface,UNanoEduClasses,GlobalDcl,GlobalFunction,ResDrawThread, frReport, FrInform;
 
 {$R *.DFM}
@@ -697,6 +697,7 @@ begin
  0: begin
      rgManual.ItemIndex:=0;
      PanelCustom.Visible:=false;
+     ResonanceParamsDef;
      FreqStartRough:=FreqStartRoughDef;
      FreqStart:=FreqStartRough;
      FreqEndRough:=FreqEndRoughDef;
