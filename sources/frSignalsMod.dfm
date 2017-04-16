@@ -123,6 +123,10 @@ object SignalsMod: TSignalsMod
     TabWidth = 35
     object tbSFM: TTabSheet
       Caption = 'SFM'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0

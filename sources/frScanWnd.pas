@@ -1555,7 +1555,7 @@ begin
      PidParams.Ti:=PidParams.TiScan;
      case  flgUnit of
 ProBeam:begin
-           SignalsMode.sbTi.max:=10000;      // 160317
+           SignalsMode.sbTi.max:=1000;//0;      // 160317
         end;
               end;
     with PidParams do
@@ -1761,7 +1761,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
               TabSheetPhaseR.TabVisible:=True ;
               TabSheetSpectrR.TabVisible:=True;
               TabSheetLitho.TabVisible:=(flgUnit<>Pipette) and (flgUnit<>Terra);//and (flgUnit<>ProBeam);  //250116
-              TabSheetCurR.TabVisible:=False;
+              TabSheetCurR.TabVisible:= False;
              if flgUnit=Terra then      TabSheetCurR.TabVisible:=true;
              if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_53' (* 'Sample Surface Scanning; SFM Rough Regime' *) );
@@ -1771,7 +1771,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
               TabSheetSpectrR.HighLighted:=False;
               TabSheetFastTopo.HighLighted:=False;
               TabSheetLitho.HighLighted:=False;
-              SignalsMode.tbSFMCUR.TabVisible:=False;
+              SignalsMode.tbSFMCUR.TabVisible:= (flgUnit=ProBeam);
               SignalsMode.tbSFM.TabVisible:=True;
               SignalsMode.tbSTM.TabVisible:=False;
              if ApproachParams.BiasV<0 then  SignalsMode.btnBiasSFM.Font.Color:=clBlue

@@ -1040,10 +1040,10 @@ begin
     BitBtnLog.Visible:=false;
     PidParams.Ti:=PidParams.TiApproach;
     // FINE PID CONTROL
-     SignalsMode.SpeedBtnFineTi.down:=false;
+    SignalsMode.SpeedBtnFineTi.down:=false;
                    case  flgUnit of
 ProBeam:begin
-           SignalsMode.sbTi.max:=10000;     // 160317
+           SignalsMode.sbTi.max:=1000;//0;     // 160317
         end;
               end;
     with PidParams do
@@ -1134,7 +1134,7 @@ ProBeam:begin
               LabelCur.Visible:=true;//False;
               SignalsMode.tbSTM.TabVisible:=False;
               SignalsMode.tbSFM.TabVisible:=True;
-              SignalsMode.tbSFMCUR.TabVisible:=False;
+              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam);
               SignalsMode.LabelFB.Caption:=FloatToStrf(PIDParams.Ti, fffixed,5,2);
               {$IFDEF FULL}
                   if flgUnit=Pipette  then
@@ -1158,6 +1158,7 @@ ProBeam:begin
                   OnSetPointValue:=SetUAMSetPointValue;
                   SFM:=not STMflg;
                   LowLimit:=round(ApproachParams.LandingSetPoint*ApproachParams.UAMMax);
+                  if (HighLimit<LowLimit) then  HighLimit:=LowLimit+1000;
                end;
               MainCaption:=siLangLinked1.GetTextOrDefault('IDS_65' (* 'Scanning Force Microscope; ' *) );
          end;
