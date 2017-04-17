@@ -2459,7 +2459,7 @@ begin
        ImageTools:=TImageTools.Create(application);
        if assigned(ActiveGLW) then
        begin
-          ActiveGLW.ToolsPanel.checked:=not ActiveGLW.ToolsPanel.checked;
+        //  ActiveGLW.ToolsPanel.checked:=not ActiveGLW.ToolsPanel.checked;
          with ActiveGLW do
          begin
            ImageTools.SpeedBtnPal.visible{Enabled}:=false;
@@ -3158,7 +3158,7 @@ begin
     end;
    end;
 //
-   ToolsPanel.checked:=flgViewTools;
+ //  ToolsPanel.checked:=flgViewTools;
 ///
    if flgViewTools then   ActionImageTools.Visible:=false;
  end; //with

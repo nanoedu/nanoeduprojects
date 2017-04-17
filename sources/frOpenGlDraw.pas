@@ -65,7 +65,6 @@ uses
     N7: TMenuItem;
     N4: TMenuItem;
     N8: TMenuItem;
-    ToolsPanel: TMenuItem;
     Rule: TMenuItem;
     RulePP: TMenuItem;
     Angle: TMenuItem;
@@ -148,7 +147,7 @@ uses
     procedure Zoom130Click(Sender: TObject);
     procedure Zoom200Click(Sender: TObject);
     procedure mOptionDrawClick(Sender: TObject);
-    procedure ToolsPanelClick(Sender: TObject);
+//    procedure ToolsPanelClick(Sender: TObject);
     procedure RuleClick(Sender: TObject);
     procedure AngleClick(Sender: TObject);
     procedure ImageAnalysis1Click(Sender: TObject);
@@ -3651,7 +3650,7 @@ begin   { TODO : 250907 }
     ImageTools.close;
 //     if assigned(ScaleGL) then ScaleGL.close;   080410
 //     Application.processmessages;
-     ToolsPanel.checked:=False;
+  //   ToolsPanel.checked:=False;
     end;
    end;
  if listcount<>0 then glDeleteLists(list[0],listcount);
@@ -4709,7 +4708,7 @@ begin
   wglMakeCurrent(0,0);
   ReleaseDc(Handle,DC);
 end;
-
+(*
 procedure TfrmGL.ToolsPanelClick(Sender: TObject);
 var h:Hwnd;
 begin
@@ -4755,7 +4754,7 @@ begin
           end;
      end;
 end;
-
+ *)
 procedure TfrmGL.RuleClick(Sender: TObject);
 begin
      flgRule:=not FlgRule;

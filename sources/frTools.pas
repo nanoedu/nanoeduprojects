@@ -386,7 +386,7 @@ var i,count:integer;
 begin
   if assigned(ActiveGLW)   then
     begin
-     ActiveGLW.ToolsPanel.checked:=false;
+   //  ActiveGLW.ToolsPanel.checked:=false;
      ActiveGLW.ContrastMenu.checked:=false;
      ActiveGLW.ContrastPopUp.checked:=false;
 //     flgContrastZ:=false;

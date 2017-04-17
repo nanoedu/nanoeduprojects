@@ -1109,8 +1109,8 @@ begin
    if (SideScansScale> (h div 2))      then SideScansScale:=h div 2;
 
    if ScanParams.ScanPoints>SideLinePointsScale   then PointSelectKoef:=ScanParams.ScanPoints div SideLinePointsScale;
-
-   if ScanParams.ScanLines>SideScansScale         then ScanSelectKoef:=ScanParams.ScanLines div SideScansScale;
+   if(SideScansScale=0)then SideScansScale:=1; //added 17.04.17 !!! divide zero next line
+   if ScanParams.ScanLines>SideScansScale         then ScanSelectKoef:=ScanParams.ScanLines div SideScansScale;    // divide zero!!!!!!!!!!!
 
    SideLinePointsNmb:=ceil(ScanParams.ScanPoints/PointSelectKoef);
 
