@@ -1439,12 +1439,14 @@ end;
 
 procedure TAutoResonance.EnableControls();
 begin
+   StartBTn.Enabled:=True;
    Regime.Enabled:=True;
    Panel3.Enabled:=True;
    Panel6.Enabled:=True;
 end;
 procedure TAutoResonance.DisableControls();
 begin
+   StartBTn.Enabled:=false;
    Regime.Enabled:=False;
    Panel3.Enabled:=False;
    Panel6.Enabled:=False;

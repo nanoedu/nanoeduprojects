@@ -225,6 +225,7 @@ type
     ScrollBarTime: TScrollBar;
     TabSheetProfiler: TTabSheet;
     SpdBtnOneFrame: TSpeedButton;
+    SpeedButtonFastDemo: TSpeedButton;
     procedure EditDacZSpeedKeyPress(Sender: TObject; var Key: Char);
     procedure EditDacZSpeedChange(Sender: TObject);
     procedure LblEditDecayKeyPress(Sender: TObject; var Key: Char);
@@ -363,6 +364,7 @@ type
     procedure SignalsModeBtnBiasSFMClick(Sender: TObject);
     procedure SignalsModebtnSetPointClick(Sender: TObject);
     procedure SpdBtnOneFrameClick(Sender: TObject);
+    procedure SpeedButtonFastDemoClick(Sender: TObject);
   private
      flgApproachClick:boolean;
      flgblw:boolean;
@@ -1512,6 +1514,8 @@ begin
 //   FlgApproachOK:=true; //291012
    flgNew_XYBegin:=true; // 11/02/13         or false; ??????
    if (flgUNit=ProBeam) or (flgUnit=MicProbe)then MinValidMicroStepDelay:=MinValidMicroStepDelaySEM;
+   if (FlgCurrentUserLevel=Demo) then SpeedButtonFastDemo.visible:=true
+   else speedbuttonfastdemo.visible:=false;
   // Nanoedu.GetCurrentPosition;
    CaptionAdd:='';
    StopBtn.Down:=true;
@@ -7034,6 +7038,11 @@ begin
  ScanParams.flgTopoTopViewSDel:=not ScanParams.flgTopoTopViewSDel;
  ScanParams.flgTopoTopViewPlDel:=false;
  SpeedBtnSDelTop.Down:=ScanParams.flgTopoTopViewSDel;
+end;
+
+procedure TScanWnd.SpeedButtonFastDemoClick(Sender: TObject);
+begin
+ if (FlgCurrentUserLevel=Demo) then ScanParams.flgFastSimulator:=not ScanParams.flgFastSimulator;
 end;
 
 procedure TScanWnd.SpdBtnOneFrameClick(Sender: TObject);

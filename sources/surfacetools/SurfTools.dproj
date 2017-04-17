@@ -1,4 +1,5 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{3f1ed528-9c1f-41d9-a43a-4d4dd32f34fb}</ProjectGuid>
     <MainSource>SurfTools.dpr</MainSource>

@@ -108,6 +108,7 @@ object AutoResonance: TAutoResonance
             Top = 0
             Caption = '  S&top'
             ImageIndex = 9
+            Visible = False
             OnClick = ToolButton2Click
           end
         end
@@ -500,6 +501,8 @@ object AutoResonance: TAutoResonance
       Align = alClient
       BevelInner = bvLowered
       TabOrder = 1
+      ExplicitLeft = -16
+      ExplicitTop = 8
     end
   end
   object MainMenu: TMainMenu
