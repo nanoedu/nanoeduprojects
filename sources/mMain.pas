@@ -2927,7 +2927,7 @@ end;
 
 procedure TMain.FormDblClick(Sender: TObject);
 begin
-  miFullScreenClick;
+ // miFullScreenClick;
 end;
 
 procedure TMain.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
