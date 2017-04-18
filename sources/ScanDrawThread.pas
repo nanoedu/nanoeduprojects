@@ -1,3 +1,4 @@
+
 //060406
 {$A+,B-,C+,D+,E-,F-,G+,H+,I+,J+,K-,L+,M-,N+,O-,P+,Q+,R-,S-,T-,U-,V+,W-,X+,Y+,Z1}
 unit ScanDrawThread;
@@ -106,7 +107,82 @@ var
    DrawX1, DrawY1,
    DrawX2, DrawY2:integer;
    CFlag,PFlag:integer; // Flags of Visible for Current and Previous points;
+(*
+Procedure DelFiltPlane(Nx, Ny : integer;var p : Tmas2; FileName:PChar) ;
+var hlp, AF, AX, AY : extended;
+    AFX, AFY, AXX, AYY : extended;
+    A1, A2, A3 : extended;
+    i1, i2, j1, j2, Nxt, Nyt : integer;
+    i, j : integer;
+    ISf : integer;
+    ch : char;
+begin
+      i1:=0; i2:=Ny-1; j1:=0; j2:=Nx-1;
 
+      Nxt:=Ny; Nyt:=Nx;
+
+      AX:=0.0;
+       for i:=i1 to i2 do AX:=AX+i;
+      AX:=AX/Nxt;
+      AXX:=0.0;
+      for i:=i1 to i2 do AXX:=AXX+sqr(i-AX);
+      AXX:=AXX/Nxt;
+      AY:=0.0;
+      for j:=j1 to j2 do AY:=AY+j;
+      AY:=AY/Nyt;
+      AYY:=0.0;
+      for j:=j1 to j2 do AYY:=AYY+sqr(j-AY);
+      AYY:=AYY/Nyt;
+      AF:=0.0;
+   for i:=i1 to i2 do
+      begin
+           hlp:=0.0;
+           for j:=j1 to j2 do hlp:=hlp+p[j,i];
+           AF:=AF+(hlp/Nyt);
+      end;
+      AF:=AF/Nxt;
+      AFX:=0.0;
+    for i:=i1 to i2 do
+      begin
+           hlp:=0.0;
+           for j:=j1 to j2 do hlp:=hlp+(p[j,i]-AF);
+           AFX:=AFX+(hlp/Nyt)*(i-AX);
+      end;
+      AFX:=AFX/Nxt;
+      AFY:=0.0;
+    for j:=j1 to j2 do
+      begin
+           hlp:=0.0;
+           for i:=i1 to i2 do hlp:=hlp+(p[j,i]-AF);
+           AFY:=AFY+(hlp/Nxt)*(j-AY);
+      end;
+      AFY:=AFY/Nyt;
+      A3:=AF; A1:=AFX/AXX; A2:=AFY/AYY;
+     for j:=0 to Nyt-1 do
+      begin
+           for i:=0 to Nxt-1 do
+           begin
+               isf:=round(A1*(i-AX) + A2*(j-AY) + A3);
+               p[j,i]:=p[j,i] - isf;
+           end;
+      end;
+     iSf:=round(p[j1,i1]);
+    for j:=j1 to j2 do
+     begin
+         for i:=i1 to i2 do
+         begin
+             if p[j,i] < isf then isf := round(p[j,i]);
+         end;
+     end;
+    for j:=0 to Nyt-1 do
+     begin
+        for i:=0 to Nxt-1 do
+         begin
+              p[j,i]:=p[j,i]-isf;
+         end;
+     end;
+end; {DelFiltPlane}
+ *)
 constructor TScanDrawThread.Create;
 begin
   inherited Create(True);
