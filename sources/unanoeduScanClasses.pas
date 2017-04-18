@@ -2279,6 +2279,7 @@ end;
    NGetCountEvent:=ScanParams.ScanPoints ;
    params[0]:=ByteInversion(ScanParams.NX);
    params[1]:=ByteInversion(ScanParams.NY);
+
    params[2]:=ByteInversion(ScanParams.ScanPath); {X+:0,Y+:1,multi -2}
    params[3]:=ByteInversion(ScanParams.sz);
    params[4]:=ByteInversion(ScanParams.ScanMethod);

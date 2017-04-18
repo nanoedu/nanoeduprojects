@@ -39,10 +39,13 @@ type
     ProgressBar1: TProgressBar;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
+
   public
     { Public declarations }
+        flgactive:boolean;
   end;
 
 var
@@ -58,6 +61,12 @@ procedure TformInitUnitEtape.FormClose(Sender: TObject; var Action: TCloseAction
 begin
   Action:=caFree;
   formInitUnitEtape:=nil;
+end;
+
+procedure TformInitUnitEtape.FormCloseQuery(Sender: TObject;  var CanClose: Boolean);
+begin
+  if flgactive  then canclose:=false
+                else canclose:=true;
 end;
 
 procedure TformInitUnitEtape.FormCreate(Sender: TObject);

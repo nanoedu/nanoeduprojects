@@ -1087,12 +1087,20 @@ begin
       case STMflg of
    true: if not  STMExecute then
          begin
-           if assigned(formInitUnitEtape) then  formInitUnitEtape.close;
+           if assigned(formInitUnitEtape) then
+           begin
+            formInitUnitEtape.flgactive:=false;
+             formInitUnitEtape.close;
+           end;
            exit;
          end;//(self);
   false: if not  SFMExecute then
          begin
-           if assigned(formInitUnitEtape) then  formInitUnitEtape.close;
+           if assigned(formInitUnitEtape) then
+           begin
+            formInitUnitEtape.flgactive:=false;
+            formInitUnitEtape.close;
+           end;
           exit;
          end;//(self);                          // Çהוסü סמחהאועסÿ Nanoedu
       end;
@@ -1107,7 +1115,11 @@ begin
             formInitUnitEtape.ProgressBar.Position:=10+idready;
            end;
            sleep(1000);
-       if assigned(formInitUnitEtape) then  formInitUnitEtape.close;
+       if assigned(formInitUnitEtape) then
+       begin
+        formInitUnitEtape.flgactive:=false;
+        formInitUnitEtape.close;
+       end;
 
        Inform:=TInform.Create(Application);
        Inform.labelinf.caption:=strm2{'Please wait, while the probe is rising to the start position!!!'};
@@ -1390,7 +1402,11 @@ end;
    {$ENDIF}
   caption:=basecaption;
 
- if assigned(formInitUnitEtape) then  formInitUnitEtape.Close;
+ if assigned(formInitUnitEtape) then
+ begin
+  formInitUnitEtape.flgactive:=false;
+  formInitUnitEtape.Close;
+ end;
 
   FreeAndNil(NanoEdu);
 
@@ -1454,7 +1470,7 @@ SetFlgSetScanArea;
 
  formInitUnitEtape:=TformInitUnitEtape.Create(self);
  formInitUnitEtape.Show;
-
+ formInitUnitEtape.flgactive:=true;
     case   FlgCurrentUserLevel of
 Beginner,
 Advanced:begin
@@ -1533,6 +1549,7 @@ Advanced:begin
             ActionNew.Enabled:=false;
             ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
             ComboBoxSFMSTM.Enabled:=true;
+            formInitUnitEtape.flgactive:=false;
             formInitUnitEtape.Close;
             flgCanClose:=true; //180114
             exit;

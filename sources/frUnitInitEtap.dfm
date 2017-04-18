@@ -17,6 +17,7 @@ object formInitUnitEtape: TformInitUnitEtape
   Position = poMainFormCenter
   Visible = True
   OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -102,6 +103,10 @@ object formInitUnitEtape: TformInitUnitEtape
           Caption = 'Connection error'
           ImageIndex = 1
           TabVisible = False
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object GroupBox2: TGroupBox
             Left = 0
             Top = 0
