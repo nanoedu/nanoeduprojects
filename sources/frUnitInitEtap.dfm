@@ -69,12 +69,14 @@ object formInitUnitEtape: TformInitUnitEtape
             Height = 187
             Align = alClient
             Caption = 'Step by step'
+            Enabled = False
             TabOrder = 0
             object CheckListBox: TCheckListBox
               Left = 12
               Top = 24
               Width = 339
               Height = 145
+              Enabled = False
               ItemHeight = 13
               Items.Strings = (
                 'COM server creation'
@@ -103,10 +105,6 @@ object formInitUnitEtape: TformInitUnitEtape
           Caption = 'Connection error'
           ImageIndex = 1
           TabVisible = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GroupBox2: TGroupBox
             Left = 0
             Top = 0
