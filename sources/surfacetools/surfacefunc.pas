@@ -463,9 +463,21 @@ var hlp, AF, AX, AY : extended;
     i, j : integer;
     ISf : integer;
     ch : char;
+    averp: Tmas2;
+    val: integer;
 begin
-      i1:=0; i2:=Ny-1; j1:=0; j2:=Nx-1;
-  
+     //  MedianFilt3(Nx,Ny,p,FileName);
+        i1:=0; i2:=Ny-1; j1:=0; j2:=Nx-1;
+      SetLength(averp,Nx,Ny);
+      for j:=0 to j2 do
+      begin
+           for i:=0 to i2 do
+           begin
+               averp[j,i]:=p[j,i] ;
+           end;
+      end;
+      AverageFilt3X3(Nx,Ny,averp,FileName);
+      AverageFilt3X3(Nx,Ny,averp,FileName);
       Nxt:=Ny; Nyt:=Nx;
 
       AX:=0.0;
@@ -484,7 +496,7 @@ begin
    for i:=i1 to i2 do
       begin
            hlp:=0.0;
-           for j:=j1 to j2 do hlp:=hlp+p[j,i];
+           for j:=j1 to j2 do hlp:=hlp+averp[j,i];
            AF:=AF+(hlp/Nyt);
       end;
       AF:=AF/Nxt;
@@ -492,7 +504,7 @@ begin
     for i:=i1 to i2 do
       begin
            hlp:=0.0;
-           for j:=j1 to j2 do hlp:=hlp+(p[j,i]-AF);
+           for j:=j1 to j2 do hlp:=hlp+(averp[j,i]-AF);
            AFX:=AFX+(hlp/Nyt)*(i-AX);
       end;
       AFX:=AFX/Nxt;
@@ -500,11 +512,12 @@ begin
     for j:=j1 to j2 do
       begin
            hlp:=0.0;
-           for i:=i1 to i2 do hlp:=hlp+(p[j,i]-AF);
+           for i:=i1 to i2 do hlp:=hlp+(averp[j,i]-AF);
            AFY:=AFY+(hlp/Nxt)*(j-AY);
       end;
       AFY:=AFY/Nyt;
       A3:=AF; A1:=AFX/AXX; A2:=AFY/AYY;
+
      for j:=0 to Nyt-1 do
       begin
            for i:=0 to Nxt-1 do
@@ -525,7 +538,11 @@ begin
      begin
         for i:=0 to Nxt-1 do
          begin
-              p[j,i]:=p[j,i]-isf;
+               val :=  p[j,i]-isf;
+               if(val > 32767) then val := 32767;
+               if(val < -32768) then val := -32768;
+                p[j,i]:=val;
+             // p[j,i]:=p[j,i]-isf;
          end;
      end;
 end; {DelFiltPlane}

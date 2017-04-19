@@ -4033,8 +4033,8 @@ begin
     pLights.visible:=true;
     pMaterial.visible:=true;
     pSetPalette.visible:=false;
-    if FlgCut     then CutFragmentClick(sender);
-    if FlgSection then CutSectionClick(sender);
+//    if FlgCut     then CutFragmentClick(sender);
+//    if FlgSection then CutSectionClick(sender);
   DC:=GetDC(Handle);
    wglMakeCurrent(DC, hrc);
     glEnable(gl_Lighting);
@@ -4118,8 +4118,8 @@ begin
     GeoView.checked:=False;
     View3D.checked:=False;
     View3DTop.checked:=False;
-    if FlgCut     then CutFragmentClick(sender) ;
-    if FlgSection then CutSectionClick(sender);
+  //  if FlgCut     then CutFragmentClick(sender) ;       //?????
+ //   if FlgSection then CutSectionClick(sender);         //?????
  DC:=GetDC(Handle);
    wglMakeCurrent(DC, hrc);
     glDisable(gl_Lighting);
