@@ -22,8 +22,8 @@ exports  DelStepsX,DelStepsY, AverageFilt3x3, MedianFilt3 ,
          DelFiltPlane,  Normal, DelFiltLevel, DelFiltLevelOne,
          Del2xSurface,
          Get2xSurfaceVector, Subtract2xSurfaceByVector,
-//        GetSubtractPlaneVector,
-//       SubtractPlaneByVector,SubtractPlane,
+         GetSubtractPlaneVector,
+         SubtractPlaneByVector,SubtractPlane,
          LinDelFiltPlaneParm,Convolution,
          ExecuteFourierFiltrat;
 begin

@@ -523,7 +523,10 @@ begin
            for i:=0 to Nxt-1 do
            begin
                isf:=round(A1*(i-AX) + A2*(j-AY) + A3);
-               p[j,i]:=p[j,i] - isf;
+                val :=  p[j,i]-isf;
+               if(val > 32767)  then val := 32767;
+               if(val < -32768) then val := -32768;
+                p[j,i]:=val;
            end;
       end;
      iSf:=round(p[j1,i1]);
@@ -539,12 +542,13 @@ begin
         for i:=0 to Nxt-1 do
          begin
                val :=  p[j,i]-isf;
-               if(val > 32767) then val := 32767;
+               if(val > 32767)  then val := 32767;
                if(val < -32768) then val := -32768;
                 p[j,i]:=val;
              // p[j,i]:=p[j,i]-isf;
          end;
      end;
+     finalize(averp) ;
 end; {DelFiltPlane}
 
 Procedure DelFiltSurface(Nx1, Ny1, Nx2, Ny2 , NxMax, NyMax: integer; var p : Tmas2); stdcall;

@@ -83,11 +83,11 @@ function AdaptiveDoubleLSFit(x,y: pArrayOfDouble0; ndat: Integer; a: PArrayOfDou
 function SubFittedData(pIn,pOut: pArrayOfSmallInt0;m_nx, m_ny:Integer; polyorder: Integer; Xfit,IgnoreOffset: Boolean):Boolean;
 
 //2D Routines
-function  GetSubtractPlaneVector(pIn: pArrayOfSmallInt0;m_nx, m_ny:Integer; Window: TDataRect; var A,B,C: Double): Boolean;
-procedure SubtractPlaneByVector(pIn,pOut: pArrayOfSmallInt0; m_nx, m_ny:Integer;Window: TDataRect; A,B,C: Double);
-function  SubtractPlane(pIn,pOut: pArrayOfSmallInt0;m_nx, m_ny:Integer): Boolean;
-function  SubtractPlaneByArea(pIn,pOut: pArrayOfSmallInt0;m_nx, m_ny:Integer; Window: TDataRect): Boolean;
-function  SubtractPlaneFromArea(pIn,pOut: pArrayOfSmallInt0;m_nx, m_ny:Integer; Window: TDataRect): Boolean;
+function  GetSubtractPlaneVector(pIn: pArrayOfSmallInt0;m_nx, m_ny:Integer; Window: TDataRect; var A,B,C: Double): Boolean; stdcall
+procedure SubtractPlaneByVector(pIn,pOut: pArrayOfSmallInt0; m_nx, m_ny:Integer;Window: TDataRect; A,B,C: Double);      stdcall
+function  SubtractPlane(pIn,pOut: pArrayOfSmallInt0;m_nx, m_ny:Integer): Boolean;     stdcall
+function  SubtractPlaneByArea(pIn,pOut: pArrayOfSmallInt0;m_nx, m_ny:Integer; Window: TDataRect): Boolean;           stdcall
+function  SubtractPlaneFromArea(pIn,pOut: pArrayOfSmallInt0;m_nx, m_ny:Integer; Window: TDataRect): Boolean;         stdcall
 function  SubtractPlaneByMask(pIn, pOut: pArrayOfSmallInt0; pMask: PArrayOfByte0; m_nx, m_ny:Integer): Boolean;
 
 procedure Del2xSurface(NX,NY: integer; var p : Tmas2; FileName:PChar);     StdCall;
