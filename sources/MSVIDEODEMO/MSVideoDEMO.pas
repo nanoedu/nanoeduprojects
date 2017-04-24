@@ -62,17 +62,18 @@ type
 var
   MSVideoForm: TMSVideoForm;
   userdrvname:string;
-  lang:integer;// slanguage:string;
+ // lang:integer;// slanguage:string;
 
 implementation
 
 
 {$R *.DFM}
+uses globalvar;
 const
   DefApproachAviFileName = 'sem_spm.avi';
   DefRisingAviFileName   = 'Rising.avi';
 	strm1: string = ''; (* Can not change mode - probably record running *)
-	strm2: string = ''; (*         BMP not properly saved ! *)
+	strm2: string = ''; (* approach file not exist   *)
 	strm3: string = ''; (* Try to choose uncompressed format *)
 	strm4: string = ''; (* Can not change mode - probably record running *)
 var
@@ -181,7 +182,14 @@ begin
            end
            else break;
          end;
+    end
+    else
+    begin
+     silang1.MessageDlg(strm2,mtWarning,[mbOk],0);
+     flgrun:=false;
     end;
+   stopbtn.down:=true;
+   Playbtn.down:=false;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
@@ -217,7 +225,7 @@ end;begin
   inherited Create(AOwner);
   siLang1.ActiveLanguage:=Lang;
   UpdateStrings;
-  Videofile :=configpath+'\'+DefApproachAVIFileName;
+  Videofile :=configpath+DefApproachAVIFileName;
   PlayBtn.down:=false;
   flgrun:=false;
   MSVideoInit;
@@ -305,6 +313,7 @@ begin
     sleep(1000);
    FreeAndNil(CapBitmap);
    Action:=caFree;
+   MSVideoForm:=nil;
 end;
 
 

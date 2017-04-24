@@ -1890,6 +1890,7 @@ grand:begin
        ModExtFile:='.mspm';
        WorkFileMask:='*'+ WorkExtFile;
        ExeFilePath:=ExtractFilePath(Application.ExeName);       ///????????????????
+       PathToApproachVideo:=ExeFilePath+'Data\VideoCameraSimulation\';
        SchemePath:= ExeFilePath+'scheme\';
        AlgorithmPath:=ExeFilePath+'javabin\';
        GetSpecialDirPath;

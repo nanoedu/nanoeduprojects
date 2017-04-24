@@ -146,6 +146,7 @@ uses Classes,Windows,Controls,Graphics,Messages,GlobalType,SysUtils;
        ConfigUsersIniFilePath:string;
        ConfigUsersIniFileDefPath:string;
        ConfigLabListFilePath:string;
+       pathtoapproachvideo:string;
 //
        ReportTemplPath:string;
        ReportTemplEDefPath:string;
