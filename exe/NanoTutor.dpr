@@ -180,9 +180,9 @@ begin
 //  Logo:=TLogo.Create(Application);
 //  Logo.ShowModal;
   flgUnit:=nano;
-  {$IFDEF FULL}
-    FChooseUnit:=TFChooseUnit.Create(Application);
-    FChooseUnit.ShowModal;
+  {$IFDEF SIMULATOR}
+    MSVideoDEMO:=TMSVideoDEMO.Create(Application);
+    MSVideoDEMO.ShowModal;
   {$ELSE}
   {$IFDEF SEM}
     flgUnit:=nano;

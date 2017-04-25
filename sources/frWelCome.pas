@@ -9,22 +9,30 @@ uses
 
 type
   TWellCome = class(TForm)
-    Image1: TImage;
-    LabelBox: TLabel;
-    CheckBoxView: TCheckBox;
     siLangLinked1: TsiLangLinked;
     ImageList: TImageList;
+    Panel1: TPanel;
+    PageControl: TPageControl;
+    TabSheetAbout: TTabSheet;
+    Image3: TImage;
+    lbl: TLabel;
     ToolBar: TToolBar;
     ToolButtonshow: TToolButton;
+    CheckBoxView: TCheckBox;
+    ToolBar2: TToolBar;
+    ToolBtnAbout: TToolButton;
+    TabSheetProbe: TTabSheet;
+    Image4: TImage;
     ToolBarTurnOn: TToolBar;
     ToolBtnTurnOn: TToolButton;
+    TabSheetExp: TTabSheet;
+    Image5: TImage;
     bitbtnstartsfm: TToolBar;
     ToolButton2: TToolButton;
-    ToolBar2: TToolBar;
-    ToolButton3: TToolButton;
-    Image2: TImage;
     bitbtnstartstm: TToolBar;
     ToolButton4: TToolButton;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
     procedure ToolButtonShowClick(Sender: TObject);
     procedure CheckBoxViewClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -33,8 +41,9 @@ type
     procedure BitBtnStartSFMClick(Sender: TObject);
     procedure BitBtnStartSTMClick(Sender: TObject);
     procedure ToolBtnTurnOnClick(Sender: TObject);
+    procedure ToolButton1Click(Sender: TObject);
   private
-    { Private declarations }
+    function ExecAndWaitMainVideo(const FileName, Params: String;const winname:string; const WinState: Word): boolean;
   public
     { Public declarations }
   end;
@@ -43,7 +52,7 @@ var
   WellCome: TWellCome;
 
 implementation
-uses nanoeduhelp,globalvar,mMain,ShellApi;
+uses nanoeduhelp,globalvar,mMain,ShellApi,frMedia;
 {$R *.dfm}
 
 procedure TWellCome.CheckBoxViewClick(Sender: TObject);
@@ -69,18 +78,25 @@ begin
    siLangLinked1.ActiveLanguage:=Lang;
 //   bitbtnstartsfm.Left:=clientwidth-bitbtnstartsfm.width-toolbarturnon.left;//}10;
 //   bitbtnstartstm.Left:=bitbtnstartsfm.Left;
-   checkboxview.Top:=clientheight-checkboxview.height-30;
+ //  checkboxview.Top:=clientheight-checkboxview.height-30;
    CheckBoxView.Checked:=flgShowWellComeWindow;
-   Toolbar.Top:= checkboxview.Top-35;
-   Toolbar.left:=bitbtnstartstm.Left+20;
-   LabelBox.Top:=checkboxview.Top;
+   PageControl.ActivePage:=TabsheetAbout;  
+ //  Toolbar.Top:= checkboxview.Top-35;
+ //  Toolbar.left:=bitbtnstartstm.Left+20;
+ //  LabelBox.Top:=checkboxview.Top;
    Main.itemShowwellcomewindow.Checked:=flgShowWellComeWindow;
 end;
 
 procedure TWellCome.ToolBtnTurnOnClick(Sender: TObject);
 begin
-     HlpContext:=IDH_Turn_On;
+     HlpContext:=IDH_Tip;
      Application.HelpContext(HlpContext);
+end;
+
+procedure TWellCome.ToolButton1Click(Sender: TObject);
+begin
+  HlpContext:=IDH_Probe_install;
+  Application.HelpContext(HlpContext);
 end;
 
 procedure TWellCome.ToolButtonshowClick(Sender: TObject);
@@ -98,11 +114,55 @@ end;
 
 
 procedure TWellCome.BitBtnStartClick(Sender: TObject);
+//       HlpContext:=IDH_Start_NanoEdu;
+//     Application.HelpContext(HlpContext);
+var locdir:string;
+    InitialDir,filename:string;
 begin
-       HlpContext:=IDH_Start_NanoEdu;
-     Application.HelpContext(HlpContext);
-end;
+   ToolBtnAbout.enabled:=False;
+//   OpenDialog.Filter:='movie files (*.wmv;*.avi;*.mp4)|*.wmv;*.avi;*.mp4;|all files (*.*)|*.*' ;
+(*   if lang = 2 then locdir:='rus'
+   else  locdir:='eng';
 
+   OpenDialog.InitialDir:=CommonNanoeduDocumentsPath+'video' +'\'+locdir;
+   OpenDialog.FileName:='';
+  if Opendialog.execute then
+   begin
+     ExecAndWaitMainVideo(Opendialog.Filename,'','',SW_showNORMAL);
+   end;
+   *)
+  if lang = 2 then
+  begin
+   locdir:='rus';
+   InitialDir:=CommonNanoeduDocumentsPath+'video' +'\'+locdir;
+   fileName:=InitialDir+'\'+tutvideorus;//'\3D_Модель_NanoEducator_LE.mp4'
+  end
+  else
+  begin
+   locdir:='eng';
+   InitialDir:=CommonNanoeduDocumentsPath+'video' +'\'+locdir;
+   fileName:=InitialDir+'\'+tutvideoeng;//'\3D_Model_NanoEducator_LE.mp4'
+  end;
+ if Fileexists(Filename) then   ExecAndWaitMainVideo(Filename,'','',SW_showNORMAL)
+                         else   silanglinked1.MessageDlg(Filename+strfilenotexists,mtWarning ,[mbOK],0);
+   ToolBtnAbout.enabled:=True;
+end;
+function TWellCome.ExecAndWaitMainVideo(const FileName, Params: String;const winname:string; const WinState: Word): boolean;
+ var      H: hWnd;
+     fVideo:TMedia;
+     res:Thandle;
+begin { Помещаем имя файла между кавычками, с соблюдением всех пробелов в именах Win9x }
+     res:= ShellExecute(handle,nil,Pchar(fileName),nil,nil,SW_RESTORE or SW_MAXIMIZE	);
+    if  Res<32 then
+     begin
+      fVideo:=TMedia.Create(Application);
+      //  two monitirs
+      fVideo.Show;
+      fVideo.MediaPlayer.filename:=FileName;
+      fVideo.MediaPlayer.open;
+     // fVideo.MediaPlayer.play;
+    end;
+end;
 procedure TWellCome.BitBtnStartSFMClick(Sender: TObject);
 begin
        HlpContext:=IDH_Start_SFM;
