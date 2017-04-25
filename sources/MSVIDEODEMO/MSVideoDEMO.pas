@@ -49,7 +49,21 @@ type
     flgrotate:boolean;
     hWndC:HWND;
     videofile:string;
+    curframenmb:integer;
+    framenmb:integer;
     AviFileName, BMPFileName : string;
+    scalar:cvScalar;
+    capture: pCVCapture;
+    map_matrix:pCvMat;
+    frame: pIplImage;
+    framerot:pIplImage;
+    key: integer;
+    image:Tbitmap;
+    count :integer;
+    dst: pIplImage;
+    pc:CvPoint2d32f;
+    r:pCvMat;//pIplImage;
+
     function  MSVideoInit:byte;
     procedure InitParams;
   protected
@@ -61,7 +75,7 @@ type
 
 var
   MSVideoForm: TMSVideoForm;
-  userdrvname:string;
+ // userdrvname:string;
  // lang:integer;// slanguage:string;
 
 implementation
@@ -72,7 +86,7 @@ uses globalvar;
 const
   DefApproachAviFileName = 'sem_spm.avi';
   DefRisingAviFileName   = 'Rising.avi';
-	strm1: string = ''; (* Can not change mode - probably record running *)
+	strm1: string = ''; (* stop before exit *)
 	strm2: string = ''; (* approach file not exist   *)
 	strm3: string = ''; (* Try to choose uncompressed format *)
 	strm4: string = ''; (* Can not change mode - probably record running *)
@@ -133,26 +147,14 @@ BEGIN
 END; { IplImage2Bitmap }
 
 procedure TMSVideoForm.PlayBtnClick(Sender: TObject);
-var
-  capture: pCVCapture;
-  frame: pIplImage;
-  framerot:pIplImage;
-  key: integer;
-  image:Tbitmap;
-  count :integer;
-  dst: pIplImage;
-  pc:CvPoint2d32f;
-  r:pCvMat;//pIplImage;
-  map_matrix:pCvMat;
-  scalar:cvScalar;
 begin
  stopbtn.down:=false;
  try
-    capture := cvCreateFileCapture(PAnsiChar(Videofile));
+//    capture := cvCreateFileCapture(PAnsiChar(Videofile));
     flgrun:=true;
      count:=0;
-     Scalar:=cvScalarAll_(0);
-     map_matrix:=cvCreateMat(2, 3, CV_32FC1);
+//     Scalar:=cvScalarAll_(0);
+ //    map_matrix:=cvCreateMat(2, 3, CV_32FC1);
     if Assigned(capture) then
     begin
       while flgrun do
@@ -160,13 +162,14 @@ begin
         frame := cvQueryFrame(capture);
         if Assigned(frame) then
          begin
-          if count=0 then
+      (*    if count=0 then
           begin
            image:=Tbitmap.create;
            image.PixelFormat := pf24bit;
            count:=1;
            framerot:=cvCloneImage(frame);
           end;
+          *)
           if flgrotate then
            begin
               pc.X:=round(frame.width/2.0);
@@ -188,6 +191,7 @@ begin
      silang1.MessageDlg(strm2,mtWarning,[mbOk],0);
      flgrun:=false;
     end;
+      flgrun:=false;
    stopbtn.down:=true;
    Playbtn.down:=false;
   except
@@ -274,10 +278,35 @@ begin
 end;
 //************************************************************************************************
 function TMSVideoForm.MSVideoInit:byte;
-var
-  i:integer;
 begin
-  result:=0;
+  curframenmb:=0;
+  capture := cvCreateFileCapture(PAnsiChar(Videofile));
+  map_matrix:=cvCreateMat(2, 3, CV_32FC1);
+  Scalar:=cvScalarAll_(0);
+ if Assigned(capture) then
+    begin
+        frame := cvQueryFrame(capture);
+        if Assigned(frame) then
+         begin
+           image:=Tbitmap.create;
+           image.PixelFormat := pf24bit;
+           count:=1;
+           framerot:=cvCloneImage(frame);
+          if flgrotate then
+           begin
+              pc.X:=round(frame.width/2.0);
+              pc.Y:=round(frame.height/2.0);
+             r:=cv2DRotationMatrix(pc, 90, 1.0,map_matrix);
+             cvWarpAffine(frame, framerot, map_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS,Scalar);//, src.size()); // what size I should use?
+             IplImage2Bitmap(framerot,image);
+            end
+            else IplImage2Bitmap(frame,image);
+           image1.Picture.Assign(image);
+           application.ProcessMessages;
+           Sleep(10);
+         end
+    end;
+     result:=0;
 end;
 //************************************************************************************************
 procedure TMSVideoForm.StopBtnClick(Sender: TObject);
@@ -308,10 +337,14 @@ begin
 end;
 //************************************************************************************************
 procedure TMSVideoForm.FormClose(Sender: TObject; var Action: TCloseAction);
+var p2pcapture: P2PCvCapture;
 begin
     flgrun:=false;
     sleep(1000);
-   FreeAndNil(CapBitmap);
+//     p2pcapture:= ^capture;
+ //  cvReleaseCapture(P2PCvCapture(capture));
+//   FreeAndNil(CapBitmap);
+   FreeAndNil(image);
    Action:=caFree;
    MSVideoForm:=nil;
 end;
