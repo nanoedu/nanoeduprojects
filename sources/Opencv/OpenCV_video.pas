@@ -6,7 +6,7 @@ interface
        OpenCV_Types;
 
   Const
-       File_dll = '..\exe\opencv\opencv_video320.dll';
+       File_dll = 'opencv_video320.dll';
        File_dll_Interface = 'OpenCV_Class.dll';
 
   //--------------------Motion Analysis and Object Tracking----------------------

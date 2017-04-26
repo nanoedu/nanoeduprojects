@@ -104,6 +104,7 @@ Unit Nanoeduhelp;
 	IDH_Start_STM = 85;
 	IDH_Turn_On = 86;
 	IDH_CurrentLitho = 87;
-	IDH_Export = 88;
+//	IDH-Export = 88;
+	IDH_Export = 89;
 	Implementation
 	end.

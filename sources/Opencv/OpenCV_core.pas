@@ -6,7 +6,7 @@ interface
        OpenCV_Types;
        
   const
-       File_dll = '..\exe\Opencv\opencv_core249.dll';
+       File_dll = 'opencv_core249.dll';
 
   //-------------------------Operations on Arrays--------------
   procedure cvAbsDiff(const src1, src2: pCvArr; dst: pCvArr); cdecl; external File_dll;

@@ -958,6 +958,7 @@ var
   flgJavaRunning:WordBool;
   flgSchemeLoaded:WordBool;
   flgStopJava:WordBool;
+  flgStopVideoStream:boolean;
   flgfileuploaded:boolean;
   flgfilealguploaded:boolean;
   flgfileparamuploaded:boolean;
@@ -974,6 +975,7 @@ var
   ApprOnProgr,ScanOnProgr:Boolean;
   SetIntActOnProgr:Boolean;    //flg set interaction
   flglimitspectr:boolean;
+  Videofile:string;
   ThreadFlg:integer;
   ScanAreaStartXR:integer;
   ScanAreaStartYR:integer;

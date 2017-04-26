@@ -159,7 +159,16 @@ uses
   frSetWorkDir in '..\sources\frSetWorkDir.pas' {SetNewWorkDir},
   GlobalScanDataType in '..\sources\GlobalScanDataType.pas',
   frProgramSettings in '..\sources\frProgramSettings.pas' {FormProgramSettings},
-  mMain in '..\sources\mMain.pas' {Main};
+  mMain in '..\sources\mMain.pas' {Main},
+  OpenCV_core in '..\sources\Opencv\OpenCV_core.pas',
+  OpenCV_highgui in '..\sources\Opencv\OpenCV_highgui.pas',
+  OpenCV_imgproc in '..\sources\Opencv\OpenCV_imgproc.pas',
+  OpenCV_types in '..\sources\Opencv\OpenCV_types.pas',
+  OpenCV_utils in '..\sources\Opencv\OpenCV_utils.pas',
+  OpenCV_video in '..\sources\Opencv\OpenCV_video.pas',
+  SysUtils,
+  MSVideoDEMO in '..\sources\MSVideoDEMO.pas' {MSVideoForm},
+  ThreadVideoStream in '..\sources\ThreadVideoStream.pas';
 
 {FormProgramSettings}
 
@@ -173,14 +182,24 @@ begin
 //  Logo:=TLogo.Create(Application);
 //  Logo.ShowModal;
   flgUnit:=nano;
-  {$IFDEF FULL}
-    FChooseUnit:=TFChooseUnit.Create(Application);
-    FChooseUnit.ShowModal;
+ {$IFDEF SIMULATOR}
+   videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\sem_spm.avi';
+   lang:=1;
+   MSVideoForm:=TMSVideoForm.Create(Application,videofile,true,true);
+   MSVideoForm.WindowState:=wsMaximized;
+   MSVideoForm.ShowModal;
   {$ELSE}
   {$IFDEF SEM}
     flgUnit:=nano;
    {$ENDIF}
   {$ENDIF}
+(*   videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\sem_spm.avi';
+   lang:=1;
+   MSVideoForm:=TMSVideoForm.Create(Application,videofile,true,true);
+   MSVideoForm.WindowState:=wsMaximized;
+   MSVideoForm.ShowModal;
+ *)
+  flgUnit:=nano;
   Application.Title := 'NanoTutor';
   Application.CreateForm(TMain, Main);
   Application.CreateForm(TControllerDetect, ControllerDetect);

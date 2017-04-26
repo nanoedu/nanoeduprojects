@@ -202,6 +202,7 @@ begin
  FreeMem(StopBuf);
  FreeMem(DoneBuf);
  FreeMem(DataBuf);
+ result:=0;
 end;
 
 function TScanMethod.StopWork:boolean;

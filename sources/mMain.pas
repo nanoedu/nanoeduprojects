@@ -522,7 +522,7 @@ uses Globaltype,GlobalVar,GlobalFunction,SioCSPM,frControllerDetect,frWelCome,fr
      FrInform,{ DockWorkViewWnd} frViewConfigFile, frSetOSCParams, frDeviceReady, frVideoSoftSetting,
      frNoFormUnitLoc,{ frDockWorkViewWnd,} frChooseUnit, frChooseSample, RenishawVars, frRenishawOsc,
      MLPC_API2Lib_TLB,MLPC_API2DEMOLIB,NL3LFBLib_TLB,MLPC_APILib_TLB,setupAPI,
-     ThreadReadFromAdapter,ThreadGetDeviceId,ThreadWriteToAdapter,frUnitInitEtap,
+     ThreadReadFromAdapter,ThreadGetDeviceId,ThreadWriteToAdapter,frUnitInitEtap, MSVideoDEMO,
     frChangePath, frProgramSettings,UControllerService, ThreadGetControllerParams;
 const
     strManMes1='';
@@ -2203,7 +2203,7 @@ begin
            end;
 *)
   if assigned(ReportForm) then   BringWindowToTop(ReportForm.handle);
-  if h<>0 then ShowWindow(h, SW_RESTORE);
+  if h<>0 then ShowWindow(h, SW_RESTORE);   //???????? error 26/04/17 h=????
    Application.processmessages;
  finally
    Finalize(arrayformhide);
@@ -3224,10 +3224,12 @@ begin
  if not boolean(flgRunFirmCamera) then
   begin
     h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
-  if h=0  then
+   if h=0  then
     begin
-       if GetModuleHandle('MSVideoLib.dll')=0 then
-       begin
+     if(FlgCurrentUserLevel<>DEMO) then
+     begin
+      if GetModuleHandle('MSVideoLib.dll')=0 then
+      begin
         @StartVideo:=nil; @StopVideo:=nil;
         LibVideoHandle:=0;
         LibVideoHandle:=LoadLibrary(PChar(ExeFilePath+'MSVideoLib.dll'));
@@ -3241,18 +3243,30 @@ begin
                                     StartVideo:=GetProcAddress(LibVideoHandle,'StartVideo');
                                     StopVideo:=GetProcAddress(LibVideoHandle,'StopVideo');
                                   end;
+      end;
+      if   StartVideo(Application.Handle,self.Handle,WM_UserCloseVideo,Lang,ConfigUsersIniFilePath) then
+      begin
+        h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
+        if h<>0  then
+        begin
+         GetWindowRect(h,R);
+         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
         end;
-     if   StartVideo(Application.Handle,self.Handle,WM_UserCloseVideo,Lang,ConfigUsersIniFilePath) then
-     begin
-       h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
-      if h<>0  then
-       begin
-        GetWindowRect(h,R);
-        SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
-       end;
+      end;
+     end //not demo
+     else
+     begin //demo
+       MSVideoForm:=TMSVideoForm.Create(self,PathToApproachVideo,false,false);
+       MSVideoFORM.show;
+         h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
+        if h<>0  then
+        begin
+         GetWindowRect(h,R);
+         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
+        end;
      end;
-   end;
-  end
+   end   //h=0
+  end //not firm
   else
   begin
    RunFirmSoftVideoCamera;
@@ -3425,7 +3439,9 @@ begin
  if assigned(QuickRep)      then begin FreeAndNil(QuickRep);  end;
 
   h:=FindWindow(nil,Pchar(strm41{'MSVideo'}));
-  if h<>0 then  StopVideo;
+   if(FlgCurrentUserLevel<>DEMO) then begin if h<>0 then  StopVideo; end
+    else  if assigned(MSVideoForm) then MSVideoForm.Close;
+
   if EXE_Running('Oscilloscope.exe', false) then
   begin
    TheWindow:=FindWindow(nil,'Oscilloscope');
