@@ -152,9 +152,9 @@ procedure TMSVideoForm.ThreadDone(var AMessage: TMessage);
   begin
     stopbtn.down:=true;
     Playbtn.down:=false;
+     flgStopVideoStream:=true;
   if    lflgautoclose then
    begin
-   flgStopVideoStream:=true;
    close;
   end;
   end;//drawthread

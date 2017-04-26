@@ -186,17 +186,23 @@ begin
    videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\sem_spm.avi';
    lang:=1;
    MSVideoForm:=TMSVideoForm.Create(Application,videofile,true,true);
+   MSVideoForm.WindowState:=wsMaximized;
    MSVideoForm.ShowModal;
   {$ELSE}
   {$IFDEF SEM}
     flgUnit:=nano;
    {$ENDIF}
   {$ENDIF}
+(*   videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\sem_spm.avi';
+   lang:=1;
+   MSVideoForm:=TMSVideoForm.Create(Application,videofile,true,true);
+   MSVideoForm.WindowState:=wsMaximized;
+   MSVideoForm.ShowModal;
+ *)
   flgUnit:=nano;
   Application.Title := 'NanoTutor';
   Application.CreateForm(TMain, Main);
   Application.CreateForm(TControllerDetect, ControllerDetect);
-  Application.CreateForm(TMSVideoForm, MSVideoForm);
   Application.Mainformontaskbar:=True;
   //
   Application.Run;

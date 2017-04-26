@@ -2203,7 +2203,7 @@ begin
            end;
 *)
   if assigned(ReportForm) then   BringWindowToTop(ReportForm.handle);
-  if h<>0 then ShowWindow(h, SW_RESTORE);
+  if h<>0 then ShowWindow(h, SW_RESTORE);   //???????? error 26/04/17 h=????
    Application.processmessages;
  finally
    Finalize(arrayformhide);

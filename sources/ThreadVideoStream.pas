@@ -58,8 +58,6 @@ begin
    begin
 //    capture := cvCreateFileCapture(PAnsiChar(Videofile));
      count:=1;
-//     Scalar:=cvScalarAll_(0);
- //    map_matrix:=cvCreateMat(2, 3, CV_32FC1);
     if Assigned(capture) then
     begin
         frame := cvQueryFrame(capture);
@@ -80,6 +78,7 @@ begin
            MSVideoForm.image1.Picture.Assign(image);
            Sleep(10);
            count:=1;
+           inc(curframenmb);
          end
          else
          begin
