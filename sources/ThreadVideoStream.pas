@@ -20,7 +20,7 @@ type
     key: integer;
     framenmb:integer;
     hWndC:HWND;
-    videofile:string;
+ //   videofile:string;
     scalar:cvScalar;
     capture: pCVCapture;
     map_matrix:pCvMat;
@@ -162,7 +162,7 @@ function TThreadVideoStream.MSVideoInit:byte;
 begin
   curframenmb:=0;
   nstep:=1;
-  capture := cvCreateFileCapture(PAnsiChar(MSVideoForm.Videofile));
+  capture := cvCreateFileCapture(PAnsiChar(Videofile));
   map_matrix:=cvCreateMat(2, 3, CV_32FC1);
   Scalar:=cvScalarAll_(0);
  if Assigned(capture) then

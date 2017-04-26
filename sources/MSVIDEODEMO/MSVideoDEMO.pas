@@ -45,14 +45,10 @@ type
     procedure HelpBtnClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
-    flgrun:boolean;
-    flgrotate:boolean;
-    curframenmb:integer;
-    count :integer;
     key: integer;
-    framenmb:integer;
+    flgrotate:boolean;
+    lflgautoclose:boolean;
     hWndC:HWND;
- 
     scalar:cvScalar;
     capture: pCVCapture;
     map_matrix:pCvMat;
@@ -62,17 +58,17 @@ type
     dst: pIplImage;
     pc:CvPoint2d32f;
     r:pCvMat;//pIplImage;
-
-    procedure InitParams;
-  protected
-  public
+   procedure InitParams;
+ protected
+ public
     nstep:integer;   // через сколько кадров отображать
+    nstart:integer;
     videofile:string;
     FormHandle: THandle;
-   Constructor Create(AOwner:TComponent; filename:string);
+   Constructor Create(AOwner:TComponent; filename:string; flgautoclose:boolean);
    procedure  StartVideoStream(filename:string; nstep:integer);
    procedure  ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;
-   function  MSVideoInit:byte;
+   function   MSVideoInit:byte;
   end;
 
 var
@@ -154,60 +150,15 @@ procedure TMSVideoForm.ThreadDone(var AMessage: TMessage);
   begin
     stopbtn.down:=true;
     Playbtn.down:=false;
+  if    lflgautoclose then close;
   end;//drawthread
  if mScanning=AMessage.WParam then
  begin
  end;
+
 end;
 procedure  TMSVideoForm.StartVideoStream(filename:string; nstep:integer);
 begin
-stopbtn.down:=false;
- try
-//    capture := cvCreateFileCapture(PAnsiChar(Videofile));
-    flgrun:=true;
-     count:=1;
-//     Scalar:=cvScalarAll_(0);
- //    map_matrix:=cvCreateMat(2, 3, CV_32FC1);
-    if Assigned(capture) then
-    begin
-      while flgrun do
-      begin
-        frame := cvQueryFrame(capture);
-        if Assigned(frame) then
-        begin
-         if count=nstep then
-         begin
-           if flgrotate then
-           begin
-              pc.X:=round(frame.width/2.0);
-              pc.Y:=round(frame.height/2.0);
-             r:=cv2DRotationMatrix(pc, 90, 1.0,map_matrix);
-             cvWarpAffine(frame, framerot, map_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS,Scalar);//, src.size()); // what size I should use?
-             IplImage2Bitmap(framerot,image);
-           end
-           else IplImage2Bitmap(frame,image);
-           image1.Picture.Assign(image);
-           application.ProcessMessages;
-           Sleep(10);
-           count:=1;
-         end
-         else inc(count)
-        end
-        else break;
-      end;//run
-    end
-    else
-    begin
-     silang1.MessageDlg(strm2,mtWarning,[mbOk],0);
-     flgrun:=false;
-    end;
-      flgrun:=false;
-   stopbtn.down:=true;
-   Playbtn.down:=false;
-  except
-    on E: Exception do
-      Writeln(E.ClassName, ': ', E.Message);
-  end;
 end;
 
 procedure TMSVideoForm.PlayBtnClick(Sender: TObject);
@@ -228,14 +179,14 @@ begin
 end;
 
 //************************************************************************************************
-constructor TMSVideoForm.Create(AOwner:TComponent; filename:string);
+constructor TMSVideoForm.Create(AOwner:TComponent; filename:string;flgautoclose:boolean);
 begin
   inherited Create(AOwner);
   siLang1.ActiveLanguage:=Lang;
   UpdateStrings;
   Videofile :=filename;
   PlayBtn.down:=false;
-  flgrun:=false;
+  lflgautoclose:=flgautoclose;
   MSVideoInit;
 end;
 //************************************************************************************************
@@ -248,7 +199,7 @@ begin
   panelframevideo.width:=ClientWidth;
   panelframevideo.Height:=ClientHeight-40;
   SetWindowPos(hWndC, HWND_TOPMOST	, 0, 0, panelframevideo.ClientWidth,panelframevideo.ClientHeight,
-    SWP_NOZORDER + SWP_NOACTIVATE);
+               SWP_NOZORDER + SWP_NOACTIVATE);
 end;
 procedure TMSVideoForm.HelpBtnClick(Sender: TObject);
 begin
@@ -283,7 +234,7 @@ end;
 //************************************************************************************************
 function TMSVideoForm.MSVideoInit:byte;
 begin
-  curframenmb:=0;
+  nstart:=1;
   capture := cvCreateFileCapture(PAnsiChar(Videofile));
   map_matrix:=cvCreateMat(2, 3, CV_32FC1);
   Scalar:=cvScalarAll_(0);
@@ -294,7 +245,6 @@ begin
          begin
            image:=Tbitmap.create;
            image.PixelFormat := pf24bit;
-           count:=1;
            framerot:=cvCloneImage(frame);
           if flgrotate then
            begin
@@ -341,13 +291,7 @@ begin
 end;
 //************************************************************************************************
 procedure TMSVideoForm.FormClose(Sender: TObject; var Action: TCloseAction);
-var p2pcapture: P2PCvCapture;
 begin
-    flgrun:=false;
-    sleep(1000);
-//     p2pcapture:= ^capture;
- //  cvReleaseCapture(P2PCvCapture(capture));
-//   FreeAndNil(CapBitmap);
    FreeAndNil(image);
    Action:=caFree;
    MSVideoForm:=nil;
@@ -357,7 +301,7 @@ end;
 
 procedure TMSVideoForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
- if flgrun  then
+ if not flgStopVideoStream  then
  begin
    silang1.MessageDlg(strm1,mtWarning,[mbOk],0);
    canclose:=false;

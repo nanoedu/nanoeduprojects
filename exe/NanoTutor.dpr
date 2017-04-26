@@ -160,13 +160,15 @@ uses
   GlobalScanDataType in '..\sources\GlobalScanDataType.pas',
   frProgramSettings in '..\sources\frProgramSettings.pas' {FormProgramSettings},
   mMain in '..\sources\mMain.pas' {Main},
-  MSVideoDEMO in '..\sources\MSVIDEODEMO\MSVideoDEMO.pas' {MSVideoForm},
   OpenCV_core in '..\sources\Opencv\OpenCV_core.pas',
   OpenCV_highgui in '..\sources\Opencv\OpenCV_highgui.pas',
   OpenCV_imgproc in '..\sources\Opencv\OpenCV_imgproc.pas',
   OpenCV_types in '..\sources\Opencv\OpenCV_types.pas',
   OpenCV_utils in '..\sources\Opencv\OpenCV_utils.pas',
-  OpenCV_video in '..\sources\Opencv\OpenCV_video.pas';
+  OpenCV_video in '..\sources\Opencv\OpenCV_video.pas',
+  SysUtils,
+  MSVideoDEMO in '..\sources\MSVideoDEMO.pas' {MSVideoForm},
+  ThreadVideoStream in '..\sources\ThreadVideoStream.pas';
 
 {FormProgramSettings}
 
@@ -180,17 +182,21 @@ begin
 //  Logo:=TLogo.Create(Application);
 //  Logo.ShowModal;
   flgUnit:=nano;
-  {$IFDEF SIMULATOR}
-    MSVideoDEMO:=TMSVideoDEMO.Create(Application);
-    MSVideoDEMO.ShowModal;
+ {$IFDEF SIMULATOR}
+   videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\sem_spm.avi';
+   lang:=1;
+   MSVideoForm:=TMSVideoForm.Create(Application,videofile,true,true);
+   MSVideoForm.ShowModal;
   {$ELSE}
   {$IFDEF SEM}
     flgUnit:=nano;
    {$ENDIF}
   {$ENDIF}
+  flgUnit:=nano;
   Application.Title := 'NanoTutor';
   Application.CreateForm(TMain, Main);
   Application.CreateForm(TControllerDetect, ControllerDetect);
+  Application.CreateForm(TMSVideoForm, MSVideoForm);
   Application.Mainformontaskbar:=True;
   //
   Application.Run;

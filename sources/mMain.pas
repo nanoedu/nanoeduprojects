@@ -3256,7 +3256,7 @@ begin
      end //not demo
      else
      begin //demo
-       MSVideoForm:=TMSVideoForm.Create(self,PathToApproachVideo);
+       MSVideoForm:=TMSVideoForm.Create(self,PathToApproachVideo,false,false);
        MSVideoFORM.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then

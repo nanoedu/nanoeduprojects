@@ -5,7 +5,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, StdCtrls, ExtCtrls,  siComp, ComCtrls,
+  Buttons, StdCtrls, ExtCtrls,  siComp, ComCtrls,CSPMVar,
   ImgList, ToolWin,
   Opencv_core,
   opencv_highgui,
@@ -34,6 +34,7 @@ type
     Panel1: TPanel;
     PanelFrameVideo: TPanel;
     Image1: TImage;
+    Timer1: TTimer;
     procedure UpdateStrings;
     procedure siLang1ChangeLanguage(Sender: TObject);
     procedure PlayBtnClick(Sender: TObject);
@@ -44,37 +45,49 @@ type
     procedure SettingBtnClick(Sender: TObject);
     procedure HelpBtnClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure Timer1Timer(Sender: TObject);
   private
-    flgrun:boolean;
+    key: integer;
     flgrotate:boolean;
+    lflgautoclose:boolean;
+    lflgautostart:boolean;
     hWndC:HWND;
-    videofile:string;
-    AviFileName, BMPFileName : string;
-    function  MSVideoInit:byte;
-    procedure InitParams;
-  protected
-  public
+    scalar:cvScalar;
+    capture: pCVCapture;
+    map_matrix:pCvMat;
+    frame: pIplImage;
+    framerot:pIplImage;
+    image:Tbitmap;
+    dst: pIplImage;
+    pc:CvPoint2d32f;
+    r:pCvMat;//pIplImage;
+   procedure InitParams;
+ protected
+ public
+    nstep:integer;   // через сколько кадров отображать
+    nstart:integer;
     FormHandle: THandle;
-    MsgBack: Integer;
-  Constructor Create(AOwner:TComponent; configpath:string);
+   Constructor Create(AOwner:TComponent; filename:string; flgautostart:boolean;flgautoclose:boolean);
+   procedure  StartVideoStream(filename:string; nstep:integer);
+   procedure  ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;
+   function   MSVideoInit:byte;
   end;
 
 var
   MSVideoForm: TMSVideoForm;
-  userdrvname:string;
-  lang:integer;// slanguage:string;
+ // userdrvname:string;
+ // lang:integer;// slanguage:string;
 
 implementation
 
 
 {$R *.DFM}
-
-uses globalvar;
+uses globalvar,ThreadVideoStream;
 const
   DefApproachAviFileName = 'sem_spm.avi';
   DefRisingAviFileName   = 'Rising.avi';
-	strm1: string = ''; (* Can not change mode - probably record running *)
-	strm2: string = ''; (*         BMP not properly saved ! *)
+	strm1: string = ''; (* stop before exit *)
+	strm2: string = ''; (* approach file not exist   *)
 	strm3: string = ''; (* Try to choose uncompressed format *)
 	strm4: string = ''; (* Can not change mode - probably record running *)
 var
@@ -133,97 +146,66 @@ BEGIN
   End
 END; { IplImage2Bitmap }
 
-procedure TMSVideoForm.PlayBtnClick(Sender: TObject);
-var
-  capture: pCVCapture;
-  frame: pIplImage;
-  framerot:pIplImage;
-  key: integer;
-  image:Tbitmap;
-  count :integer;
-  dst: pIplImage;
-  pc:CvPoint2d32f;
-  r:pCvMat;//pIplImage;
-  map_matrix:pCvMat;
-  scalar:cvScalar;
-begin
- stopbtn.down:=false;
- try
-    capture := cvCreateFileCapture(PAnsiChar(Videofile));
-    flgrun:=true;
-     count:=0;
-     Scalar:=cvScalarAll_(0);
-     map_matrix:=cvCreateMat(2, 3, CV_32FC1);
-    if Assigned(capture) then
-    begin
-      while flgrun do
-      begin
-        frame := cvQueryFrame(capture);
-        if Assigned(frame) then
-         begin
-          if count=0 then
-          begin
-           image:=Tbitmap.create;
-           image.PixelFormat := pf24bit;
-           count:=1;
-           framerot:=cvCloneImage(frame);
-          end;
-          if flgrotate then
-           begin
-              pc.X:=round(frame.width/2.0);
-              pc.Y:=round(frame.height/2.0);
-             r:=cv2DRotationMatrix(pc, 90, 1.0,map_matrix);
-             cvWarpAffine(frame, framerot, map_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS,Scalar);//, src.size()); // what size I should use?
-             IplImage2Bitmap(framerot,image);
-            end
-            else IplImage2Bitmap(frame,image);
-           image1.Picture.Assign(image);
-           application.ProcessMessages;
-           Sleep(10);
-           end
-           else break;
-         end;
-    end;
-  except
-    on E: Exception do
-      Writeln(E.ClassName, ': ', E.Message);
+procedure TMSVideoForm.ThreadDone(var AMessage: TMessage);
+  begin
+  if  (mDrawing=AMessage.WParam)then
+  begin
+    stopbtn.down:=true;
+    Playbtn.down:=false;
+  if    lflgautoclose then
+   begin
+   flgStopVideoStream:=true;
+   close;
   end;
+  end;//drawthread
+ if mScanning=AMessage.WParam then
+ begin
+ end;
+
 end;
+procedure TMSVideoForm.Timer1Timer(Sender: TObject);
+begin
+ timer1.enabled:=false;
+ if lflgautostart then PlayBtnClick(self);
+end;
+
+procedure  TMSVideoForm.StartVideoStream(filename:string; nstep:integer);
+begin
+end;
+
+procedure TMSVideoForm.PlayBtnClick(Sender: TObject);
+begin
+      if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
+       begin
+         flgStopVideoStream:=false;
+         stopbtn.down:=false;
+         PlayBtn.Down := true;
+         VideoStreamThread:= TThreadVideoStream.Create;
+       end ;
+end;
+
 procedure TMSVideoForm.SettingBtnClick(Sender: TObject);
 begin
 
 end;
 
 //************************************************************************************************
-constructor TMSVideoForm.Create(AOwner:TComponent; configpath:string);
-var
-deflang,str:string;
-function WhichLanguage:string;
-var
-  ID: LangID;
-  Language: array [0..100] of char;
+constructor TMSVideoForm.Create(AOwner:TComponent; filename:string;flgautostart:boolean;flgautoclose:boolean);
 begin
-  ID := GetSystemDefaultLangID;
-  VerLanguageName(ID, Language, 100);
-  Result := string(Language);
-end;
-function ShowDllPath:string;
-var
-  TheFileName : array[0..MAX_PATH] of char;
-  str:string;
-begin
-  FillChar(TheFileName, sizeof(TheFileName), #0);
-  GetModuleFileName(hInstance, TheFileName, sizeof(TheFileName));
-  result:=string( TheFileName);
-end;begin
   inherited Create(AOwner);
   siLang1.ActiveLanguage:=Lang;
   UpdateStrings;
-  Videofile :=configpath+'\'+DefApproachAVIFileName;
+  Videofile :=filename;
   PlayBtn.down:=false;
-  flgrun:=false;
+  lflgautoclose:=flgautoclose;
+  lflgautostart:= flgautostart;
   MSVideoInit;
-end;
+  if flgautostart then
+  begin
+   Timer1.Interval:=1000;
+   Timer1.Enabled:=true;
+  end;
+ end;
 //************************************************************************************************
 procedure TMSVideoForm.FormResize(Sender: TObject);
 var
@@ -234,7 +216,7 @@ begin
   panelframevideo.width:=ClientWidth;
   panelframevideo.Height:=ClientHeight-40;
   SetWindowPos(hWndC, HWND_TOPMOST	, 0, 0, panelframevideo.ClientWidth,panelframevideo.ClientHeight,
-    SWP_NOZORDER + SWP_NOACTIVATE);
+               SWP_NOZORDER + SWP_NOACTIVATE);
 end;
 procedure TMSVideoForm.HelpBtnClick(Sender: TObject);
 begin
@@ -268,15 +250,39 @@ begin
 end;
 //************************************************************************************************
 function TMSVideoForm.MSVideoInit:byte;
-var
-  i:integer;
 begin
-  result:=0;
+  nstart:=1;   flgStopVideoStream:=true;
+  capture := cvCreateFileCapture(PAnsiChar(Videofile));
+  map_matrix:=cvCreateMat(2, 3, CV_32FC1);
+  Scalar:=cvScalarAll_(0);
+ if Assigned(capture) then
+    begin
+        frame := cvQueryFrame(capture);
+        if Assigned(frame) then
+         begin
+           image:=Tbitmap.create;
+           image.PixelFormat := pf24bit;
+           framerot:=cvCloneImage(frame);
+          if flgrotate then
+           begin
+              pc.X:=round(frame.width/2.0);
+              pc.Y:=round(frame.height/2.0);
+             r:=cv2DRotationMatrix(pc, 90, 1.0,map_matrix);
+             cvWarpAffine(frame, framerot, map_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS,Scalar);//, src.size()); // what size I should use?
+             IplImage2Bitmap(framerot,image);
+            end
+            else IplImage2Bitmap(frame,image);
+           image1.Picture.Assign(image);
+           application.ProcessMessages;
+           Sleep(10);
+         end
+    end;
+     result:=0;
 end;
 //************************************************************************************************
 procedure TMSVideoForm.StopBtnClick(Sender: TObject);
 begin
- flgrun:=not flgrun;
+ flgStopVideoStream:=true;
  if PlayBtn.Down then
   begin
     PlayBtn.Down := false;
@@ -297,23 +303,22 @@ procedure TMSVideoForm.FormDestroy(Sender: TObject);
 begin
 //  CapBitmap.Free;
   Application.Handle:=0;
-  PostMessage (FormHandle, MsgBack, 0, 0);
+//  PostMessage (FormHandle, MsgBack, 0, 0);
    MSVideoForm:=nil;
 end;
 //************************************************************************************************
 procedure TMSVideoForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-    flgrun:=false;
-    sleep(1000);
-   FreeAndNil(CapBitmap);
+   FreeAndNil(image);
    Action:=caFree;
+   MSVideoForm:=nil;
 end;
 
 
 
 procedure TMSVideoForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
- if flgrun  then
+ if not flgStopVideoStream  then
  begin
    silang1.MessageDlg(strm1,mtWarning,[mbOk],0);
    canclose:=false;

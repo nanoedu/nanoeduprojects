@@ -975,6 +975,7 @@ var
   ApprOnProgr,ScanOnProgr:Boolean;
   SetIntActOnProgr:Boolean;    //flg set interaction
   flglimitspectr:boolean;
+  Videofile:string;
   ThreadFlg:integer;
   ScanAreaStartXR:integer;
   ScanAreaStartYR:integer;

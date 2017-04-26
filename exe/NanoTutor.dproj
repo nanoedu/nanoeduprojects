@@ -303,7 +303,7 @@
     <DCCReference Include="..\sources\mSetSignal.pas">
       <Form>SetSignal</Form>
     </DCCReference>
-    <DCCReference Include="..\sources\MSVIDEODEMO\MSVideoDEMO.pas">
+    <DCCReference Include="..\sources\MSVideoDEMO.pas">
       <Form>MSVideoForm</Form>
     </DCCReference>
     <DCCReference Include="..\sources\MtpLib_TLB.pas" />
@@ -349,6 +349,7 @@
     <DCCReference Include="..\sources\ThreadGetControllerParams.pas" />
     <DCCReference Include="..\sources\THreadGetDeviceId.pas" />
     <DCCReference Include="..\sources\ThreadReadFromAdapter.pas" />
+    <DCCReference Include="..\sources\ThreadVideoStream.pas" />
     <DCCReference Include="..\sources\ThreadWriteToAdapter.pas" />
     <DCCReference Include="..\sources\ThreadWriteToControllerEEProm.pas" />
     <DCCReference Include="..\sources\TrainDrawThread.pas" />
