@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=NanoTutor
-AppVerName=NanoTutor ver 17.01.13.21
-OutputBaseFilename=NanoTutor-17.01.13.21
+AppVerName=NanoTutor ver 17.01.13.23
+OutputBaseFilename=NanoTutor-17.01.13.23
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -59,6 +59,7 @@ Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescri
  Name:"{app}\Data"
  Name:"{app}\Data\Rus"
  Name:"{app}\Data\Eng"
+ Name:"{app}\Data\VideoCameraSimulation"
  Name:"{app}\javabin"
  Name:"{app}\scheme"
  Name:"{app}\ScannerIniDBase"
@@ -98,9 +99,9 @@ Source: "oscilloscope\*.*"; DestDir: "{app}\oscilloscope";       Flags: ignoreve
 ;Source: "oscilloscope\eng\*.dll"; DestDir: "{app}";    Flags: ignoreversion recursesubdirs;    error!!!!!!!!!!!!    
 Source: "javabin\*.jar";DestDir: "{app}\javabin";  Flags: ignoreversion recursesubdirs;
 Source: "scheme\*.bin"; DestDir: "{app}\scheme";   Flags: ignoreversion recursesubdirs;
-Source: "data\*.*";     DestDir: "{app}\data";     Flags: ignoreversion;
-Source: "data\Rus\*.*"; DestDir: "{app}\data\Rus"; Flags: skipifsourcedoesntexist;
-Source: "data\Eng\*.*"; DestDir: "{app}\data\Eng"; Flags: skipifsourcedoesntexist;
+Source: "data\*.*";     DestDir: "{app}\data";     Flags: ignoreversion recursesubdirs;
+;Source: "data\Rus\*.*"; DestDir: "{app}\data\Rus"; Flags: skipifsourcedoesntexist;
+;Source: "data\Eng\*.*"; DestDir: "{app}\data\Eng"; Flags: skipifsourcedoesntexist;
 Source: "Demodata\*.*"; DestDir: "{app}\Demodata"; Flags:  ignoreversion    recursesubdirs;
 Source: "D:\ntspbprojects\nanoeduprojects\CommonData\help\nanotutor\rus\*.chm";   DestDir: "{app}";    Flags: ignoreversion;
 Source: "D:\ntspbprojects\nanoeduprojects\CommonData\help\nanotutor\eng\*.chm";   DestDir: "{app}";    Flags: ignoreversion;

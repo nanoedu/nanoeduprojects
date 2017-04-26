@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=NanoTutor
-AppVerName=NanoTutor ver 17.01.13.21
-OutputBaseFilename=NanoTutorUpdate-17.01.13.21
+AppVerName=NanoTutor ver 17.01.13.23
+OutputBaseFilename=NanoTutorUpdate-17.01.13.23
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -31,7 +31,9 @@ Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "A
 ; NOTE: The following entry contains English phrases ("Create a Quick Launch icon" and "Additional icons"). You are free to translate them into another language if required.
 Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescription: "Additional icons:"; Flags: unchecked
 [Dirs]
+ Name:"{app}\Data\VideoCameraSimulation"
 [Files]
+Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "NanoTutor.exe";   DestDir: "{app}"; Flags: ignoreversion
 Source: "SPMConfig.ini"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
@@ -40,6 +42,7 @@ Source: "SPMConfigDefUsersNanoTutor.ini"; DestDir: "{app}"; DestName:"SPMconfigD
 Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
 Source: "scheme\*.bin"; DestDir: "{app}\scheme"; Flags: ignoreversion recursesubdirs;
 Source: "Demodata\*.*"; DestDir: "{app}\Demodata"; Flags:  ignoreversion    recursesubdirs;
+Source: "data\*.*";     DestDir: "{app}\data";     Flags: ignoreversion recursesubdirs;
 [INI]
 [Icons]
 [Registry]
