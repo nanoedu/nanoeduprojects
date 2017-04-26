@@ -5,7 +5,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, StdCtrls, ExtCtrls,  siComp, ComCtrls,
+  Buttons, StdCtrls, ExtCtrls,  siComp, ComCtrls,CSPMVar,
   ImgList, ToolWin,
   Opencv_core,
   opencv_highgui,
@@ -71,6 +71,7 @@ type
     FormHandle: THandle;
    Constructor Create(AOwner:TComponent; filename:string);
    procedure  StartVideoStream(filename:string; nstep:integer);
+   procedure  ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;
    function  MSVideoInit:byte;
   end;
 
@@ -146,6 +147,18 @@ BEGIN
   Except
   End
 END; { IplImage2Bitmap }
+
+procedure TMSVideoForm.ThreadDone(var AMessage: TMessage);
+  begin
+  if  (mDrawing=AMessage.WParam)then
+  begin
+    stopbtn.down:=true;
+    Playbtn.down:=false;
+  end;//drawthread
+ if mScanning=AMessage.WParam then
+ begin
+ end;
+end;
 procedure  TMSVideoForm.StartVideoStream(filename:string; nstep:integer);
 begin
 stopbtn.down:=false;
@@ -202,6 +215,9 @@ begin
 // StartVideoStream(Videofile,nstep);
    if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
        begin
+         flgStopVideoStream:=false;
+          stopbtn.down:=false;
+         PlayBtn.Down := true;
          VideoStreamThread:= TThreadVideoStream.Create;
        end ;
 end;
@@ -299,7 +315,7 @@ end;
 //************************************************************************************************
 procedure TMSVideoForm.StopBtnClick(Sender: TObject);
 begin
- flgrun:=not flgrun;
+ flgStopVideoStream:=true;
  if PlayBtn.Down then
   begin
     PlayBtn.Down := false;
