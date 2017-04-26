@@ -958,6 +958,7 @@ var
   flgJavaRunning:WordBool;
   flgSchemeLoaded:WordBool;
   flgStopJava:WordBool;
+  flgStopVideoStream:boolean;
   flgfileuploaded:boolean;
   flgfilealguploaded:boolean;
   flgfileparamuploaded:boolean;

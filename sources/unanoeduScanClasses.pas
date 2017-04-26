@@ -2924,11 +2924,7 @@ begin
 end;
 procedure TScannerMoveXYZ.StartDraw;
 begin
-   if not assigned(ScannerMoveXYZThread) or (not ScannerMoveXYZThreadActive) then // make sure its not already running
-       begin
-         ScannerMoveXYZThread:= TScannerMoveXYZDrawThread.Create;
-        // ScannerMoveXYZThreadActive := True;
-       end ;
+
 end;
 
 //APPROACH SFM-STM

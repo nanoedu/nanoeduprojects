@@ -166,7 +166,8 @@ uses
   OpenCV_imgproc in '..\sources\Opencv\OpenCV_imgproc.pas',
   OpenCV_types in '..\sources\Opencv\OpenCV_types.pas',
   OpenCV_utils in '..\sources\Opencv\OpenCV_utils.pas',
-  OpenCV_video in '..\sources\Opencv\OpenCV_video.pas';
+  OpenCV_video in '..\sources\Opencv\OpenCV_video.pas',
+  ThreadVideoStream in '..\sources\MSVIDEODEMO\ThreadVideoStream.pas';
 
 {FormProgramSettings}
 

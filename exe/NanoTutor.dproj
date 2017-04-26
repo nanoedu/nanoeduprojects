@@ -306,6 +306,7 @@
     <DCCReference Include="..\sources\MSVIDEODEMO\MSVideoDEMO.pas">
       <Form>MSVideoForm</Form>
     </DCCReference>
+    <DCCReference Include="..\sources\MSVIDEODEMO\ThreadVideoStream.pas" />
     <DCCReference Include="..\sources\MtpLib_TLB.pas" />
     <DCCReference Include="..\sources\Nanoeduhelp.pas" />
     <DCCReference Include="..\sources\NL3LFBLib_TLB.pas" />

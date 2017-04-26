@@ -47,30 +47,31 @@ type
   private
     flgrun:boolean;
     flgrotate:boolean;
-    hWndC:HWND;
-    videofile:string;
     curframenmb:integer;
+    count :integer;
+    key: integer;
     framenmb:integer;
-    AviFileName, BMPFileName : string;
+    hWndC:HWND;
+ 
     scalar:cvScalar;
     capture: pCVCapture;
     map_matrix:pCvMat;
     frame: pIplImage;
     framerot:pIplImage;
-    key: integer;
     image:Tbitmap;
-    count :integer;
     dst: pIplImage;
     pc:CvPoint2d32f;
     r:pCvMat;//pIplImage;
 
-    function  MSVideoInit:byte;
     procedure InitParams;
   protected
   public
+    nstep:integer;   // через сколько кадров отображать
+    videofile:string;
     FormHandle: THandle;
-    MsgBack: Integer;
-  Constructor Create(AOwner:TComponent; configpath:string);
+   Constructor Create(AOwner:TComponent; filename:string);
+   procedure  StartVideoStream(filename:string; nstep:integer);
+   function  MSVideoInit:byte;
   end;
 
 var
@@ -82,7 +83,7 @@ implementation
 
 
 {$R *.DFM}
-uses globalvar;
+uses globalvar,ThreadVideoStream;
 const
   DefApproachAviFileName = 'sem_spm.avi';
   DefRisingAviFileName   = 'Rising.avi';
@@ -145,14 +146,13 @@ BEGIN
   Except
   End
 END; { IplImage2Bitmap }
-
-procedure TMSVideoForm.PlayBtnClick(Sender: TObject);
+procedure  TMSVideoForm.StartVideoStream(filename:string; nstep:integer);
 begin
- stopbtn.down:=false;
+stopbtn.down:=false;
  try
 //    capture := cvCreateFileCapture(PAnsiChar(Videofile));
     flgrun:=true;
-     count:=0;
+     count:=1;
 //     Scalar:=cvScalarAll_(0);
  //    map_matrix:=cvCreateMat(2, 3, CV_32FC1);
     if Assigned(capture) then
@@ -161,30 +161,27 @@ begin
       begin
         frame := cvQueryFrame(capture);
         if Assigned(frame) then
+        begin
+         if count=nstep then
          begin
-      (*    if count=0 then
-          begin
-           image:=Tbitmap.create;
-           image.PixelFormat := pf24bit;
-           count:=1;
-           framerot:=cvCloneImage(frame);
-          end;
-          *)
-          if flgrotate then
+           if flgrotate then
            begin
               pc.X:=round(frame.width/2.0);
               pc.Y:=round(frame.height/2.0);
              r:=cv2DRotationMatrix(pc, 90, 1.0,map_matrix);
              cvWarpAffine(frame, framerot, map_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS,Scalar);//, src.size()); // what size I should use?
              IplImage2Bitmap(framerot,image);
-            end
-            else IplImage2Bitmap(frame,image);
+           end
+           else IplImage2Bitmap(frame,image);
            image1.Picture.Assign(image);
            application.ProcessMessages;
            Sleep(10);
-           end
-           else break;
-         end;
+           count:=1;
+         end
+         else inc(count)
+        end
+        else break;
+      end;//run
     end
     else
     begin
@@ -199,37 +196,28 @@ begin
       Writeln(E.ClassName, ': ', E.Message);
   end;
 end;
+
+procedure TMSVideoForm.PlayBtnClick(Sender: TObject);
+begin
+// StartVideoStream(Videofile,nstep);
+   if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
+       begin
+         VideoStreamThread:= TThreadVideoStream.Create;
+       end ;
+end;
+
 procedure TMSVideoForm.SettingBtnClick(Sender: TObject);
 begin
 
 end;
 
 //************************************************************************************************
-constructor TMSVideoForm.Create(AOwner:TComponent; configpath:string);
-var
-deflang,str:string;
-function WhichLanguage:string;
-var
-  ID: LangID;
-  Language: array [0..100] of char;
+constructor TMSVideoForm.Create(AOwner:TComponent; filename:string);
 begin
-  ID := GetSystemDefaultLangID;
-  VerLanguageName(ID, Language, 100);
-  Result := string(Language);
-end;
-function ShowDllPath:string;
-var
-  TheFileName : array[0..MAX_PATH] of char;
-  str:string;
-begin
-  FillChar(TheFileName, sizeof(TheFileName), #0);
-  GetModuleFileName(hInstance, TheFileName, sizeof(TheFileName));
-  result:=string( TheFileName);
-end;begin
   inherited Create(AOwner);
   siLang1.ActiveLanguage:=Lang;
   UpdateStrings;
-  Videofile :=configpath+DefApproachAVIFileName;
+  Videofile :=filename;
   PlayBtn.down:=false;
   flgrun:=false;
   MSVideoInit;
@@ -332,7 +320,7 @@ procedure TMSVideoForm.FormDestroy(Sender: TObject);
 begin
 //  CapBitmap.Free;
   Application.Handle:=0;
-  PostMessage (FormHandle, MsgBack, 0, 0);
+//  PostMessage (FormHandle, MsgBack, 0, 0);
    MSVideoForm:=nil;
 end;
 //************************************************************************************************

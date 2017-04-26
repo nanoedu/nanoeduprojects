@@ -6,7 +6,7 @@ interface
        OpenCV_Types;
 
   Const
-       File_dll = '..\exe\opencv\opencv_imgproc249.dll';
+       File_dll = 'opencv_imgproc249.dll';
 
     //-----------------------------Motion Analysis and Object Tracking---------------
     //*********************** Background statistics accumulation *****************************/

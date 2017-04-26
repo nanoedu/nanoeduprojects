@@ -6,8 +6,8 @@ interface
        OpenCV_Types;
        
   const
-       File_dll = '..\exe\opencv\opencv_highgui249.dll';
-       LibMpeg = '..\exe\opencv\opencv_ffmpeg249.dll';
+       File_dll = 'opencv_highgui249.dll';
+       LibMpeg = 'opencv_ffmpeg249.dll';
 
   Function  cvFontQt(const nameFont: pchar; pointSize: Integer; color: CvScalar; weight,  style, spacing: Integer): cvFont; cdecl; external File_dll;
   Procedure cvAddText(const img: pCvArr; const text: pchar; org: CvPoint; arg2: pCvFont); cdecl; external File_dll;
