@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<textData xmlns="http://www.seceng.co.kr/Nanoeye/TextSchema.xsd" Target="Mini-SEM" Version="Ver1.0.0">
+	<fonts>
+		<font>
+			<key>KoMsg1</key>
+			<font>MS UI Gothic</font>
+			<size>10</size>
+			<bold>true</bold>
+			<italic>false</italic>
+		</font>
+		<font>
+			<key>Menu</key>
+			<font>MS UI Gothic</font>
+			<size>9</size>
+			<bold>false</bold>
+			<italic>false</italic>
+		</font>
+		<font>
+			<key>EnMsg1</key>
+			<font>MS UI Gothic</font>
+			<size>10</size>
+			<bold>true</bold>
+			<italic>false</italic>
+		</font>
+		<font>
+			<key>JaMsg1</key>
+			<font>MS UI Gothic</font>
+			<size>10</size>
+			<bold>true</bold>
+			<italic>false</italic>
+		</font>
+	</fonts>
+	<languages>
+		<language>
+			<display>한국어</display>
+			<code>ko</code>
+		</language>	
+		<language>
+			<display>English</display>
+			<code>en</code>
+		</language>
+		<language>
+			<display>日本語</display>
+			<code>ja</code>
+		</language>
+	</languages>
+	<items defaultLanguage="en">
+		<item key="Message_Restart">
+			<string font="EnMsg1" language="en">Please restart this program.</string>
+			<string font="KoMsg1" language="ko">프로그램을 재 시작 시켜 주십시요.</string>
+			<string font="JaMsg1" language="ja">Please restart this program.</string>
+		</item>
+		<item key="Message_HighVacuum">
+			<string font="EnMsg1" language="en">Vacuum mode is changed to HighVacuum.</string>
+			<string font="KoMsg1" language="ko">고진공 모드로 변환 되었습니다.</string>
+			<string font="JaMsg1" language="ja">Vacuum mode is changed to HighVacuum.</string>
+		</item>
+		<item key="Message_LowVacuum">
+			<string font="EnMsg1" language="en">Vacuum mode is changed to LowVacuum.</string>
+			<string font="KoMsg1" language="ko">저진공 모드로 변환 되었습니다.</string>
+			<string font="JaMsg1" language="ja">Vacuum mode is changed to LowVacuum.</string>
+		</item>
+		<item key="Message_StartCancel">
+			<string font="EnMsg1" language="en">Process is canceled.</string>
+			<string font="KoMsg1" language="ko">작업이 취소 되었습니다.</string>
+			<string font="JaMsg1" language="ja">Process is canceled.</string>
+		</item>
+		<item key="Message_ProgramClose">
+			<string font="EnMsg1" language="en">Program will be shut down.</string>
+			<string font="KoMsg1" language="ko">프로그램이 종료됩니다.</string>
+			<string font="JaMsg1" language="ja">Program will be shut down.</string>
+		</item>
+		<item key="Message_DAQEmpty">
+			<string font="EnMsg1" language="en">There is no scanning device.</string>
+			<string font="KoMsg1" language="ko">주사 장치가 연결 되어 있지 않습니다.</string>
+			<string font="JaMsg1" language="ja">There is no scanning device.</string>
+		</item>
+		<item key="Message_DAQNotSelect">
+			<string font="EnMsg1" language="en">Scanning device was not selected.</string>
+			<string font="KoMsg1" language="ko">주사 장치가 선택 되지 않았습니다.</string>
+			<string font="JaMsg1" language="ja">Scanning device was not selected.</string>
+		</item>
+		<item key="Message_ControllerEmpty">
+			<string font="EnMsg1" language="en">Can't find a equipment.</string>
+			<string font="KoMsg1" language="ko">장비를 찾을 수 없습니다.</string>
+			<string font="JaMsg1" language="ja">Can't find a equipment.</string>
+		</item>
+		<item key="Message_ControllerNotSelect">
+			<string font="EnMsg1" language="en">Equipment was not selected.</string>
+			<string font="KoMsg1" language="ko">장비가 선택 되지 않았습니다.</string>
+			<string font="JaMsg1" language="ja">Equipment was not selected.</string>
+		</item>
+		<item key="Message_InvalidSeller">
+			<string font="EnMsg1" language="en">This equipment is not supported. Please contant seller.</string>
+			<string font="KoMsg1" language="ko">지원하지 않는 장비 입니다. 판매처에 문의 하세요.</string>
+			<string font="JaMsg1" language="ja">This equipment is not supported. Please contant seller.</string>
+		</item>
+		<item key="Message_InvalidDevice">
+			<string font="EnMsg1" language="en">This equipment is not supported. Please contant seller.</string>
+			<string font="KoMsg1" language="ko">지원하지 않는 장비 입니다. 판매처에 문의 하세요.</string>
+			<string font="JaMsg1" language="ja">This equipment is not supported. Please contant seller.</string>
+		</item>
+		<item key="Message_Unsupported">
+			<string font="EnMsg1" language="en">This equipment is not supported. Please contant seller.</string>
+			<string font="KoMsg1" language="ko">지원하지 않는 장비 입니다. 판매처에 문의 하세요.</string>
+			<string font="JaMsg1" language="ja">This equipment is not supported. Please contant seller.</string>
+		</item>
+		<item key="Message_DirectoryInvalid">
+			<string font="EnMsg1" language="en">Folder doese not exist.</string>
+			<string font="KoMsg1" language="ko">해당 폴더가 존재 하지 않습니다.</string>
+			<string font="JaMsg1" language="ja">Folder doese not exist.</string>
+		</item>
+		<item key="Message_ScreenRecoderStartFail">
+			<string font="EnMsg1" language="en">Error Occured.\r\nPlease check the codec(DVIX3) or file.</string>
+			<string font="KoMsg1" language="ko">문제가 발생 하였습니다. 코덱(DVIX3)이 잘못 설치 되었거나, 해당 파일이 사용 중 일수 있습니다.</string>
+			<string font="JaMsg1" language="ja">Error Occured.\r\nPlease check the codec(DVIX3) or file.</string>
+		</item>
+		<item key="Message_ExportManagerFail">
+			<string font="EnMsg1" language="en">Fail to send image.</string>
+			<string font="KoMsg1" language="ko">이미지 전송에 실패하였습니다.</string>
+			<string font="JaMsg1" language="ja">Fail to send image.</string>
+		</item>
+		<item key="Message_SSV_PortUsed">
+			<string font="EnMsg1" language="en">Port is already used.</string>
+			<string font="KoMsg1" language="ko">선택한 port가 사용 중 입니다.</string>
+			<string font="JaMsg1" language="ja">Port is already used.</string>
+		</item>
+		<item key="Message_SSV_LostConnect">
+			<string font="EnMsg1" language="en">Lost the connection.</string>
+			<string font="KoMsg1" language="ko">연결이 중단 되었습니다.</string>
+			<string font="JaMsg1" language="ja">Lost the connection.</string>
+		</item>
+		<item key="Message_SSV_TransFail">
+			<string font="EnMsg1" language="en">Transmission fail.</string>
+			<string font="KoMsg1" language="ko">전송에 실패하였습니다.</string>
+			<string font="JaMsg1" language="ja">Transmission fail.</string>
+		</item>
+		<item key="Message_SSV_Close">
+			<string font="EnMsg1" language="en">Connection will be closed.</string>
+			<string font="KoMsg1" language="ko">연결이 중단 됩니다.</string>
+			<string font="JaMsg1" language="ja">Connection will be closed.</string>
+		</item>
+		<item key="Message_SSV_ReceiveFail">
+			<string font="EnMsg1" language="en">Receive fail.</string>
+			<string font="KoMsg1" language="ko">수신에 실패 하였습니다.</string>
+			<string font="JaMsg1" language="ja">Receive fail.</string>
+		</item>
+		<item key="Message_ControllerCommunicationError">
+			<string font="EnMsg1" language="en">Communication error occured with controller.</string>
+			<string font="KoMsg1" language="ko">Controller와 통신에 문제가 있습니다.</string>
+			<string font="JaMsg1" language="ja">Communication error occured with controller.</string>
+		</item>
+		<item key="MENU_Profile">
+			<string font="Menu" language="en">Profile</string>
+			<string font="Menu" language="ko">시작설정</string>
+			<string font="Menu" language="ja">Profile</string>
+		</item>
+		<item key="MENU_Wizard">
+			<string font="Menu" language="en">Wizard</string>
+			<string font="Menu" language="ko">마법사</string>
+			<string font="Menu" language="ja">Wizard</string>
+		</item>
+		<item key="MENU_Tools">
+			<string font="Menu" language="en">Tools</string>
+			<string font="Menu" language="ko">도구</string>
+			<string font="Menu" language="ja">表示</string>
+		</item>
+		<item key="MENU_TOOLS_Manager">
+			<string font="Menu" language="en">NanoeyeDB</string>
+			<string font="Menu" language="ko">NanoeyeDB</string>
+			<string font="Menu" language="ja">NanoeyeDB</string>
+		</item>
+		<item key="MENU_TOOLS_File">
+			<string font="Menu" language="en">File</string>
+			<string font="Menu" language="ko">저장</string>
+			<string font="Menu" language="ja">?像をキャプチャ</string>
+		</item>
+		<item key="MENU_TOOLS_Print">
+			<string font="Menu" language="en">Print</string>
+			<string font="Menu" language="ko">출력</string>
+			<string font="Menu" language="ja">印刷</string>
+		</item>
+		<item key="MENU_TOOLS_Measure">
+			<string font="Menu" language="en">Measure Tools</string>
+			<string font="Menu" language="ko">측정 도구</string>
+			<string font="Menu" language="ja">計測ツール</string>
+		</item>
+		<item key="MENU_TOOLS_CrossHair">
+			<string font="Menu" language="en">Cross hairs</string>
+			<string font="Menu" language="ko">십자선</string>
+			<string font="Menu" language="ja">中心点</string>
+		</item>
+		<item key="MENU_TOOLS_BeamAlign">
+			<string font="Menu" language="en">Beam align</string>
+			<string font="Menu" language="ko">빔 정렬</string>
+			<string font="Menu" language="ja">Beam align</string>
+		</item>
+		<item key="MENU_TOOLS_StatusServer"> 
+			<string font="Menu" language="en">Status server</string>
+			<string font="Menu" language="ko">상태 서버</string>
+			<string font="Menu" language="ja">Status server</string>
+		</item>
+		<item key="MENU_TOOLS_Wobble">
+			<string font="Menu" language="en">Wobble</string>
+			<string font="Menu" language="ko">Wobble</string>
+			<string font="Menu" language="ja">ぐらつき</string>
+		</item>
+		<item key="MENU_TOOLS_Recoder">
+			<string font="Menu" language="en">Recoder</string>
+			<string font="Menu" language="ko">동영상</string>
+			<string font="Menu" language="ja">動撮影</string>
+		</item>
+		<item key="MENU_Mode">
+			<string font="Menu" language="en">Mode</string>
+			<string font="Menu" language="ko">모드</string>
+			<string font="Menu" language="ja">モード</string>
+		</item>
+		<item key="MENU_MODE_ExternalAnalyze">
+			<string font="Menu" language="en">External analyzer</string>
+			<string font="Menu" language="ko">외부 분석기</string>
+			<string font="Menu" language="ja">分析モード</string>
+		</item>
+		<item key="MENU_MODE_SpotScan">
+			<string font="Menu" language="en">Spot scan</string>
+			<string font="Menu" language="ko">Spot 스캔</string>
+			<string font="Menu" language="ja">Spot scan</string>
+		</item>
+		<item key="MENU_MODE_CameraView">
+			<string font="Menu" language="en">Camera</string>
+			<string font="Menu" language="ko">카메라</string>
+			<string font="Menu" language="ja">Camera</string>
+		</item>
+		<item key="MENU_MODE_Vacuum"> 
+			<string font="Menu" language="en">Vacuum</string>
+			<string font="Menu" language="ko">진공</string>
+			<string font="Menu" language="ja">Vacuum</string>
+		</item>
+		<item key="MENU_MODE_VACUUM_LOW">
+			<string font="Menu" language="en">Low vacuum</string>
+			<string font="Menu" language="ko">저진공</string>
+			<string font="Menu" language="ja">Low vacuum</string>
+		</item>
+		<item key="MENU_MODE_VACUUM_HIGH">
+			<string font="Menu" language="en">High vacuum</string>
+			<string font="Menu" language="ko">고진공</string>
+			<string font="Menu" language="ja">High vacuum</string>
+		</item>
+		<item key="MENU_MODE_Detector">
+			<string font="Menu" language="en">Detector</string>
+			<string font="Menu" language="ko">검출기</string>
+			<string font="Menu" language="ja">ディテクター</string>
+		</item>
+		<item key="MENU_MODE_DETECTOR_SE">
+			<string font="Menu" language="en">SE detector</string>
+			<string font="Menu" language="ko">SE 검출기</string>
+			<string font="Menu" language="ja">SE detector</string>
+		</item>
+		<item key="MENU_MODE_DETECTOR_BSE">
+			<string font="Menu" language="en">BSE detector</string>
+			<string font="Menu" language="ko">BSE 검출기</string>
+			<string font="Menu" language="ja">BSE detector</string>
+		</item>
+		<item key="MENU_DigitalZoom">
+			<string font="Menu" language="en">Digital zoom</string>
+			<string font="Menu" language="ko">디지털 줌</string>
+			<string font="Menu" language="ja">デジタルズーム</string>
+		</item>
+		<item key="MENU_DZ_Center">
+			<string font="Menu" language="en">Move Center</string>
+			<string font="Menu" language="ko">중심 이동</string>
+			<string font="Menu" language="ja">センターへ移動</string>
+		</item>
+		<item key="MENU_DZ_Original">
+			<string font="Menu" language="en">Orignal</string>
+			<string font="Menu" language="ko">원본 배율</string>
+			<string font="Menu" language="ja">オリジナル倍率</string>
+		</item>
+		<item key="MENU_Adjustment">
+			<string font="Menu" language="en">Adjustment</string>
+			<string font="Menu" language="ko">조정</string>
+			<string font="Menu" language="ja">メンテナンス</string>
+		</item>
+		<item key="MENU_ADJUSTMENT_InfoZone">
+			<string font="Menu" language="en">Info zone</string>
+			<string font="Menu" language="ko">Info zone</string>
+			<string font="Menu" language="ja">Info zone</string>
+		</item>
+		<item key="MENU_ADJUSTMENT_Option">
+			<string font="Menu" language="en">Option</string>
+			<string font="Menu" language="ko">옵션</string>
+			<string font="Menu" language="ja">Option</string>
+		</item>
+		<item key="MENU_ADJUSTMENT_RunningTime">
+			<string font="Menu" language="en">Running time</string>
+			<string font="Menu" language="ko">동작 시간</string>
+			<string font="Menu" language="ja">稼動時間</string>
+		</item>
+		<item key="MENU_Help">
+			<string font="Menu" language="en">Help</string>
+			<string font="Menu" language="ko">도움말</string>
+			<string font="Menu" language="ja">Help</string>
+		</item>
+		<item key="MENU_HELP_Information">
+			<string font="Menu" language="en">Information</string>
+			<string font="Menu" language="ko">정보</string>
+			<string font="Menu" language="ja">Information</string>
+		</item>
+		<item key="RF1_Focus">
+			<string font="EnMsg1" language="en">Focus</string>
+			<string font="KoMsg1" language="ko">초점</string>
+			<string font="JaMsg1" language="ja">フォーカス</string>
+		</item>
+		<item key="RF1_Magnification">
+			<string font="EnMsg1" language="en">Magnification</string>
+			<string font="KoMsg1" language="ko">배율</string>
+			<string font="JaMsg1" language="ja">倍率</string>
+		</item>
+		<item key="RF1_ScanRotation">
+			<string font="EnMsg1" language="en">Scan Rotation</string>
+			<string font="KoMsg1" language="ko">주사 회전</string>
+			<string font="JaMsg1" language="ja">回転</string>
+		</item>
+		<item key="RF1_ScanSelect">
+			<string font="EnMsg1" language="en">Scan Select</string>
+			<string font="KoMsg1" language="ko">주사 선택</string>
+			<string font="JaMsg1" language="ja">スキャンスピード</string>
+		</item>
+		<item key="BUT_Reset">
+			<string font="EnMsg1" language="en">Reset</string>
+			<string font="KoMsg1" language="ko">초기값</string>
+			<string font="JaMsg1" language="ja">リセット</string>
+		</item>
+		<item key="RF2_StigAlign">
+			<string font="EnMsg1" language="en">Stig Align</string>
+			<string font="KoMsg1" language="ko">비점 정렬</string>
+			<string font="JaMsg1" language="ja">Stig Align</string>
+		</item>
+		<item key="RF2_GunSetting">
+			<string font="EnMsg1" language="en">Gun Setting</string>
+			<string font="KoMsg1" language="ko">Gun 설정</string>
+			<string font="JaMsg1" language="ja">Gun Setting</string>
+		</item>
+		<item key="RF2_EmissionCondition">
+			<string font="EnMsg1" language="en">Emission Condition</string>
+			<string font="KoMsg1" language="ko">빔 상태</string>
+			<string font="JaMsg1" language="ja">Emission Condition</string>
+		</item>
+		<item key="RF2_GunAlign">
+			<string font="EnMsg1" language="en">Gun Align</string>
+			<string font="KoMsg1" language="ko">Gun 정렬</string>
+			<string font="JaMsg1" language="ja">ガンアライメント</string>
+		</item>
+		<item key="RF3_MeasuringTools">
+			<string font="EnMsg1" language="en">Measure Tools</string>
+			<string font="KoMsg1" language="ko">측정 도구</string>
+			<string font="JaMsg1" language="ja">計測ツール</string>
+		</item>
+		<item key="FP_NANE_Image">
+			<string font="EnMsg1" language="en">Image</string>
+			<string font="KoMsg1" language="ko">이미지</string>
+			<string font="JaMsg1" language="ja">イメージ</string>
+		</item>
+		<item key="FP_IMAGE_Contrast">
+			<string font="EnMsg1" language="en">Contrast</string>
+			<string font="KoMsg1" language="ko">명암</string>
+			<string font="JaMsg1" language="ja">コントラスト</string>
+		</item>
+		<item key="FP_IMAGE_Brightness">
+			<string font="EnMsg1" language="en">Brightness</string>
+			<string font="KoMsg1" language="ko">밝기</string>
+			<string font="JaMsg1" language="ja">ブライトネス</string>
+		</item>
+		<item key="BUT_Auto">
+			<string font="EnMsg1" language="en">Auto</string>
+			<string font="KoMsg1" language="ko">자동</string>
+			<string font="JaMsg1" language="ja">オート</string>
+		</item>
+		<item key="FP_IMAGE_Video">
+			<string font="EnMsg1" language="en">Video</string>
+			<string font="KoMsg1" language="ko">영상</string>
+			<string font="JaMsg1" language="ja">画質</string>
+		</item>
+		<item key="FP_IMAGE_Filter">
+			<string font="EnMsg1" language="en">Filter</string>
+			<string font="KoMsg1" language="ko">잡음</string>
+			<string font="JaMsg1" language="ja">ノイズフィルター</string>
+		</item>
+		<item key="FP_NAME_Detector">
+			<string font="EnMsg1" language="en">SE Detector</string>
+			<string font="KoMsg1" language="ko">SE 검출기</string>
+			<string font="JaMsg1" language="ja">ディテクター</string>
+		</item>
+		<item key="FP_DETECTOR_Collector">
+			<string font="EnMsg1" language="en">Collector</string>
+			<string font="KoMsg1" language="ko">수집률</string>
+			<string font="JaMsg1" language="ja">SE collection</string>
+		</item>
+		<item key="FP_DETECTOR_Amplifier">
+			<string font="EnMsg1" language="en">Amplifier</string>
+			<string font="KoMsg1" language="ko">증폭률</string>
+			<string font="JaMsg1" language="ja">SE amplification</string>
+		</item>
+		<item key="FP_NAME_BeamShift">
+			<string font="EnMsg1" language="en">Beam Shift</string>
+			<string font="KoMsg1" language="ko">빔 이동</string>
+			<string font="JaMsg1" language="ja">ビームシフト</string>
+		</item>
+		<item key="BUT_Window">
+			<string font="EnMsg1" language="en">Window</string>
+			<string font="KoMsg1" language="ko">창</string>
+			<string font="JaMsg1" language="ja">ウィンドウ</string>
+		</item>
+		<item key="FP_NAME_TiltCorrection">
+			<string font="EnMsg1" language="en">Tilt</string>
+			<string font="KoMsg1" language="ko">Tilt</string>
+			<string font="JaMsg1" language="ja">Tilt</string>
+		</item>
+		<item key="FP_TC_DynamicFocus">
+			<string font="EnMsg1" language="en">Dynamic Focus</string>
+			<string font="KoMsg1" language="ko">Dynamic Focus</string>
+			<string font="JaMsg1" language="ja">Dynamic Focus</string>
+		</item>
+		<item key="FP_NAME_SpotMode1">
+			<string font="EnMsg1" language="en">Spot Size</string>
+			<string font="KoMsg1" language="ko">Spot size</string>
+			<string font="JaMsg1" language="ja">スポットサイズ</string>
+		</item>
+		<item key="FP_NAME_SpotMode2">
+			<string font="EnMsg1" language="en">Spot Size</string>
+			<string font="KoMsg1" language="ko">Spot size</string>
+			<string font="JaMsg1" language="ja">スポットサイズ</string>
+		</item>
+		<item key="FP_NAME_SpotMode3">
+			<string font="EnMsg1" language="en">Spot Size</string>
+			<string font="KoMsg1" language="ko">Spot size</string>
+			<string font="JaMsg1" language="ja">スポットサイズ</string>
+		</item>
+    <item key="FP_NAME_SpotMode4">
+      <string font="EnMsg1" language="en">Spot Size</string>
+      <string font="KoMsg1" language="ko">Spot size</string>
+      <string font="JaMsg1" language="ja">スポットサイズ</string>
+    </item>
+		<item key="FP_SM3_SpotSize">
+			<string font="EnMsg1" language="en">Spot Size</string>
+			<string font="KoMsg1" language="ko">Spot size</string>
+			<string font="JaMsg1" language="ja">スポットサイズ</string>
+		</item>
+		<item key="BUT_StigSync">
+			<string font="EnMsg1" language="en">Sync</string>
+			<string font="KoMsg1" language="ko">동기화</string>
+			<string font="JaMsg1" language="ja">同期</string>
+		</item>
+		<item key="FP_NAME_Stig">
+			<string font="EnMsg1" language="en">Stig</string>
+			<string font="KoMsg1" language="ko">비점</string>
+			<string font="JaMsg1" language="ja">非点収差</string>
+		</item>
+		<item key="FPL_Title">
+			<string font="Menu" language="en">Panels</string>
+			<string font="Menu" language="ko">패널</string>
+			<string font="Menu" language="ja">調整パネル</string>
+		</item>
+		<item key="AFM_Title">
+			<string font="Menu" language="en">Auto function Manager</string>
+			<string font="Menu" language="ko">자동화 기능</string>
+			<string font="Menu" language="ja">Auto function Manager</string>
+		</item>
+		<item key="AFM_Stop">
+			<string font="Menu" language="en">Stop</string>
+			<string font="Menu" language="ko">중지</string>
+			<string font="Menu" language="ja">Stop</string>
+		</item>
+		<item key="AFM_Cancel">
+			<string font="Menu" language="en">Cancel</string>
+			<string font="Menu" language="ko">취소</string>
+			<string font="Menu" language="ja">キャンセル</string>
+		</item>
+		<item key="BSW_Title">
+			<string font="Menu" language="en">Beam Shift</string>
+			<string font="Menu" language="ko">빔 이동</string>
+			<string font="Menu" language="ja">ビームシフト</string>
+		</item>
+		<item key="BSW_Center">
+			<string font="Menu" language="en">Center</string>
+			<string font="Menu" language="ko">중심 이동</string>
+			<string font="Menu" language="ja">Center</string>
+		</item>
+		<item key="FRT_Title"> 
+			<string font="Menu" language="en">Running time</string>
+			<string font="Menu" language="ko">동작 시간</string>
+			<string font="Menu" language="ja">稼動時間</string>
+		</item>
+		<item key="FRT_Filament">
+			<string font="Menu" language="en">Filament</string>
+			<string font="Menu" language="ko">Filament</string>
+			<string font="Menu" language="ja">フィラメント</string>
+		</item>
+		<item key="FRT_Reset">
+			<string font="Menu" language="en">Reset</string>
+			<string font="Menu" language="ko">초기화</string>
+			<string font="Menu" language="ja">リセット</string>
+		</item>
+		<item key="RECODER_Title">
+			<string font="Menu" language="en">Recoder</string>
+			<string font="Menu" language="ko">동영상 저장</string>
+			<string font="Menu" language="ja">動画撮影</string>
+		</item>
+		<item key="RECODER_FilePath">
+			<string font="Menu" language="en">File path</string>
+			<string font="Menu" language="ko">파일 경로</string>
+			<string font="Menu" language="ja">File path</string>
+		</item>
+		<item key="RECODER_Image">
+			<string font="Menu" language="en">Image</string>
+			<string font="Menu" language="ko">이미지</string>
+			<string font="Menu" language="ja">Image</string>
+		</item>
+		<item key="RECODER_Program">
+			<string font="Menu" language="en">Program</string>
+			<string font="Menu" language="ko">프로그램</string>
+			<string font="Menu" language="ja">Program</string>
+		</item>
+		<item key="RECODER_Screen">
+			<string font="Menu" language="en">Screen</string>
+			<string font="Menu" language="ko">모니터 화면</string>
+			<string font="Menu" language="ja">Screen</string>
+		</item>
+		<item key="RECODER_Rotation">
+			<string font="Menu" language="en">Rotation</string>
+			<string font="Menu" language="ko">회전</string>
+			<string font="Menu" language="ja">Rotation</string>
+		</item>
+		<item key="RECODER_Fps">
+			<string font="Menu" language="en">FPS</string>
+			<string font="Menu" language="ko">FPS</string>
+			<string font="Menu" language="ja">FPS</string>
+		</item>
+		<item key="RECODER_Start">
+			<string font="Menu" language="en">Start</string>
+			<string font="Menu" language="ko">시작</string>
+			<string font="Menu" language="ja">開始</string>
+		</item>
+		<item key="RECODER_Stop">
+			<string font="Menu" language="en">Stop</string>
+			<string font="Menu" language="ko">중지</string>
+			<string font="Menu" language="ja">Stop</string>
+		</item>
+		<item key="OPTION_Title">
+			<string font="Menu" language="en">Option</string>
+			<string font="Menu" language="ko">옵션</string>
+			<string font="Menu" language="ja">Option</string>
+		</item>
+		<item key="OPTION_Close">
+			<string font="Menu" language="en">Close</string>
+			<string font="Menu" language="ko">닫기</string>
+			<string font="Menu" language="ja">Close</string>
+		</item>
+		<item key="OPTION_Sensitive">
+			<string font="Menu" language="en">Sensitive</string>
+			<string font="Menu" language="ko">민감도</string>
+			<string font="Menu" language="ja">Sensitive</string>
+		</item>
+		<item key="OPTION_SEN_Left">
+			<string font="Menu" language="en">Left</string>
+			<string font="Menu" language="ko">왼쪽</string>
+			<string font="Menu" language="ja">Left</string>
+		</item>
+		<item key="OPTION_SEN_Right">
+			<string font="Menu" language="en">Right</string>
+			<string font="Menu" language="ko">오른쪽</string>
+			<string font="Menu" language="ja">Right</string>
+		</item>
+		<item key="OPTION_SEN_WD">
+			<string font="Menu" language="en">WD</string>
+			<string font="Menu" language="ko">WD</string>
+			<string font="Menu" language="ja">WD</string>
+		</item>
+		<item key="OPTION_SEN_Focus">
+			<string font="Menu" language="en">Focus</string>
+			<string font="Menu" language="ko">초점</string>
+			<string font="Menu" language="ja">フォーカス</string>
+		</item>
+		<item key="OPTION_SEN_Detector">
+			<string font="Menu" language="en">SE Detector</string>
+			<string font="Menu" language="ko">SE 검출기</string>
+			<string font="Menu" language="ja">ディテクタ?</string>
+		</item>
+		<item key="OPTION_SEN_SpotSize">
+			<string font="Menu" language="en">Spot Size</string>
+			<string font="Menu" language="ko">Spot size</string>
+			<string font="Menu" language="ja">スポットサイズ</string>
+		</item>
+		<item key="OPTION_SEN_BeamShift">
+			<string font="Menu" language="en">Beam Shift</string>
+			<string font="Menu" language="ko">빔 이동</string>
+			<string font="Menu" language="ja">ビームシフト</string>
+		</item>
+		<item key="OPTION_SEN_GunAlign">
+			<string font="Menu" language="en">Gun Align</string>
+			<string font="Menu" language="ko">Gun 정렬</string>
+			<string font="Menu" language="ja">Gun Align</string>
+		</item>
+		<item key="OPTION_SEN_Stig">
+			<string font="Menu" language="en">Stig</string>
+			<string font="Menu" language="ko">비점</string>
+			<string font="Menu" language="ja">非点収差</string>
+		</item>
+		<item key="OPTION_SEN_Reset">
+			<string font="Menu" language="en">Reset</string>
+			<string font="Menu" language="ko">초기화</string>
+			<string font="Menu" language="ja">リセット</string>
+		</item>
+		<item key="OPTION_ImportExport">
+			<string font="Menu" language="en">Import &amp; Export</string>
+			<string font="Menu" language="ko">Import &amp; Export</string>
+			<string font="Menu" language="ja">Import &amp; Export</string>
+		</item>
+		<item key="OPTION_IE_SetImport_But">
+			<string font="Menu" language="en">Setting Import</string>
+			<string font="Menu" language="ko">설정 불러오기</string>
+			<string font="Menu" language="ja">Setting Import</string>
+		</item>
+		<item key="OPTION_IE_SetImport_Msg">
+			<string font="Menu" language="en">Change all settings from file.</string>
+			<string font="Menu" language="ko">설정 데이터를 파일로 부터 읽어 옵니다.</string>
+			<string font="Menu" language="ja">Change all settings from file.</string>
+		</item>
+		<item key="OPTION_IE_SetExport_But">
+			<string font="Menu" language="en">Setting Export</string>
+			<string font="Menu" language="ko">설정 내보내기</string>
+			<string font="Menu" language="ja">Setting Export</string>
+		</item>
+		<item key="OPTION_IE_SetExport_Msg">
+			<string font="Menu" language="en">Record all settings to file.</string>
+			<string font="Menu" language="ko">설정 데이터를 파일에 기록합니다.</string>
+			<string font="Menu" language="ja">Record all settings to file.</string>
+		</item>
+		<item key="OPTION_IE_LogExport_But">
+			<string font="Menu" language="en">Log Export</string>
+			<string font="Menu" language="ko">로그 내보내기</string>
+			<string font="Menu" language="ja">Log Export</string>
+		</item>
+		<item key="OPTION_IE_LogExport_Msg">
+			<string font="Menu" language="en">Record all log to file.</string>
+			<string font="Menu" language="ko">로그 데이터를 파일에 기록합니다.</string>
+			<string font="Menu" language="ja">Record all log to file.</string>
+		</item>
+		<item key="OPTION_Etc">
+			<string font="Menu" language="en">Etc</string>
+			<string font="Menu" language="ko">기타</string>
+			<string font="Menu" language="ja">Etc</string>
+		</item>
+		<item key="OPTION_ETC_AutoStatusServer">
+			<string font="Menu" language="en">Automatly startup Status-Server.</string>
+			<string font="Menu" language="ko">자동으로 Status-Server를 시작 시킵니다.</string>
+			<string font="Menu" language="ja">Automatly startup Status-Server.</string>
+		</item>
+		<item key="OPTION_ETC_FrontPanelHide">
+			<string font="Menu" language="en">Automatly close front panel list.</string>
+			<string font="Menu" language="ko">자동으로 Fonrt panel 목록 창을 닫습니다.</string>
+			<string font="Menu" language="ja">Automatly close front panel list.</string>
+		</item>
+		<item key="INFOZONE_Title">
+			<string font="Menu" language="en">InfoZone</string>
+			<string font="Menu" language="ko">Info zone</string>
+			<string font="Menu" language="ja">InfoZone</string>
+		</item>
+		<item key="INFOZONE_Description">
+			<string font="Menu" language="en">Descripion</string>
+			<string font="Menu" language="ko">설명자</string>
+			<string font="Menu" language="ja">Descripion</string>
+		</item>
+		<item key="INFOZONE_Background">
+			<string font="Menu" language="en">Background</string>
+			<string font="Menu" language="ko">배경색</string>
+			<string font="Menu" language="ja">Background</string>
+		</item>
+		<item key="INFOZONE_Edge">
+			<string font="Menu" language="en">Edge</string>
+			<string font="Menu" language="ko">윤곽색</string>
+			<string font="Menu" language="ja">Edge</string>
+		</item>
+		<item key="INFOZONE_Text">
+			<string font="Menu" language="en">Text</string>
+			<string font="Menu" language="ko">글자색</string>
+			<string font="Menu" language="ja">カラー</string>
+		</item>
+		<item key="INFOZONE_Font">
+			<string font="Menu" language="en">Font</string>
+			<string font="Menu" language="ko">글꼴</string>
+			<string font="Menu" language="ja">フォント</string>
+		</item>
+		<item key="INFOZONE_Transparent">
+			<string font="Menu" language="en">Transparent</string>
+			<string font="Menu" language="ko">투명도</string>
+			<string font="Menu" language="ja">Transparent</string>
+		</item>
+		<item key="INFOZONE_Visible">
+			<string font="Menu" language="en">Visible</string>
+			<string font="Menu" language="ko">표시</string>
+			<string font="Menu" language="ja">Visible</string>
+		</item>
+		<item key="INFOZONE_Close">
+			<string font="Menu" language="en">Close</string>
+			<string font="Menu" language="ko">닫기</string>
+			<string font="Menu" language="ja">Close</string>
+		</item>
+	</items>
+</textData>

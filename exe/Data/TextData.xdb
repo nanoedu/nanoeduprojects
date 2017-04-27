@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.seceng.co.kr/Nanoeye/TextSchema.xsd" xmlns="http://www.seceng.co.kr/Nanoeye/TextSchema.xsd" xmlns:xdb="http://www.borland.com/schemas/delphi/10.0/XMLDataBinding">
+  <xs:element name="textData" type="textDataType"/>
+  <xs:complexType name="textDataType"><xs:annotation>
+      <xs:appinfo xdb:docElement="textData"/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="fonts" type="fontsType"/>
+      <xs:element name="languages" type="languagesType"/>
+      <xs:element name="items" type="itemsType"/>
+    </xs:sequence>
+    <xs:attribute name="xmlns" type="xs:string"/>
+    <xs:attribute name="Target" type="xs:string"/>
+    <xs:attribute name="Version" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="fontsType">
+    <xs:sequence>
+      <xs:element name="font" type="fontType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="fontType">
+    <xs:sequence>
+      <xs:element name="key" type="xs:string"/>
+      <xs:element name="font" type="xs:string"/>
+      <xs:element name="size" type="xs:integer"/>
+      <xs:element name="bold" type="xs:string"/>
+      <xs:element name="italic" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="languagesType">
+    <xs:sequence>
+      <xs:element name="language" type="languageType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="languageType">
+    <xs:sequence>
+      <xs:element name="display" type="xs:string"/>
+      <xs:element name="code" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="itemsType">
+    <xs:sequence>
+      <xs:element name="item" type="itemType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="defaultLanguage" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="itemType">
+    <xs:sequence>
+      <xs:element name="string" type="stringType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="key" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="stringType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="font" type="xs:string"/>
+        <xs:attribute name="language" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

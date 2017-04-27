@@ -1,0 +1,19 @@
+Device technical specifications 
+Scanning area	100-100-10 microns (10 %)
+Nonlinearity of the scanner 	5 %
+Minimal step 	1À
+Range of STM currents	from 100 pA up to 200nA
+Tip parameters:
+Range of resonant frequencies 	from 6 up to 14 kHz, typical 8 kHz
+Good quality 	20
+Radius of curvature 	100 nm (up to 10nm)
+Spatial resolution:
+      SFM 	X-Y 	 100 A;
+	         Z 	 30 A;
+      STM 	 X-Y 	 100 A;
+      	         Z 	 20 A;
+Type of scanning 	 Scanning with a sample
+Sample size	 Diameter up to 12 mm, 
+      	 Thickness up to 5 mm
+
+
