@@ -40,7 +40,8 @@ uses Classes,Windows,Controls,Graphics,Messages,GlobalType,SysUtils;
        DemoSpectrSTMIZFile:string=      'DemoSpectrSTMIZ.spm';
        SpectrPictureFile:string=        'SpectrPicture.bmp';
        DemoOneLineSFMFile:string=       'DemoOneLineSFM.spm';
-
+ const LandingVideo:string='landing .avi';
+       RisingVideo:string ='rising.avi';
    million=1000000;
    dbltoint=2147483648; 
    D3=1;     //3 d view
@@ -146,7 +147,7 @@ uses Classes,Windows,Controls,Graphics,Messages,GlobalType,SysUtils;
        ConfigUsersIniFilePath:string;
        ConfigUsersIniFileDefPath:string;
        ConfigLabListFilePath:string;
-       pathtoapproachvideo:string;
+       ApproachSimulationVideo:string;
 //
        ReportTemplPath:string;
        ReportTemplEDefPath:string;

@@ -76,7 +76,7 @@ begin
            end
            else IplImage2Bitmap(frame,image);
            MSVideoForm.image1.Picture.Assign(image);
-           Sleep(10);
+           Sleep(30);
            count:=1;
            inc(curframenmb);
          end

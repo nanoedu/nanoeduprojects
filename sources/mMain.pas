@@ -3256,7 +3256,7 @@ begin
      end //not demo
      else
      begin //demo
-       MSVideoForm:=TMSVideoForm.Create(self,PathToApproachVideo,false,false);
+       MSVideoForm:=TMSVideoForm.Create(self,ApproachSimulationVideo,false,false);
        MSVideoFORM.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then
@@ -5525,37 +5525,52 @@ end;
 
  if ApproachParams.flgAutorunCamera then
  begin
-  if  FlgCurrentUserLevel<>Demo then
-  begin
+ // if  FlgCurrentUserLevel<>Demo then
+ // begin
    if not boolean(flgRunFirmCamera) then
    begin
     h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
     if h=0  then
     begin
-    if GetModuleHandle('MSVideoLib.dll')=0 then
+   if(FlgCurrentUserLevel<>DEMO) then
      begin
-      @StartVideo:=nil;
-      @StopVideo:=nil;
-      LibVideoHandle:=0;
-      LibVideoHandle:=LoadLibrary(PChar(ExeFilePath+'MSVideoLib.dll'));
-       if  LibVideoHandle<=32 then begin
-                                    silang1.MessageDlg('Library MSVideoLib.dll Load Error'+ IntToStr(GetLastError)+'!. Test USB Connection. ',mtWarning,[mbOk],0);
-                                    exit;
-                                   end
-                              else
+      if GetModuleHandle('MSVideoLib.dll')=0 then
+      begin
+        @StartVideo:=nil; @StopVideo:=nil;
+        LibVideoHandle:=0;
+        LibVideoHandle:=LoadLibrary(PChar(ExeFilePath+'MSVideoLib.dll'));
+        if  LibVideoHandle<=32 then
+                                  begin
+                                   silang1.MessageDlg(siLang1.GetTextOrDefault('IDS_211' (* 'Library MSVideoLib.dll Load Error' *) )+ IntToStr(GetLastError)+'!',mtWarning,[mbOk],0);
+                                   exit;
+                                  end
+                               else
                                   begin
                                     StartVideo:=GetProcAddress(LibVideoHandle,'StartVideo');
                                     StopVideo:=GetProcAddress(LibVideoHandle,'StopVideo');
                                   end;
+      end;
+      if   StartVideo(Application.Handle,self.Handle,WM_UserCloseVideo,Lang,ConfigUsersIniFilePath) then
+      begin
+        h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
+        if h<>0  then
+        begin
+         GetWindowRect(h,R);
+         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
+        end;
+      end;
+     end //not demo
+     else
+     begin //demo
+       MSVideoForm:=TMSVideoForm.Create(self,ApproachSimulationVideo,false,false);
+       MSVideoFORM.show;
+         h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
+        if h<>0  then
+        begin
+         GetWindowRect(h,R);
+         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
+        end;
      end;
-       StartVideo(Application.Handle,self.Handle,WM_UserCloseVideo,Lang,ConfigUsersIniFilePath);
-       h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
-      if h<>0  then
-       begin
-        GetWindowRect(h,R);
-        SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
-       end;
-    end;
     end
     else //run firm soft
     begin

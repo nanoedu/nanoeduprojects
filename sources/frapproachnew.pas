@@ -165,7 +165,7 @@ implementation
 uses frExperimParams,mMain,GlobalVar,GlobalFunction,ScanWorkThread,
      fShockwave,UNanoEduBaseClasses, UNanoEduClasses, UNanoeduInterface,
      nanoeduhelp,frSpectroscopy,frStepTest,ApproachThreadDrawNew,uNanoEduScanClasses,
-     SystemConfig, FrInform,frSetInteraction,frViewLogFile, frReport;
+     SystemConfig, FrInform,frSetInteraction,frViewLogFile, frReport,MSVideoDEMO;
 
      {$R *.DFM}
 
@@ -556,7 +556,7 @@ begin
             end;  //case
   Caption:=MainCaption+AddCaption;
  if  FlgStopApproach then
-  begin
+ begin
     FlgStopApproach:=False;
     FlgApproachOK:=False;
  //  while   flgTimerActive do  Application.processmessages;
@@ -583,7 +583,6 @@ begin
           ApproachOpt.ScanCorSheet.enabled:=true;
           ApproachOpt.HardWareSheet.enabled:=true;
         end;
-
       NormBitBtn.Enabled:=True;
       FlgStopApproach:=True;
       ApproachParams.flgOneStep:=false;
@@ -594,6 +593,24 @@ begin
       ToolBarControl.Enabled:=true;
       exit;
     end;
+   if (flgCurrentUserLevel=DEMO) then
+   begin
+    if Assigned(MSVideoForm) then
+    begin
+     if (ApproachParams.ZStepsNumb>0) then
+     begin
+      ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\landing.avi';
+      VideoFile:=ApproachSimulationVideo ;
+      MSVideoForm.StartVideoStream(VideoFile,1);
+     end
+     else
+     begin
+      ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\rising.avi';
+      VideoFile:=ApproachSimulationVideo ;
+       MSVideoForm.StartVideoStream(VideoFile,10);
+     end;
+    end;
+   end;
   end
   else
   begin     //stop false;
@@ -1245,12 +1262,14 @@ begin
   begin
    ToolBarControl.enabled:=false;
    Application.ProcessMessages;
-//  if assigned(Nanoedu.Method) then
-//   begin
     flgStopJava:=true;
-//    Nanoedu.Method.StopWork
-//   end;
-  // ToolBarControl.enabled:=true;
+   if (flgCurrentUserLevel=DEMO) then
+   begin
+    if Assigned(MSVideoForm) then
+    begin
+     MSVideoForm.StopVideoStream;
+    end;
+   end;
   end;
   ActiveTag:=TControl(Sender).tag;
 end;
