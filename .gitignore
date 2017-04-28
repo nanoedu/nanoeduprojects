@@ -121,7 +121,7 @@ exe/hardwaresoft
 exe/oscilloscope
 exe/ScannerIniDBase
 #exe/scheme
-#exe/data
+exe/data
 #exe/demodata
 exe/bpl
 exe/output

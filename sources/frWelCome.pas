@@ -33,8 +33,13 @@ type
     ToolButton4: TToolButton;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
+    CheckBoxAdVideo: TCheckBox;
+    Label1: TLabel;
+    ToolBar3: TToolBar;
+    ToolButton3: TToolButton;
+    ToolBar4: TToolBar;
+    ToolButton5: TToolButton;
     procedure ToolButtonShowClick(Sender: TObject);
-    procedure CheckBoxViewClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure BitBtnStartClick(Sender: TObject);
@@ -55,15 +60,10 @@ implementation
 uses nanoeduhelp,globalvar,mMain,ShellApi,frMedia;
 {$R *.dfm}
 
-procedure TWellCome.CheckBoxViewClick(Sender: TObject);
-begin
- // flgShowWellComeWindow:=not flgShowWellComeWindow;
- //  main.itemShowwellcomewindow.Checked:=flgShowWellComeWindow;
-end;
-
 procedure TWellCome.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
  flgShowWellComeWindow:=CheckBoxView.Checked;
+ flgShowAdVideo:=CheckBoxAdVideo.Checked;
  Main.itemShowWellcomeWindow.Checked:=flgShowWellComeWindow;
  action:=caFree;
  WellCome:=nil;
@@ -80,6 +80,7 @@ begin
 //   bitbtnstartstm.Left:=bitbtnstartsfm.Left;
  //  checkboxview.Top:=clientheight-checkboxview.height-30;
    CheckBoxView.Checked:=flgShowWellComeWindow;
+   CheckBoxAdVideo.Checked:=flgShowAdVideo;
    PageControl.ActivePage:=TabsheetAbout;  
  //  Toolbar.Top:= checkboxview.Top-35;
  //  Toolbar.left:=bitbtnstartstm.Left+20;
@@ -88,15 +89,19 @@ begin
 end;
 
 procedure TWellCome.ToolBtnTurnOnClick(Sender: TObject);
+var filename:string;
 begin
-     HlpContext:=IDH_Tip;
-     Application.HelpContext(HlpContext);
+   fileName:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\tipmanufacture.mp4';
+ if Fileexists(Filename) then   ExecAndWaitMainVideo(Filename,'','',SW_showNORMAL)
+                         else   silanglinked1.MessageDlg(Filename+strfilenotexists,mtWarning ,[mbOK],0);
 end;
 
 procedure TWellCome.ToolButton1Click(Sender: TObject);
+var filename:string;
 begin
-  HlpContext:=IDH_Probe_install;
-  Application.HelpContext(HlpContext);
+   fileName:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.mp4';
+ if Fileexists(Filename) then   ExecAndWaitMainVideo(Filename,'','',SW_showNORMAL)
+                         else   silanglinked1.MessageDlg(Filename+strfilenotexists,mtWarning ,[mbOK],0);
 end;
 
 procedure TWellCome.ToolButtonshowClick(Sender: TObject);
@@ -114,8 +119,6 @@ end;
 
 
 procedure TWellCome.BitBtnStartClick(Sender: TObject);
-//       HlpContext:=IDH_Start_NanoEdu;
-//     Application.HelpContext(HlpContext);
 var locdir:string;
     InitialDir,filename:string;
 begin

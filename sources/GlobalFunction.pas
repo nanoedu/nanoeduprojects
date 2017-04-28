@@ -84,6 +84,7 @@ const
   // Папка Windows. Она же %windir% или %SYSTEMROOT% (обычно C:\Windows)
 function  ScandataWorkFileNameEm(n:integer):string;
 function  ShowWelComeWindow:Boolean;
+function  ShowAdVideo:Boolean;
 function  WhichLanguage:string;
 //function  Localization:string;
 function  SetFileAttribute_ReadOnly(const filename:string;flg:boolean):boolean;
@@ -307,6 +308,25 @@ begin
    with iniCSPM do
      begin
        flg:=ReadString('Users','Show Welcome Window','true');
+     result:=false;
+       if flg='true' then result:=true;
+     end;
+  finally
+    iniCSPM.Free;
+  end;
+end;
+function  ShowAdVideo:Boolean;
+  var iniCSPM:TiniFile;
+       sFile:string;
+       fileName:string;
+       flg:string;
+begin
+ sFile:=GetConfigUsersFileName;
+   iniCSPM:=TIniFile.Create(sFile);
+  try
+   with iniCSPM do
+     begin
+       flg:=ReadString('Users','Show advideo','true');
      result:=false;
        if flg='true' then result:=true;
      end;

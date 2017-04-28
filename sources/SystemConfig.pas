@@ -1494,6 +1494,8 @@ begin
   ww:='false' ;
   if flgShowWellcomeWindow then ww:='true';
   iniCSPM.WriteString('Users','Show welcome window',ww);
+  if flgShowAdVideo then ww:='true';
+  iniCSPM.WriteString('Users','Show advideo',ww);
 
   with iniCSPM do
    begin

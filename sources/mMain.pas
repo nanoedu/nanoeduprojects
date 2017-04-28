@@ -2998,6 +2998,9 @@ try
    ww:='false' ;
   if flgShowWellcomeWindow then ww:='true';
   iniCSPM.WriteString('Users','Show welcome window',ww);
+   ww:='false' ;
+  if flgShowAdVideo then ww:='true';
+  iniCSPM.WriteString('Users','Show advideo',ww);
 finally
   iniCspm.Free;
 end;
@@ -5049,24 +5052,8 @@ procedure TMain.FormShow(Sender: TObject);
 var i,l:integer;
 FiletoOpen:string;
 begin
-(*    flgShowWellComeWindow:=ShowWellComeWindow;
-    itemShowWellComeWindow.Checked:=flgShowWellComeWindow;
-   if flgShowWellComeWindow then  WellCome:=TWellCome.Create(application);
-     SetCurrentDir(WorkDirectory);
- if not assigned(NoFormUnitLoc) then NoFormUnitLoc:=TNoFormUnitLoc.Create(application);
-  InitParameters;
-    L:=  ParamCount;
-   if L>=1 then
-   begin
-    FiletoOpen:=ParamStr(1);
-    if FiletoOpen<>'-m' then
-       CreateMDIChild(Sender,FiletoOpen,1,true);
-   end;
- *)
   timerstartprogram.Enabled:=true;
-
-//  FlgActiveSendtoIA:=SendScanto.visible;
- end;
+end;
 
 
 procedure TMain.Manual1Click(Sender: TObject);
@@ -5151,8 +5138,19 @@ begin
     timerstartprogram.Enabled:=false;
     flgShowWellComeWindow:=ShowWelComeWindow;
     itemShowWellComeWindow.Checked:=flgShowWellComeWindow;
+    flgShowADVideo:=ShowAdVideo;
  if flgShowWellComeWindow       then WellCome:=TWellCome.Create(application);
-     SetCurrentDir(WorkDirectory);
+ if flgShowAdVideo              then
+ begin
+   videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.mp4';
+   if Fileexists(videofile) then
+   begin
+    MSVideoForm:=TMSVideoFORM.Create(Application,videofile,true,true);
+    MSVideoForm.WindowState:=wsMaximized;
+    MSVideoForm.ShowModal;
+   end;
+ end;
+    SetCurrentDir(WorkDirectory);
  if not assigned(NoFormUnitLoc) then NoFormUnitLoc:=TNoFormUnitLoc.Create(application);
   InitParameters;
     L:=  OpenParamList.Count;

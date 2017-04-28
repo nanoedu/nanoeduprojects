@@ -74,6 +74,7 @@ uses Classes,Windows,Controls,Graphics,Messages,GlobalType,SysUtils;
        flgErrorCreateNanoedu:boolean;
        flgDragForm,FlgRecord:Boolean;
        flgShowWellComeWindow,
+       flgShowADVideo,
        flgAdmin,
        FlgImgAnalysDrag,
        FlgReWrite,               //not save work files =true
