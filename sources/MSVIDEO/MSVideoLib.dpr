@@ -12,7 +12,7 @@ uses
 
 {$R *.res}
 
-function (AppHandle:THandle;FormHandle:THandle;MsgBack:integer; VLang:integer; configpath:string):boolean;
+function  StartVideo(AppHandle:THandle;FormHandle:THandle;MsgBack:integer; VLang:integer; configpath:string):boolean;
 begin
    Application.Handle:=AppHandle;
    Lang:=vLang;
