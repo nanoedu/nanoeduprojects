@@ -48,7 +48,7 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     key: integer;
-    flgrotate:boolean;
+    
     lflgautoclose:boolean;
     lflgautostart:boolean;
     hWndC:HWND;
@@ -64,10 +64,11 @@ type
    procedure InitParams;
  protected
  public
+    lflgrotation:boolean;
     nstep:integer;   // через сколько кадров отображать
     nstart:integer;
     FormHandle: THandle;
-   Constructor Create(AOwner:TComponent; filename:string; flgautostart:boolean;flgautoclose:boolean);
+   Constructor Create(AOwner:TComponent; filename:string; flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
    procedure  StartVideoStream(filename:string; nstep:integer);
    procedure  StopVideoStream;
    procedure  ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;
@@ -207,7 +208,7 @@ begin
 end;
 
 //************************************************************************************************
-constructor TMSVideoFORM.Create(AOwner:TComponent; filename:string;flgautostart:boolean;flgautoclose:boolean);
+constructor TMSVideoFORM.Create(AOwner:TComponent; filename:string;flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
 begin
   inherited Create(AOwner);
   siLang1.ActiveLanguage:=Lang;
@@ -216,6 +217,7 @@ begin
   PlayBtn.down:=false;
   lflgautoclose:=flgautoclose;
   lflgautostart:= flgautostart;
+  lflgrotation:=flgrotation;
   MSVideoInit;
   if flgautostart then
   begin
@@ -280,11 +282,11 @@ begin
            image:=Tbitmap.create;
            image.PixelFormat := pf24bit;
            framerot:=cvCloneImage(frame);
-          if flgrotate then
+          if lflgrotation then
            begin
               pc.X:=round(frame.width/2.0);
               pc.Y:=round(frame.height/2.0);
-             r:=cv2DRotationMatrix(pc, 90, 1.0,map_matrix);
+             r:=cv2DRotationMatrix(pc, 180, 1.0,map_matrix);
              cvWarpAffine(frame, framerot, map_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS,Scalar);//, src.size()); // what size I should use?
              IplImage2Bitmap(framerot,image);
             end

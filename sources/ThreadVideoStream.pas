@@ -14,7 +14,7 @@ type
   TThreadVideoStream = class(TThread)
   private
     { Private declarations }
-    flgrotate:boolean;
+    flgrotation:boolean;
     curframenmb:integer;
     count :integer;
     key: integer;
@@ -66,11 +66,11 @@ begin
          if(i<MSVideoForm.nstart) then begin  inc(i); continue; end;
          if count=nstep then
          begin
-           if flgrotate then
+           if flgrotation then
            begin
               pc.X:=round(frame.width/2.0);
               pc.Y:=round(frame.height/2.0);
-             r:=cv2DRotationMatrix(pc, 90, 1.0,map_matrix);
+             r:=cv2DRotationMatrix(pc, 180, 1.0,map_matrix);
              cvWarpAffine(frame, framerot, map_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS,Scalar);//, src.size()); // what size I should use?
              IplImage2Bitmap(framerot,image);
            end
@@ -148,6 +148,7 @@ begin
     FreeOnTerminate:=true;
     Priority := TThreadPriority(tpNormal);
     Suspended := false;// Resume;
+    flgrotation:=MSVIDEOForm.lflgrotation;
  end;
 
 destructor TThreadVideoStream.Destroy;
@@ -173,11 +174,11 @@ begin
            image.PixelFormat := pf24bit;
            count:=1;
            framerot:=cvCloneImage(frame);
-          if flgrotate then
+          if flgrotation then
            begin
               pc.X:=round(frame.width/2.0);
               pc.Y:=round(frame.height/2.0);
-             r:=cv2DRotationMatrix(pc, 90, 1.0,map_matrix);
+             r:=cv2DRotationMatrix(pc, 180, 1.0,map_matrix);
              cvWarpAffine(frame, framerot, map_matrix,CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS,Scalar);//, src.size()); // what size I should use?
              IplImage2Bitmap(framerot,image);
             end

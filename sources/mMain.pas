@@ -2694,7 +2694,9 @@ begin
 
    if  ( AnsiContainsStr(deflang,'Russian'))  or ( AnsiContainsStr(deflang,'Русский')) then   sLanguage:='RUS'
    else   sLanguage:='ENG';
-// sLanguage:='ENG'; //for Torzo
+///////////////////////////
+// sLanguage:='ENG'; //for Torzo   uncomments
+//////////////////////////////
      InitTutor;
    if sLanguage='RUS' then
                     begin
@@ -3259,7 +3261,7 @@ begin
      end //not demo
      else
      begin //demo
-       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,false,false);
+       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,false,false,false);
        MSVideoFORM.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then
@@ -5140,16 +5142,18 @@ begin
     itemShowWellComeWindow.Checked:=flgShowWellComeWindow;
     flgShowADVideo:=ShowAdVideo;
  if flgShowWellComeWindow       then WellCome:=TWellCome.Create(application);
+{$IFDEF DEMO}
  if flgShowAdVideo              then
  begin
    videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.mp4';
    if Fileexists(videofile) then
    begin
-    MSVideoForm:=TMSVideoFORM.Create(Application,videofile,true,true);
+    MSVideoForm:=TMSVideoFORM.Create(Application,videofile,true,true,true);
     MSVideoForm.WindowState:=wsMaximized;
     MSVideoForm.ShowModal;
    end;
  end;
+{$ENDIF}
     SetCurrentDir(WorkDirectory);
  if not assigned(NoFormUnitLoc) then NoFormUnitLoc:=TNoFormUnitLoc.Create(application);
   InitParameters;
@@ -5560,7 +5564,7 @@ end;
      end //not demo
      else
      begin //demo
-       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,false,false);
+       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,false,false,false);
        MSVideoFORM.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then

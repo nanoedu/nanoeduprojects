@@ -24,7 +24,7 @@ type
     TabSheetProbe: TTabSheet;
     Image4: TImage;
     ToolBarTurnOn: TToolBar;
-    ToolBtnTurnOn: TToolButton;
+    ToolBtnProbemanufacture: TToolButton;
     TabSheetExp: TTabSheet;
     Image5: TImage;
     bitbtnstartsfm: TToolBar;
@@ -32,21 +32,23 @@ type
     bitbtnstartstm: TToolBar;
     ToolButton4: TToolButton;
     ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
+    ToolBtnProbeInstall: TToolButton;
     CheckBoxAdVideo: TCheckBox;
     Label1: TLabel;
     ToolBar3: TToolBar;
-    ToolButton3: TToolButton;
+    ToolBtnTurnonvideo: TToolButton;
     ToolBar4: TToolBar;
-    ToolButton5: TToolButton;
+    ToolBtnProbeInstallVideo: TToolButton;
     procedure ToolButtonShowClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure BitBtnStartClick(Sender: TObject);
     procedure BitBtnStartSFMClick(Sender: TObject);
     procedure BitBtnStartSTMClick(Sender: TObject);
-    procedure ToolBtnTurnOnClick(Sender: TObject);
-    procedure ToolButton1Click(Sender: TObject);
+    procedure ToolBtnProbemanufactureClick(Sender: TObject);
+    procedure ToolBtnProbeInstallClick(Sender: TObject);
+    procedure ToolBtnTurnonvideoClick(Sender: TObject);
+    procedure ToolBtnProbeInstallVideoClick(Sender: TObject);
   private
     function ExecAndWaitMainVideo(const FileName, Params: String;const winname:string; const WinState: Word): boolean;
   public
@@ -88,15 +90,28 @@ begin
    Main.itemShowwellcomewindow.Checked:=flgShowWellComeWindow;
 end;
 
-procedure TWellCome.ToolBtnTurnOnClick(Sender: TObject);
+procedure TWellCome.ToolBtnProbemanufactureClick(Sender: TObject);
+begin
+     HlpContext:=IDH_tip;
+     Application.HelpContext(HlpContext);
+end;
+
+procedure TWellCome.ToolBtnTurnonvideoClick(Sender: TObject);
 var filename:string;
 begin
    fileName:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\tipmanufacture.mp4';
  if Fileexists(Filename) then   ExecAndWaitMainVideo(Filename,'','',SW_showNORMAL)
                          else   silanglinked1.MessageDlg(Filename+strfilenotexists,mtWarning ,[mbOK],0);
+
 end;
 
-procedure TWellCome.ToolButton1Click(Sender: TObject);
+procedure TWellCome.ToolBtnProbeInstallClick(Sender: TObject);
+begin
+     HlpContext:=IDH_Turn_on;
+     Application.HelpContext(HlpContext);
+end;
+
+procedure TWellCome.ToolBtnProbeInstallVideoClick(Sender: TObject);
 var filename:string;
 begin
    fileName:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.mp4';
