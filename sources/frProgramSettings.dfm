@@ -21,7 +21,7 @@ object FormProgramSettings: TFormProgramSettings
     Top = 0
     Width = 362
     Height = 239
-    ActivePage = TabSheetSimulator
+    ActivePage = TabSheetChangeLevel
     Align = alClient
     TabOrder = 0
     object TabSheetScheme: TTabSheet

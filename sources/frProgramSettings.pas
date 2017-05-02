@@ -134,6 +134,11 @@ begin
          end;
     ComboboxProgram.ItemIndex:=Main.ComboBoxLevel.ItemIndex;
     RadioGroupchangeUserLevel.ItemIndex:=flgchangeUserLevel;
+   {$IFDEF DEMO}
+        RadioGroupchangeUserLevel.Enabled:=false;
+        RadioGroupchangeUserLevel.ItemIndex:=0;
+        ComboBoxProgram.enabled:=false;
+   {$ENDIF}
     CheckBoxFastSimulation.Checked:=ScanParams.flgFastSimulator;
     checkbox.Checked:=boolean(flgOnlineService);
 end;
