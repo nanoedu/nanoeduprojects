@@ -15,6 +15,7 @@ type
   private
     { Private declarations }
     flgrotation:boolean;
+
     curframenmb:integer;
     count :integer;
     key: integer;
@@ -63,6 +64,7 @@ begin
         frame := cvQueryFrame(capture);
         if Assigned(frame) then
         begin
+         inc(MSVideoForm.nframe);
          if(i<MSVideoForm.nstart) then begin  inc(i); continue; end;
          if count=nstep then
          begin
@@ -76,7 +78,8 @@ begin
            end
            else IplImage2Bitmap(frame,image);
            MSVideoForm.image1.Picture.Assign(image);
-           Sleep(30);
+          if flgrotation then  Sleep(MSVideoForm.delayapr div 3)
+          else Sleep(MSVideoForm.delayapr);
            count:=1;
            inc(curframenmb);
          end
@@ -144,11 +147,12 @@ END; { IplImage2Bitmap }
 constructor TThreadVideoStream.Create;
 begin
   inherited Create(True);
+   flgrotation:=MSVIDEOForm.lflgrotation;
     MSVideoInit;
     FreeOnTerminate:=true;
     Priority := TThreadPriority(tpNormal);
     Suspended := false;// Resume;
-    flgrotation:=MSVIDEOForm.lflgrotation;
+
  end;
 
 destructor TThreadVideoStream.Destroy;

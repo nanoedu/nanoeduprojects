@@ -149,7 +149,12 @@ begin
      fdata:=int64(PIntegerArray(DataBuf)[k])*million;
      fData:=fdata shr 32;
      frq:=longword(FData);
-     Ampl:=datatype(PIntegerArray(DataBuf)[k+1] shr 16);    //convert to single V
+    if (PIntegerArray(DataBuf)[k+1] shr 16) > 32767 then   Ampl:=32767
+     else
+     begin
+       if (PIntegerArray(DataBuf)[k+1] shr 16) < -32768 then AMpl:=-32768
+       else    Ampl:=datatype(PIntegerArray(DataBuf)[k+1] shr 16);    //convert to single V
+      end;
 //    ScanData.AquiTopo.Data[mt+k,0]:=frq;
 //    ScanData.AquiTopo.Data[mt+k+1,0]:=Ampl;
      TempAquiData[j]:=frq;

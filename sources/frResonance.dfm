@@ -47,7 +47,7 @@ object AutoResonance: TAutoResonance
       Color = 14474715
       TabOrder = 0
       object Regime: TRadioGroup
-        Left = 20
+        Left = 13
         Top = 59
         Width = 168
         Height = 55
@@ -501,8 +501,6 @@ object AutoResonance: TAutoResonance
       Align = alClient
       BevelInner = bvLowered
       TabOrder = 1
-      ExplicitLeft = -16
-      ExplicitTop = 8
     end
   end
   object MainMenu: TMainMenu

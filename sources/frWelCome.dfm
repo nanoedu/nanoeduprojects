@@ -41,7 +41,7 @@ object WellCome: TWellCome
       Top = 1
       Width = 590
       Height = 564
-      ActivePage = TabSheetAbout
+      ActivePage = TabSheetProbe
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -1792,12 +1792,12 @@ object WellCome: TWellCome
         object ToolBarTurnOn: TToolBar
           Left = 15
           Top = 460
-          Width = 120
-          Height = 70
+          Width = 125
+          Height = 68
           Align = alNone
           AutoSize = True
-          ButtonHeight = 70
-          ButtonWidth = 120
+          ButtonHeight = 68
+          ButtonWidth = 125
           DrawingStyle = dsGradient
           GradientEndColor = 12015876
           GradientStartColor = 16487509
@@ -1818,13 +1818,13 @@ object WellCome: TWellCome
         object ToolBar1: TToolBar
           Left = 436
           Top = 460
-          Width = 133
-          Height = 70
+          Width = 145
+          Height = 68
           Align = alNone
           Anchors = [akLeft, akTop, akRight]
           AutoSize = True
-          ButtonHeight = 70
-          ButtonWidth = 133
+          ButtonHeight = 68
+          ButtonWidth = 145
           DrawingStyle = dsGradient
           GradientEndColor = 12015876
           GradientStartColor = 16487509
@@ -1845,12 +1845,12 @@ object WellCome: TWellCome
         object ToolBar3: TToolBar
           Left = 15
           Top = 8
-          Width = 164
-          Height = 70
+          Width = 172
+          Height = 68
           Align = alNone
           AutoSize = True
-          ButtonHeight = 70
-          ButtonWidth = 160
+          ButtonHeight = 68
+          ButtonWidth = 168
           DrawingStyle = dsGradient
           GradientEndColor = 12015876
           GradientStartColor = 16487509
@@ -1872,13 +1872,13 @@ object WellCome: TWellCome
         object ToolBar4: TToolBar
           Left = 395
           Top = 8
-          Width = 183
-          Height = 70
+          Width = 200
+          Height = 68
           Align = alNone
           Anchors = [akLeft, akTop, akRight]
           AutoSize = True
-          ButtonHeight = 70
-          ButtonWidth = 179
+          ButtonHeight = 68
+          ButtonWidth = 196
           DrawingStyle = dsGradient
           GradientEndColor = 12015876
           GradientStartColor = 16487509
@@ -2860,7 +2860,7 @@ object WellCome: TWellCome
     Left = 248
     Top = 480
     Bitmap = {
-      494C010104000900280030003000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000900300030003000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000C00000006000000001002000000000000020
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -3261,7 +3261,8 @@ begin
      end //not demo
      else
      begin //demo
-       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,false,false,false);
+      // ApproachSimulationVideo:=
+       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,20,false,false,false);
        MSVideoFORM.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then
@@ -5145,10 +5146,10 @@ begin
 {$IFDEF DEMO}
  if flgShowAdVideo              then
  begin
-   videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.mp4';
+   videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.avi';
    if Fileexists(videofile) then
    begin
-    MSVideoForm:=TMSVideoFORM.Create(Application,videofile,true,true,true);
+    MSVideoForm:=TMSVideoFORM.Create(Application,videofile,30,true,true,false);
     MSVideoForm.WindowState:=wsMaximized;
     MSVideoForm.ShowModal;
    end;
@@ -5564,7 +5565,7 @@ end;
      end //not demo
      else
      begin //demo
-       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,false,false,false);
+       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,20,false,false,false);
        MSVideoFORM.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then

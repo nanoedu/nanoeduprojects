@@ -462,7 +462,7 @@ end;
 
 procedure TAutoResonance.ScrollBarFromChange(Sender: TObject);
 begin
-      lblFromVal.Caption:=inttostr(ScrollBarFrom.Position);
+(*      lblFromVal.Caption:=inttostr(ScrollBarFrom.Position);
                   with   ResonanceParams do
                  begin
                      FreqStartRough:=ScrollBarFrom.Position*1000;
@@ -477,6 +477,7 @@ begin
                        SetMinMax(BottAxMin,BottAxMax);
                      end;
                   end
+                  *)
       
 end;
 
@@ -494,6 +495,12 @@ case ScrollCode of
                   with   ResonanceParams do
                  begin
                      FreqStartRough:=ScrollPos*1000;
+                     if (FreqStartRough>FreqEnd) then
+                    begin
+                      ScrollPos:=FreqEnd div 1000;
+                      lblFromVal.Caption:=inttostr(ScrollPos);
+                      exit;
+                     end;
                      FreqStart:=FreqStartRough;
                      StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
                      Step:=StepRough;
@@ -527,7 +534,7 @@ end;
 
 procedure TAutoResonance.ScrollBarToChange(Sender: TObject);
 begin
-              lblToVal.Caption:=inttostr(ScrollBarTo.Position);
+(*              lblToVal.Caption:=inttostr(ScrollBarTo.Position);
                  with ResonanceParams   do
                  begin
                   FreqEndRough:=ScrollBarTo.Position*1000;
@@ -542,7 +549,7 @@ begin
                        SetMinMax(BottAxMin,BottAxMax);
                     end;
                  end
-
+  *)
 end;
 
 procedure TAutoResonance.ScrollBarToScroll(Sender: TObject;
@@ -559,6 +566,12 @@ case ScrollCode of
                  with ResonanceParams   do
                  begin
                   FreqEndRough:=ScrollPos*1000;
+                    if (FreqEndRough<FreqStart) then
+                    begin
+                      ScrollPos:=FreqStart div 1000;
+                      lblToVal.Caption:=inttostr(ScrollPos);
+                      exit;
+                     end;
                   FreqEnd:=FreqEndRough;
                   StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
                   Step:=StepRough;
@@ -880,7 +893,10 @@ with ScrollBarT do
       Automatic:=false;//False;
       SetMinMax(0,2.5);
      end;
-
+if (FlgCurrentUserLevel=Demo) then
+ begin
+   ComboBoxFQ_SEl.enabled:=false;
+ end;
 
        NewItem := TMenuItem.Create(Self);
        NewItem.Caption :='-';
@@ -1081,13 +1097,18 @@ end;
 procedure TAutoResonance.RegimeClick(Sender: TObject);
 begin
  case Regime.ItemIndex of
-1:begin
+1:begin    //manual
     PanelManual.visible:=True;
     ChartPanel.IsAutoDetection:=False;
     sbAmpMod.Enabled:=true;
  //   sbAmGain.Enabled:=true;
     rgmanual.enabled:=true;
-    ComboBoxFQ_SEl.Enabled:=true;
+     ComboBoxFQ_SEl.Enabled:=true;
+   if (FlgCurrentUserLevel=Demo) then
+   begin
+     ComboBoxFQ_SEl.enabled:=false;
+   end;
+//
     flgMode:=Manual;
   //  PanelMain.Height:=Panel1.Height+20+PanelManual.Height;
   end;

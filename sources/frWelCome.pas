@@ -99,7 +99,7 @@ end;
 procedure TWellCome.ToolBtnTurnonvideoClick(Sender: TObject);
 var filename:string;
 begin
-   fileName:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\tipmanufacture.mp4';
+   fileName:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\tipmanufacture.avi';
  if Fileexists(Filename) then   ExecAndWaitMainVideo(Filename,'','',SW_showNORMAL)
                          else   silanglinked1.MessageDlg(Filename+strfilenotexists,mtWarning ,[mbOK],0);
 
@@ -114,7 +114,7 @@ end;
 procedure TWellCome.ToolBtnProbeInstallVideoClick(Sender: TObject);
 var filename:string;
 begin
-   fileName:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.mp4';
+   fileName:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.avi';
  if Fileexists(Filename) then   ExecAndWaitMainVideo(Filename,'','',SW_showNORMAL)
                          else   silanglinked1.MessageDlg(Filename+strfilenotexists,mtWarning ,[mbOK],0);
 end;

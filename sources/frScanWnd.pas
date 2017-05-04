@@ -1558,7 +1558,7 @@ begin
 
      PidParams.Ti:=PidParams.TiScan;
      case  flgUnit of
-ProBeam:begin
+Nano,NanoTutor,ProBeam:begin
            SignalsMode.sbTi.max:=1000;//0;      // 160317
         end;
               end;
@@ -1775,7 +1775,8 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
               TabSheetSpectrR.HighLighted:=False;
               TabSheetFastTopo.HighLighted:=False;
               TabSheetLitho.HighLighted:=False;
-              SignalsMode.tbSFMCUR.TabVisible:= (flgUnit=ProBeam);
+     //         SignalsMode.tbSFMCUR.TabVisible:= (flgUnit=ProBeam);
+              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam) or (flgUnit=Nano) or (flgUnit=NanoTutor);
               SignalsMode.tbSFM.TabVisible:=True;
               SignalsMode.tbSTM.TabVisible:=False;
              if ApproachParams.BiasV<0 then  SignalsMode.btnBiasSFM.Font.Color:=clBlue

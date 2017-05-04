@@ -44,7 +44,7 @@
     <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
     <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
     <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
-    <DCC_Define>EUREKALOG;EUREKALOG_VER6;DEBUG;DEMO</DCC_Define>
+    <DCC_Define>EUREKALOG;EUREKALOG_VER6;DEBUG;</DCC_Define>
     <DCC_IntegerOverflowCheck>True</DCC_IntegerOverflowCheck>
     <DCC_RangeChecking>True</DCC_RangeChecking>
   </PropertyGroup>

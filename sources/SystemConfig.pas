@@ -531,38 +531,7 @@ begin
      //  write delay
   //   Gain_AM:=491;
    end;
-   // add 160911
-// Reading Params Value from IniFile
-(*  sFile:=GetConfigUsersFileName;
-  iniCSPM:=TIniFile.Create(sFile);
-  try
-   with iniCSPM do
-  begin
-      ResonanceParams.Delay:=ReadInteger('Resonance','Delay',2) ;
-   case flgUnit of
-Probeam:begin
-         with   ResonanceParams do
-        begin
-         FreqStartRoughDef:=ReadInteger('Resonance','FreqStartRough',6000);
-         FreqEndRoughDef:=ReadInteger('Resonance','FreqEndRough',12000) ;
-         FreqStartRough:=FreqStartRoughDef;//8000;
-         FreqEndRough:=FreqEndRoughDef; // 10000;
-         FreqStart:=FreqStartRough;  //Hrz
-         FreqEnd:=FreqEndRough;
-         StepFine:=1;//HRz
-         NPoints:=400;//round((FreqEnd-FreqStart)/Step)-1;
-         StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
-         Step:=StepRough;
-        end;
-        end;
-   end;
-  end;
-  finally
-    iniCSPM.Free;
-  end;
-  *)
- //
-end;
+ end;
 procedure ScannerMovXYZParamsDef;
 begin
        ScannerMoveXYZParams.PMActiveTime:=600;// 07.11.14  1001;//mcs

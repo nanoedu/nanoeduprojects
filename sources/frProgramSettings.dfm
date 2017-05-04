@@ -107,6 +107,10 @@ object FormProgramSettings: TFormProgramSettings
       Caption = 'Online service'
       ImageIndex = 2
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object CheckBox: TCheckBox
         Left = 96
         Top = 96

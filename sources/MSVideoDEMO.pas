@@ -48,7 +48,7 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     key: integer;
-    
+
     lflgautoclose:boolean;
     lflgautostart:boolean;
     hWndC:HWND;
@@ -65,10 +65,14 @@ type
  protected
  public
     lflgrotation:boolean;
+    flgclose:boolean;
+    delayapr:integer;
+    delayris:integer;
     nstep:integer;   // через сколько кадров отображать
     nstart:integer;
+    nframe:integer;
     FormHandle: THandle;
-   Constructor Create(AOwner:TComponent; filename:string; flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
+   Constructor Create(AOwner:TComponent; filename:string; delay:integer; flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
    procedure  StartVideoStream(filename:string; nstep:integer);
    procedure  StopVideoStream;
    procedure  ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;
@@ -155,7 +159,7 @@ procedure TMSVideoFORM.ThreadDone(var AMessage: TMessage);
     stopbtn.down:=true;
     Playbtn.down:=false;
      flgStopVideoStream:=true;
-  if    lflgautoclose then
+  if    lflgautoclose  or flgclose then
    begin
    close;
   end;
@@ -178,6 +182,8 @@ begin
          flgStopVideoStream:=false;
          stopbtn.down:=false;
          PlayBtn.Down := true;
+         nstart:=1;
+         nframe:=0;
          VideoStreamThread:= TThreadVideoStream.Create;
        end ;
 end;
@@ -198,6 +204,7 @@ begin
          flgStopVideoStream:=false;
          stopbtn.down:=false;
          PlayBtn.Down := true;
+         nstart:=1;
          VideoStreamThread:= TThreadVideoStream.Create;
        end ;
 end;
@@ -208,17 +215,19 @@ begin
 end;
 
 //************************************************************************************************
-constructor TMSVideoFORM.Create(AOwner:TComponent; filename:string;flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
+constructor TMSVideoFORM.Create(AOwner:TComponent; filename:string;delay:integer;flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
 begin
   inherited Create(AOwner);
   siLang1.ActiveLanguage:=Lang;
   UpdateStrings;
+  delayapr:=delay;
   Videofile :=filename;
   PlayBtn.down:=false;
   lflgautoclose:=flgautoclose;
   lflgautostart:= flgautostart;
   lflgrotation:=flgrotation;
   MSVideoInit;
+  flgclose:=false;
   if flgautostart then
   begin
    Timer1.Interval:=1000;
@@ -333,7 +342,9 @@ procedure TMSVideoFORM.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
  if not flgStopVideoStream  then
  begin
-   silang1.MessageDlg(strm1,mtWarning,[mbOk],0);
+ //  silang1.MessageDlg(strm1,mtWarning,[mbOk],0);
+   flgStopVideoStream:=true;
+   flgclose:=true;
    canclose:=false;
  end
  else canclose:=true;

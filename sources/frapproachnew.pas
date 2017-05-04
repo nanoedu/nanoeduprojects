@@ -1059,7 +1059,7 @@ begin
     // FINE PID CONTROL
     SignalsMode.SpeedBtnFineTi.down:=false;
                    case  flgUnit of
-ProBeam:begin
+Nano,NanoTutor,ProBeam:begin
            SignalsMode.sbTi.max:=1000;//0;     // 160317
         end;
               end;
@@ -1151,7 +1151,7 @@ ProBeam:begin
               LabelCur.Visible:=true;//False;
               SignalsMode.tbSTM.TabVisible:=False;
               SignalsMode.tbSFM.TabVisible:=True;
-              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam);
+              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam) or (flgUnit=Nano) or (flgUnit=NanoTutor);
               SignalsMode.LabelFB.Caption:=FloatToStrf(PIDParams.Ti, fffixed,5,2);
               {$IFDEF FULL}
                   if flgUnit=Pipette  then
