@@ -88,10 +88,10 @@ begin
 (*    SetPIDParameters;
 //    setlength(arPCChannel,10);
     API:=TPMAPI05.Create as IpmAPI05;
- *)   
+ *)
 //050213
      BramUflg:=0;       //use Bram U
-     Bias:=0;       //081107
+     Bias:=round(ApproachParams.BiasV*TransformUnit.BiasV_d); //=0      //081107
      Api.UserErr:=-1;
      SetPoint:=ApproachParams.LandingSetPoint;
      ScannerProtract;

@@ -570,7 +570,7 @@ begin
      begin
         ApproachParams.LandingSetPoint:=0.8;
         ApproachParams.SetPoint:=0.9;//ApproachParams.LandingSetPoint;
-        ApproachParams.BiasV:=3.4;//ReadFloatConvert(iniCSPM,'Approach Parameters','BiasV',3.4 );
+        ApproachParams.BiasV:=0.0;//ReadFloatConvert(iniCSPM,'Approach Parameters','BiasV',3.4 );
         ApproachParams.FreqBandF:=3;//ReadInteger('Approach Parameters','FreqBandF',3);
        // ApproachParams.FreqBandR:=ReadInteger('Approach Parameters','FreqBandR', 2);
         ApproachParams.ScannerDecay:=120;//ReadInteger('Approach Parameters',' ScannerDecay',100);
