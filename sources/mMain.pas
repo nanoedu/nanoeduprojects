@@ -5535,7 +5535,7 @@ end;
     h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
     if h=0  then
     begin
-   if(FlgCurrentUserLevel<>DEMO) then
+     if(FlgCurrentUserLevel<>DEMO) then
      begin
       if GetModuleHandle('MSVideoLib.dll')=0 then
       begin
@@ -5575,10 +5575,6 @@ end;
         end;
      end;
     end
-    else //run firm soft
-    begin
-     RunFirmSoftVideoCamera;
-    end;
    end;
  end;
 end;

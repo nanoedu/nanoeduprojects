@@ -607,7 +607,7 @@ begin
      begin
       ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\rising.avi';
       VideoFile:=ApproachSimulationVideo ;
-       MSVideoForm.StartVideoStream(VideoFile,10);
+       MSVideoForm.StartVideoStream(VideoFile,1);
      end;
     end;
    end;

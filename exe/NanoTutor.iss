@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=NanoTutor
-AppVerName=NanoTutor ver 17.01.13.24
-OutputBaseFilename=NanoTutor-17.01.13.24
+AppVerName=NanoTutor ver 17.01.13.25
+OutputBaseFilename=NanoTutor-17.01.13.25
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru

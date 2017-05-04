@@ -1405,7 +1405,7 @@ begin
  try
    with iniCSPM do
   begin
-       flgRunFirmCamera:=ReadInteger('Video','FirmCamera',0) ;
+       flgRunFirmCamera:=0;//ReadInteger('Video','FirmCamera',0) ;
        FirmCameraWinName:='CTLVCentral3.exe'; //  FirmCameraWinName:=ReadString('Video','FirmCameraWinName','');
        FirmCameraSoftPath:=ReadString('Video','FirmCameraSoftPath','');
   end;
