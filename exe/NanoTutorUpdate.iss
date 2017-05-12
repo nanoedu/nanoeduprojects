@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=NanoTutor
-AppVerName=NanoTutor ver 17.01.13.24
-OutputBaseFilename=NanoTutorUpdate-17.01.13.24
+AppVerName=NanoTutor ver 17.01.13.30
+OutputBaseFilename=NanoTutorUpdate-17.01.13.30
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -33,16 +33,15 @@ Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescri
 [Dirs]
  Name:"{app}\Data\VideoCameraSimulation"
 [Files]
-Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "NanoTutor.exe";   DestDir: "{app}"; Flags: ignoreversion
-Source: "SPMConfig.ini"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "SPMConfigUsersNanoTutor.ini";    DestDir: "{userappdata}\NanoTutor"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
-Source: "SPMConfigDefUsersNanoTutor.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
-Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
-Source: "scheme\*.bin"; DestDir: "{app}\scheme"; Flags: ignoreversion recursesubdirs;
-Source: "Demodata\*.*"; DestDir: "{app}\Demodata"; Flags:  ignoreversion    recursesubdirs;
-Source: "data\*.*";     DestDir: "{app}\data";     Flags: ignoreversion recursesubdirs;
+;Source: "SPMConfig.ini"; DestDir: "{app}"; Flags: ignoreversion;
+;Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
+;Source: "SPMConfigUsersNanoTutor.ini";    DestDir: "{userappdata}\NanoTutor"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
+;Source: "SPMConfigDefUsersNanoTutor.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
+;Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
+;Source: "Demodata\*.*"; DestDir: "{app}\Demodata"; Flags:  ignoreversion    recursesubdirs;
+;Source: "data\*.*";     DestDir: "{app}\data";     Flags: ignoreversion recursesubdirs;
 [INI]
 [Icons]
 [Registry]

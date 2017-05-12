@@ -111,7 +111,7 @@ uses
     procedure UpdateStrings;
   private
      { Private declarations }
-     ApproachActive:boolean;
+//     ApproachActive:boolean;
      ApproachOneActive:boolean;
   //   flgOneStepActive:boolean;
      flgApproachOK_justAchieved:boolean;  // 14/03/13 ola- для того, чтобы отличить
@@ -141,6 +141,7 @@ uses
     procedure CreateParams(var Params:TCreateParams); override;
   public
     { Public declarations }
+     ApproachActive:boolean;
      StopAllow:boolean;
      flgCancel:Boolean;
      FlgStepResult:apitype;
@@ -206,7 +207,11 @@ var
             end;
                     end; //case
              for i:=0  to 5 do beep;
-               MessageDlgCtr( siLangLinked1.GetTextOrDefault('IDS_2' (* 'Landing done' *) ) , mtInformation,[mbOk],0);
+             if flgCurrentUserLevel=DEMO then
+             begin
+               if assigned(MSVideoForm) then  MSVideoForm.StopVideoStream;
+             end;
+               MessageDlg( siLangLinked1.GetTextOrDefault('IDS_2' (* 'Landing done' *) ) , mtInformation,[mbOk],0);
                FlgApproachOK:=True;
                flgApproachOK_justAchieved:=true;
                Main.ComboBoxSFMSTM.Enabled:= not (FlgApproachOK and STMflg);
@@ -231,7 +236,7 @@ var
              LabelCur.Caption:=FloatToStrF(SignalIndicator.Value/ApproachParams.UAMMax,ffFixed ,8,2)
             end;
                       end; //case
-             if  MessageDlgCtr( siLangLinked1.GetTextOrDefault('IDS_3' (* 'Error!!' *) ) +#13+siLangLinked1.GetTextOrDefault('IDS_4' (* 'Tip too close to a sample!' *) )+#13+ siLangLinked1.GetTextOrDefault('IDS_5' (* 'Verify landing option or physical unit state.' *) )+#13+siLangLinked1.GetTextOrDefault('IDS_6' (* 'Do you want to rise the probe in a save place?' *) ) ,mtWarning ,[mbYes,mbNo,mbHelp],IDH_error_landing_option)=mrYes then
+             if  MessageDlg( siLangLinked1.GetTextOrDefault('IDS_3' (* 'Error!!' *) ) +#13+siLangLinked1.GetTextOrDefault('IDS_4' (* 'Tip too close to a sample!' *) )+#13+ siLangLinked1.GetTextOrDefault('IDS_5' (* 'Verify landing option or physical unit state.' *) )+#13+siLangLinked1.GetTextOrDefault('IDS_6' (* 'Do you want to rise the probe in a save place?' *) ) ,mtWarning ,[mbYes,mbNo,mbHelp],IDH_error_landing_option)=mrYes then
              begin
                StartBtnDown.Down:=false;
                StartBtnFastDown.Down:=false;
@@ -240,7 +245,7 @@ var
                ApproachActive :=true;
            //    NanoEdu.RisingToStartPoint(20);
            //edited 14/03/17
-               if (flgUnit=ProBeam) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(30) else
+               if (flgUnit=ProBeam) then   lFlgStatusStep:=NanoEdu.RisingToStartPoint(30) else
                 if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(30)       // need to known!!!!!!!!!!!!!!
                                       else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
                Sleep(1000);
@@ -257,7 +262,7 @@ var
             SignalsMode.sbTi.Enabled:=True;
             NormBitBtn.Enabled:=True;
             Beep;
-            MessageDlgCtr(siLangLinked1.GetTextOrDefault('IDS_69' (* 'Attention!!!' *) )+#13+
+            MessageDlg(siLangLinked1.GetTextOrDefault('IDS_69' (* 'Attention!!!' *) )+#13+
                           siLangLinked1.GetTextOrDefault('IDS_29' (* 'The step motor has achieved top position!' *) )+#13+
                           siLangLinked1.GetTextOrDefault('IDS_30' (* 'Turn screw counter-clockwise by hand!!' *) ), mtInformation,[mbOk],IDH_Probe_is_too_High);
            end;
@@ -547,9 +552,9 @@ begin
    BitBtnOK.Visible:=false;
    FlgApproachOK:=False;         //Rising
   //  if flgUnit=sem then panelfaststep.Visible:=true;
-               {$IFNDEF FULL}
-                   BitBtnStepTest.Enabled:=FlgApproachOK;
-               {$ENDIF}
+   {$IFNDEF FULL}
+        BitBtnStepTest.Enabled:=FlgApproachOK;
+   {$ENDIF}
  //  SetDemoParamsDef;
    AddCaption:=siLangLinked1.GetTextOrDefault('IDS_35' (* ', rising' *) );
   end;
@@ -593,24 +598,28 @@ begin
       ToolBarControl.Enabled:=true;
       exit;
     end;
+   //add demo video 090517
    if (flgCurrentUserLevel=DEMO) then
    begin
     if Assigned(MSVideoForm) then
     begin
+     MSVideoForm.restartvideo:=false;
      if (ApproachParams.ZStepsNumb>0) then
      begin
       ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\landing.avi';
       VideoFile:=ApproachSimulationVideo ;
-      MSVideoForm.StartVideoStream(VideoFile,1);
+      MSVideoForm.flgappr:=true;
+      MSVideoForm.StartVideoStream(VideoFile,MSVideoForm.nstartapr,20);
      end
      else
      begin
-      ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\rising.avi';
-      VideoFile:=ApproachSimulationVideo ;
-       MSVideoForm.StartVideoStream(VideoFile,1);
+       ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\rising.avi';
+       VideoFile:=ApproachSimulationVideo ;
+       MSVideoForm.flgappr:=false;
+       MSVideoForm.StartVideoStream(VideoFile,MSVideoForm.nstartris,20);
      end;
     end;
-   end;
+   end;     //add demo video 090517
   end
   else
   begin     //stop false;
@@ -641,9 +650,9 @@ begin
      BitBtnOK.Visible:=false;
     //  panelfaststep.Visible:=false;
      FlgApproachOK:=False;         //Rising
-               {$IFNDEF FULL}
-                   BitBtnStepTest.Enabled:=FlgApproachOK;
-               {$ENDIF}
+    {$IFNDEF FULL}
+        BitBtnStepTest.Enabled:=FlgApproachOK;
+    {$ENDIF}
      AddCaption:=siLangLinked1.GetTextOrDefault('IDS_35' (* ', rising' *) );
     end;
  5:begin
@@ -652,9 +661,9 @@ begin
     BitBtnOK.Visible:=false;
    // if flgUnit=sem then panelfaststep.Visible:=true;
     FlgApproachOK:=False;         //Rising
-               {$IFNDEF FULL}
-                   BitBtnStepTest.Enabled:=FlgApproachOK;
-               {$ENDIF}
+   {$IFNDEF FULL}
+      BitBtnStepTest.Enabled:=FlgApproachOK;
+   {$ENDIF}
     AddCaption:=siLangLinked1.GetTextOrDefault('IDS_35' (* ', rising' *) );
    end;
             end;  //case
@@ -662,6 +671,21 @@ begin
 //    Nanoedu.ScannerApproach.NSteps:=ApproachParams.ZStepsNumb;
   if assigned (Nanoedu.Method) then   Nanoedu.Method.SetUsersParams;
     Application.processmessages;
+    //add demo video 090517
+   if (flgCurrentUserLevel=DEMO) then
+   begin
+    MSVideoForm.restartvideo:=true;
+    if (ApproachParams.ZStepsNumb>0) then
+     begin
+      MSVideoForm.flgappr:=true;
+     end
+     else
+     begin
+       MSVideoForm.flgappr:=false;
+     end;
+      flgStopVideoStream:=true;
+   end;
+  //add demo video 090517
  end;       //ApproachActive
  ActiveTag:=TControl(Sender).tag;
 end;
@@ -695,8 +719,11 @@ if  not STMflg then
   Main.Landing.Visible:=True;
   Main.ScanBtn.Hint:=siLangLinked1.GetTextOrDefault('IDS_23' (* 'Scanning Sample Surface' *) );
   Main.ToolBtnLanding.Hint:=siLangLinked1.GetTextOrDefault('IDS_24' (* 'Landing' *) );
+if (flgUnit=Nano) or (flgUnit=NanoTutor) then
+begin
   Main.Camera.enabled:=True;
   Main.Camera.visible:=True;
+end;
   if FlgApproachOK  or flgtooClose then
   begin
    Main.ResonanceBtn.Hint:=siLangLinked1.GetTextOrDefault('IDS_25' (* 'Button is not enabled.The tip is too close a sample.' *) )+#13+siLangLinked1.GetTextOrDefault('IDS_20' (* 'It is recommended to make rising' *) )
@@ -705,7 +732,10 @@ if  not STMflg then
   begin
     Main.ResonanceBtn.Hint:=siLangLinked1.GetTextOrDefault('IDS_27' (* 'Resonance frequence Measuring  and Setting' *) )
   end;
-//  FreeAndNil(NanoEdu.ScannerApproach);
+//add DEMO
+  if flgUnit=DEMO  then
+   if assigned(MSVideoForm) then MSVideoForm.close; 
+//  
   Action := caFree;
   Approach:=nil;         { TODO : 190506 }
   if flgApproachOK and not flgCancel then Main.ScanningExecute(Sender);

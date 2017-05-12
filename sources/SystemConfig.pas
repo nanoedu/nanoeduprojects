@@ -485,6 +485,7 @@ begin
   begin
       ResonanceParams.Delay:=ReadInteger('Resonance','Delay',2) ;
    case flgUnit of
+Nano,NANoTutor,
 Probeam:begin
          with   ResonanceParams do
         begin
@@ -626,7 +627,7 @@ begin
                              ApproachNOneScrpt:=ApproachSMOneScrpt;
                              MTestScrpt:=SMTestScrpt;     //stepmover
                              ApproachParams.TypeMover:=0;
-                             ApproachParams.MaxSuppress:=0.5;
+                             ApproachParams.MaxSuppress:=1;
              end;
    pipette: begin
                              ApproachNScrpt:=ApproachPipetteScrpt;
@@ -700,7 +701,7 @@ begin
      begin
         ApproachParams.LandingSetPoint:=0.8;
         ApproachParams.SetPoint:=0.9;//ReadFloatConvert(iniCSPM,'Approach Parameters','SetPoint',0.9);
-        ApproachParams.BiasV:=ReadFloatConvert(iniCSPM,'Approach Parameters','BiasV',3.4 );
+        ApproachParams.BiasV:=0.0;//ReadFloatConvert(iniCSPM,'Approach Parameters','BiasV',3.4 );       uncomment if need start from not 0 05/05/17 
         ApproachParams.FreqBandF:=ReadInteger('Approach Parameters','FreqBandF',3);
         ApproachParams.ScannerDecay:=ReadInteger('Approach Parameters',' ScannerDecay',100);
         ApproachParams.IntegratorDelay:=ReadInteger('Approach Parameters',' IntegratorDelay',800 );
@@ -754,7 +755,7 @@ begin
                              ApproachNOneScrpt:=ApproachSMOneScrpt;
                              MTestScrpt:=SMTestScrpt;     //stepmover
                              ApproachParams.TypeMover:=0;
-                             ApproachParams.MaxSuppress:=0.5;
+                             ApproachParams.MaxSuppress:=1;
                              ApproachParams.flgControlTopPosition:=boolean(ReadInteger('Approach Parameters','Control Top Position',1))and (not FlgReniShawUnitExists);
               end;
    pipette:  begin

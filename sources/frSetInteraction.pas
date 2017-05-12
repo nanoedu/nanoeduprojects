@@ -223,7 +223,8 @@ var i:Integer;
 begin
   if Assigned(Approach) then
   begin
-   Approach.TimerUp.Enabled:=TimerBackUpState;
+   if assigned(Approach.TimerUp) then
+      Approach.TimerUp.Enabled:=TimerBackUpState;
    flgStopTimer:=false;
   end;
     SetIntActOnProgr:=False;  { TODO : 160606 }

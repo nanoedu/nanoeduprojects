@@ -101,10 +101,10 @@ procedure  SetFreq_Sel(fq:apitype);
 procedure  ModifyData(RangeRF:apitype);
 protected
  function    InitAlgorithmParamsFile:integer; override;
- function    InitRegimeVars:integer;           override;
- function    InitBuffers:integer;                override;
- function    FreeBuffers:integer;     override;
- procedure   StartDraw;               override;
+ function    InitRegimeVars:integer;          override;
+ function    InitBuffers:integer;             override;
+ function    FreeBuffers:integer;             override;
+ procedure   StartDraw;                       override;
 public
  Constructor Create;
  destructor  Destroy;

@@ -80,8 +80,8 @@ begin
   //   JavaControl.IsRunning(flgJavaRunning);
    //  sleep(400);
   // sleep(40);   // 13/03/13 - уменьшена задержка
-     sleep(GETCOUNT_DELAY );
-     if flgStopJava {or (not flgJavaRunning)} then   flgEnd:=true;
+      sleep(GETCOUNT_DELAY );
+      if flgStopJava {or (not flgJavaRunning)} then   flgEnd:=true;
    //   nread:=(NChElements-CurChElements);
       hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(nread);
       {$IFDEF DEBUG}
@@ -108,11 +108,24 @@ begin
            TempAquiData:=nil;
            SetLength(TempAquiData,nread*ElementSize);
            GetLineData;
-     //  if (AutoResonance.flgMode=Manual) or
-       //    ((AutoResonance.flgMode=Auto) and (AutoResonance.flgRegime=Rough))
-                    Synchronize(DrawCurrentLine);
+           Synchronize(DrawCurrentLine);
            CurChElements:=CurChElements+nElements;//have read;
       end;// NewPpoint>0
+
+ (*     if nread<0 then nread:=0;
+      if (nread=NChElements) then     NewPCount:=nread;
+      if  (NewPCount>0) then
+      begin
+           nElements:=nread;
+           NewPCount:=0;
+           TempAquiData:=nil;
+           SetLength(TempAquiData,nread*ElementSize);
+           GetLineData;
+           Synchronize(DrawCurrentLine);
+           CurChElements:=CurChElements+nElements;//have read;
+           FlgEnd:=True;
+      end;// NewPpoint>0
+      *)
       if flgEnd then
         begin
          ScanDone;
@@ -143,7 +156,7 @@ begin
   mt:=dataoutcount;
   i:=0;
   k:=0;
-    j:=0;
+  j:=0;
   while i<nElements do
   begin
      fdata:=int64(PIntegerArray(DataBuf)[k])*million;

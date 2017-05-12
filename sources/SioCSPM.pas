@@ -635,6 +635,8 @@ begin
    formInitUnitEtape.memolog.Lines.add(FormLog.siLangLinked1.GetTextOrDefault('IDS_70' (* 'error getting schematic interface ' *) ));
   end;
   //init OSC Channels
+  if assigned(SchematicControl) then
+  begin
    if FlgCurrentUserLevel<>Demo then
    begin
     SchematicControl.QueryLFB(WideString('OSC1'),IU);
@@ -649,6 +651,7 @@ begin
      aOSCParamName[i]:=name;
     end;
    end;
+  end;
 end;
 function FindControler:boolean;
 var

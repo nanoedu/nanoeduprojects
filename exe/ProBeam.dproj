@@ -305,11 +305,20 @@
     <DCCReference Include="..\sources\mSetSignal.pas">
       <Form>SetSignal</Form>
     </DCCReference>
+    <DCCReference Include="..\sources\MSVideoDEMO.pas">
+      <Form>MSVideoForm</Form>
+    </DCCReference>
     <DCCReference Include="..\sources\MtpLib_TLB.pas" />
     <DCCReference Include="..\sources\Nanoeduhelp.pas" />
     <DCCReference Include="..\sources\NL3LFBLib_TLB.pas" />
     <DCCReference Include="..\sources\NL3LFBLib_TLBDemo.pas" />
     <DCCReference Include="..\sources\OneHist.pas" />
+    <DCCReference Include="..\sources\Opencv\OpenCV_core.pas" />
+    <DCCReference Include="..\sources\Opencv\OpenCV_highgui.pas" />
+    <DCCReference Include="..\sources\Opencv\OpenCV_imgproc.pas" />
+    <DCCReference Include="..\sources\Opencv\OpenCV_types.pas" />
+    <DCCReference Include="..\sources\Opencv\OpenCV_utils.pas" />
+    <DCCReference Include="..\sources\Opencv\OpenCV_video.pas" />
     <DCCReference Include="..\sources\PortableDeviceApiLib_TLB.pas" />
     <DCCReference Include="..\sources\PortableDeviceTypesLib_TLB.pas" />
     <DCCReference Include="..\sources\ProgressDrawThread.pas" />

@@ -15,7 +15,7 @@ type
   private
     { Private declarations }
     flgrotation:boolean;
-
+    i:integer;
     curframenmb:integer;
     count :integer;
     key: integer;
@@ -33,6 +33,7 @@ type
     r:pCvMat;//pIplImage;
     function MSVideoInit:byte;
   protected
+    procedure  VideoOutPut;
     procedure Execute; override;
  public
       nstep:integer;
@@ -51,20 +52,35 @@ uses CSPMvar;
 
 procedure TThreadVideoStream.Execute;
 var i:integer;
+  ifirst:integer;
 begin
   i:=1;
+  ifirst:=1;
   { Place thread code here }
   curframenmb:=MSVideoForm.nstart;
+  count:=1;
   while (not Terminated) and (not flgStopVideoStream)  do
    begin
-//    capture := cvCreateFileCapture(PAnsiChar(Videofile));
-     count:=1;
+    if ifirst=1 then
+    begin
+     capture := cvCreateFileCapture(PAnsiChar(Videofile));
+     map_matrix:=cvCreateMat(2, 3, CV_32FC1);
+     Scalar:=cvScalarAll_(0);
+    end;
+  //    capture := cvCreateFileCapture(PAnsiChar(Videofile));
+ 
     if Assigned(capture) then
     begin
         frame := cvQueryFrame(capture);
         if Assigned(frame) then
         begin
-         inc(MSVideoForm.nframe);
+          if ifirst=1 then
+          begin
+           image:=Tbitmap.create;
+           image.PixelFormat := pf24bit;
+           ifirst:=2;
+          end;
+      //   inc(MSVideoForm.nframe);
          if(i<MSVideoForm.nstart) then begin  inc(i); continue; end;
          if count=nstep then
          begin
@@ -77,7 +93,8 @@ begin
              IplImage2Bitmap(framerot,image);
            end
            else IplImage2Bitmap(frame,image);
-           MSVideoForm.image1.Picture.Assign(image);
+           synchronize(VideoOutPut);
+    //   MSVideoForm.image1.Picture.Assign(image);
           if flgrotation then  Sleep(MSVideoForm.delayapr div 3)
           else Sleep(MSVideoForm.delayapr);
            count:=1;
@@ -93,11 +110,14 @@ begin
     end
     else break;
   end; {while execute}
-   MSVideoForm.nstart:=curframenmb;
+   MSVideoForm.nstop:=curframenmb;
    PostMessage(MsVideoForm.Handle,wm_ThreadDoneMsg,mScanning,0);
    if (not Terminated) then  Self.Terminate;
 end;
-
+procedure  TThreadVideoStream.VideoOutPut;
+begin
+      MSVideoForm.image1.Picture.Assign(image);
+end;
 procedure IplImage2Bitmap(iplImg: PIplImage; var bitmap:TBitmap);
 VAR
   i, j: Integer;
@@ -148,7 +168,9 @@ constructor TThreadVideoStream.Create;
 begin
   inherited Create(True);
    flgrotation:=MSVIDEOForm.lflgrotation;
-    MSVideoInit;
+    curframenmb:=0;
+    nstep:=MSVideoForm.nstep;//1;
+//    MSVideoInit;
     FreeOnTerminate:=true;
     Priority := TThreadPriority(tpNormal);
     Suspended := false;// Resume;
@@ -162,6 +184,7 @@ begin
    PostMessage(MSvideoForm.Handle,wm_ThreadDoneMsg,ThreadFlg,0);
    inherited destroy;
 end;
+
 function TThreadVideoStream.MSVideoInit:byte;
 begin
   curframenmb:=0;
@@ -187,7 +210,7 @@ begin
              IplImage2Bitmap(framerot,image);
             end
             else IplImage2Bitmap(frame,image);
-           MSVideoForm.image1.Picture.Assign(image);
+       //    MSVideoForm.image1.Picture.Assign(image);
          end
     end;
      result:=0;

@@ -28,7 +28,7 @@ type
     TabSheetZ_N: TTabSheet;
     ChartZ_N: TChart;
     SeriesZ_N: TLineSeries;
-    TabSheet2: TTabSheet;
+    TabSheetHL: TTabSheet;
     ChartHist: TChart;
     SeriesH: TAreaSeries;
     SeriesH1: TLineSeries;
@@ -202,7 +202,8 @@ begin
      StartBitBtn.Enabled:=false;
      StartBitBtn.Font.Color:=clRed;
      StartBitBtn.Caption:=siLangLinked1.GetTextOrDefault('IDS_0' (* '&STOP' *) );
-
+     TabSheetHl.enabled:=false;
+     TabSheetHB.enabled:=false;
      InitChartZ_N();
 
      PageControl.ActivePage:=TabSheetZ_N;
@@ -265,9 +266,9 @@ begin
       StepZ:=1;
       L:=Length(H);
       HistMin:=H[0];
-     for i:=0 to L do  if H[i]<HistMin then HistMin:=H[i];
+     for i:=0 to L-1 do  if H[i]<HistMin then HistMin:=H[i];
       HistMax:=H[0];
-     for i:=0 to L do  if H[i]>HistMax then HistMax:=H[i];
+     for i:=0 to L-1 do  if H[i]>HistMax then HistMax:=H[i];
      with ChartHist.BottomAxis do
      begin
        Automatic:=False;
@@ -325,6 +326,8 @@ begin
       YVals:=nil;
 
 200:  FlgStopTest:=true;
+      TabSheetHl.enabled:=true;
+      TabSheetHB.enabled:=true;
       StartBitBtn.Caption:=siLangLinked1.GetTextOrDefault('IDS_5' (* '&RUN' *) );
       StartBitBtn.Font.Color:=clBlack;
       StartBitBtn.Enabled:=True;

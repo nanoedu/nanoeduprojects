@@ -65,15 +65,23 @@ type
  protected
  public
     lflgrotation:boolean;
+    restartvideo:boolean;
+    flgappr:boolean;
     flgclose:boolean;
     delayapr:integer;
     delayris:integer;
     nstep:integer;   // через сколько кадров отображать
     nstart:integer;
+    nstop:integer;
+    nstartapr:integer;
+    nstopapr:integer;
+    nstartris:integer;
+    nstoprise:integer;
     nframe:integer;
     FormHandle: THandle;
    Constructor Create(AOwner:TComponent; filename:string; delay:integer; flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
-   procedure  StartVideoStream(filename:string; nstep:integer);
+   procedure  StartVideoStream(filename:string;istart:integer; instep:integer);
+   procedure  StartVideo;
    procedure  StopVideoStream;
    procedure  ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;
    function   MSVideoInit:byte;
@@ -88,7 +96,7 @@ implementation
 
 
 {$R *.DFM}
-uses globalvar,ThreadVideoStream;
+uses globalvar,ThreadVideoStream,frapproachnew;
 const
   DefApproachAviFileName = 'sem_spm.avi';
   DefRisingAviFileName   = 'Rising.avi';
@@ -158,12 +166,42 @@ procedure TMSVideoFORM.ThreadDone(var AMessage: TMessage);
   begin
     stopbtn.down:=true;
     Playbtn.down:=false;
-     flgStopVideoStream:=true;
-  if    lflgautoclose  or flgclose then
+    flgStopVideoStream:=true;
+    if flgappr then
+    begin
+      nstartapr:=nstop;
+      nstartris:=nframe-nstop+1;
+    end
+    else
+    begin
+     nstartris:=nstop;
+     nstartapr:=nframe-nstop+1;
+    end;
+   if  restartvideo then
    begin
-   close;
-  end;
-  end;//drawthread
+    if (flgCurrentUserLevel=DEMO) then
+    begin
+     if (ApproachParams.ZStepsNumb>0) then
+     begin
+      ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\landing.avi';
+      VideoFile:=ApproachSimulationVideo ;
+      flgappr:=true;
+      StartVideoStream(VideoFile,nstartapr,20);
+     end
+     else
+     begin
+       ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\rising.avi';
+       VideoFile:=ApproachSimulationVideo ;
+       flgappr:=false;
+       StartVideoStream(VideoFile,nstartris,20);
+     end;
+    end;
+   end;
+   if    lflgautoclose  or flgclose then
+   begin
+    close;
+   end;
+  end;//THREAD DRAW
  if mScanning=AMessage.WParam then
  begin
  end;
@@ -172,24 +210,37 @@ end;
 procedure TMSVideoFORM.Timer1Timer(Sender: TObject);
 begin
  timer1.enabled:=false;
- if lflgautostart then PlayBtnClick(self);
+ if lflgautostart then StartVideo;//PlayBtnClick(self);
 end;
 
-procedure  TMSVideoFORM.StartVideoStream(filename:string; nstep:integer);
+procedure  TMSVideoFORM.StartVideo;//(filename:string);
+begin
+   if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
+       begin
+         flgStopVideoStream:=false;
+         stopbtn.down:=false;
+         PlayBtn.Down := true;
+         nstart:=1;
+         nstep:=1;
+         VideoStreamThread:= TThreadVideoStream.Create;
+       end ;
+end;
+procedure  TMSVideoFORM.StartVideoStream(filename:string;istart:integer; instep:integer);
 begin
       if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
        begin
          flgStopVideoStream:=false;
          stopbtn.down:=false;
          PlayBtn.Down := true;
-         nstart:=1;
-         nframe:=0;
+         nstart:=istart; //1
+         nstep:=instep;
+         nframe:=479;
          VideoStreamThread:= TThreadVideoStream.Create;
        end ;
 end;
 procedure  TMSVideoFORM.StopVideoStream;
 begin
-flgStopVideoStream:=true;
+ flgStopVideoStream:=true;
  if PlayBtn.Down then
   begin
     PlayBtn.Down := false;
@@ -199,7 +250,7 @@ flgStopVideoStream:=true;
 end;
 procedure TMSVideoFORM.PlayBtnClick(Sender: TObject);
 begin
-      if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
+ (*     if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
        begin
          flgStopVideoStream:=false;
          stopbtn.down:=false;
@@ -207,6 +258,7 @@ begin
          nstart:=1;
          VideoStreamThread:= TThreadVideoStream.Create;
        end ;
+       *)
 end;
 
 procedure TMSVideoFORM.SettingBtnClick(Sender: TObject);
@@ -279,7 +331,11 @@ end;
 //************************************************************************************************
 function TMSVideoFORM.MSVideoInit:byte;
 begin
-  nstart:=1;   flgStopVideoStream:=true;
+  nstart:=1;
+  nstartapr:=1;
+  nstartris:=nframe;//??????? =1
+  nstop:=1;
+  flgStopVideoStream:=true;
   capture := cvCreateFileCapture(PAnsiChar(Videofile));
   map_matrix:=cvCreateMat(2, 3, CV_32FC1);
   Scalar:=cvScalarAll_(0);

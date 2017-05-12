@@ -849,13 +849,13 @@ begin
  val:= ApproachParams.Amp_M;
  if val>0 then AMLabel.Caption:=FloattoStrF(val{/1000}{/255},ffFixed,5,0)+siLangLinked1.GetTextOrDefault('IDS_16' (* ' mV' *) )
           else AMLabel.Caption:=siLangLinked1.GetTextOrDefault('IDS_17' (* '1 mV' *) ); ;
-
  with sbAMPMod do
   begin
    Min:=1;
    Max:=ApproachParams.MaxAmp_M;//($FF-1);     1000*val/255
    Position:=val;
   end;
+  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M*2.5/1000*TransformUnit.BiasV_d);
 
 with ScrollBarT do
   begin
@@ -1073,11 +1073,11 @@ begin
                 ApproachParams.Amp_M:=val;           //mV
       //          NanoEdu.SD_GAM:=round(ApproachParams.Amp_M/1000*TransformUnit.BiasV_d);//*32;   //????  250112
                   case flgUnit of
-            Nano:  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M/1000*TransformUnit.BiasV_d);
+            Nano:  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M*2.5/1000*TransformUnit.BiasV_d);      
             Probeam,
             MicProbe,
             terra,
-            Pipette:  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M*10/1000*TransformUnit.BiasV_d);
+            Pipette:  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M*2.5/1000*TransformUnit.BiasV_d);
                   end;
               end;
                    end;

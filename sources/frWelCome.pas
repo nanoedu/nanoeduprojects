@@ -37,7 +37,7 @@ type
     Label1: TLabel;
     ToolBar3: TToolBar;
     ToolBtnTurnonvideo: TToolButton;
-    ToolBar4: TToolBar;
+    ToolBarSwitchVideo: TToolBar;
     ToolBtnProbeInstallVideo: TToolButton;
     procedure ToolButtonShowClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -59,7 +59,7 @@ var
   WellCome: TWellCome;
 
 implementation
-uses nanoeduhelp,globalvar,mMain,ShellApi,frMedia;
+uses nanoeduhelp,globalvar,CSPMVar,mMain,ShellApi,frMedia;
 {$R *.dfm}
 
 procedure TWellCome.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -83,7 +83,17 @@ begin
  //  checkboxview.Top:=clientheight-checkboxview.height-30;
    CheckBoxView.Checked:=flgShowWellComeWindow;
    CheckBoxAdVideo.Checked:=flgShowAdVideo;
-   PageControl.ActivePage:=TabsheetAbout;  
+   PageControl.ActivePage:=TabsheetAbout;
+   case flgUnit of 
+ProBeam:
+begin
+   //ToolBarSwitchVideo.visible:=false;
+end;
+MicProbe:
+begin
+   // ToolBarSwitchVideo.visible:=false;
+end;
+   end; 
  //  Toolbar.Top:= checkboxview.Top-35;
  //  Toolbar.left:=bitbtnstartstm.Left+20;
  //  LabelBox.Top:=checkboxview.Top;

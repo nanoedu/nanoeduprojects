@@ -123,10 +123,6 @@ object SignalsMod: TSignalsMod
     TabWidth = 35
     object tbSFM: TTabSheet
       Caption = 'SFM'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -152,8 +148,8 @@ object SignalsMod: TSignalsMod
           ParentFont = False
         end
         object Button1: TButton
-          Left = 21
-          Top = 5
+          Left = 16
+          Top = 1
           Width = 131
           Height = 23
           Hint = 'Force Interaction Adjustment'
@@ -209,10 +205,6 @@ object SignalsMod: TSignalsMod
     object tbSTM: TTabSheet
       Caption = 'STM'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel4: TPanel
         Left = 0
         Top = 0
@@ -290,10 +282,6 @@ object SignalsMod: TSignalsMod
       Font.Style = []
       ImageIndex = 2
       ParentFont = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 0
         Top = 0

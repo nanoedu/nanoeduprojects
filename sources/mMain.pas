@@ -575,19 +575,15 @@ begin
   else  Result :=' Old Version'
   end;
 end;
-function MessageDlgCtr(const Msg: string; DlgType: TMsgDlgType;
-  Buttons: TMsgDlgButtons; HelpCtx: Longint): Integer;
+function MessageDlgCtr(const Msg: string; DlgType: TMsgDlgType;  Buttons: TMsgDlgButtons; HelpCtx: Longint): Integer;
 begin
   with  Main.siLang1.CreateMessageDialog(Msg, DlgType, Buttons) do
   try
     HelpContext := HelpCtx;
     if assigned(Screen.ActiveForm) then
      begin
-     Left := Screen.ActiveForm.Left + (Screen.ActiveForm.Width div 2) -
-      (Width div 2);
-
-     Top := Screen.ActiveForm.Top + (Screen.ActiveForm.Height div 2) -
-      (Height div 2);
+     Left := Screen.ActiveForm.Left + (Screen.ActiveForm.Width div 2) - (Width div 2);
+     Top := Screen.ActiveForm.Top + (Screen.ActiveForm.Height div 2) - (Height div 2);
      end;
     Result := ShowModal;
   finally
@@ -2746,6 +2742,7 @@ begin
    {$IFDEF DEMO}
         CurrentUserLevel:='Demo';
         ComboBoxLevel.Enabled:=false;
+        flgChangeUserLevel:=byte(false);
    {$ENDIF}
    if CurrentUserLevel='Beginner' then
    begin
@@ -3226,10 +3223,8 @@ begin
    end;
   end
  end;
- if not boolean(flgRunFirmCamera) then
-  begin
-    h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
-   if h=0  then
+  h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
+    if h=0  then
     begin
      if(FlgCurrentUserLevel<>DEMO) then
      begin
@@ -3271,13 +3266,8 @@ begin
          SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
         end;
      end;
-   end   //h=0
-  end //not firm
-  else
-  begin
-   RunFirmSoftVideoCamera;
-  end;
-   camera.Enabled:=True;
+   end;   //h=0
+  camera.Enabled:=True;
 end;
 
 procedure TMain.ExitClick(Sender: TObject);
@@ -5143,7 +5133,7 @@ begin
     itemShowWellComeWindow.Checked:=flgShowWellComeWindow;
     flgShowADVideo:=ShowAdVideo;
  if flgShowWellComeWindow       then WellCome:=TWellCome.Create(application);
-{$IFDEF DEMO}
+//{$IFDEF DEMO}
  if flgShowAdVideo              then
  begin
    videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.avi';
@@ -5151,10 +5141,10 @@ begin
    begin
     MSVideoForm:=TMSVideoFORM.Create(Application,videofile,30,true,true,false);
     MSVideoForm.WindowState:=wsMaximized;
-    MSVideoForm.ShowModal;
+    MSVideoForm.Show;//Modal;
    end;
  end;
-{$ENDIF}
+//{$ENDIF}
     SetCurrentDir(WorkDirectory);
  if not assigned(NoFormUnitLoc) then NoFormUnitLoc:=TNoFormUnitLoc.Create(application);
   InitParameters;
@@ -5202,6 +5192,10 @@ procedure TMain.ProcComboboxLevelSelect(Sender: TObject);
 begin
 if   FlgCurrentUserLevel<>ComboBoxLevel.ItemIndex then
 begin
+   h:=FindWindow(nil,Pchar(strm41{'MSVideo'}));
+   if(FlgCurrentUserLevel<>DEMO) then begin if h<>0 then  StopVideo; end
+    else  if assigned(MSVideoForm) then MSVideoForm.Close;
+
  if  ToolScanBar.visible  then
   begin
     if not FlgStopScan then
@@ -5214,6 +5208,7 @@ begin
     begin
       ScanWnd.Close;
     end;
+ 
    if assigned(Approach) then
     if not FlgStopApproach then
     begin
@@ -5526,12 +5521,12 @@ end;
 
  Application.ProcessMessages;
 
- if ApproachParams.flgAutorunCamera then
+ if ApproachParams.flgAutorunCamera or (FlgCurrentUserLevel=DEMO) then
  begin
  // if  FlgCurrentUserLevel<>Demo then
  // begin
-   if not boolean(flgRunFirmCamera) then
-   begin
+ //  if not boolean(flgRunFirmCamera) then
+ //  begin
     h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
     if h=0  then
     begin
@@ -5565,6 +5560,7 @@ end;
      end //not demo
      else
      begin //demo
+       ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\landing.avi';
        MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,20,false,false,false);
        MSVideoFORM.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
@@ -5576,7 +5572,7 @@ end;
      end;
     end
    end;
- end;
+// end;
 end;
 
 procedure TMain.RepTemplateClick(Sender: TObject);

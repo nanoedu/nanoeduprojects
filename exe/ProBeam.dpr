@@ -159,7 +159,14 @@ uses
   ThreadGetControllerParams in '..\sources\ThreadGetControllerParams.pas',
   frSetWorkDir in '..\sources\frSetWorkDir.pas' {SetNewWorkDir},
   GlobalScanDataType in '..\sources\GlobalScanDataType.pas',
-  frProgramSettings in '..\sources\frProgramSettings.pas' {FormProgramSettings};
+  frProgramSettings in '..\sources\frProgramSettings.pas' {FormProgramSettings},
+  OpenCV_core in '..\sources\Opencv\OpenCV_core.pas',
+  OpenCV_highgui in '..\sources\Opencv\OpenCV_highgui.pas',
+  OpenCV_imgproc in '..\sources\Opencv\OpenCV_imgproc.pas',
+  OpenCV_types in '..\sources\Opencv\OpenCV_types.pas',
+  OpenCV_utils in '..\sources\Opencv\OpenCV_utils.pas',
+  OpenCV_video in '..\sources\Opencv\OpenCV_video.pas',
+  MSVideoDEMO in '..\sources\MSVideoDEMO.pas' {MSVideoForm};
 
 {FormProgramSettings}
 
