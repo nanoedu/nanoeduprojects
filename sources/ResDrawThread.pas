@@ -108,24 +108,11 @@ begin
            TempAquiData:=nil;
            SetLength(TempAquiData,nread*ElementSize);
            GetLineData;
+     //  if (AutoResonance.flgMode=Manual) or
+       //    ((AutoResonance.flgMode=Auto) and (AutoResonance.flgRegime=Rough))
            Synchronize(DrawCurrentLine);
            CurChElements:=CurChElements+nElements;//have read;
       end;// NewPpoint>0
-
- (*     if nread<0 then nread:=0;
-      if (nread=NChElements) then     NewPCount:=nread;
-      if  (NewPCount>0) then
-      begin
-           nElements:=nread;
-           NewPCount:=0;
-           TempAquiData:=nil;
-           SetLength(TempAquiData,nread*ElementSize);
-           GetLineData;
-           Synchronize(DrawCurrentLine);
-           CurChElements:=CurChElements+nElements;//have read;
-           FlgEnd:=True;
-      end;// NewPpoint>0
-      *)
       if flgEnd then
         begin
          ScanDone;
