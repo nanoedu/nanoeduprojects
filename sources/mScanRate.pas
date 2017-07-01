@@ -35,7 +35,7 @@ implementation
 
 uses CSPMVar;
 
-CONST  alfthr=0.01;          // if Sum(TMeasurePoint)/TScan <alfthr
+CONST  alfthr=0.1;//0.01;          // if Sum(TMeasurePoint)/TScan <alfthr
 
 
 procedure CalcScanRateDriverLimit(L:double; NPoints:integer; parameter:single;  var Rate:single; var RateBW:single);
@@ -68,9 +68,9 @@ begin
  alf:=ScanParams.TimMeasurePoint*NPoints/TimScan/1000;
  if (alf>alfthr) then    TimMove:=TimScan-ScanParams.TimMeasurePoint*NPoints/1000 {sec}
                  else    TimMove:=TimScan;         //TimMove - time of one way moving
- if  (TimMove<=0) then
+ if  (TimMove<=(ScanParams.TimMicroStep+MinValidMicroStepDelay)*NPoints/1000) then  // sec
      begin
-       if HardWareOpt.XYtune='Rough' then
+   (*    if HardWareOpt.XYtune='Rough' then
        begin
         tMicroStepDelay:=MinValidMicroStepDelay;
         NMicroStep:=ScanDiscrNumb;
@@ -78,7 +78,7 @@ begin
         ScanParams.DiscrNumInMicroStep:=1;
         Rate:=MaxScanRate1;
        end
-       else
+       else      *)
        begin
         tMicroStepDelay:=MinValidMicroStepDelay;
         NMicroStep:=NPoints;
@@ -104,7 +104,7 @@ begin
   end
   else
   begin
-   if HardWareOpt.XYtune='Rough' then
+  (* if HardWareOpt.XYtune='Rough' then
        begin
         tMicroStepDelay:=MinValidMicroStepDelay;
         NMicroStep:=ScanDiscrNumb;
@@ -114,7 +114,7 @@ begin
         Delay:=round(1000*tMicrostepDelay);
         exit;
        end
-       else      //fine
+       else      //fine  *)
        begin
         ScanParams.DiscrNumInMicroStep:=round(ScanDiscrNumb/NMicrostep+0.5); //ceil
         NMicroStep:=ScanDiscrNumb div ScanParams.DiscrNumInMicroStep;  // Really doing

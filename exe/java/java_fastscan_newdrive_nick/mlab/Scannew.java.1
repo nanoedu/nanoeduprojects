@@ -1,0 +1,135 @@
+package mlab;
+
+public class Scannew
+{
+public static final int N = 100;
+public static final int P = 100;
+public static final int pause = 20; // пауза в точке mks
+public static final int steps = 5; // время перемещения между точками mks
+	public static void main(String[] arg)
+	{
+		int[] data_out;
+		int[] data_in;
+		int[] code;
+
+		code = new int[30];
+//----- Заголовок ----------------------------------
+		code[0]  = Dxchg.CODE_SIGNATURE;
+		code[1]  = 0x00030002;
+		code[2]  = code.length;
+//----- Код ----------------------------------------
+// Начало (позиция начала скана)
+                // Вектор и позиция линии
+                code[3]  = 0x00000000 + (23<<16); 	// IO p()
+		code[4]  = 0x20000000;			//   BEN
+		// Контроль перемещения
+                code[5]  = 0x00000000;
+		code[6]  = 0x10000008;
+		// Отработка линии из P точек
+		code[7]  = 0x80000000 + (9<<16) + P;	// P повторов
+                // Возврат
+		code[8]  = 0x80000000 + (3<<16) + 0;	// возврат на начало кода
+// Линия
+		// Вектор линии
+                code[9]  = 0x00000000 + (18<<16); 	// IP p()
+		code[10] = 0x20000000;                  //   BEN
+                // Координаты точки X
+		code[11]  = 0x00000000 + (21<<16); 	// перемещение в точку
+		code[12] = 0x20000000;
+		code[13]  = 0x00000000;			// контроль
+		code[14] = 0x10000008;
+                code[15] = 0x00000000 + (28<<0); 	// считывание после паузы
+                code[16] = 0x40000000 + pause;
+                code[17] = 0x80000000 + (11<<16) + 0;   // возврат к след. точке
+//----- Список портов перемещения по линии ---------
+		code[18] = 2;
+		code[19] = Dxchg.OUTP_DIRY;
+		code[20] = Dxchg.OUTP_DIRX;
+//----- Список портов перемещения по линии ---------
+		code[21] = 1;
+		code[22] = Dxchg.OUTP_X;
+//----- Список портов перемещения по скану ---------
+		code[23] = 4;
+		code[24] = Dxchg.OUTP_DIRY;
+		code[25] = Dxchg.OUTP_Y;
+		code[26] = Dxchg.OUTP_DIRX;
+		code[27] = Dxchg.OUTP_X;
+//----- Список портов результатов ------------------
+		code[28] = 1;
+		code[29] = 5;
+//--------------------------------------------------
+
+		int Grid = 0x00800000; // шаг сетки
+		int Snom = 0x028F5C29; // 1.0/50 - просто выбрано число 50
+		int Vtrvl_nom = 0x19000000; // Snom*Vtrvl = Grid, за 1 шаг
+		int Vtrvl = Vtrvl_nom / steps;
+
+     		Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
+
+		data_in = new int[1*P*N];
+
+		// DIRY, Y, DIRX, X, DIRY, DIRX, X[P] - каждая линия
+		data_out = new int[(4+2+1*P)*N];
+
+		for ( int y = 0; y < N; ++y )
+		{
+			int i = (4+2+1*P)*y;
+			data_out[i+0] = Vtrvl * 10 + 0x00004000; // быстрое перемещение в 10 раз
+			data_out[i+1] = Grid*y;
+			data_out[i+2] = -Vtrvl * 10 + 0x00004000;
+			data_out[i+3] = Grid*0;
+			data_out[i+4] = 0;
+			data_out[i+5] = Vtrvl + 0x00004000;
+			for ( int x = 0; x < P; ++x )
+			{
+				data_out[i+6+x] = Grid*x;
+			}
+		}
+/*
+		code = new int[13];
+//----- Заголовок ----------------------------------
+		code[0]  = Dxchg.CODE_SIGNATURE;
+		code[1]  = 0x00030001;
+		code[2]  = code.length;
+//----- Код ----------------------------------------
+                code[3]  = 0x00000000 + (8<<16); 	// IO p()
+		code[4]  = 0x20000000 + (20-2);		//   BEN
+		code[5]  = 0x00000000 + (11<<0);	// IO
+		code[6]  = 0x50000008;
+		code[7]  = 0x80030000;			// возврат на начало кода
+//
+                code[8]  = 2;
+                code[9]  = 0;
+                code[10] = 1;
+//
+                code[11] = 1;
+                code[12] = 5;
+
+
+		data_in = new int[1*N];
+
+		data_out = new int[2*N];
+*/
+		Dxchg.ExecuteScan( data_out, data_in, code, N );
+		Simple.DumpInt( data_in[data_in.length-1]-data_in[0] );
+		Simple.xchgCreate( "data", data_in );
+   }
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

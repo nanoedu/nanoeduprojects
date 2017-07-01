@@ -2,8 +2,6 @@ package mlab; //220113
 
 public class movetonew
 {
-//	static int X_POINTS = 50;
-//	static int Y_POINTS = 50;
 	static final int DAC_STEP = 65536*1;
 	static final int VAL_0_5  = 0x40000000;
 	static  int USTEP_DLY= 400;
@@ -17,13 +15,8 @@ public class movetonew
 
 	static final int PORT_COS_X = ( 3 );
 	static final int PORT_COS_Y = ( 4 );
-	static final int PORT_COS_Z = ( 5 );
-
 	static final int PORT_X = ( 0 );
 	static final int PORT_Y = ( 1 );
-	static final int PORT_Z = ( 2 );
-
-	static final int PORT_H = ( 2 );
 
 
         // chanels ID
@@ -61,9 +54,6 @@ public class movetonew
 		int uVector;
                 int wr,rd;
                 int[] res;
-		int  ScanPath;
-		int  SZ;
-		int  ScanMethod;
 		int  MicrostepDelay =100;
 		int  MicrostepDelayBW;
 		int  DiscrNumInMicroStep;
@@ -109,9 +99,8 @@ public class movetonew
                 DiscrNumInMicroStep= datain[i0+3]<<16;   //210113  add
                 Timewait           = datain[i0+4];
 
-             if (MicrostepDelay!=0) { 	USTEP_DLY =  MicrostepDelay;}         //210113
-             else
-             { USTEP_DLY=1;};
+             if (MicrostepDelay!=0) { USTEP_DLY =  MicrostepDelay;}         //210113
+             else                   { USTEP_DLY=1;};
 
          //       if (X_begin==0) {X_begin=1;}
          //       if (Y_begin==0) {Y_begin=1;}
@@ -125,13 +114,6 @@ public class movetonew
                 dacY=dacY>>16;
                 dacY=dacY<<16;
         	dacZ =0;
-              	Simple.DumpInt(0xCCCCCCCC);
-                Simple.DumpInt(MicrostepDelay);
-                Simple.DumpInt(X_begin);
-                Simple.DumpInt(dacX);
-                Simple.DumpInt(Y_begin);
-                Simple.DumpInt(dacY);
-                Simple.DumpInt(DiscrNumInMicroStep);
             //      int dx,dy;
             //    dx=Simple.abs(dacX-X_begin);
             //    dy=Simple.abs(dacY-Y_begin);
@@ -140,10 +122,6 @@ public class movetonew
 
  		uVector = (2 * DiscrNumInMicroStep / USTEP_DLY);
 
-            //  Simple.DumpInt(d);
-            //    Simple.DumpInt(uVector);
-            //    Simple.DumpInt(Timewait);
-            //    Simple.DumpInt(0xCCCCCCCC);
 
               	Simple.bramWrite( M_USTEP, uVector );
 
@@ -163,10 +141,6 @@ public class movetonew
                 dxchg.WaitScanComplete(Timewait+10000);
 	        res = dxchg.GetResults();
               }
-
-              // 	Simple.DumpInt(0xAAAAAAAA);
-              //  Simple.DumpInt(done);
-               // Simple.DumpInt(0xAAAAAAAA);
        		buf_drawdone[0]=done;
 
 		wr=0;
@@ -177,9 +151,6 @@ public class movetonew
                 stream_ch_drawdone.Invalidate();
 
 		Simple.Sleep(1000);
-              //	Simple.DumpInt(0xBBBBBBBB);
-              //  Simple.DumpInt(done);
-              //  Simple.DumpInt(0xBBBBBBBB);
      		rd=0;
 		int ccnt = 0;
                 for(;(buf_stop[0]!=stop) ;)

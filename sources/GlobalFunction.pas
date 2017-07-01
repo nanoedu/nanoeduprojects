@@ -120,6 +120,8 @@ function  GetDeviceInterfaceName:string;
 function  GetDeviceName:integer;
 procedure SetDeviceName(flg:integer);
 function  GetSEMConfigPath:string;
+function  GetControllerType:boolean;
+procedure SetControllerType;
 procedure SetSEMConfigPath(path:string);
 function  GetflgChangeUserLevel:integer;
 procedure SetflgChangeUserLevel;
@@ -661,6 +663,50 @@ begin
     iniCSPM.Free;
    end;
 end;
+function GetControllerType:boolean;
+ var SFile:string;
+    iniCSPM:TiniFile;
+begin
+  sFile:=ConfigIniFilePath+ConfigController;
+ if (not FileExists(sFile)) then
+  begin
+ (*   cFileNameDef:=ConfigDefIniFilePath+ ConfigDefIniFile;
+     if (not FileExists(cFileNameDef)) then
+      begin
+       NoFormUnitLoc.silang1.ShowMessage(strcom7{'No Default Config Ini File '}+cFileNameDef+strcom10);
+       Application.Terminate;
+      end
+      else
+      if fileexists(ExeFilePath+ConfigDefIniFile)
+            then  FileCopyStream(ExeFilePath+ConfigDefIniFile,cFileName);
+            *)
+     result:=false;
+  end;
+    iniCSPM:=TIniFile.Create(sFile);
+  try
+    with iniCSPM do
+    begin
+      if SectionExists ('Driver') then  result:=boolean(ReadInteger('Driver','new',1))
+    end;
+   finally
+    iniCSPM.Free;
+   end;
+end;
+procedure SetControllerType;
+ var SFile:string;
+    iniCSPM:TiniFile;
+begin
+  sFile:=ConfigIniFilePath+ConfigController;
+  iniCSPM:=TIniFile.Create(sFile);
+  try
+    with iniCSPM do
+    begin
+      if SectionExists ('Driver') then  WriteInteger('Driver','new',integer(flgNewDriver))
+    end;
+   finally
+    iniCSPM.Free;
+   end;
+end;
 procedure SetSEMConfigPath(path:string);
  var SFile:string;
     iniCSPM:TiniFile;
@@ -973,6 +1019,20 @@ procedure GetScriptsName;
  var SFile:string;
     iniCSPM:TiniFile;
 begin
+ flgNewdriver:=GetControllerType;
+   if flgNewdriver then
+     begin
+          ConfigIniFile:=       'SPMConfignewdrv.ini';
+          ConfigDefIniFile:=    'SPMConfigDefnewdrv.ini';
+          mod512corr:=0;   // дополнительный элемент, чтобы исключить  передачу кол-ва
+      end
+      else
+      begin
+          mod512corr:=1;   // дополнительный элемент, чтобы исключить  передачу кол-ва
+          ConfigIniFile:=       'SPMConfig.ini';
+          ConfigDefIniFile:=    'SPMConfigDef.ini';
+        end;
+
   sFile:=GetConfigFileName;
     iniCSPM:=TIniFile.Create(sFile);
   try
@@ -1887,6 +1947,7 @@ begin
        ScannerIniFilesPath:='';
        PaletteIniFile:=   'SPMPalettes.ini';
        PaletteDefIniFile:='SPMPalettesDef.ini';
+
        case flgUnit of
 baby,
 Nano,

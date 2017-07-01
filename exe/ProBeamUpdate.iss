@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=ProBeam
-AppVerName=ProBeam ver 17.01.13.21
-OutputBaseFilename=ProBeamUpdate-17.01.13.21
+AppVerName=ProBeam ver 17.01.13.48
+OutputBaseFilename=ProBeamUpdate-17.01.13.48
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -35,12 +35,14 @@ Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescri
  
 [Files]
 Source: "ProBeam.exe";   DestDir: "{app}"; Flags: ignoreversion
+Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "SPMConfignewdrv.ini"; DestDir: "{app}";   Flags: ignoreversion;
+Source: "SPMConfigDefnewdrv.ini"; DestDir: "{app}";   Flags: ignoreversion;
+Source: "SPMController.ini"; DestDir: "{app}";   Flags: ignoreversion;
+Source: "SPMControllerdef.ini"; DestDir: "{app}";   Flags: ignoreversion;
+Source: "SPMConfigUsersNanoTutor.ini";    DestDir: "{userappdata}\NanoTutor"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
+Source: "SPMConfigDefUsersNanoTutor.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
 Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
-Source: "SPMConfig.ini"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
-;Source: "SPMConfigUsersProBeam.ini";    DestDir: "{userappdata}\ProBeam"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
-Source: "SPMConfigDefUsersProBeam.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
-;Source: "scheme\*.bin"; DestDir: "{app}\scheme"; Flags: ignoreversion recursesubdirs;
 [INI]
 [Icons]
 [Registry]

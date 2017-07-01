@@ -84,7 +84,7 @@ if CreateChannels(AlgParams.NChannels) then
          Formlog.memolog.Lines.add('Channel data; Elements='+inttostr(NChElements)+'size='+inttostr(ElementSize));
       {$ENDIF}
      nread:=0;
-   while (not Terminated) and (CurrentCycle<ScanParams.CycleCount) and (not flgEnd) do
+  while (not Terminated) and (CurrentCycle<ScanParams.CycleCount) and (not flgEnd) do
     begin
       nread:=1;
       if FlgStopJava then
@@ -119,8 +119,12 @@ if CreateChannels(AlgParams.NChannels) then
       //      if flgCurrentUserLevel<>Demo then StopBuf^:=done;
             sleep(100);
           until  (PIntegerArray(DoneBuf)[0]=done) or (count=20);
-         if PIntegerArray(DoneBuf)[0]=done then   flgEnd:=true; //stop button press       stop scanning
+         if PIntegerArray(DoneBuf)[0]=done then
+         begin
+           flgEnd:=true; //stop button press       stop scanning
+           break;
          end;
+       end; //stopjava
     // sleep(3000);
      sleep(GETCOUNT_DELAY);
      hr:=arPCChannel[ch_Data_out].ChannelRead.Get_Count(nread);     //get new data count

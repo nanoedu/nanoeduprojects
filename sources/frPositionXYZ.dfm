@@ -826,8 +826,8 @@ object ScannerPositionXYZ: TScannerPositionXYZ
           Width = 478
           Height = 49
           Align = alBottom
-          ButtonHeight = 46
-          ButtonWidth = 82
+          ButtonHeight = 44
+          ButtonWidth = 84
           Color = 14013909
           DisabledImages = Main.ImageList24
           DrawingStyle = dsGradient
@@ -859,7 +859,7 @@ object ScannerPositionXYZ: TScannerPositionXYZ
           end
           object StartBtnXFastM: TToolButton
             Tag = 2
-            Left = 75
+            Left = 76
             Top = 0
             AutoSize = True
             Caption = '  - X &Fast  '
@@ -869,7 +869,7 @@ object ScannerPositionXYZ: TScannerPositionXYZ
             OnClick = StartBtnXMClick
           end
           object ToolButton9: TToolButton
-            Left = 137
+            Left = 141
             Top = 0
             Width = 31
             AllowAllUp = True
@@ -880,7 +880,7 @@ object ScannerPositionXYZ: TScannerPositionXYZ
           end
           object StopBtnX: TToolButton
             Tag = 5
-            Left = 168
+            Left = 172
             Top = 0
             AutoSize = True
             Caption = '         &Stop        '
@@ -891,7 +891,7 @@ object ScannerPositionXYZ: TScannerPositionXYZ
             OnClick = StopBtnXClick
           end
           object ToolButton11: TToolButton
-            Left = 254
+            Left = 260
             Top = 0
             Width = 33
             Caption = 'ToolButton4'
@@ -901,7 +901,7 @@ object ScannerPositionXYZ: TScannerPositionXYZ
           end
           object StartBtnXFastP: TToolButton
             Tag = 4
-            Left = 287
+            Left = 293
             Top = 0
             AutoSize = True
             Caption = '  X  F&ast  '
@@ -914,7 +914,7 @@ object ScannerPositionXYZ: TScannerPositionXYZ
           end
           object StartBtnXP: TToolButton
             Tag = 3
-            Left = 344
+            Left = 353
             Top = 0
             AutoSize = True
             Caption = '  X  S&low   '

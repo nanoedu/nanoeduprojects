@@ -32,7 +32,7 @@ uses
        //NE II
     ElementSize:Integer;
     nElements,CurChElements:Integer;
-    mod512corr:integer;
+  //  mod512corr:integer;
     ErrorController:boolean;
   protected
     procedure Execute; override;
@@ -148,9 +148,7 @@ begin
   // FOR MODEL !!??//
      //  value:=CurrentPoint;
        TempAquiData[i]:=value;
-       if value=9999 then
-                 inc(counterr);
-
+       if value=9999 then       inc(counterr);
        if  CurrentPoint>=ScanParams.ScanPoints then
          begin
            P0:=CurrentPoint-ScanParams.ScanPoints;
@@ -257,8 +255,8 @@ var
    if currentUserLevel = 'Demo'  then
   calcDemoImitationParams(fsourceScanrate, fSourceFBGain, fSourceLithoAction, smooth0_nm, noise0_discr, noise_speed0_discr, depth0_nm,
                                                     lithodepth0_nm);
-  if flgCurrentUserLevel = demo then mod512corr:=0
-    else mod512corr:=1;
+  if flgCurrentUserLevel = demo then mod512corr:=0 ;
+//    else mod512corr:=1;
    SetScanNormData(ScanNormData);
    if flgRenishawUnit  then
           begin
@@ -289,7 +287,7 @@ var
    ScanNormData.previousMax:=ScanNormData.datmax;
    ScanNormData.previousDZ:=ScanNormData.ScaleZ0;
    ScanFlg:=False;
-   PointDrawS:=ScanParams.ScanLines div 100;
+   PointDrawS:=ScanParams.ScanLines div 30;//100;
    if PointDrawS<1 then PointDrawS:=1;
    PointDrawPl:=PointDrawS;
 ////NE II

@@ -1,4 +1,5 @@
-//110407
+
+
 unit frExperimParams;
 
 interface
@@ -213,6 +214,8 @@ uses
     Label44: TLabel;
     LblEditRateLimitParam: TLabeledEdit;
     LblEditFastDelay: TLabeledEdit;
+    ComboBoxNewDrv: TComboBox;
+    Label45: TLabel;
     procedure cbBufferLenChange(Sender: TObject);
     procedure EdLineToLineTimeKeyPress(Sender: TObject; var Key: Char);
     procedure EdRenishawPeriodKoefKeyPress(Sender: TObject; var Key: Char);
@@ -311,6 +314,7 @@ uses
     procedure EditIMaxCutChange(Sender: TObject);
     procedure LblEditRateLimitParamKeyPress(Sender: TObject; var Key: Char);
     procedure LblEditFastDelayKeyPress(Sender: TObject; var Key: Char);
+    procedure ComboBoxNewDrvChange(Sender: TObject);
 //    procedure BitBtn2Click(Sender: TObject);
   private
       { Private declarations }
@@ -2285,9 +2289,16 @@ begin
  ScanParams.flgTopoLevelDel:=not boolean(ComboBoxLvlDel.Itemindex);
 end;
 
+procedure TApproachOpt.ComboBoxNewDrvChange(Sender: TObject);
+begin
+ flgNewDriver:=boolean(ComboBoxNewdrv.ItemIndex);
+  SetControllerType;
+ GetScriptsName;
+end;
+
 procedure TApproachOpt.EdSensYKeyPress(Sender: TObject; var Key: Char);
 begin
-       if not(Key in ['0'..'9',#8,decimalseparator]) then Key :=#0;
+     if not(Key in ['0'..'9',#8,decimalseparator]) then Key :=#0;
 end;
 
 procedure TApproachOpt.EdSensXKeyPress(Sender: TObject; var Key: Char);
@@ -2604,6 +2615,7 @@ MicProbe:begin
 
         end;
           end;
+    ComboBoxNewDrv.ItemIndex:=integer(flgNewdriver);
     ApproachParamsEdited:=ApproachParams;
     flgReLoadSpline:=False;
     SetScannerNumSheetInit;

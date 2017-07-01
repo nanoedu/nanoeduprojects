@@ -871,9 +871,9 @@ end;   {ReadRenishawData}
 
 
  procedure TExperiment.PrepareSaveData;
- var      maxScanData, minScanData, min:datatype;
-                  j,i:integer;
-
+ var     maxScanData, minScanData, min:datatype;
+         j,i:integer;
+         val:integer;
  begin
  //   maxScanData:=AQuiTopo.max;    // Закомментировано 06/08/2013
   
@@ -894,7 +894,10 @@ end;   {ReadRenishawData}
    min:=AQuiAdd.DataMin;
    for j:=0 to AQuiAdd.Ny-1 do
     for i:=0 to AQuiAdd.Nx-1  do
-      AQuiAdd.Data[i,j]:=round(360*(AQuiAdd.Data[i,j]-min)/(MaxDATATYPE-MinDATATYPE));        //0212
+    begin
+      val:= round(360*(AQuiAdd.Data[i,j]-min)/(MaxDATATYPE-MinDATATYPE));
+      AQuiAdd.Data[i,j]:=datatype(val);//round(360*(AQuiAdd.Data[i,j]-min)/(MaxDATATYPE-MinDATATYPE));        //0212
+    end;
   end;
 end;
 

@@ -3,9 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=ProBeam
-AppVerName=ProBeam ver 17.01.13.26
-OutputBaseFilename=ProBeam-17.01.13.26
-AppPublisher=NT-SPb Inc.
+AppVerName=ProBeam ver 17.01.13.40
+OutputBaseFilename=ProBeam-17.01.13.40
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
 AppUpdatesURL=http://www.ntspb.ru
@@ -172,12 +171,12 @@ Root: HKCR; Subkey: "ProBeamSpm\shell\open\command"; ValueType: string; ValueNam
 ; NOTE: The following entry contains an English phrase ("Launch"). You are free to translate it into another language if required.
 ;Filename: "{app}\flashplayer\rus\PotPlayer_x86_Rus.exe";   Description: "Install flash player";  check: IsX32;   Flags:  waituntilterminated postinstall skipifsilent;
 ;Filename: "{app}\flashplayer\Install_flash_player_11x32.exe";   Description: "Install flash player Active X component"; Flags:  waituntilterminated postinstall skipifsilent;
-;Filename: "{app}\flashplayer\KMPlayer.exe";                Description: "Install flash player";                  Flags:  waituntilterminated postinstall skipifsilent;
 ;Filename: "{app}\PowerPointViewer\PowerPointViewer.exe";   Description: "Install PowerPoint viewer";             Flags:  waituntilterminated postinstall skipifsilent;
 Filename: "{app}\VCredistr\install.exe";   Description: "Launch VC8 redistributive pack";                          Flags:  waituntilterminated postinstall skipifsilent ;
 Filename: "{app}\register.bat";   Description: "Launch register ProBeam server";          check: IsX32;          Flags:  waituntilterminated postinstall skipifsilent ;
 Filename: "{app}\register64.bat"; Description: "Launch register ProBeam server";          check: IsWin64;        Flags:  waituntilterminated postinstall skipifsilent ;
 Filename: "{app}\flashplayer\Install_flashplayer_11.exe";       Description: "Install flash player Active X component"; Flags:  waituntilterminated postinstall skipifsilent;
+Filename: "{app}\flashplayer\vlc.exe";                Description: "Install  video player";                  Flags:  waituntilterminated postinstall skipifsilent;
 Filename: "{app}\AcrobatReader\setup.exe";            Description: "Install AcrobatReader";                   Flags:  waituntilterminated postinstall skipifsilent;
 Filename: "{app}\ImageAnalysis\ImageAnalysis.exe";              Description: "Install ImageAnalysis";                   Flags:  waituntilterminated postinstall skipifsilent;
 Filename: "{app}\ProBeam.exe";                                Description: "Launch ProBeam";                        Flags: nowait postinstall skipifsilent

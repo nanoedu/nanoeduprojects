@@ -7,7 +7,7 @@ uses Classes,Windows,Controls,Graphics,Messages,GlobalType,SysUtils;
 
   const
         ConfigMainForm:string    =   'MainForm.ini';
-        ConfigIniFile:string =       'SPMConfig.ini';
+        ConfigController:string    = 'SPMController.ini';
         ConfigHeadIniFile:string =   'SPMConfigHead.ini';
         ConfigUsersIniFile:string=   'SPMConfigUsers.ini';
         ScannerReniSIniFile:string=  'SPMReniShaw.ini';
@@ -16,16 +16,15 @@ uses Classes,Windows,Controls,Graphics,Messages,GlobalType,SysUtils;
         ScannerDefIniFileX:string =  'SPMScannerDef.ini';
         ScannerDefIniFileY:string =  'SPMScannerYDef.ini';
         ControllerIniFile:string=    'SPMController.ini';
-        ConfigDefIniFile:string =    'SPMConfigDef.ini';
         ConfigUsersDefIniFile:string='SPMConfigDefUsers.ini';
         ControllerDefIniFile:string= 'SPMControllerDef.ini';
         FourierFiltTemplFile:string= 'FourierFiltTemplFile.txt';
         ConfigLabListFile:string=    'SPMDemoListLabs.ini';
         UpdatesInifile:string=       'spmupdates.ini' ;
-        OscConfigIniFile:string=            'SPMOSC.ini';
-        OscDefConfigIniFile:string=         'SPMOSCDef.ini';
-        PIDDefConfigIniFile:string=         'SPMPIDDEf.ini';
-        PIDConfigIniFile:string=            'SPMPID.ini';
+        OscConfigIniFile:string=     'SPMOSC.ini';
+        OscDefConfigIniFile:string=  'SPMOSCDef.ini';
+        PIDDefConfigIniFile:string=  'SPMPIDDEf.ini';
+        PIDConfigIniFile:string=     'SPMPID.ini';
 //        ConfigLabListFileSTM:string=    'SPMDemoListLabSTM.ini';
 //  Demo Files Name
  const DemoTopoSFMFile:string=          'DemoTopoSFM.spm';
@@ -64,7 +63,9 @@ uses Classes,Windows,Controls,Graphics,Messages,GlobalType,SysUtils;
   const crPen = 7;
   const crCrip = 8;
 
- var   flgNewVersion:boolean;
+ var
+       flgNewdriver:boolean;
+       flgNewVersion:boolean;
        flgNew_XYBegin :boolean;     // 11/02/13
        flgStopPressed :boolean;     // 11/02/13
        FlgStopMulti:Boolean;
@@ -142,7 +143,8 @@ uses Classes,Windows,Controls,Graphics,Messages,GlobalType,SysUtils;
        sLanguage:string;
        PathFlash:string;
        CurrentUserLevel:string;
-
+       ConfigIniFile:string;
+       ConfigDefIniFile:string;
        ConfigIniFilePath:string;
        ConfigDefIniFilePath:string;
        ConfigUsersIniFilePath:string;

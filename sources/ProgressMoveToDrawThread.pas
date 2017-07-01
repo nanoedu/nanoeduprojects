@@ -56,13 +56,11 @@ procedure TThreadProgressMoveTo.Execute;
        begin
            nread:=1;
            hr:=arPCChannel[ch_Draw_done].ChannelRead.Read(DoneBuf,nread);     //read stop channel  if stopbutton pressed  pStopval^=done
-            {$IFDEF DEBUG}
-             if Failed(hr) then Formlog.memolog.Lines.add(ProgressMoveTo.siLangLinked1.GetTextOrDefault('IDS_1' (* 'error read done channel' *) )+ProgressMoveTo.siLangLinked1.GetTextOrDefault('IDS_2' (* 'hr=' *) )+inttostr(hr))
-                           else Formlog.memolog.Lines.add(ProgressMoveTo.siLangLinked1.GetTextOrDefault('IDS_3' (* 'read done channel =' *) )+inttostr(PintegerArray(DoneBuf)[0]));
-            {$ENDIF}
-
-
-       if (PIntegerArray(DoneBuf)[0]=done)  then   flgEnd:=true;
+       {$IFDEF DEBUG}
+          if Failed(hr) then Formlog.memolog.Lines.add(ProgressMoveTo.siLangLinked1.GetTextOrDefault('IDS_1' (* 'error read done channel' *) )+ProgressMoveTo.siLangLinked1.GetTextOrDefault('IDS_2' (* 'hr=' *) )+inttostr(hr))
+                     else Formlog.memolog.Lines.add(ProgressMoveTo.siLangLinked1.GetTextOrDefault('IDS_3' (* 'read done channel =' *) )+inttostr(PintegerArray(DoneBuf)[0]));
+       {$ENDIF}
+        if (PIntegerArray(DoneBuf)[0]=done)  then   flgEnd:=true;
        {$IFDEF DEBUG}
           Formlog.memolog.Lines.add(ProgressMoveTo.siLangLinked1.GetTextOrDefault('IDS_7' (* 'move to' *) ));
        {$ENDIF}

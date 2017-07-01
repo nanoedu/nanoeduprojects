@@ -606,13 +606,14 @@ scEndScroll:begin
                 end;
 end;
 
-procedure TAutoResonance.ScrollBarVScroll(Sender: TObject;
-  ScrollCode: TScrollCode; var ScrollPos: Integer);
+procedure TAutoResonance.ScrollBarVScroll(Sender: TObject;  ScrollCode: TScrollCode; var ScrollPos: Integer);
 var val:word;
      v:single;
 begin
+
+
        case ScrollCode of
- scTrack,
+(* scTrack,
  scLineUp,
  scLineDown:
             begin      // Vt
@@ -629,6 +630,7 @@ begin
                                                  end;
 
              end;
+             *)
  scEndScroll:
              begin
                V:=ScrollPos/TransformUnit.BiasV_d;
@@ -643,8 +645,7 @@ begin
                                                    if  NanoEdu.BramUflg=0 then NanoEdu.Bias:=apiType(ScrollPOS)
                                                                           else Nanoedu.Method.SetUsersParams;
                                                  end;
-
-             end;
+                end;
                      end;
  end;
 
@@ -773,8 +774,8 @@ begin
   BitBtnOK.visible:=false;
 
 
-  Height:=520;
-  if flgUnit=Pipette then  Height:=580;
+  Height:=520;//520;
+  if (flgUnit=Nano) or (flgUnit=NanoTutor) or (flgUnit=Pipette) then  Height:=580;
   Width:=800;
   ChartPanel:= TChartResonance.Create(TComponent(Self));
   ChartPanel.OnSetPriborParameters:= SetPriborParameters;
@@ -864,14 +865,14 @@ with ScrollBarT do
    Position:=Resonanceparams.Delay;
   end;
   PanelV.Visible:=false;
-  if flgUnit=Pipette  then
+  if (flgUnit=Pipette) or (flgUnit=nanoTutor) or (flgUnit=Nano) then
   begin
    panelVPipette.visible:=true;
    PanelV.Visible:=true;
    with ScrollBarV do
    begin
-      max:=$7FFF;
-      min:=-1;//$8000;
+      min:=-32768;
+      max:=32767;
       Position:=round(ApproachParams.BiasV*TransformUnit.BiasV_d);
       LargeChange:=10;
       Smallchange:=1;
@@ -1447,7 +1448,13 @@ begin
     if (ssAlt in Shift) then
     begin
       flgDragForm:=true;
-    end
+    end;
+    if (ssCtrl in Shift) then
+     if (Key=ord('V')) then
+      begin
+          PanelV.Visible:= not PanelV.Visible;
+          panelVPipette.visible:=not panelVPipette.visible;
+      end;
 end;
 
 procedure TAutoResonance.FormKeyUp(Sender: TObject; var Key: Word;  Shift: TShiftState);

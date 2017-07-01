@@ -987,8 +987,8 @@ var
   ScanAreaBeginYF:integer;
   MStepsX,MStepsY:integer;
   PATH_SPDDemo:integer;
-  GETCOUNT_DELAY:integer; // 09/09/2013 интервал (мс), через который вызывается
-                          //            ф-ция GetCount
+ GETCOUNT_DELAY:integer; // 09/09/2013 интервал (мс), через который вызывается
+   mod512corr:integer;                       //            ф-ция GetCount
   JMPX,JMPY:TMas1;
   XYSp,YYsp,BY,CY,DY,
   XXsp,YXsp,BX,CX,DX :ArraySpline;

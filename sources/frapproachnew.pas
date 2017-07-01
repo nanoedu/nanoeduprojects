@@ -1,5 +1,5 @@
-//110407
-
+//230617
+  //
 unit frapproachnew;
 
 interface
@@ -180,7 +180,7 @@ var
  val,i:integer;
      z:apitype;
      hr:Hresult;
-     lFlgStatusStep:apitype;
+     lFlgStatusStep:integer;
   begin
  if  (mDrawing=AMessage.WParam)then
   begin
@@ -245,8 +245,8 @@ var
                ApproachActive :=true;
            //    NanoEdu.RisingToStartPoint(20);
            //edited 14/03/17
-               if (flgUnit=ProBeam) then   lFlgStatusStep:=NanoEdu.RisingToStartPoint(30) else
-                if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(30)       // need to known!!!!!!!!!!!!!!
+               if (flgUnit=ProBeam) then   lFlgStatusStep:=NanoEdu.RisingToStartPoint(100) else
+                if (flgUnit=MicProbe) then lFlgStatusStep:=NanoEdu.RisingToStartPoint(100)       // need to known!!!!!!!!!!!!!!
                                       else lFlgStatusStep:=NanoEdu.RisingToStartPoint(30);   //changed 220316
                Sleep(1000);
                StartBtnFastUp.Down:=false;
@@ -1181,7 +1181,7 @@ Nano,NanoTutor,ProBeam:begin
               LabelCur.Visible:=true;//False;
               SignalsMode.tbSTM.TabVisible:=False;
               SignalsMode.tbSFM.TabVisible:=True;
-              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam) or (flgUnit=Nano) or (flgUnit=NanoTutor);
+              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam);// or (flgUnit=Nano) or (flgUnit=NanoTutor);
               SignalsMode.LabelFB.Caption:=FloatToStrf(PIDParams.Ti, fffixed,5,2);
               {$IFDEF FULL}
                   if flgUnit=Pipette  then
@@ -1328,8 +1328,14 @@ end;
 procedure TApproach.StartBtnOneStepDownClick(Sender: TObject);
 var ltag:word;
 begin
+
+TControl(sender).Enabled:=false;
  ltag:=TControl(Sender).tag;
-if (ltag = 3) and  (not CheckResonance) then exit;
+if (ltag = 3) and  (not CheckResonance) then
+begin
+ TControl(sender).Enabled:=true;
+ exit;
+end;
 
 TControl(sender).Enabled:=false;
 // ToolBarControl.enabled:=false;     //161211
@@ -1361,11 +1367,11 @@ TControl(sender).Enabled:=false;
       case  ltag of
 6:begin
      //Rising
-     OneStep(1);
+     OneStep(2);
   end;
 3:begin
 
-     OneStep(-1);
+     OneStep(-2);
   end;
      end;
  AddCaption:='';

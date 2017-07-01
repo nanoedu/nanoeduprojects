@@ -1776,7 +1776,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
               TabSheetFastTopo.HighLighted:=False;
               TabSheetLitho.HighLighted:=False;
      //         SignalsMode.tbSFMCUR.TabVisible:= (flgUnit=ProBeam);
-              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam) or (flgUnit=Nano) or (flgUnit=NanoTutor);
+              SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam);// or (flgUnit=Nano) or (flgUnit=NanoTutor);
               SignalsMode.tbSFM.TabVisible:=True;
               SignalsMode.tbSTM.TabVisible:=False;
              if ApproachParams.BiasV<0 then  SignalsMode.btnBiasSFM.Font.Color:=clBlue
@@ -2546,6 +2546,9 @@ flgShowLine:=True;
        while assigned(ProgressMoveTo) do
            begin sleep(10); application.processmessages; end; //23/11/12
      end;
+//        RestoreStartSFM;    //  Для отладки движения в точку
+//          exit;            //   Для отладки движения в точку
+
 //   FreeAndNil(NanoEdu.Method);         //23/11/12
  //nanoeduII
   error:=0;
@@ -4315,7 +4318,7 @@ OneX:begin
                             if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
                                if  FlgCurrentUserLevel<>Demo then
                                begin
-                                CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate,ScanParams.ScanRateBW);
+                                 if (not flgNewDriver) then CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate,ScanParams.ScanRateBW);
                                end;
                              SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                             SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
@@ -4327,7 +4330,7 @@ OneX:begin
                                    if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
                                    if  FlgCurrentUserLevel<>Demo then
                                    begin
-                                    CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate,ScanParams.ScanRateBW);
+                                    if (not flgNewDriver) then CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate,ScanParams.ScanRateBW);
                                    end;
                                    SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                                    SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
@@ -4366,7 +4369,7 @@ OneY: begin
                           if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
                                   if  FlgCurrentUserLevel<>Demo then
                                   begin
-                                   CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,ScanParams.ScanRate,ScanParams.ScanRateBW);
+                                   if (not flgNewDriver) then CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,ScanParams.ScanRate,ScanParams.ScanRateBW);
                                   end;
                            SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                            SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
@@ -4377,7 +4380,7 @@ OneY: begin
                               begin
                                 if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
                                    if  FlgCurrentUserLevel<>Demo then
-                                    CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,ScanParams.ScanRate,ScanParams.ScanRateBW);
+                                    if (not flgNewDriver) then CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,ScanParams.ScanRate,ScanParams.ScanRateBW);
                                 SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
                                 SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
                               end

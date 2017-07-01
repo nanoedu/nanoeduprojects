@@ -65,10 +65,9 @@ procedure    TProgressMoveTo.StartMoveDraw(x0,y0,xend,yend:integer);
    z:smallint;
    zs,zx:single;
 begin
-           timemove:=0;
-           v:=Scanparams.ScanRate*TransformUnit.XPnm_d;
-       if V>0 then
-           timemove:=(abs(x0-xend)+abs(y0-yend))/v ;
+       timemove:=0;
+       v:=Scanparams.ScanRate*TransformUnit.XPnm_d;
+       if V>0 then timemove:=(abs(x0-xend)+abs(y0-yend))/v ;
        if timemove=0 then timemove:=1;
            Present:= Now;
            DecodeTime(Present, Hour, Minut, Sec, MSec);
@@ -87,14 +86,14 @@ begin
    if not assigned(ThreadMoveToProgress) or (not ThreadMoveToProgressActive) then // make sure its not already running
        begin
         ThreadMoveToProgress:=  TThreadProgressMoveTo.Create;
-     {$IFDEF DEBUG}
+   {$IFDEF DEBUG}
         Formlog.memolog.Lines.add('Start progress thread');
    {$ENDIF}
         ThreadMoveToProgressActive := True;
        end ;
-
  end;
-  procedure TProgressMoveTo.ThreadDone(var AMessage: TMessage);  // keep track of when and which thread is done executing
+
+ procedure TProgressMoveTo.ThreadDone(var AMessage: TMessage);  // keep track of when and which thread is done executing
    begin
   if  (mDrawing=AMessage.WParam) then
   begin

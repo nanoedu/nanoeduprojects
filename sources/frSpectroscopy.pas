@@ -917,43 +917,6 @@ if not assigned(Approach) then
       NanoEdu.SpectroscopyMethod;
      if NanoEdu.Method.Launch<>0 then
       begin FreeAndNil(NanoEdu.Method); ReStoreStart; exit; end;
-//    end;
-(*      DrawGraphics(i, (Nanoedu.Method as TSpectroscopySFM).U, ZStepMin, StepValueMin);
-      if ArChart[i].flgFilter then
-      begin
-        ArChart[i].FiltrAverage;
-        ArChart[i].SetFindLine_pos(0);
-      end;
-      FreeAndNil(NanoEdu.Method);
-      Application.ProcessMessages;
-
-   end;    //i    { TODO : 071007 }     //move to the x0,y0
-    while assigned(nanoedu.method) do Application.ProcessMessages;   //wait for  end scanning
-       NanoEdu.ScanMoveToX0Y0Method(ScanParams.Xbegin,ScanParams.Ybegin);
-       NanoEdu.Method.Launch;
-       while assigned(ProgressMoveTo) do application.processmessages;
-       // FreeAndNil(NanoEdu.Method);
-
-   with PageControl do
-  begin
-    for i:=0 to PageCount-1 do Pages[i].HighLighted:=False;
-   Activepage:= ArTabSheet[0];
-   ActivePage.HighLighted:=True;
-  end;
-  ReStoreStart;
-  BitBtnSaveClick(Sender);
-//   Main.ActionExporttoMDT.enabled:=true;
- flgSpectrDone:=true;
-
-// Main.ActionExport.enabled:=true;
-// Main.ActionSaveAs.enabled:=true;
-
- if assigned(Scanwnd) then
- begin
-  Scanwnd.SaveExpBtn.Enabled:=True;
-  Scanwnd.flgBlickSave:=true;
- end;
- *)
  except
    on EConvertError do
     begin end;

@@ -100,7 +100,8 @@ end;
 procedure TScanMethod.SetPathSpeed;
 var val:integer;
 begin
- val:=round(2*((ScanParams.DiscrNumInMicroStep shl 16)/ScanParams.MicrostepDelay));
+// val:=round(2*((ScanParams.DiscrNumInMicroStep shl 16)/ScanParams.MicrostepDelay));
+ val:=round ((1 shl 17) /ScanParams.MicrostepDelay) shl 14;
  SetCommonVar(U_VECTOR,val);
 //  val:=round(2*((ScanParams.DiscrNumInMicroStep shl 16)/ScanParams.MicrostepDelayBW));
 // SetCommonVar(U_VECTOR_BW,val);

@@ -106,7 +106,6 @@ begin
      FreeAndNil(NanoEdu.Method);
      NanoEdu.SetDACZero;
  *)
-
      FlgStopScan:=True;
      StartBtn.Enabled := True;
      RestoreStart;
@@ -122,10 +121,12 @@ end;
 procedure TFormScannerTraining.StartBtnClick(Sender: TObject);
 var Max_Count,Pt,error:integer;
 begin
+     StartBtn.Enabled:=False;
   if FlgBlickApply then
        begin
-           siLangLinked1.MessageDLG(strt0{'You have changed Parameters. Press Apply button, before start Trainning'}, mtwarning,[mbOK],0);
-           exit
+        siLangLinked1.MessageDLG(strt0{'You have changed Parameters. Press Apply button, before start Trainning'}, mtwarning,[mbOK],0);
+        StartBtn.Enabled:=true;
+        exit;
        end;
  (* if not FlgStopScan then //Stop    Scanning
    begin
@@ -136,11 +137,11 @@ begin
    end *)
  if  FlgStopScan then
    begin
+  //   StartBtn.Enabled:=False;
      FlgStopJava:=False;
      FlgStopScan:=False;
      ProgressBar.Position:=0;
      ApplyBitBtn.Enabled:=False;
-     StartBtn.Enabled:=False;
      StartBtn.Down:=true;   StopBtn.Down:=false;
      cbTrainingRate.Enabled:=false;
      lblTime.enabled:=false;
@@ -153,6 +154,7 @@ begin
     NanoEdu.ScannerTrainnigMethod;
   if NanoEdu.Method.Launch<>0 then
    begin FreeAndNil(NanoEdu.Method); RestoreStart; exit end;
+    StopBtn.enabled:=true;
 //     StartBtn.Enabled := True;
   end;
 end;
@@ -160,6 +162,7 @@ procedure TFormScannerTraining.RestoreStart;
 begin
      StartBtn.Enabled := True;
      StartBtn.Down:=false;   StopBtn.Down:=true;
+     StopBtn.Enabled := false;
      ApplyBitBtn.Enabled:=True;
      cbTrainingRate.Enabled:=true;
      lblTime.enabled:=true;
@@ -254,6 +257,7 @@ procedure TFormScannerTraining.StopBtnClick(Sender: TObject);
 begin
  if not FlgStopScan then //Stop    Scanning
    begin
+     StopBtn.enabled:=false;
      FlgStopJava:=true;
      StartBtn.Enabled:=False;
   //   ApplyBitBtn.Enabled:=True;

@@ -369,11 +369,11 @@ function  GetCurProc:DWORD;
 begin
 
 end;
+
 function  GetSerialNumber(str : PWideChar; len: pDWORD):DWORD;
 begin
 
 end;
-
 
 function  ScanStart:DWORD;
 begin
@@ -864,8 +864,8 @@ end;
 function GetCommonVar(CommonVarName:widestring):apitype;
 var   val:int64;
        IU:IUnknown;
-     pVal: OleVariant;
-     label 100;
+     pVal:OleVariant;
+    label 100;
 function ReadCell:boolean;
 begin
   try

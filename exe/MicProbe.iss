@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=MicProbe
-AppVerName=MicProbe ver 17.01.13.26
-OutputBaseFilename=MicProbe-17.01.13.26
+AppVerName=MicProbe ver 17.01.13.35
+OutputBaseFilename=MicProbe-17.01.13.35
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -172,7 +172,7 @@ Root: HKCR; Subkey: "MicProbeSpm\shell\open\command"; ValueType: string; ValueNa
 ; NOTE: The following entry contains an English phrase ("Launch"). You are free to translate it into another language if required.
 ;Filename: "{app}\flashplayer\rus\PotPlayer_x86_Rus.exe";   Description: "Install flash player";  check: IsX32;   Flags:  waituntilterminated postinstall skipifsilent;
 ;Filename: "{app}\flashplayer\Install_flash_player_11x32.exe";   Description: "Install flash player Active X component"; Flags:  waituntilterminated postinstall skipifsilent;
-;Filename: "{app}\flashplayer\KMPlayer.exe";                Description: "Install flash player";                  Flags:  waituntilterminated postinstall skipifsilent;
+Filename: "{app}\flashplayer\vlc.exe";                Description: "Install video player";                  Flags:  waituntilterminated postinstall skipifsilent;
 ;Filename: "{app}\PowerPointViewer\PowerPointViewer.exe";   Description: "Install PowerPoint viewer";             Flags:  waituntilterminated postinstall skipifsilent;
 Filename: "{app}\VCredistr\install.exe";   Description: "Launch VC8 redistributive pack";                          Flags:  waituntilterminated postinstall skipifsilent ;
 Filename: "{app}\register.bat";   Description: "Launch register MicProbe server";          check: IsX32;          Flags:  waituntilterminated postinstall skipifsilent ;

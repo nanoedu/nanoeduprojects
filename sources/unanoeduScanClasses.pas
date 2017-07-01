@@ -1,7 +1,10 @@
+//18.05.17
+// TScannerMoveXYZ setusersparam n=1->  n=3
 //corrected fast scan video or one frame
 // corrected fast scan freebuffer 28/11/16
 //  250406  correction path and buffers set
  //190213  litho changed
+
 unit uNanoEduScanClasses;
 
 interface
@@ -1136,7 +1139,7 @@ end;
   AlgorithmJava:=WideString(GetDeviceIdScript);
   InitBuffers;
  end;
-  
+
  function  TGetDeviceId.InitBuffers:integer;
  begin
     Data_out_BufferLength:=1;
@@ -1150,7 +1153,7 @@ end;
            GetDevIdThreadActive := True;
        end ;
  end;
-   
+
  constructor TGetDeviceId.Create;
  begin
    inherited Create;
@@ -1178,7 +1181,6 @@ end;
 constructor TScanMoveToX0Y0.Create(X0nm,y0nm:single);
 var t:extended;
 begin
-
  inherited Create;
                   { TODO : 041012 }
  X0:=-round((X0nm+Scanparams.xshift)*TransformUnit.XPnm_d)+CSPMSignals[8].MaxDiscr;       //discrets   add P
@@ -2874,7 +2876,9 @@ begin
      {$IFDEF DEBUG}
          Formlog.memolog.Lines.add('Start sending moverXYZ params');
     {$ENDIF}
-   arPCChannel[ch_MoverXYZUserParams].Main.Get_Id(ID);  //data out channel
+ if assigned(arPCChannel[ch_MoverXYZUserParams].Main) then
+ begin
+    arPCChannel[ch_MoverXYZUserParams].Main.Get_Id(ID);  //data out channel
    if ID=ch_MoverXYZUserParams then
    begin
     try
@@ -2892,15 +2896,15 @@ begin
 //       PMPause
      PIntegerArray(dataparam)[2]:=ScannerMoveXYZParams.Speed shl 16;
  //
- result:=true;
- errcount:=0;
- repeat
-  begin
-     flgerr:=false;
-     n:=1;
-     hr:=arPCChannel[ch_MoverXYZUserParams].ChannelWrite.Write(dataparam,n);
-     if Failed(hr) then
+     result:=true;
+     errcount:=0;
+     repeat
      begin
+      flgerr:=false;
+      n:=1; //=1 До 18.05.17    //?????? why not =3
+      hr:=arPCChannel[ch_MoverXYZUserParams].ChannelWrite.Write(dataparam,n);
+      if Failed(hr) then
+      begin
       {$IFDEF DEBUG}
        Formlog.memolog.Lines.add('error write  userparam='+inttostr(n));
        {$ENDIF}
@@ -2921,10 +2925,15 @@ begin
     end;
    end;
   end;
+ end;
 end;
 procedure TScannerMoveXYZ.StartDraw;
 begin
-
+   if not assigned(ScannerMoveXYZThread) or (not ScannerMoveXYZThreadActive) then // make sure its not already running
+       begin
+         ScannerMoveXYZThread:= TScannerMoveXYZDrawThread.Create;
+        // ScannerMoveXYZThreadActive := True;
+       end ;
 end;
 
 //APPROACH SFM-STM

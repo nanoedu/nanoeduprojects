@@ -753,7 +753,9 @@ begin
                          flgUnit:=Nano;
                          pAdapterHead^.aflgUnit:=Nano;
                         end;
-                    end;
+                        if UpperCase(ProgramName)=UpperCase('MicProbe') then
+                             if fileexists(ExeFilePath+'Data\'+'micprobe.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'micprobe.jpg');
+                        end;
              MicProbe:begin
                        if flgMotor=PiezoM then
                          if fileexists(ExeFilePath+'Data\'+'micprobe.jpg') then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'micprobe.jpg');
@@ -1659,8 +1661,7 @@ Advanced:begin
       ProBeam,MicProbe:    SetScanAreaDefR;
        end;
     end;
-
-
+ 
          //
           Voltage_toDiscr('X',0, DiscrVal, ScanAreaBeginXR)  ;     // Выход в точку 0 В по Х и Y
           Voltage_toDiscr('Y',0, DiscrVal, ScanAreaBeginYR)  ;
@@ -2801,12 +2802,21 @@ begin
    Terra:if fileexists(ExeFilePath+'Data\'+'terrahrz.jpg')         then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'terrahrz.jpg');
    baby: if fileexists(ExeFilePath+'Data\'+'babyunit.jpg')         then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'babyunit.jpg');
   grand: if fileexists(ExeFilePath+'Data\'+'nanoeduunit.jpg')      then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'nanoeduunit.jpg');
-  ProBeam: if fileexists(ExeFilePath+'Data\'+'sem.jpg')            then
+  ProBeam:begin
+           if UpperCase(ProgramName)<>UpperCase('MicProbe') then
+           begin
+           if fileexists(ExeFilePath+'Data\'+'sem.jpg')            then
             begin
               SynchroSEM.visible:=true;
                UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'sem.jpg');
             end;
-  MicProbe: if fileexists(ExeFilePath+'Data\'+'micporbe.jpg')      then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'micprobe.jpg');
+           end
+           else
+           if UpperCase(ProgramName)=UpperCase('MicProbe') then
+             if fileexists(ExeFilePath+'Data\'+'micprobe.jpg')      then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'micprobe.jpg');;
+           end;
+  MicProbe: if fileexists(ExeFilePath+'Data\'+'micprobe.jpg')
+      then UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'micprobe.jpg');
 
   Pipette:  if fileexists(ExeFilePath+'Data\'+'pipette.jpg')       then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'pipette.jpg');
                   end;
@@ -3760,7 +3770,7 @@ end;
 
 procedure TMain.UnitImageClick(Sender: TObject);
 begin
-//{$IFDEF FULL}
+{$IFDEF FULL}
 if not ToolScanBar.visible then
 begin
  FChooseUnit:=TFChooseUnit.Create(Application);
@@ -3777,7 +3787,7 @@ begin
  InitDirectories;
  InitTutor;
 end;
-//{$ENDIF}
+{$ENDIF}
 end;
 
 procedure TMain.ChooseWorkDir;
@@ -5140,7 +5150,7 @@ begin
    if Fileexists(videofile) then
    begin
     MSVideoForm:=TMSVideoFORM.Create(Application,videofile,30,true,true,false);
-    MSVideoForm.WindowState:=wsMaximized;
+    MSVideoForm.WindowState:=wsNormal;//Maximized;
     MSVideoForm.Show;//Modal;
    end;
  end;
@@ -5520,13 +5530,9 @@ end;
  Approach:=TApproach.Create(Application);
 
  Application.ProcessMessages;
-
+ if ((flgUnit=Probeam) or (flgUnit=MicProbe)) then ApproachParams.flgAutorunCamera:=false;
  if ApproachParams.flgAutorunCamera or (FlgCurrentUserLevel=DEMO) then
  begin
- // if  FlgCurrentUserLevel<>Demo then
- // begin
- //  if not boolean(flgRunFirmCamera) then
- //  begin
     h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
     if h=0  then
     begin

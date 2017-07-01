@@ -3,7 +3,7 @@ object AutoResonance: TAutoResonance
   Top = 161
   BorderIcons = [biSystemMenu]
   Caption = 'Frequency Scanning'
-  ClientHeight = 545
+  ClientHeight = 576
   ClientWidth = 845
   Color = clSilver
   Font.Charset = RUSSIAN_CHARSET
@@ -33,11 +33,12 @@ object AutoResonance: TAutoResonance
     Left = 0
     Top = 0
     Width = 200
-    Height = 545
+    Height = 576
     Align = alLeft
     BevelOuter = bvNone
     Color = 14474715
     TabOrder = 0
+    ExplicitHeight = 545
     object Panel1: TPanel
       Left = 0
       Top = 0
@@ -118,10 +119,11 @@ object AutoResonance: TAutoResonance
       Left = 0
       Top = 121
       Width = 200
-      Height = 424
+      Height = 455
       Align = alClient
       Color = 14474715
       TabOrder = 1
+      ExplicitHeight = 424
       object PanelManual: TPanel
         Left = 1
         Top = 1
@@ -333,6 +335,8 @@ object AutoResonance: TAutoResonance
               Color = clSilver
               ParentBackground = False
               TabOrder = 0
+              ExplicitLeft = -2
+              ExplicitTop = 23
               object LabelV: TLabel
                 Left = 70
                 Top = 5
@@ -341,9 +345,9 @@ object AutoResonance: TAutoResonance
                 Caption = 'LabelV'
               end
               object ScrollBarV: TScrollBar
-                Left = 29
+                Left = 4
                 Top = 24
-                Width = 121
+                Width = 187
                 Height = 17
                 Max = 32767
                 Min = -32768
@@ -426,13 +430,14 @@ object AutoResonance: TAutoResonance
     Left = 200
     Top = 0
     Width = 645
-    Height = 545
+    Height = 576
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitHeight = 545
     object PanelBottom: TPanel
       Left = 0
-      Top = 479
+      Top = 510
       Width = 645
       Height = 66
       Align = alBottom
@@ -440,6 +445,7 @@ object AutoResonance: TAutoResonance
       BevelWidth = 2
       Color = 14474715
       TabOrder = 0
+      ExplicitTop = 479
       object ToolBarOpt: TToolBar
         Left = 0
         Top = 0
@@ -497,10 +503,13 @@ object AutoResonance: TAutoResonance
       Left = 0
       Top = 0
       Width = 645
-      Height = 479
+      Height = 510
       Align = alClient
       BevelInner = bvLowered
       TabOrder = 1
+      ExplicitLeft = -3
+      ExplicitTop = -6
+      ExplicitHeight = 479
     end
   end
   object MainMenu: TMainMenu

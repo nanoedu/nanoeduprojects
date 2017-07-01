@@ -166,6 +166,7 @@ begin
 if not flgNanoeduUnitCreate then  ScannerRetract;               //230112    change 010913
   state:=Api.SMZSTATUS;
   Api.SMZSTEP:=state-NStep;    //?????  -
+  sleep(1000);
   MotorCurrentStatus:=Api.SMZSTATUS;
   while MotorCurrentStatus <>(state-NStep) do
    begin
@@ -174,7 +175,9 @@ if not flgNanoeduUnitCreate then  ScannerRetract;               //230112    chan
    end;
    // sleep(1000);
   Api.SMZSTEP:=0;   // turn off motor  and set  SMZSTATUS=current//  see setcommonvar
+ sleep(100);
  if not flgNanoeduUnitCreate then  ScannerProtract;      // 230112   change 010913
+   result:=MotorCurrentStatus;
 end;
 
 procedure TSFMNanoEdu.NormalizeUAM;
@@ -267,10 +270,27 @@ function  TSTMNanoEdu.RisingToStartPoint(Nstep:smallint):integer;
 var state:apitype;
 begin
 if not flgNanoeduUnitCreate then  ScannerRetract;               //230112
+(*  state:=Api.SMZSTATUS;
+  Api.SMZSTEP:=state-NStep;    //?????  -
+  while Api.SMZSTATUS<>(state-NStep) do
+  begin
+   sleep(100);
+   application.processmessages;
+  end;
+    Api.SMZSTEP:=0;  // turn of motor    see setcommonvar
+*)
   state:=Api.SMZSTATUS;
   Api.SMZSTEP:=state-NStep;    //?????  -
-  while Api.SMZSTATUS<>(state-NStep) do application.processmessages;
-    Api.SMZSTEP:=0;  // turn of motor    see setcommonvar
+  sleep(1000);
+  MotorCurrentStatus:=Api.SMZSTATUS;
+  while MotorCurrentStatus <>(state-NStep) do
+   begin
+    Application.Processmessages;
+    MotorCurrentStatus:=Api.SMZSTATUS;
+   end;
+   // sleep(1000);
+  Api.SMZSTEP:=0;
+  sleep(100);
 if not flgNanoeduUnitCreate then    ScannerProtract;      // 230112
 end;
 function  TSFMNanoEdu.ApproachMethod:boolean;

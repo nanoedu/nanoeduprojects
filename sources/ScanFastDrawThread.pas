@@ -22,7 +22,7 @@ uses
     ZIndicatorNormVal:single;
     ElementSize:Integer;
     nElements,CurChElements:Integer;
-    mod512corr:integer;   // дополнительный элемент, чтобы исключить  передачу кол-ва
+  //  mod512corr:integer;   // дополнительный элемент, чтобы исключить  передачу кол-ва
                           // данных, кратных 512
     XPos:integer;
     procedure  SpeedBtnView;
@@ -141,7 +141,7 @@ var
    label  100;
 begin
    ErrorController:=false;
-   mod512corr:=1;
+ //  mod512corr:=1;
    TopViewFromRGB:=$00000000;;
    TopViewToRGB:= $00FFFFFF;
    GreyEntr:=255;

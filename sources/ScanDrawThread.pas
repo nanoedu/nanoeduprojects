@@ -44,7 +44,7 @@ uses
     ElementSize:Integer;
     nElements,CurChElements:Integer;
     flgDrawVirtualLineNow :boolean;
-    mod512corr:integer;   // дополнительный элемент, чтобы исключить  передачу кол-ва
+  //  mod512corr:integer;   // дополнительный элемент, чтобы исключить  передачу кол-ва
                           // данных, кратных 512
     GetCountDelays_cnt:integer;
 
@@ -574,8 +574,8 @@ begin
                                                     lithodepth0_nm);
 // GetTimeNow(StartHour, startMin, StartSec, startMsec);
     //nanoeduII
-    if flgCurrentUserLevel = demo then mod512corr:=0
-    else mod512corr:=1;   //mod512corr:=1;
+    if flgCurrentUserLevel = demo then mod512corr:=0 ;
+ //   else mod512corr:=1;   //mod512corr:=1;
     flgDrawVirtualLineNow:=True;
    SetScanNormData(ScanNormData);
    if flgRenishawUnit then  OneLinePointsNmb:= ScanParams.ScanPoints+1

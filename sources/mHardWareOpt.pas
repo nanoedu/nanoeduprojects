@@ -55,65 +55,6 @@ procedure ConfigUsersOptLast;
 begin
 if flgCurrentUserLevel=demo then HardWareOpt.ScannerNumb:='demo';
 
-(*   sFile:=GetConfigUsersFileName;
-   iniCSPM:=TIniFile.Create(sFile);
- try
-   with iniCSPM do
-    begin
-//Physical Unit Options:
-         case FlgUnit of
-nano,Pipette:begin
-         HardWareOpt.flgFlash:=Boolean(ReadInteger('Physical Unit Options','Use Flash drive',0));
-         HardWareOpt.flgAutoScanner:=ReadInteger('Physical Unit Options','Set Scanner Number Auto',1);
-         // nanoeduII
-         HardWareOpt.flgFlash:=false;
-    //     HardWareOpt.flgAutoScanner:=1;
-         // nanoeduII
-     //  if  HardWareOpt.flgFlash then    HardWareOpt.flgAutoScanner:=1;
-           case  HardWareOpt.flgAutoScanner  of
-       0: begin      //manual
-          HardWareOpt.ScannerNumb   :=ReadString('Physical Unit Options','Scanner Number','1');
-          HardWareOpt.ElectronicNumb:=ReadString('Analog HardWare Options','Electronic Number','1');
-         end;
-       1: begin      //auto
-         // nanoeduII                                                            { TODO : 26/03/06 }
-            HardWareOpt.ElectronicNumb:='D1';
-          //        nanoeduII
-          // nanoeduII
-                                   // nanoeduII
-            HardWareOpt.ScannerNumb:=HardWareOpt.ElectronicNumb;
-          end;
-
-              end;  //case autoscanner
-      end;
-baby:  begin
-          HardWareOpt.ScannerNumb:='atom';
-
-          HardWareOpt.ElectronicNumb:='D1';
-          HardWareOpt.flgFlash:=false;
-          HardWareOpt.flgAutoScanner:=1;  //0
-          HardWareOpt.ScannerNumb:=HardWareOpt.ElectronicNumb;
-       end;
-ProBeam:  begin
-          HardWareOpt.ScannerNumb:='sem';
-      //    HardWareOpt.ElectronicNumb:='D1';
-          HardWareOpt.flgFlash:=false;
-          HardWareOpt.flgAutoScanner:=0;    //0
-      //    HardWareOpt.ScannerNumb:=HardWareOpt.ElectronicNumb;
-       end;
-grand: begin
-         HardWareOpt.ScannerNumb:='stepmotor';
-         if  NanoEdu.ControllerNumber<>'error' then HardWareOpt.ElectronicNumb:=NanoEdu.ControllerNumber
-                                               else HardWareOpt.ElectronicNumb:='Demo';
-         HardWareOpt.flgFlash:=false;
-         HardWareOpt.flgAutoScanner:=0;
-       end;
-         end;  //case
-     end; //with
-  finally
-    iniCSPM.Free;
-  end;
-  *)
 end;
 
 procedure ControllerOptLast(const FileName:string);

@@ -1,3 +1,4 @@
+//not changed from 161115
 unit frPositionXYZ;
 
 interface
@@ -97,7 +98,7 @@ type
     procedure BitBtnMovetoStartClick(Sender: TObject);
   private
     { Private declarations }
-//    flgDrag:boolean;
+//  flgDrag:boolean;
     flgCanClose:boolean;
     sgn:integer;
     flgArrowdown:boolean;
@@ -117,7 +118,6 @@ type
      StopAllow:boolean;
      flgCancel:Boolean;
      FlgStepResult:apitype;
-
 //    FlgMoveXYZResult:apitype;
   procedure  ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;
 end;

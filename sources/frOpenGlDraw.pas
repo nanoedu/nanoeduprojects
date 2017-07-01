@@ -3544,10 +3544,11 @@ end;
 
 procedure TfrmGL.FormDblClick(Sender: TObject);
 begin
- Main. miFullScreenClick;
+(* Main. miFullScreenClick;
  Height:=round(Screen.Height);
  Width:=round(Screen.Height);
  InvalidateRect(Handle, nil, False);
+ *)
 end;
 
 procedure TfrmGL.FormDeactivate(Sender: TObject);

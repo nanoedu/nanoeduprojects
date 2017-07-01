@@ -100,7 +100,7 @@ uses globalvar,ThreadVideoStream,frapproachnew;
 const
   DefApproachAviFileName = 'sem_spm.avi';
   DefRisingAviFileName   = 'Rising.avi';
-	strm1: string = ''; (* stop before exit *)
+	strm1: string = ''; (* stop video before exit *)
 	strm2: string = ''; (* approach file not exist   *)
 	strm3: string = ''; (* Try to choose uncompressed format *)
 	strm4: string = ''; (* Can not change mode - probably record running *)
@@ -398,9 +398,10 @@ procedure TMSVideoFORM.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
  if not flgStopVideoStream  then
  begin
- //  silang1.MessageDlg(strm1,mtWarning,[mbOk],0);
-   flgStopVideoStream:=true;
-   flgclose:=true;
+   silang1.MessageDlg(strm1,mtWarning,[mbOk],0);
+ //  flgStopVideoStream:=true;
+ //  flgclose:=true;
+ //  restartvideo :=false;
    canclose:=false;
  end
  else canclose:=true;

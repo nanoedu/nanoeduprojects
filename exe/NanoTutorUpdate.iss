@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=NanoTutor
-AppVerName=NanoTutor ver 17.01.13.30
-OutputBaseFilename=NanoTutorUpdate-17.01.13.30
+AppVerName=NanoTutor ver 17.01.13.48
+OutputBaseFilename=NanoTutorUpdate-17.01.13.48
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -33,13 +33,18 @@ Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescri
 [Dirs]
  Name:"{app}\Data\VideoCameraSimulation"
 [Files]
-;Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "NanoTutor.exe";   DestDir: "{app}"; Flags: ignoreversion
 ;Source: "SPMConfig.ini"; DestDir: "{app}"; Flags: ignoreversion;
 ;Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
-;Source: "SPMConfigUsersNanoTutor.ini";    DestDir: "{userappdata}\NanoTutor"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
-;Source: "SPMConfigDefUsersNanoTutor.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
-;Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
+Source: "SPMConfignewdrv.ini"; DestDir: "{app}";   Flags: ignoreversion;
+Source: "SPMConfigDefnewdrv.ini"; DestDir: "{app}";   Flags: ignoreversion;
+Source: "SPMController.ini"; DestDir: "{app}";   Flags: ignoreversion;
+Source: "SPMControllerdef.ini"; DestDir: "{app}";   Flags: ignoreversion;
+Source: "SPMConfigUsersNanoTutor.ini";    DestDir: "{userappdata}\NanoTutor"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
+Source: "SPMConfigDefUsersNanoTutor.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
+Source: "javabin\*.jar";DestDir: "{app}\javabin"; Flags: ignoreversion recursesubdirs;
+Source: "D:\ntspbprojects\nanoeduprojects\CommonData\HardWareSoft\*.*"; DestDir: "{app}\HardwareSoft"; Flags: ignoreversion recursesubdirs;
 ;Source: "Demodata\*.*"; DestDir: "{app}\Demodata"; Flags:  ignoreversion    recursesubdirs;
 ;Source: "data\*.*";     DestDir: "{app}\data";     Flags: ignoreversion recursesubdirs;
 [INI]

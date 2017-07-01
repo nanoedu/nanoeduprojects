@@ -11,12 +11,14 @@ const MaxMatr=6;
  type float=single;
  type TLine=array of datatype;
  type TLineSingle=array of single;
+ type TMas2Int = array of array of integer;
  type mcell=array[1..3,1..3] of single;
  type
     Vector=record
  	x, y, z:single;
  end;
  const MAXSMALLINT=$7FFF;
+ const SMALLINTRANGE = 65535;
  type
     PMas1=array of single;
   type
@@ -29,10 +31,12 @@ const MaxMatr=6;
 
   type
      MasCom=array of Tcom;   // Array of complex values;
+procedure ConvertArray_SmallInt_toInt(NX,NY: integer; const src:TMas2; var dst: TMas2Int);
+procedure ConvertArray_Int_toSmallInt(NX,NY: integer;  src:TMas2Int; var dst: TMas2);
 
-procedure DelStepsX(Nx,Ny:integer; var datmas:TMas2; FileName:PChar); StdCall;
+procedure DelStepsX(Nx,Ny:integer; var datmas_smint:TMas2; FileName:PChar); StdCall;
 
-procedure DelStepsY(Nx,Ny:integer; var datmas:TMas2; FileName:PChar); StdCall;
+procedure DelStepsY(Nx,Ny:integer; var datmas_smint:TMas2; FileName:PChar); StdCall;
 
 function vectorminus(v1,v2:Vector):Vector;
 
@@ -58,14 +62,14 @@ procedure Dsolv (Dimen        : integer;
 
 
 
-Procedure DelFiltLevel(NX,NY: integer; var p : Tmas2; FileName:PChar); stdcall;
+Procedure DelFiltLevel(NX,NY: integer; var p_smint : Tmas2; FileName:PChar); stdcall;
 
-Procedure DelFiltLevelOne(NX,NY: integer; var p : Tmas2; FileName:PChar); stdcall;
+Procedure DelFiltLevelOne(NX,NY: integer; var p_smint : Tmas2; FileName:PChar); stdcall;
 
-Procedure DelFiltPlane(Nx, Ny:integer;var p : Tmas2; FileName:PChar) ;  stdcall;
+Procedure DelFiltPlane(Nx, Ny:integer;var p_smint : Tmas2; FileName:PChar) ;  stdcall;
 
 
-Procedure DelFiltSurface(Nx1, Ny1, Nx2, Ny2 , NxMax, NyMax: integer; var p : Tmas2); stdcall;
+Procedure DelFiltSurface(Nx1, Ny1, Nx2, Ny2 , NxMax, NyMax: integer; var p_smint : Tmas2); stdcall;
 
 
 Procedure AverageFilt3X3(Nx, Ny : integer;var p:Tmas2; FileName:PChar); stdcall;
@@ -112,12 +116,15 @@ begin
   Temp:=nil;
 end;
 
-procedure DelStepsX(Nx,Ny:integer; var datmas:TMas2; FileName:PChar); StdCall;
+procedure DelStepsX(Nx,Ny:integer; var datmas_smint:TMas2; FileName:PChar); StdCall;
 var Aver:integer;
      i,j:integer;
      X1,Y1,El,Sum:integer;
      ScanAver:TLine;  // type PLine is declared in GlobalDcl;
+     datmas: TMas2Int;
 begin
+ SetLength(datmas,Nx,Ny);
+ ConvertArray_SmallInt_toInt(NX,NY, datmas_smint, datmas );
   Aver:=0;
      if (NX > 0) and (NY > 0) then
      begin
@@ -148,14 +155,19 @@ begin
           begin
             Datmas[j,i]:=Datmas[j,i]-ScanAver[i]+Aver;
           end;
+        ConvertArray_Int_toSmallInt(NX,NY, datmas, datmas_smint );
+        Finalize(datmas);
 end;
 
-procedure DelStepsY(Nx,Ny:integer; var datmas:TMas2; FileName:PChar); StdCall;
+procedure DelStepsY(Nx,Ny:integer; var datmas_smint:TMas2; FileName:PChar); StdCall;
 var Aver:integer;
      i,j:integer;
      X1,Y1,El,Sum:integer;
      ScanAver:TLine;  // type PLine is declared in GlobalDcl;
+     datmas: TMas2Int;
 begin
+SetLength(datmas,Nx,Ny);
+ ConvertArray_SmallInt_toInt(NX,NY, datmas_smint, datmas );
   Aver:=0;
      if (NX > 0) and (NY > 0) then
      begin
@@ -186,6 +198,8 @@ begin
           begin
             Datmas[j,i]:=Datmas[j,i]-ScanAver[j]+Aver;
           end;
+       ConvertArray_Int_toSmallInt(NX,NY, datmas, datmas_smint );
+       Finalize(datmas);
 end;
 function vectorminus(v1,v2:Vector):Vector;
 begin
@@ -432,30 +446,39 @@ begin
 
 end;
 
-Procedure DelFiltLevel(NX,NY: integer; var p : Tmas2; FileName:PChar); stdcall;
+Procedure DelFiltLevel(NX,NY: integer; var p_smint : Tmas2; FileName:PChar); stdcall;
 var i, j : integer;
     iSf : integer;
- begin
+    p: TMas2Int;
+begin
+ SetLength(p,Nx,Ny);
+ ConvertArray_SmallInt_toInt(NX,NY, p_smint, p );
     iSf:=p[0,0];
     for j:=0 to Nx-1 do
      for i:=0 to Ny-1 do    if p[j,i] < iSf then iSf := p[j,i];
        for j:=0 to Nx-1 do
          for i:=0 to Ny-1 do     p[j,i]:=p[j,i]-iSf;
+         ConvertArray_Int_toSmallInt(NX,NY, p, p_smint );
+        Finalize(p);
  end; {DelFiltLevel}
 
- Procedure DelFiltLevelOne(NX,NY: integer; var p : Tmas2; FileName:PChar); stdcall;
+ Procedure DelFiltLevelOne(NX,NY: integer; var p_smint : Tmas2; FileName:PChar); stdcall;
 var i, j : integer;
     iSf : integer;
- begin
+ p: TMas2Int;
+begin
+ SetLength(p,Nx,Ny);
+ ConvertArray_SmallInt_toInt(NX,NY, p_smint, p );
     for j:=0 to Ny-1 do
     begin
      iSf:=p[0][j];
       for i:=0 to Nx-1 do p[i][j]:=p[i][j]-iSf;
     end;
+     ConvertArray_Int_toSmallInt(NX,NY, p, p_smint );
+        Finalize(p);
  end; {DelFiltLevel}
 
-Procedure DelFiltPlane(Nx, Ny : integer;var p : Tmas2; FileName:PChar) ;  stdcall;
-
+Procedure DelFiltPlane(Nx, Ny : integer;var p_smint : Tmas2; FileName:PChar) ;  stdcall;
 var hlp, AF, AX, AY : extended;
     AFX, AFY, AXX, AYY : extended;
     A1, A2, A3 : extended;
@@ -465,7 +488,10 @@ var hlp, AF, AX, AY : extended;
     ch : char;
     averp: Tmas2;
     val: integer;
+      p: TMas2Int;
 begin
+SetLength(p,Nx,Ny);
+ ConvertArray_SmallInt_toInt(NX,NY, p_smint, p );
      //  MedianFilt3(Nx,Ny,p,FileName);
         i1:=0; i2:=Ny-1; j1:=0; j2:=Nx-1;
       SetLength(averp,Nx,Ny);
@@ -473,7 +499,7 @@ begin
       begin
            for i:=0 to i2 do
            begin
-               averp[j,i]:=p[j,i] ;
+               averp[j,i]:=p_smint[j,i] ; //p[j,i]
            end;
       end;
       AverageFilt3X3(Nx,Ny,averp,FileName);
@@ -549,9 +575,11 @@ begin
          end;
      end;
      finalize(averp) ;
+     ConvertArray_Int_toSmallInt(NX,NY, p, p_smint );
+     Finalize(p);
 end; {DelFiltPlane}
 
-Procedure DelFiltSurface(Nx1, Ny1, Nx2, Ny2 , NxMax, NyMax: integer; var p : Tmas2); stdcall;
+Procedure DelFiltSurface(Nx1, Ny1, Nx2, Ny2 , NxMax, NyMax: integer; var p_smint : Tmas2); stdcall;
 
 var coef, coefx : float;
     CF, CX, CY : extended;
@@ -563,8 +591,10 @@ var coef, coefx : float;
     i1, i2, j1, j2, Nx, Ny : integer;
     Isf : integer;
     ch : char;
-
+p: TMas2Int;
 begin
+SetLength(p,Nx,Ny);
+ ConvertArray_SmallInt_toInt(NX,NY, p_smint, p );
       Nx:=NxMax; Ny:=NYMax;
       i1:=Nx1; i2:=Nx2; j1:=Ny1; j2:=Ny2;
       if i1 < 1 then i1:=1; if i2 > Nx then i2:=Nx;
@@ -670,7 +700,8 @@ begin
               p[j,i]:=p[j,i]-isf;
          end;
       end;
-
+       ConvertArray_Int_toSmallInt(NX,NY, p, p_smint );
+        Finalize(p);
 end; {DelFiltSurface}
 
 Procedure  AverageFilt3x3(Nx, Ny : integer;var p:Tmas2; FileName:PChar); stdcall;
@@ -773,8 +804,8 @@ procedure MedianFilt3(Nx,Ny:integer; var p:Tmas2; FileName:PChar); stdcall;
 	   i, j, k,kk,j1,i1 :integer;
 
  begin
- i2:=Ny; j2:=Nx;
-           SetLength(IP,I2);
+    i2:=Ny; j2:=Nx;
+    SetLength(IP,I2);
 		i1:=0; //i2:=TopoSPM.Ny;
 		j1:=0; //j2:=TopoSPM.Nx;
    for i:=i1 to (i2-1) do begin IP[i]:=p[j1,i];end;
@@ -948,4 +979,118 @@ begin
   end; {DelFiltPlane}
 
 
+procedure ConvertArray_SmallInt_toInt(NX,NY: integer; const src:TMas2; var dst: TMas2Int);
+var i,j:integer;
+begin
+//   SetLength(dst,Nx,Ny);
+   for j:=0 to NY - 1 do
+   for i:=0 to NX - 1 do
+     begin
+        dst[i,j]:=integer(src[i,j]);
+     end;
+end;
+
+procedure ConvertArray_Int_toSmallInt(NX,NY: integer;  src:TMas2Int; var dst: TMas2);
+ var i,j:integer;
+    N:integer;
+    masmin, masmax:integer;
+    rangekoef:single;
+    koef:single;
+    delt_formin, delt_formax:integer;
+begin
+//   SetLength(dst,Nx,Ny);
+   masmin:=src[0,0];
+   masmax:=masmin;
+   for j:=0 to NY - 1 do
+   for i:=0 to NX - 1 do
+     begin
+        if src[i,j] < masmin then masmin:= src[i,j];
+        if src[i,j] > masmax then masmax:= src[i,j];
+     end;
+  koef:=SMALLINTRANGE/(masmax-masmin );
+  delt_formax:= masmax -32767;
+  delt_formin:= masmin -( -32768);
+  if((koef >=1) and ( delt_formin >= 0 ) and ( delt_formax <= 0)) then
+  begin
+    for j:=0 to NY - 1 do
+       for i:=0 to NX - 1 do
+           begin
+             dst[i,j]:=datatype( src[i,j]) ;
+           end;
+  end
+  else
+  begin
+  if koef < 1 then
+  begin
+   for j:=0 to NY - 1 do
+   for i:=0 to NX - 1 do
+     begin
+       src[i,j]:= datatype(trunc(koef*src[i,j]));
+     end;
+   for j:=0 to NY - 1 do
+    for i:=0 to NX - 1 do
+     begin
+        if src[i,j] < masmin then masmin:= src[i,j];
+        if src[i,j] > masmax then masmax:= src[i,j];
+     end;
+  end;
+     if delt_formin < 0 then
+       for j:=0 to NY - 1 do
+       for i:=0 to NX - 1 do
+           begin
+             dst[i,j]:=datatype( src[i,j] - delt_formin);
+           end;
+
+      if delt_formax > 0 then
+       for j:=0 to NY - 1 do
+       for i:=0 to NX - 1 do
+           begin
+             dst[i,j]:=datatype(src[i,j] - delt_formax);
+           end;
+  end;
+ end;
+ (*
+procedure ConvertArray_Int_toSmallInt(NX,NY: integer;  src:TMas2Int; var dst: TMas2);
+var i,j:integer;
+    masmin, masmax:integer;
+    min16:datatype;
+begin
+//   SetLength(dst,Nx,Ny);
+   masmin:=src[0,0];
+   masmax:=masmin;
+   for j:=0 to NY - 1 do
+   for i:=0 to NX - 1 do
+     begin
+        if src[i,j] < masmin then masmin:= src[i,j];
+        if src[i,j] > masmax then masmax:= src[i,j];
+     end;
+    if masmax<=0 then
+    begin
+       for j:=0 to NY - 1 do
+       for i:=0 to NX - 1 do
+           begin
+             dst[i,j]:=datatype( src[i,j]+32767);
+           end;
+   end
+   else
+   begin
+      if masmin>=0 then
+      begin
+          for j:=0 to NY - 1 do
+          for i:=0 to NX - 1 do
+           begin
+             dst[i,j]:=datatype(src[i,j]-32768);
+           end;
+      end;
+   end;
+     min16:=dst[0,0];
+    for j:=0 to Nx-1 do
+     for i:=0 to Ny-1 do
+         if dst[j,i] < min16 then min16 := dst[j,i];
+
+    for j:=0 to Nx-1 do
+      for i:=0 to Ny-1 do
+             dst[j,i]:=dst[j,i]-min16;
+ end;
+*)
 end.

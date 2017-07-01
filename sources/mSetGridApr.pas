@@ -1,3 +1,6 @@
+//170517
+//change fast rissing max steps
+
 unit mSetGridApr;
 
 interface
@@ -92,15 +95,15 @@ begin
        LabelValue.Caption:=InttoStr(ScrollBar.Position);
        caption:=siLangLinked1.GetTextOrDefault('IDS_5' (* 'Integrator Delay , ms' *) );
       end;
-    5: begin      //Z Step rising
+    5: begin      //Z Fast Step rising
        Min:=1;
-       Max:=100;
+       Max:=500;
        largeChange:=10;
        Position:=round(ApproachParamsEdited.ZUpStepsNumb);
        LabelValue.Caption:=InttoStr(ScrollBar.Position);
        caption:=siLangLinked1.GetTextOrDefault('IDS_8' (* 'Rising Steps Number' *) );
       end;
-    6: begin      //Z Step Fast Rising
+    6: begin      //Z Step Fast Landing
        Min:=2;
        Max:=100;
        largeChange:=10;

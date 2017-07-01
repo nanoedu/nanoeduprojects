@@ -141,9 +141,9 @@ if CreateChannels(AlgParams.NChannels) then
      end;// NewPpoint>0
     end; //nread>=1
    end; {while ScanCount}
-    PostMessage(SpectrWnd.Handle,wm_ThreadDoneMsg,mScanning,0);
     ScanDone;
     FreeChannels;
+    PostMessage(SpectrWnd.Handle,wm_ThreadDoneMsg,mScanning,0);
   end; //channel out
  end;  //create channels
  finally

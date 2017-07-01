@@ -1,0 +1,36 @@
+Compiled from "System.java"
+public class java.lang.System extends java.lang.Object
+  SourceFile: "System.java"
+  minor version: 0
+  major version: 46
+  Constant pool:
+const #1 = Method	#3.#12;	//  java/lang/Object."<init>":()V
+const #2 = class	#13;	//  java/lang/System
+const #3 = class	#14;	//  java/lang/Object
+const #4 = Asciz	<init>;
+const #5 = Asciz	()V;
+const #6 = Asciz	Code;
+const #7 = Asciz	LineNumberTable;
+const #8 = Asciz	arraycopy;
+const #9 = Asciz	(Ljava/lang/Object;ILjava/lang/Object;II)V;
+const #10 = Asciz	SourceFile;
+const #11 = Asciz	System.java;
+const #12 = NameAndType	#4:#5;//  "<init>":()V
+const #13 = Asciz	java/lang/System;
+const #14 = Asciz	java/lang/Object;
+
+{
+public java.lang.System();
+  Code:
+   Stack=1, Locals=1, Args_size=1
+   0:	aload_0
+   1:	invokespecial	#1; //Method java/lang/Object."<init>":()V
+   4:	return
+  LineNumberTable: 
+   line 3: 0
+
+
+public static native void arraycopy(java.lang.Object, int, java.lang.Object, int, int);
+
+}
+
