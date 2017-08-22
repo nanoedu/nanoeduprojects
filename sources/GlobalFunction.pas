@@ -119,8 +119,11 @@ function  GetFlgFastSimulation:boolean;
 function  GetDeviceInterfaceName:string;
 function  GetDeviceName:integer;
 procedure SetDeviceName(flg:integer);
+function  GetSensorName:integer;
 function  GetSEMConfigPath:string;
 function  GetControllerType:boolean;
+function  GetFlgChangeSensor:boolean;
+procedure SetFlgChangeSensor;
 procedure SetControllerType;
 procedure SetSEMConfigPath(path:string);
 function  GetflgChangeUserLevel:integer;
@@ -781,6 +784,29 @@ begin
     iniCSPM.Free;
    end;
 end;
+function  GetSensorName:integer;
+ var SFile:string;
+    iniCSPM:TiniFile;
+begin
+(*  sFile:=GetConfigUsersFileName;
+    iniCSPM:=TIniFile.Create(sFile);
+  try
+    with iniCSPM do
+    begin
+      if SectionExists ('Physical Unit Options') then  result:=ReadInteger('Physical Unit Options','device',1)
+      else
+       begin
+  //       SetFileAttribute_ReadOnly(sfile,false);
+         WriteInteger('Physical Unit Options','device',Nano);
+  //       SetFileAttribute_ReadOnly(sfile,true);
+        end;
+     end;
+   finally
+    iniCSPM.Free;
+   end;
+   *)
+   result:=probe;
+end;
 
 function  GetDeviceName:integer;
  var SFile:string;
@@ -850,6 +876,37 @@ begin
     with iniCSPM do
     begin
          WriteInteger('Scanning Parameters','Fast_Simulation',integer(ScanParams.flgFastSimulator));
+     end;
+   finally
+    iniCSPM.Free;
+   end;
+end;
+function  GetFlgChangeSensor:boolean;
+  var SFile:string;
+    iniCSPM:TiniFile;
+begin
+  sFile:=GetConfigUsersFileName;
+    iniCSPM:=TIniFile.Create(sFile);
+  try
+    with iniCSPM do
+    begin
+       ResonanceParams.flgChangeSensor:=boolean(ReadInteger('Resonance','ChangeSensor',0));
+     end;
+   finally
+    iniCSPM.Free;
+   end;
+   result:=ResonanceParams.flgChangeSensor;
+end;
+procedure  SetFlgChangeSensor;
+  var SFile:string;
+    iniCSPM:TiniFile;
+begin
+  sFile:=GetConfigUsersFileName;
+    iniCSPM:=TIniFile.Create(sFile);
+  try
+    with iniCSPM do
+    begin
+     WriteInteger('Resonance','ChangeSensor',integer(ResonanceParams.flgChangeSensor));
      end;
    finally
     iniCSPM.Free;
@@ -1024,7 +1081,7 @@ begin
      begin
           ConfigIniFile:=       'SPMConfignewdrv.ini';
           ConfigDefIniFile:=    'SPMConfigDefnewdrv.ini';
-          mod512corr:=0;   // дополнительный элемент, чтобы исключить  передачу кол-ва
+          mod512corr:=1;//0;   // дополнительный элемент, чтобы исключить  передачу кол-ва
       end
       else
       begin

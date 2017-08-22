@@ -2,28 +2,29 @@ unit uNanoEduClasses;
 
 interface
 
-uses    classes,Forms,sysutils,globaltype,UNanoEduBaseClasses;
+uses    classes,Forms,sysutils,globaltype,CSPMVar,UNanoEduBaseClasses;
 type
 
 TSTMNanoEdu=class(TBaseNanoEdu )
 private
-  procedure SetSetPoint(val:single); override;
-  function  GetSignalValue:apitype;  override;
+  procedure SetSetPoint(val:single);            override;
+  function  GetSignalValue:apitype;             override;
 public
-  function TurnOn:boolean;                  override;
-  function TurnOff:boolean;                 override;
-  procedure ScannerProtract;                override;
+  function TurnOn:boolean;                      override;
+  function TurnOff:boolean;                     override;
+  procedure ScannerProtract;                    override;
   function  RisingToStartPoint(Nstep:smallint):integer; override;
 // procedure ApproachRegime;            override;
-  function  TurnOnFBMethod:boolean;         override;
-  function  ScanningMethod:boolean;         override;
+  function  TurnOnFBMethod:boolean;             override;
+  function  ScanningMethod:boolean;             override;
   function  ScanMoveToX0Y0Method(X0,Y0:single):boolean;   override;
-  function  ScanCalibrateMethod:boolean;    override;
-  function  ScannerTrainnigMethod:boolean;  override;
-  function  FastTopoMethod:boolean;         override;
-  function  SpectroscopyMethod:boolean;     override;
-  function  StepTestMethod:boolean;         override;
-  function  ApproachMethod:boolean;         override;
+  function  ScanCalibrateMethod:boolean;        override;
+  function  ScannerTrainnigMethod:boolean;      override;
+  function  FastTopoMethod:boolean;             override;
+  function  SpectroscopyMethod:boolean;         override;
+  function  StepTestMethod:boolean;             override;
+  function  ApproachMethod:boolean;             override;
+  function  SetSensor(_sensor:RSensor):boolean; override;
 end;
 
 TSFMNanoEdu=class(TBaseNanoEdu )
@@ -46,21 +47,22 @@ public
  procedure  NormalizeUAM;             virtual;
  procedure  SetSetPoint(val:single);  override;
  function   TurnOn:boolean;           override;
- function   TurnOff:boolean;          override;
+ function   TurnOff:boolean;                    override;
 // function  ResonanceRegime: boolean; override;
  function   AdjustPhaseMethod:boolean;virtual;
 // procedure  ApproachRegime;         override;
- function   LithoSFMMethod:boolean;   override;
- function   ScanningMethod:boolean;   override;
- function   TurnOnFBMethod:boolean;   override;
+ function   LithoSFMMethod:boolean;             override;
+ function   ScanningMethod:boolean;             override;
+ function   TurnOnFBMethod:boolean;             override;
  function   ScanMoveToX0Y0Method(X0,Y0:single):boolean;   override;
- function   ScanCalibrateMethod:boolean;    override;
- function   ScannerTrainnigMethod:boolean;  override;
- function   FastTopoMethod:boolean;         override;
- function   SpectroscopyMethod:boolean;     override;
- function   StepTestMethod:boolean;         override;
- function   ResonanceMethod:boolean;        override;
- function   ApproachMethod:boolean;         override;
+ function   ScanCalibrateMethod:boolean;        override;
+ function   ScannerTrainnigMethod:boolean;      override;
+ function   FastTopoMethod:boolean;             override;
+ function   SpectroscopyMethod:boolean;         override;
+ function   StepTestMethod:boolean;             override;
+ function   ResonanceMethod:boolean;            override;
+ function   ApproachMethod:boolean;             override;
+ function   SetSensor(_sensor:RSensor):boolean; override;
  property   MaxUAM:apitype      read  GetMaxUAM ;
 // property ModAmplitud:apitype write SetModAmplitud;
 // property SD_GENF_F:unapitype   write SetSD_GENF_F;
@@ -72,7 +74,7 @@ end;
 
 implementation
 
-uses  globalvar,globalfunction,CSPMVar,uNanoEduScanClasses,UNanoeduInterface, renishawvars;
+uses  globalvar,globalfunction,uNanoEduScanClasses,UNanoeduInterface, renishawvars;
 
 destructor TSFMNanoEdu.Destroy();
 begin
@@ -104,6 +106,7 @@ begin
     Pipette:  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M*10/1000*TransformUnit.BiasV_d);
                   end;
      if flgUnit=pipette then  Bias:=round(ApproachParams.BiasV*TransformUnit.BiasV_d);
+     SetSensor(Sensor);      
 end;
 
 function TSFMNanoEdu.TurnOff:boolean;
@@ -162,13 +165,15 @@ end;
 
 function  TSFMNanoEdu.RisingToStartPoint(Nstep:smallint):integer;
 var state:apitype;
+    dlt:integer;
 begin
 if not flgNanoeduUnitCreate then  ScannerRetract;               //230112    change 010913
   state:=Api.SMZSTATUS;
-  Api.SMZSTEP:=state-NStep;    //?????  -
-  sleep(1000);
+  dlt:=state-NStep;
+  Api.SMZSTEP:= dlt;  //?????  -
+  sleep(2000);
   MotorCurrentStatus:=Api.SMZSTATUS;
-  while MotorCurrentStatus <>(state-NStep) do
+  while MotorCurrentStatus <>dlt do
    begin
     Application.Processmessages;
     MotorCurrentStatus:=Api.SMZSTATUS;
@@ -243,6 +248,7 @@ begin
  SetPoint:=ApiType(round(ApproachParams.LandingSetPoint*TransformUnit.nA_d));  //16/12/14
  IMaxCut:=round(ApproachParams.ImaxCut*dbltoint);
  ScannerProtract;
+ SetSensor(Sensor);  
 end;
 
 procedure  TSTMNanoEdu.SetSetPoint(val:single);
@@ -297,7 +303,21 @@ function  TSFMNanoEdu.ApproachMethod:boolean;
 begin
  NanoEdu.Method:=TApproachSFM.Create;
 end;
-
+ function   TSFMNanoEdu.SetSensor(_sensor:RSensor):boolean; 
+ begin
+ //uncomment when will be ready
+ (*
+  Api.Set_Sensor(_Sensor.kind);
+ *)
+ end;
+ 
+ function   TSTMNanoEdu.SetSensor(_sensor:RSensor):boolean; 
+ begin
+ //uncomment when will be ready
+(*
+  Api.Set_Sensor(_Sensor.kind);
+ *)
+ end;
 
 
 function  TSTMNanoEdu.ScanningMethod:boolean;

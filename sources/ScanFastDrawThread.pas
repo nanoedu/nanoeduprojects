@@ -217,7 +217,7 @@ if CreateChannels(AlgParams.NChannels) then
       // Далее +1 - лишняя точка, чтобы исключить передачу данных длиной,
       //  кратной 512 байт
 //    if ntoread >= ScanParams.ScanPoints +mod512corr then     nhasread:=0;             //????
-      nInLine:= ScanParams.ScanLines*ScanParams.ScanPoints+mod512corr;
+      nInLine:= ScanParams.ScanLines*ScanParams.ScanPoints;//+mod512corr;
       hr:=(arPCChannel[ch_Data_out].ChannelRead).Read(DataBuf,ntoread);
       {$IFDEF DEBUG}
        if Failed(hr) then Formlog.memolog.Lines.add(ScanWnd.siLangLinked1.GetTextOrDefault('IDS_36' (* 'error read channel data ' *) )+inttostr(ntoread)+ScanWnd.siLangLinked1.GetTextOrDefault('IDS_5' (* 'hr=' *) )+inttostr(hr))
@@ -253,13 +253,13 @@ if CreateChannels(AlgParams.NChannels) then
              begin
               ScanData.WorkFileName:=workdirectory+'\'+WorkNameFileMaskCur+getletime+WorkExtFile;
               ScanData.HeaderPrepare;
-              ScanData.PrepareSaveData;
+         //     ScanData.PrepareSaveData;
               ScanData.SaveExperiment;
               if assigned(WorkView) then
                   PostMessage(WorkView.Handle,WM_UserUpdateWorkView,0,0)  ;
              end;
     end; // i
-     if ( ScanParams.flgOneFrame) then  flgEnd:=true;     //   28/11/16 if not video stream
+     if ( ScanParams.flgOneFrame) then FlgStopJava:=true;// flgEnd:=true;     //   28/11/16 if not video stream
    end;
 // if nc=4 then
  end; {while NOT TERMINATE}

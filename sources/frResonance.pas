@@ -148,6 +148,8 @@ public
     procedure NormalizeUAM;
     procedure SaveAmplitudesAsASCII(Const FileName:string);
     procedure ThreadDone(var AMessage : TMessage); message WM_ThreadDoneMsg;
+//    procedure UserMessage (var Msg: TMessage); message WM_UserResWndUpdated;
+    procedure ResonanceParamUpdate;
 end;
 
 var
@@ -164,6 +166,45 @@ const
 	strr0: string = ''; (* Printer is not connected.   *)
 	strr1: string = ''; (* Max amplitude>1,4. Decrease probe voltage modulation and repeat. *) // TSI: Localized (Don't modify!)
 
+procedure TAutoResonance.ResonanceParamUpdate;
+var val:word;
+begin
+   with   ResonanceParams do
+        begin
+            case Sensor.kind of
+probe:begin
+         FreqStartRough:=FreqStartProbeRough;//8000;
+         FreqEndRough:=FreqEndProbeRough; // 10000;
+         ApproachParams.Amp_M:=ApproachParams.AmpProbe_M ;
+         ComboBoxFQ_SEL.ItemIndex:=0;
+      end;
+cantilever:
+       begin
+         FreqStartRough:=FreqStartCantRough;//8000;
+         FreqEndRough:=FreqEndCantRough; // 10000;
+         ApproachParams.Amp_M:=ApproachParams.AmpCant_M;
+         ComboBoxFQ_SEL.ItemIndex:=1;
+         PanelCustom.visible:=true;
+       end;
+        end;
+         FreqStart:=FreqStartRough;  //Hrz
+         FreqEnd:=FreqEndRough;
+        end;
+  LblFromVal.caption:=inttostr(ResonanceParams.FreqStart div 1000);
+  LblToVal.Caption:=inttostr(ResonanceParams.FreqEnd div 1000);
+  ScrollBarFrom.Position:= ResonanceParams.FreqStart div 1000;
+  ScrollBarTo.Position:= ResonanceParams.FreqEnd div 1000;
+  val:= ApproachParams.Amp_M;
+ if val>0 then AMLabel.Caption:=FloattoStrF(val{/1000}{/255},ffFixed,5,0)+siLangLinked1.GetTextOrDefault('IDS_16' { ' mV' } )
+          else AMLabel.Caption:=siLangLinked1.GetTextOrDefault('IDS_17' { '1 mV' } ); ;
+     BottAxMin:=ResonanceParams.FreqStart;
+     BottAxMax:=ResonanceParams.FreqEnd;
+ with ChartPanel.Chart.BottomAxis do
+     begin
+      Automatic:=False;
+      SetMinMax(BottAxMin,BottAxMax);
+     end;
+end;
 function TAutoResonance.GetQ(iMax:integer):double;     //Check !!!!!
 var
  i:integer;
@@ -511,15 +552,19 @@ case ScrollCode of
                        Automatic:=False;
                        SetMinMax(BottAxMin,BottAxMax);
                      end;
+                      case Sensor.kind of
+                  probe:begin
+                         FreqStartProbeRough:=FreqStartRough;//8000;
+                         FreqEndProbeRough:=FreqEndRough; // 10000;
+                        end;
+            cantilever:begin
+                         FreqStartCantRough:=FreqStartRough;//8000;
+                         FreqEndCantRough:=FreqEndRough; // 10000;
+                       end;
+                             end;//case
                   end
                  end
-           (*      else
-                 begin
-                  ScrollBarFrom.Position:=ScrollBarTo.Position-1;
-                  Application.ProcessMessages;
-                 end;
-                 *)
-               end;
+             end;
    end;
 end;
 
@@ -712,9 +757,9 @@ begin
      rgManual.ItemIndex:=0;
      PanelCustom.Visible:=false;
      ResonanceParamsDef;
-     FreqStartRough:=FreqStartRoughDef;
+     FreqStartRough:=FreqStartProbeRough;
      FreqStart:=FreqStartRough;
-     FreqEndRough:=FreqEndRoughDef;
+     FreqEndRough:=FreqEndProbeRough;
      FreqEnd:=FreqEndRough;
      StepRough:=round((FreqEnd-FreqStart)/(Npoints-1));
      Step:=StepRough;
@@ -722,6 +767,17 @@ begin
  1: begin
      rgManual.ItemIndex:=0;
      PanelCustom.Visible:=true;
+                 case Sensor.kind of
+probe:begin
+         FreqStartRough:=FreqStartProbeRough;//8000;
+         FreqEndRough:=FreqEndProbeRough; // 10000;
+      end;
+cantilever:
+       begin
+         FreqStartRough:=FreqStartCantRough;//8000;
+         FreqEndRough:=FreqEndCantRough; // 10000;
+       end;
+        end;
      LblFromVal.Caption:=inttostr(FreqStartRough div 1000);
      LblToVal.caption:=inttostr(FreqEndRough div 1000);
      FreqStart:=FreqStartRough;
@@ -730,17 +786,14 @@ begin
      Step:=StepRough;
     end;
              end;
-                BottAxMin:=round(FreqStart);
+                 BottAxMin:=round(FreqStart);
                  BottAxMax:=round(FreqEnd);
                      with ChartPanel.Chart.BottomAxis do
                      begin
                        Automatic:=False;
                        SetMinMax(BottAxMin,BottAxMax);
-                    end;
-
+                     end;
  end;
-
-//  StartBtnClick(sender);
 end;
 
 procedure TAutoResonance.FormCreate(Sender: TObject);
@@ -756,10 +809,7 @@ begin
    SetWindowRgn(Handle, FullRgn, True);
   end;
 
-  main.ComboBoxSFMSTM.Enabled:=false;
-//  Main.ActionExport.enabled:=false;
-//  Main.ActionSaveAs.enabled:=false;
-
+  Main.ComboBoxSFMSTM.Enabled:=false;
   flgResonanceActive:=false;
   FlgStopResonance:=True;
   flgStopJava:=false;
@@ -786,12 +836,39 @@ begin
   ChartPanel.AxisYLabel.Caption:= siLangLinked1.GetTextOrDefault('IDS_22' (* 'V' *) );
   ChartPanel.PanelResult.Visible:=False;
 // ***
-
+      with   ResonanceParams do
+        begin
+            case Sensor.kind of
+probe:begin
+         FreqStartRough:=FreqStartProbeRough;//8000;
+         FreqEndRough:=FreqEndProbeRough; // 10000;
+         ComboBoxFQ_SEL.ItemIndex:=0;
+      end;
+cantilever:
+       begin
+         FreqStartRough:=FreqStartCantRough;//8000;
+         FreqEndRough:=FreqEndCantRough; // 10000;
+         ComboBoxFQ_SEL.ItemIndex:=1;
+         PanelCustom.visible:=true;
+       end;
+               end;
+         FreqStart:=FreqStartRough;  //Hrz
+         FreqEnd:=FreqEndRough;
+        end;
+ // if   ComboBoxFQ_SEL.Items.count=1 then
+   // begin
+     // ComboBoxFQ_SEL.Items.Add('Custom');
+//      ComboBoxFQ_SEL.Items.Add('28');
+//      ComboBoxFQ_SEL.Items.Add('29');//50 Hrz in old electronic
+//      ComboBoxFQ_SEL.Items.Add('30');
+//      ComboBoxFQ_SEL.Items.Add('31');
+//    end;
+//  {$ENDIF}
+    
     flgMadeFine:=false;
     flgMadeRough:=false;
     flgMode:=Auto; //Manual;//
     flgRegime:=Rough;
-
    Regime.ItemIndex:=flgMode;
    rgManual.ItemIndex:=flgRegime;
      case Regime.ItemIndex of
@@ -821,32 +898,45 @@ begin
   Main.Scanning.Visible:=False;
   Main.Training.Visible:=False;
   MainMenu.Items.Add(ChartPanel.EditChartMenu);
-//  {$IFDEF FULL}
-   if   ComboBoxFQ_SEL.Items.count=1 then
-    begin
-      ComboBoxFQ_SEL.Items.Add('Custom');
-//      ComboBoxFQ_SEL.Items.Add('28');
-//      ComboBoxFQ_SEL.Items.Add('29');//50 Hrz in old electronic
-//      ComboBoxFQ_SEL.Items.Add('30');
-//      ComboBoxFQ_SEL.Items.Add('31');
-    end;
-//  {$ENDIF}
-  ComboBoxFQ_SEL.ItemIndex:=0;
+
+
    PanelCustom.Visible:=false;
+   (*
    case  flgUnit   of
-   probeam:
+   ProBeam,
+   micProbe:
     begin
      PanelCustom.visible:=true;
      ComboBoxFQ_SEL.ItemIndex:=1;
-   end;
-   end;
- 
+    end;
+          end;
+     *)
+
+ (*   if (Sensor.kind=Sensor.kind) then
+    begin
+     //  flgMode:=Manual;//
+    //   flgRegime:=Rough;
+       PanelCustom.visible:=true;
+       ComboBoxFQ_SEL.ItemIndex:=1;
+    end;
+   *)
+
   LblFromVal.caption:=inttostr(ResonanceParams.FreqStart div 1000);
   LblToVal.Caption:=inttostr(ResonanceParams.FreqEnd div 1000);
   ScrollBarFrom.Position:= ResonanceParams.FreqStart div 1000;
   ScrollBarTo.Position:= ResonanceParams.FreqEnd div 1000;
 //  ChartPanel.IsAutoDetection:=True;    //81211
   DBegin:=False;
+ case Sensor.kind of
+probe:begin
+         ApproachParams.Amp_M:=ApproachParams.AmpProbe_M
+      end;
+cantilever:
+       begin
+         ApproachParams.Amp_M:=ApproachParams.AmpCant_M
+       end;
+        end;
+
  val:= ApproachParams.Amp_M;
  if val>0 then AMLabel.Caption:=FloattoStrF(val{/1000}{/255},ffFixed,5,0)+siLangLinked1.GetTextOrDefault('IDS_16' (* ' mV' *) )
           else AMLabel.Caption:=siLangLinked1.GetTextOrDefault('IDS_17' (* '1 mV' *) ); ;
@@ -1071,7 +1161,20 @@ begin
                 val:=sbAmpMod.Position ;
                 if val>0 then AMLabel.Caption:=FloattoStrF(val{/1000}{*val/255},ffFixed,5,0)+siLangLinked1.GetTextOrDefault('IDS_16' (* ' mV' *) )
                          else AMLabel.Caption:=siLangLinked1.GetTextOrDefault('IDS_17' (* '1 mV' *) );
-                ApproachParams.Amp_M:=val;           //mV
+
+             with   ResonanceParams do
+        begin
+            case Sensor.kind of
+probe:begin
+           ApproachParams.AmpProbe_M :=val;
+        end;
+cantilever:
+       begin
+           ApproachParams.AmpCant_M :=val;
+       end;
+                  end;
+        end;
+             ApproachParams.Amp_M:=val;           //mV
       //          NanoEdu.SD_GAM:=round(ApproachParams.Amp_M/1000*TransformUnit.BiasV_d);//*32;   //????  250112
                   case flgUnit of
             Nano:  NanoEdu.SD_GAM:=round(ApproachParams.Amp_M*2.5/1000*TransformUnit.BiasV_d);      
@@ -1104,12 +1207,19 @@ begin
     sbAmpMod.Enabled:=true;
  //   sbAmGain.Enabled:=true;
     rgmanual.enabled:=true;
-     ComboBoxFQ_SEl.Enabled:=true;
+    ComboBoxFQ_SEl.Enabled:=true;
    if (FlgCurrentUserLevel=Demo) then
    begin
      ComboBoxFQ_SEl.enabled:=false;
    end;
-//
+    case ComboBoxFQ_SEL.ItemIndex of
+ 0: begin
+     PanelCustom.Visible:=false;
+    end;
+ 1: begin
+     PanelCustom.Visible:=true;
+    end;
+       end;
     flgMode:=Manual;
   //  PanelMain.Height:=Panel1.Height+20+PanelManual.Height;
   end;
@@ -1271,9 +1381,9 @@ nano,
 nanotutor,
 pipette,
 terra:begin
-           FreqStartRough:=FreqStartRoughDef;
+           FreqStartRough:=FreqStartProbeRough;
            FreqStart:=FreqStartRough;
-           FreqEndRough:=FreqEndRoughDef;
+           FreqEndRough:=FreqEndProbeRough;
            FreqEnd:=FreqEndRough;
           end;
          end;

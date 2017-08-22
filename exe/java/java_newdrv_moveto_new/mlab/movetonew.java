@@ -94,8 +94,8 @@ public class movetonew
                 DiscrNumInMicroStep= datain[i0+3]<<16;   //210113  add
                 Timewait           = datain[i0+4];
 
-             if (MicrostepDelay!=0) { USTEP_DLY =  MicrostepDelay;}         //210113
-             else                   { USTEP_DLY=1;};
+             if (MicrostepDelay!=0) { 	USTEP_DLY =  MicrostepDelay;}         //210113
+             else             { USTEP_DLY=1;};
 
                 X_begin = X_begin * DAC_STEP;
                 Y_begin = Y_begin * DAC_STEP;
@@ -109,7 +109,7 @@ public class movetonew
 
                Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
                 int[] code;
-//-----------------------------------------------------------
+
 		code = new int[17];
 //----- Заголовок -- "2D point" --------------------
 		code[0]  = Dxchg2.CODE_SIGNATURE;
@@ -126,17 +126,19 @@ public class movetonew
                 code[7] = 0x00000000 + (0<<16) + (15<<0);
                 code[8] = 0x40000000 + pause - 1;
 // Возврат
+   
+		// Возврат
                 code[9] = 0x80000000 + (3<<16) + 0;
-//----- Список портов перемещения в точку ---------
+   //----- Список портов перемещения в точку ---------
 		code[10] = 4;
-		code[11] = Dxchg2.OUTP_DIRY;
+		code[11]  = Dxchg2.OUTP_DIRY;
 		code[12] = Dxchg2.OUTP_DIRX;
 		code[13] = Dxchg2.OUTP_Y;
 		code[14] = Dxchg2.OUTP_X;
-//----- Список портов чтения-------------------------------
+// GET
 		code[15] = 1;
 		code[16]  = PORT_H ;
-//------------------------------------------------------------
+
 
                 int[] path_in;
                 path_in = new int[8];
@@ -168,6 +170,7 @@ public class movetonew
 
 		Simple.Sleep(1000);
 
+
      		rd=0;
 		int ccnt = 0;
                 for(;(buf_stop[0]!=stop) ;)
@@ -177,7 +180,7 @@ public class movetonew
                 }
        		stream_ch_drawdone.Close();
 		stream_ch_stop.Close();
-
+ 
 	}
 
 }

@@ -57,7 +57,7 @@ begin
   i:=1;
   ifirst:=1;
   { Place thread code here }
-  curframenmb:=MSVideoForm.nstart;
+  curframenmb:=MSVideoFormDemo.nstart;
   count:=1;
   while (not Terminated) and (not flgStopVideoStream)  do
    begin
@@ -81,7 +81,7 @@ begin
            ifirst:=2;
           end;
       //   inc(MSVideoForm.nframe);
-         if(i<MSVideoForm.nstart) then begin  inc(i); continue; end;
+         if(i<MSVideoFormDemo.nstart) then begin  inc(i); continue; end;
          if count=nstep then
          begin
            if flgrotation then
@@ -95,8 +95,8 @@ begin
            else IplImage2Bitmap(frame,image);
            synchronize(VideoOutPut);
     //   MSVideoForm.image1.Picture.Assign(image);
-          if flgrotation then  Sleep(MSVideoForm.delayapr div 3)
-          else Sleep(MSVideoForm.delayapr);
+          if flgrotation then  Sleep(MSVideoFormDemo.delayapr div 3)
+          else Sleep(MSVideoFormDemo.delayapr);
            count:=1;
            inc(curframenmb);
          end
@@ -110,13 +110,13 @@ begin
     end
     else break;
   end; {while execute}
-   MSVideoForm.nstop:=curframenmb;
-   PostMessage(MsVideoForm.Handle,wm_ThreadDoneMsg,mScanning,0);
+   MSVideoFormDemo.nstop:=curframenmb;
+   PostMessage(MsVideoFormDemo.Handle,wm_ThreadDoneMsg,mScanning,0);
    if (not Terminated) then  Self.Terminate;
 end;
 procedure  TThreadVideoStream.VideoOutPut;
 begin
-      MSVideoForm.image1.Picture.Assign(image);
+      MSVideoFormDemo.image1.Picture.Assign(image);
 end;
 procedure IplImage2Bitmap(iplImg: PIplImage; var bitmap:TBitmap);
 VAR
@@ -167,9 +167,9 @@ END; { IplImage2Bitmap }
 constructor TThreadVideoStream.Create;
 begin
   inherited Create(True);
-   flgrotation:=MSVIDEOForm.lflgrotation;
+   flgrotation:=MSVIDEOFormDemo.lflgrotation;
     curframenmb:=0;
-    nstep:=MSVideoForm.nstep;//1;
+    nstep:=MSVideoFormDemo.nstep;//1;
 //    MSVideoInit;
     FreeOnTerminate:=true;
     Priority := TThreadPriority(tpNormal);
@@ -181,7 +181,7 @@ destructor TThreadVideoStream.Destroy;
 begin
    ThreadFlg:=mDrawing;
    FreeAndNil(image);
-   PostMessage(MSvideoForm.Handle,wm_ThreadDoneMsg,ThreadFlg,0);
+   PostMessage(MSvideoFormDEmo.Handle,wm_ThreadDoneMsg,ThreadFlg,0);
    inherited destroy;
 end;
 

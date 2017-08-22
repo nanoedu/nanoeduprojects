@@ -20,7 +20,7 @@ type
     FormatSize: Integer;
   end;
 
-  TMSVideoFORM = class(TForm)
+  TMSVideoFORMDemo = class(TForm)
     siLang1: TsiLang;
     siLangDispatcher1: TsiLangDispatcher;
     ToolBar: TToolBar;
@@ -88,7 +88,7 @@ type
   end;
 
 var
-  MSVideoForm: TMSVideoFORM;
+  MSVideoFORMDemo: TMSVideoFORMDemo;
  // userdrvname:string;
  // lang:integer;// slanguage:string;
 
@@ -160,7 +160,7 @@ BEGIN
   End
 END; { IplImage2Bitmap }
 
-procedure TMSVideoFORM.ThreadDone(var AMessage: TMessage);
+procedure TMSVideoFORMDemo.ThreadDone(var AMessage: TMessage);
   begin
   if  (mDrawing=AMessage.WParam)then
   begin
@@ -207,13 +207,13 @@ procedure TMSVideoFORM.ThreadDone(var AMessage: TMessage);
  end;
 
 end;
-procedure TMSVideoFORM.Timer1Timer(Sender: TObject);
+procedure TMSVideoFORMDemo.Timer1Timer(Sender: TObject);
 begin
  timer1.enabled:=false;
  if lflgautostart then StartVideo;//PlayBtnClick(self);
 end;
 
-procedure  TMSVideoFORM.StartVideo;//(filename:string);
+procedure  TMSVideoFORMDemo.StartVideo;//(filename:string);
 begin
    if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
        begin
@@ -225,7 +225,7 @@ begin
          VideoStreamThread:= TThreadVideoStream.Create;
        end ;
 end;
-procedure  TMSVideoFORM.StartVideoStream(filename:string;istart:integer; instep:integer);
+procedure  TMSVideoFORMDemo.StartVideoStream(filename:string;istart:integer; instep:integer);
 begin
       if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
        begin
@@ -238,7 +238,7 @@ begin
          VideoStreamThread:= TThreadVideoStream.Create;
        end ;
 end;
-procedure  TMSVideoFORM.StopVideoStream;
+procedure  TMSVideoFORMDemo.StopVideoStream;
 begin
  flgStopVideoStream:=true;
  if PlayBtn.Down then
@@ -248,7 +248,7 @@ begin
   end;
    stopbtn.down:=true;
 end;
-procedure TMSVideoFORM.PlayBtnClick(Sender: TObject);
+procedure TMSVideoFORMDemo.PlayBtnClick(Sender: TObject);
 begin
  (*     if not assigned(VideoStreamThread) or (not VideoStreamThreadActive) then // make sure its not already running
        begin
@@ -261,13 +261,13 @@ begin
        *)
 end;
 
-procedure TMSVideoFORM.SettingBtnClick(Sender: TObject);
+procedure TMSVideoFORMDemo.SettingBtnClick(Sender: TObject);
 begin
 
 end;
 
 //************************************************************************************************
-constructor TMSVideoFORM.Create(AOwner:TComponent; filename:string;delay:integer;flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
+constructor TMSVideoFORMDemo.Create(AOwner:TComponent; filename:string;delay:integer;flgautostart:boolean;flgautoclose:boolean;flgrotation:boolean);
 begin
   inherited Create(AOwner);
   siLang1.ActiveLanguage:=Lang;
@@ -287,7 +287,7 @@ begin
   end;
  end;
 //************************************************************************************************
-procedure TMSVideoFORM.FormResize(Sender: TObject);
+procedure TMSVideoFORMDemo.FormResize(Sender: TObject);
 var
   DC: HDC;
 begin
@@ -298,13 +298,13 @@ begin
   SetWindowPos(hWndC, HWND_TOPMOST	, 0, 0, panelframevideo.ClientWidth,panelframevideo.ClientHeight,
                SWP_NOZORDER + SWP_NOACTIVATE);
 end;
-procedure TMSVideoFORM.HelpBtnClick(Sender: TObject);
+procedure TMSVideoFORMDemo.HelpBtnClick(Sender: TObject);
 begin
 
 end;
 
 //************************************************************************************************
-procedure TMSVideoFORM.siLang1ChangeLanguage(Sender: TObject);
+procedure TMSVideoFORMDemo.siLang1ChangeLanguage(Sender: TObject);
 begin
 
 end;
@@ -325,11 +325,11 @@ begin
 end;
 //************************************************************************************************
 //************************************************************************************************
-procedure TMSVideoFORM.InitParams;
+procedure TMSVideoFORMDemo.InitParams;
 begin
 end;
 //************************************************************************************************
-function TMSVideoFORM.MSVideoInit:byte;
+function TMSVideoFORMDemo.MSVideoInit:byte;
 begin
   nstart:=1;
   nstartapr:=1;
@@ -364,11 +364,11 @@ begin
      result:=0;
 end;
 //************************************************************************************************
-procedure TMSVideoFORM.StopBtnClick(Sender: TObject);
+procedure TMSVideoFORMDemo.StopBtnClick(Sender: TObject);
 begin
  StopVideoStream;
 end;
-procedure TMSVideoFORM.UpdateStrings;
+procedure TMSVideoFORMDemo.UpdateStrings;
 begin
   strm4 := siLang1.GetTextOrDefault('strstrm4');
   strm3 := siLang1.GetTextOrDefault('strstrm3');
@@ -377,24 +377,24 @@ begin
 end;
 
 //************************************************************************************************
-procedure TMSVideoFORM.FormDestroy(Sender: TObject);
+procedure TMSVideoFORMDemo.FormDestroy(Sender: TObject);
 begin
 //  CapBitmap.Free;
   Application.Handle:=0;
 //  PostMessage (FormHandle, MsgBack, 0, 0);
-   MSVideoForm:=nil;
+   MSVideoFormDemo:=nil;
 end;
 //************************************************************************************************
-procedure TMSVideoFORM.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TMSVideoFORMDemo.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
    FreeAndNil(image);
    Action:=caFree;
-   MSVideoForm:=nil;
+   MSVideoFormDemo:=nil;
 end;
 
 
 
-procedure TMSVideoFORM.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+procedure TMSVideoFORMDemo.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
  if not flgStopVideoStream  then
  begin

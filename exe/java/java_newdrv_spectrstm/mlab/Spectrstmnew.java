@@ -1,5 +1,5 @@
 package mlab;
-  //300617
+  //110717
 
 public class Spectrstmnew
 {
@@ -96,38 +96,37 @@ public class Spectrstmnew
     Simple.Sleep(1000);
 
      int[] code;
-     int[] data_out;
-     int[] path_in;
+     //int[] data_out;
+     //int[] path_in;
+
 //////////////////////////////////////////////////////////////////
-		code = new int[18];
+		code = new int[16];
 //----- Заголовок -- "2D point" --------------------
 		code[0]  = Dxchg2.CODE_SIGNATURE;
-		code[1]  = 0x00030002;
+		code[1]  = 0x00030001;
 		code[2]  = code.length;
 //------------------ Код ----------------------------------------
 // Вектор перемещения и позиция точки
-                code[3]  = 0x00000000 + (12<<16) + (0<<0);
+                code[3]  = 0x00000000 + (10<<16) + (0<<0);
 		code[4]  = 0x20000000;
-// Контроль перемещения
-                code[5]  = 0x00000000;
-		code[6]  = 0x10000008;
-// пауза после перемещения по z  береться из dataout
-                code[7]  = 0x00008000 + (16<<16) + (0<<0);  //pause from dataout
-		code[8]  = 0x00000000;
+// пауза после перемещения по U  береться из dataout
+                code[5]  = 0x00008000 + (14<<16) + (0<<0);  //pause from dataout
+		code[6]  = 0x00000000;
 //GET  I
-                code[9]  = 0x00000000 + (0<<16) + (14<<0);
-                code[10] = 0x40000000 + pause - 1;
+                code[7]  = 0x00000000 + (0<<16) + (12<<0);
+                code[8]  = 0x40000000 + pause - 1;
 // Возврат
-                code[11] = 0x80000000 + (3<<16) + 0;
+                code[9] = 0x80000000 + (3<<16) + 0;
 //----- Список портов перемещения в точку ---------
+		code[10] = 1;
+		code[11] =PORT_U;
+// Список портов измерения тока
 		code[12] = 1;
-		code[13] =PORT_U;
+                code[13] =PORT_I ;
+
 // Список портов измерения тока
 		code[14] = 1;
-		code[15] =PORT_I ;
-// список портов ожидание воздействия
-		code[16] =  1;
-		code[17] = -1;
+		code[15] =-1 ;
 // Возврат
 ////////////////////////////////////////////////////////////////////
 
@@ -141,13 +140,17 @@ public class Spectrstmnew
       int dlt;
       dacU=ubackup;
       step=-start_step*DAC_STEP;
+      int[] dataout=new int[2*UPoints];
 
      int nstep;
      int rest;
+    int[]   data_out2 = new int[UPoints];
+    int[]   path_in2  = new int[2*UPoints];
+  
  for (j=0; j<UCurves; j++)
  {
-     step=-start_step*DAC_STEP;
-      dlt=(dacU-UStart)>>16;
+      step=-start_step*DAC_STEP;
+      dlt=(dacU>>16)-(UStart>>16);
       if (dlt<0)
       {
         step=start_step*DAC_STEP;
@@ -155,9 +158,10 @@ public class Spectrstmnew
       }
         nstep=dlt / start_step;
         rest=dlt%start_step;
+  {
+   int[]    data_out = new int[(nstep+1)];
+   int[]    path_in  = new int[2*(nstep+1)];
 
-       data_out = new int[nstep+1];
-       path_in = new int[2*(nstep+1)];
       i=0;
       for (kk=0; kk<nstep; kk++)
       {
@@ -169,26 +173,34 @@ public class Spectrstmnew
          path_in[i++]=dacU;
          path_in[i++]=300;
 
-         Dxchg2.ExecuteScan( path_in, data_out, code, 1 );
-
-       data_out = new int[UPoints];
-       path_in = new int[2*(UPoints)];
+         Dxchg2.ExecuteScan( path_in, data_out, code, nstep+1 );
+   }
        i=0;
-       for(i=0; i<UPoints; i++)
+       for(k=0; k<UPoints; k++)
        {
-                path_in[i++]=dacU;
-                path_in[i++]=dt;
+                path_in2[i++]=dacU;
+                path_in2[i++]=dt;
                 dacU+=UStep;
        }
 
-         Dxchg2.ExecuteScan( path_in, data_out, code, 1 );
+         Dxchg2.ExecuteScan( path_in2, data_out2, code, UPoints );
+
+         dst_i=0;
+          k=0;
+        for(i=0; i<UPoints; i++)
+	{
+	    dataout[k]  =UStart+i*UStep;
+            dataout[k+1]=data_out2[dst_i];
+            dst_i += 1;
+            k+=2;
+	}
          off=0;//UPoints;
          rd=0;  wr=0;
 	 s =UPoints;// UPoints;
 
 	for (;  wr != s; )
 	{
-        	wr += stream_ch_data_out.WriteEx(data_out, off, s-wr, 1000);
+        	wr += stream_ch_data_out.WriteEx(dataout, off, s-wr, 1000);
        }
        stream_ch_data_out.Invalidate();
       //move to start point
@@ -197,7 +209,7 @@ public class Spectrstmnew
   //move to
      dacU-=UStep;
      step=-start_step*DAC_STEP;
-     dlt=(dacU-ubackup)>>16;
+     dlt=(dacU>>16)-(ubackup>>16);
      if (dlt<0)
      {
         step=start_step*DAC_STEP;
@@ -206,20 +218,20 @@ public class Spectrstmnew
      rest=dlt%start_step ;
      nstep=dlt/start_step;
 
-       data_out = new int[nstep+1];
-       path_in = new int[2*(nstep+1)];
+   int[]    data_out3 = new int[nstep+1];
+   int[]    path_in3 = new int[2*(nstep+1)];
       i=0;
       for (kk=0; kk<nstep; kk++)
       {
-                path_in[i++]=dacU;
-                path_in[i++]=300;
+                path_in3[i++]=dacU;
+                path_in3[i++]=300;
                 dacU+=step;
          }
          dacU+=rest;
-         path_in[i++]=dacU;
-         path_in[i++]=300;
+         path_in3[i++]=dacU;
+         path_in3[i++]=300;
 
-      Dxchg2.ExecuteScan( path_in, data_out, code, 1 );
+      Dxchg2.ExecuteScan( path_in3, data_out3, code, nstep+1 );
 
       Simple.Sleep(1000);
 

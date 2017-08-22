@@ -207,7 +207,7 @@ k,i,l,j,j0:integer;
 valU,valI:single;
 begin
   j0:=4;     //must be even value
-  i:=j0;// try to kill jump in spectrosopy 231215 change =  0->4;
+  i:=j0;// try to kill jump in spectrosopy 23/12/15 change =  0->4;
  for k:=j0 to ((n-1)) do
   begin
      valU:=TempAquiData[i]*SpectrWndV.UStepMin;

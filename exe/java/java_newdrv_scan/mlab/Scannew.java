@@ -1,4 +1,4 @@
-package mlab;    // 19.06.17
+package mlab;    // 17.07.19
                  // oneline+; discrtinmicrostep
                  //  need test additional element in buffer (  <> mod 512)
 
@@ -85,8 +85,8 @@ public class Scannew
                 int  slowlinescount;
 
 
-       M_BASE_K =Simple.bramID("m_BaseK");;
-       M_USTEP = Simple.bramID("m_ustep");;
+       M_BASE_K = Simple.bramID("m_BaseK");;
+       M_USTEP  = Simple.bramID("m_ustep");;
        M_DACX   = Simple.bramID("dxchg_X");
        M_DACY   = Simple.bramID("dxchg_Y");
 
@@ -120,18 +120,14 @@ public class Scannew
                  slowlines=X_POINTS;
                 }
 
-//for (i=0;i<10; i++)  { Simple.DumpInt(datain[i]);}
 
 		JVIO stream_ch_stop      = new JVIO(CH_STOP,    1, 1,JVIO.BUF,  1, 0);                        // 0
 		JVIO stream_ch_drawdone  = new JVIO(CH_DRAWDONE,1, 1,JVIO.BUF,  1, 0);                        // 1
              // +1 - лишняя точка, чтобы исключить передачу данных длиной,
              //  кратной 512 байт
-		JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,SZ,X_POINTS*Y_POINTS/*+ slowlines+SZ*/,JVIO.FIFO,fastlines, 0); // 2
+		JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,SZ,X_POINTS*Y_POINTS+ slowlines+SZ,JVIO.FIFO,fastlines, 0); // 2
 		JVIO stream_ch_params    = new JVIO(CH_PARAMS,  2, 1,JVIO.BUF,  1, 0);                        // 3
 
-       //		int[] dataout;
-	   	//dataout=new int[SZ*X_POINTS*Y_POINTS];
-	 //	dataout=new int[SZ*(fastlines +1)];
 
 		int[] buf_stop;
 		buf_stop = new int[1];
@@ -157,7 +153,17 @@ public class Scannew
 
 
 	        d_step_N = XMicrostepNmb;     // Кол-во микрошагов от точки к точке.
- 		d_step = d_step_N * DAC_STEP; // Приращение ЦАП на шаге от точки к точке.
+ 		d_step = d_step_N * DiscrNumInMicroStep; //DAC_STEP; // Приращение ЦАП на шаге от точки к точке.
+                  if (  ScanPath == 0)
+		  {
+                     d_step_N = XMicrostepNmb;     // Кол-во микрошагов от точки к точке.
+                  }
+		  else 
+                  {
+                     d_step_N = YMicrostepNmb;     // Кол-во микрошагов от точки к точке.
+                  }
+
+                d_step = d_step_N * DiscrNumInMicroStep; //DAC_STEP; // Приращение ЦАП на шаге от точки к точке.
 
 	       	dacX =Simple.bramRead(M_DACX) ;
              	dacY =Simple.bramRead(M_DACY) ;
@@ -169,21 +175,12 @@ public class Scannew
                 USTEP_DLYBW = buf_params[1];
 
                 slowlinescount=0;
-            //
-            ///***********************************************************************
-           /*	int Snom = 0x028F5C29; // 1.0/50 - просто выбрано число 50
-		int Vtrvl_nom = 0x19000000; // Snom*Vtrvl = Grid, за 1 шаг
-	        int V = Vtrvl_nom / 320;
-                int Vbw=-10*V;
-     		Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
-                int Grid = 0x00800000;
-            */
 
-                 int Snom =((1<<17) /USTEP_DLY)<<14;
-                 int V=  1<<16;
-                 V=-V;
-                 int Vbw=-V*USTEP_DLY/USTEP_DLYBW;
-                 Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
+              int[] resV;
+              resV = new int[2];
+              resV = SetRate.SetRate( USTEP_DLY,USTEP_DLYBW, DiscrNumInMicroStep) ; 
+              int V=    resV[0];
+              int Vbw = resV[1];
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -191,9 +188,9 @@ public class Scannew
  	        int[] data_out;
  		int[] code;
                 int[] code2d ;
-               int codesz;
-               	code2d = new int[28];
-                code = new int[27];
+                int codesz;
+               	code2d = new int[30];
+                code = new int[29];
  if (SZ==1)
  {
 //----- Заголовок -- "2D point" --------------------
@@ -201,49 +198,50 @@ public class Scannew
 		code[1]  = 0x00030002; //точка входа  3   глубина =2
 		code[2]  = code.length;
 // repeat
-
-                code[3]= 0x80000000 + (13<<16) +fastlines;
-
+                code[3]= 0x80000000 + (15<<16) +fastlines;
 // перемещения в точку  x=0   fastline
-                code[4]  = 0x00000000 + (20<<16) + (0<<0);
+                code[4]  = 0x00000000 + (22<<16) + (0<<0);
 		code[5]  = 0x20000000;
 		// Контроль перемещения
                 code[6]  = 0x00000000;
 		code[7]  = 0x10000008;
  //перемещения в точку  x=0 ;y=0
-                code[8]  = 0x00000000 + (20<<16) + (0<<0);
+                code[8]  = 0x00000000 + (22<<16) + (0<<0);
 		code[9]  = 0x20000000;
-		// Контроль перемещения
+// Контроль перемещения
                 code[10]  = 0x00000000;
 		code[11]  = 0x10000008;
+// Считывание после паузы
+                code[12] = 0x00000000 + (0<<16) + (27<<0);
+                code[13] = 0x40000000 + pause - 1;
 // Возврат
-                code[12]= 0x80000000 + (3<<16) +0;
+                code[14]= 0x80000000 + (3<<16) +0;
 // конец
 
 
 //----- Код ---движения по медленной оси------------------------------------
                 // Вектор перемещения и позиция точки
-                code[13]  = 0x00000000 + (20<<16) + (0<<0);
-		code[14]  = 0x20000000;
+                code[15]  = 0x00000000 + (22<<16) + (0<<0);
+		code[16]  = 0x20000000;
 		// Контроль перемещения
-                code[15]  = 0x00000000;
-		code[16]  = 0x10000008;
+                code[17]  = 0x00000000;
+		code[18]  = 0x10000008;
 	 	// Считывание после паузы
-                code[17] = 0x00000000 + (0<<16) + (25<<0);
-                code[18] = 0x40000000 + pause - 1;
+                code[19] = 0x00000000 + (0<<16) + (27<<0);
+                code[20] = 0x40000000 + pause - 1;
 // Возврат
-                code[19] = 0x80000000 + (13<<16) + 0;
+                code[21] = 0x80000000 + (15<<16) + 0;
 //-------------------движения по медленной оси----------------------
 
 //----- Список портов перемещения в точку ---------
-		code[20] = 4;
-		code[21] = Dxchg2.PORT_DIRY;
-		code[22] = Dxchg2.PORT_DIRX;
-		code[23] = Dxchg2.PORT_Y;
-		code[24] = Dxchg2.PORT_X;
+		code[22] = 4;
+		code[23] = Dxchg2.PORT_DIRY;
+		code[24] = Dxchg2.PORT_DIRX;
+		code[25] = Dxchg2.PORT_Y;
+		code[26] = Dxchg2.PORT_X;
 //----- Список портов получения результатов ------------------
-		code[25] = 1;
-           	code[26] = PORT_H;
+		code[27] = 1;
+           	code[28] = PORT_H;
 //
 }
 else
@@ -254,58 +252,61 @@ else
 		code2d[2]  = code2d.length;
 // repeat
 
-                code2d[3]= 0x80000000 + (13<<16) +fastlines;
+                code2d[3]= 0x80000000 + (15<<16) +fastlines;
 
 // перемещения в точку  x=0   fastline
-                code2d[4]  = 0x00000000 + (20<<16) + (0<<0);
+                code2d[4]  = 0x00000000 + (22<<16) + (0<<0);
 		code2d[5]  = 0x20000000;
 		// Контроль перемещения
                 code2d[6]  = 0x00000000;
 		code2d[7]  = 0x10000008;
  //перемещения в точку  x=0 ;y=0
-                code2d[8]  = 0x00000000 + (20<<16) + (0<<0);
+                code2d[8]  = 0x00000000 + (22<<16) + (0<<0);
 		code2d[9]  = 0x20000000;
 		// Контроль перемещения
                 code2d[10]  = 0x00000000;
 		code2d[11]  = 0x10000008;
+              	// Считывание после паузы
+                code[12] = 0x00000000 + (0<<16) + (27<<0);
+                code[13] = 0x40000000 + pause - 1;
 // Возврат
-                code2d[12]= 0x80000000 + (3<<16) +0;
+                code2d[14]= 0x80000000 + (3<<16) +0;
 // конец
 
 
 //----- Код ---движения по медленной оси------------------------------------
                 // Вектор перемещения и позиция точки
-                code2d[13]  = 0x00000000 + (20<<16) + (0<<0);
-		code2d[14]  = 0x20000000;
+                code2d[15]  = 0x00000000 + (22<<16) + (0<<0);
+		code2d[16]  = 0x20000000;
 		// Контроль перемещения
-                code2d[15]  = 0x00000000;
-		code2d[16]  = 0x10000008;
+                code2d[17]  = 0x00000000;
+		code2d[18]  = 0x10000008;
 	 	// Считывание после паузы
-                code2d[17] = 0x00000000 + (0<<16) + (25<<0);
-                code2d[18] = 0x40000000 + pause - 1;
+                code2d[19] = 0x00000000 + (0<<16) + (27<<0);
+                code2d[20] = 0x40000000 + pause - 1;
 // Возврат
-                code2d[19] = 0x80000000 + (13<<16) + 0;
+                code2d[21] = 0x80000000 + (15<<16) + 0;
 //-------------------движения по медленной оси----------------------
 
 //----- Список портов перемещения в точку ---------
-		code2d[20] = 4;
-		code2d[21] = Dxchg2.PORT_DIRY;
-		code2d[22] = Dxchg2.PORT_DIRX;
-		code2d[23] = Dxchg2.PORT_Y;
-		code2d[24] = Dxchg2.PORT_X;
+		code2d[22] = 4;
+		code2d[23] = Dxchg2.PORT_DIRY;
+		code2d[24] = Dxchg2.PORT_DIRX;
+		code2d[25] = Dxchg2.PORT_Y;
+		code2d[26] = Dxchg2.PORT_X;
 //----- Список портов получения результатов ------------------
-		code2d[25] = 2;
-           	code2d[26] = PORT_H;
-                if (ScanMethod == Topography) { code2d[27]= 5;}
-                if (ScanMethod == Phase)  { code2d[27]= PORT_PH;}
-                if (ScanMethod == I)      { code2d[27]= PORT_I;}
-                if (ScanMethod == UAM)    { code2d[27]= PORT_ERR;}
+		code2d[27] = 2;
+           	code2d[28] = Dxchg2.PORT_H;
+                if (ScanMethod == Topography) { code2d[29]= 5;}
+                if (ScanMethod == Phase)  { code2d[29]= Dxchg2.PORT_PH;}
+                if (ScanMethod == I)      { code2d[29]= Dxchg2.PORT_I;}
+                if (ScanMethod == UAM)    { code2d[29]= Dxchg2.PORT_ERR;}
 }
 
  //////////////////////////////////////////////////////////////////////
 
          path_in =new int[4*(fastlines+2)];
-        data_out =new int[SZ*fastlines];
+        data_out =new int[SZ*(fastlines+1)];
 
        // сканируем  только   один кадр
 
@@ -325,11 +326,11 @@ else
 
                        USTEP_DLYBW = buf_params[1];
 
-                        Snom =((1<<17) /USTEP_DLY)<<14;
+               resV = SetRate.SetRate( USTEP_DLY,USTEP_DLYBW, DiscrNumInMicroStep) ; 
+               V=    resV[0];
+               Vbw = resV[1];
 
-                        Vbw=-V*USTEP_DLY/USTEP_DLYBW;
-
-               Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
+          //     Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
 
 
                 	rd=0;
@@ -421,7 +422,7 @@ else
 
                 	wr=0;
 
-			int s = fastlines;  // +1 чтобы размер данных был <> mod 512
+			int s = fastlines+1;  // +1 чтобы размер данных был <> mod 512
 			for (;  wr != s; )
 			{
                           wr += stream_ch_data_out.WriteEx(data_out, wr, s-wr, 1000);
@@ -434,7 +435,6 @@ else
 
 		buf_drawdone[0]=done;
 
-		Simple.DumpInt(done);
 
 		wr=0;
 		for (;  wr == 0; )

@@ -60,7 +60,7 @@ type
      dbcd_devicetype: DWORD;
      dbcd_reserved: DWORD;
    end;
- *)  
+ *)
  type
   _OSVERSIONINFOEX = record
     dwOSVersionInfoSize : DWORD;
@@ -255,6 +255,8 @@ type
     SynchroSEM: TMenuItem;
     OpenDialogSEM: TOpenDialog;
     RestoreUsersConfigFile1: TMenuItem;
+    Label1: TLabel;
+    ComboBoxSensor: TComboBox;
     procedure PositionXYExecute(Sender: TObject);
     procedure ApplicationEvents1Exception(Sender: TObject; E: Exception);
     procedure ToolButtonRStestClick(Sender: TObject);
@@ -362,6 +364,7 @@ type
     procedure ActionChooseSampleExecute(Sender: TObject);
     procedure SynchroSEMClick(Sender: TObject);
     procedure RestoreUsersConfigFile1Click(Sender: TObject);
+    procedure ComboBoxSensorChange(Sender: TObject);
 
   private
     { Private declarations }
@@ -512,7 +515,7 @@ uses Globaltype,GlobalVar,GlobalFunction,SioCSPM,frControllerDetect,frWelCome,fr
      frtools, frHeader,frAbout, UUpdater,UAdapterService,
      uFileOp, spm_browserclasses, fShockwave, uScannerCorrect,frStartwork,dllImageAnalWnd,
      frSetPalette, frScale,SystemConfig,mHardWareOpt, {, MainUnitClient, MainUnitServer,,}
-     UFindProcess,Video, UNanoEduBaseClasses, uNanoEduClasses,UNanoEduDemoClasses,
+     UFindProcess,MsVideoStart, UNanoEduBaseClasses, uNanoEduClasses,UNanoEduDemoClasses,
      frMedia,frExperimParams,frLanguage, frBeginnerGuide,frSpectroscopy, frSpectroscopyTerra,frSpectroscopyV,frScanWnd,
      frReport,NanoeduHelp,frPositionXYZ, frResonance, frScannerTraining,FrControllerTurnOn
      {,SetupApi}, frApproachnew, ReadandExport,configmgr,frProgressMoveto,frAdapterService, UNanoEduInterface,
@@ -1460,18 +1463,18 @@ SetFlgSetScanArea;
 
     GetScriptsName;
 
- if   FindNotSavedScans then
- begin
-  flgCanClose:=true;   //180114
-  exit;
- end;
+  if   FindNotSavedScans then
+  begin
+   flgCanClose:=true;   //180114
+   exit;
+  end;
 
- formInitUnitEtape:=TformInitUnitEtape.Create(self);
- formInitUnitEtape.Show;
- formInitUnitEtape.flgactive:=true;
+  formInitUnitEtape:=TformInitUnitEtape.Create(self);
+  formInitUnitEtape.Show;
+  formInitUnitEtape.flgactive:=true;
     case   FlgCurrentUserLevel of
-Beginner,
-Advanced:begin
+  Beginner,
+  Advanced:begin
            Dr:=GetCurrentDir;
            ChDir(ExeFilePath);
         //   libHandle:=0;
@@ -1559,7 +1562,7 @@ Advanced:begin
            flgAutoRising:=true;
 //           flgAutoRising:=false;
 
-          if flgControlerTurnON then
+(*          if flgControlerTurnON then                     //06.07.17
                           begin
                            ActionNew.visible:=true;
                            ActionNew.Enabled:=true;
@@ -1575,6 +1578,7 @@ Advanced:begin
                            flgCanClose:=true; //180114
                            exit;
                           end;
+                          *)
                    case  FlgCurrentUserLevel of
            Beginner: FrBeginner:=TFrBeginner.Create(Application);
                      end;
@@ -1620,49 +1624,53 @@ Advanced:begin
              ChDir( Dr);
              Application.ProcessMessages;
              flgControlerTurnON:=true;
-        end;
+       end; //demo
                   end; //case
-               ComboBoxSFMSTM.Enabled:=true;
+(*               ComboBoxSFMSTM.Enabled:=true;           06/07/17
                ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
                {$IFDEF DEMO}
                  ComboBoxLevel.Enabled:=false;
                {$ENDIF}
-                   if not flgControlerTurnON then
-                          begin
-                           ActionNew.visible:=true;
-                           ActionNew.Enabled:=false;
-                           ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
-                           ComboBoxSFMSTM.Enabled:=true;
-                             flgCanClose:=true; //180114
-                           exit;
-                          end
-                          else
-                          begin
-                           ActionNew.visible:=true;
-                           ActionNew.Enabled:=false;//true;
-                           ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
-                           ComboBoxSFMSTM.Enabled:=true;
-                          end;
+               *)
+     if not flgControlerTurnON then
+      begin
+        ActionNew.visible:=true;
+        ActionNew.Enabled:=false;
+        ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
+        ComboBoxSFMSTM.Enabled:=true;
+        flgCanClose:=true; //180114
+        exit;
+     end ;
+(*     else
+     begin
+        ActionNew.visible:=true;
+        ActionNew.Enabled:=false;//true;
+        ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
+        ComboBoxSFMSTM.Enabled:=true;
+         {$IFDEF DEMO}
+                 ComboBoxLevel.Enabled:=false;
+         {$ENDIF}
+     end;
+ *)
      if not  NanoeduUnitCreate then
      begin
-                           ActionNew.visible:=true;
-                           ActionNew.Enabled:=true; //
-                           ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
-                           ComboBoxSFMSTM.Enabled:=true;
+        ActionNew.visible:=true;
+        ActionNew.Enabled:=true; //
+        ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
+        ComboBoxSFMSTM.Enabled:=true;
      end
      else
      begin
-         //
-    with ScanParams do
-    begin
-     case  flgUnit of
+      //
+       with ScanParams do
+       begin
+        case  flgUnit of
       nano,terra,Pipette:  SetScanAreaDefR ;
       baby: ;
       ProBeam,MicProbe:    SetScanAreaDefR;
+             end;
        end;
-    end;
- 
-         //
+      //
           Voltage_toDiscr('X',0, DiscrVal, ScanAreaBeginXR)  ;     // Выход в точку 0 В по Х и Y
           Voltage_toDiscr('Y',0, DiscrVal, ScanAreaBeginYR)  ;
 
@@ -1675,7 +1683,17 @@ Advanced:begin
           ScanParams.XBegin:= ScanAreaBeginXR;  // nm
           ScanParams.YBegin:= ScanAreaBeginYR;  // nm
 
-        if ScanParams.flgMovetoZero then   MoveToStartPoint(ScanAreaBeginXR, ScanAreaBeginYR);
+//        if ScanParams.flgMovetoZero then   MoveToStartPoint(ScanAreaBeginXR, ScanAreaBeginYR);
+      if ScanParams.flgMovetoZero then   MoveToStartPoint(10,10);
+// add 06/07/17
+        ActionNew.visible:=true;
+        ActionNew.Enabled:=false;
+
+      ComboBoxLevel.Enabled:=boolean(flgchangeUserLevel);
+      ComboBoxSFMSTM.Enabled:=true;
+       {$IFDEF DEMO}
+                 ComboBoxLevel.Enabled:=false;
+         {$ENDIF}
      end;
       Application.ProcessMessages;
  end;
@@ -2770,6 +2788,24 @@ begin
     end;
 
    FlgCurrentUserLevel:=ComboBoxLevel.ItemIndex;
+   ResonanceParams.flgChangeSensor:=GetFlgChangeSensor;
+    if CurrentUserLevel='Demo' then
+    begin  ResonanceParams.flgChangeSensor:=false end;
+
+   if ( not ResonanceParams.flgChangeSensor)   then
+   begin
+    ComboBoxSensor.ItemIndex:=0;
+    ComboBoxSensor.Enabled:=false;
+   end
+   else
+   begin
+     ComboBoxSensor.ItemIndex:=0;
+     ComboBoxSensor.Enabled:=true; //probe;
+   end;
+ case ComboBoxSensor.ItemIndex of
+ 0: Sensor.kind:=probe;
+ 1: Sensor.kind:=cantilever;
+ end;
 
    WorkDefDirectory:=UserNanoeduWorkDocumentsPath;
 
@@ -2782,6 +2818,8 @@ begin
    GetWorkDirAndFirstTimeDetectPath(sFile);
 
     flgUnit:=GetDeviceName;
+
+    ComboBoxSensor.ItemIndex:= GetSensorName-1;
 
   if sLanguage='RUS' then
   begin
@@ -2820,6 +2858,7 @@ begin
 
   Pipette:  if fileexists(ExeFilePath+'Data\'+'pipette.jpg')       then  UnitImage.Picture.LoadFromFile(ExeFilePath+'Data\'+'pipette.jpg');
                   end;
+
       SaveAsDirectory:=workdirectory;
       Main.ArrangeWindows1.Enabled:=False;
       FileItem.Hint := siLang1.GetTextOrDefault('IDS_108' (* 'File Menu' *) );
@@ -2915,7 +2954,8 @@ begin
       height:=Screen.workareaheight;
       left:=Screen.workarealeft;//-WorkView.width;
       top:=Screen.workareatop;
-  end;end;
+  end;
+end;
 
 procedure   TMain.GetWorkDirAndFirstTimeDetectPath(Filename:STRING);
 var iniCSPM:Tinifile;
@@ -2987,6 +3027,7 @@ if assigned(NoFormUnitLoc) then NoFormUnitLoc.close;
 if assigned(ImgAnalysWnd)  then ImgAnalysWnd.close;
  SetUserLevel;
  SetflgChangeUserLevel;
+ SetFlgChangeSensor;
  SetDeviceName(flgUnit);
  SetOnlineService;
  sFile:=ConfigUsersIniFilePath + ConfigUsersIniFile;
@@ -3238,47 +3279,32 @@ begin
     begin
      if(FlgCurrentUserLevel<>DEMO) then
      begin
-      if GetModuleHandle('MSVideoLib.dll')=0 then
-      begin
-        @StartVideo:=nil; @StopVideo:=nil;
-        LibVideoHandle:=0;
-        LibVideoHandle:=LoadLibrary(PChar(ExeFilePath+'MSVideoLib.dll'));
-        if  LibVideoHandle<=32 then
-                                  begin
-                                   silang1.MessageDlg(siLang1.GetTextOrDefault('IDS_211' (* 'Library MSVideoLib.dll Load Error' *) )+ IntToStr(GetLastError)+'!',mtWarning,[mbOk],0);
-                                   exit;
-                                  end
-                               else
-                                  begin
-                                    StartVideo:=GetProcAddress(LibVideoHandle,'StartVideo');
-                                    StopVideo:=GetProcAddress(LibVideoHandle,'StopVideo');
-                                  end;
-      end;
       if   StartVideo(Application.Handle,self.Handle,WM_UserCloseVideo,Lang,ConfigUsersIniFilePath) then
       begin
         h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then
         begin
          GetWindowRect(h,R);
-         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
+         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOACTIVATE or SWP_NOSIZE or SWP_SHOWWINDOW);
         end;
       end;
      end //not demo
      else
      begin //demo
       // ApproachSimulationVideo:=
-       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,20,false,false,false);
-       MSVideoFORM.show;
+       MSVideoFormDEmo:=TMSVideoFORMDemo.Create(self,ApproachSimulationVideo,20,false,false,false);
+       MSVideoFORMDemo.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then
         begin
          GetWindowRect(h,R);
-         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
+         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOACTIVATE or SWP_NOSIZE or SWP_SHOWWINDOW);
         end;
      end;
    end;   //h=0
   camera.Enabled:=True;
 end;
+
 
 procedure TMain.ExitClick(Sender: TObject);
 begin
@@ -3446,7 +3472,7 @@ begin
 
   h:=FindWindow(nil,Pchar(strm41{'MSVideo'}));
    if(FlgCurrentUserLevel<>DEMO) then begin if h<>0 then  StopVideo; end
-    else  if assigned(MSVideoForm) then MSVideoForm.Close;
+    else  if assigned(MSVideoFormDemo) then MSVideoFormDEmo.Close;
 
   if EXE_Running('Oscilloscope.exe', false) then
   begin
@@ -4002,7 +4028,7 @@ grand:begin
       end;
            end;  //case
       end;
-end;
+ end;
 
 procedure  TMain.MoveToStartPoint(XStartnm, YStartnm:integer);
 var tmpdelay, tmpDiscrNumInMicroStep:integer;
@@ -4011,7 +4037,7 @@ begin
  flgCanClose:=false;
   ToolScanBar.Enabled:=false; // add 13.08.13
   tmpdelay:=ScanParams.MicrostepDelay;
-  ScanParams.MicrostepDelay:=1;
+  ScanParams.MicrostepDelay:=100;
   tmpDiscrNumInMicroStep:= Scanparams.DiscrNumInMicroStep;
   Scanparams.DiscrNumInMicroStep:=10;
 
@@ -4165,8 +4191,8 @@ begin { Iiiauaai eiy oaeea ia?ao eaau?eaie, n niae?aaieai anao i?iaaeia a eiaiao
       GetWindowRect(h,R);
  // changed 220316   SetWindowPos(h,HWND_TOPMost,Main.Left+50+Main.ClientWidth-(R.right-R.left),0,50,50,SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW);
      if(Screen.MonitorCount=1)then
-           SetWindowPos(h,HWND_TOPMost,Left+50+ClientWidth-(R.right-R.left),50,50,50,SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW)
-      else SetWindowPos(h,HWND_TOPMost,50+ClientWidth-(R.right-R.left),50,50,50,SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW)
+           SetWindowPos(h,HWND_TOPMost,Left+50+ClientWidth-(R.right-R.left),50,50,50,SWP_NOACTIVATE or SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW)
+      else SetWindowPos(h,HWND_TOPMost,50+ClientWidth-(R.right-R.left),50,50,50,SWP_NOACTIVATE or SWP_NOSIZE {or SWP_NOMOVE} or SWP_SHOWWINDOW)
   end;
    end
   else
@@ -5149,9 +5175,9 @@ begin
    videofile:=ExtractFilePath(Application.ExeName)+'Data\VideoCameraSimulation\startwork.avi';
    if Fileexists(videofile) then
    begin
-    MSVideoForm:=TMSVideoFORM.Create(Application,videofile,30,true,true,false);
-    MSVideoForm.WindowState:=wsNormal;//Maximized;
-    MSVideoForm.Show;//Modal;
+    MSVideoFormDemo:=TMSVideoFORMDEmo.Create(Application,videofile,30,true,true,false);
+    MSVideoFormDemo.WindowState:=wsNormal;//Maximized;
+    MSVideoFormDEmo.Show;//Modal;
    end;
  end;
 //{$ENDIF}
@@ -5196,6 +5222,24 @@ end;
 procedure TMain.ComboBoxLevelSelect(Sender: TObject);
 begin
     ProcComboboxLevelSelect(Sender);
+   if CurrentUserLevel='Demo' then
+    begin  ResonanceParams.flgChangeSensor:=false end;
+
+   if ( not ResonanceParams.flgChangeSensor)   then
+   begin
+    ComboBoxSensor.ItemIndex:=0;
+    ComboBoxSensor.Enabled:=false;
+   end
+   else
+   begin
+     ComboBoxSensor.ItemIndex:=0;
+     ComboBoxSensor.Enabled:=true; //probe;
+   end;
+ case ComboBoxSensor.ItemIndex of
+ 0: Sensor.kind:=probe;
+ 1: Sensor.kind:=cantilever;
+ end;
+
 end;
 
 procedure TMain.ProcComboboxLevelSelect(Sender: TObject);
@@ -5204,7 +5248,7 @@ if   FlgCurrentUserLevel<>ComboBoxLevel.ItemIndex then
 begin
    h:=FindWindow(nil,Pchar(strm41{'MSVideo'}));
    if(FlgCurrentUserLevel<>DEMO) then begin if h<>0 then  StopVideo; end
-    else  if assigned(MSVideoForm) then MSVideoForm.Close;
+    else  if assigned(MSVideoFormDEmo) then MSVideoFormDemo.Close;
 
  if  ToolScanBar.visible  then
   begin
@@ -5273,6 +5317,16 @@ Advanced:begin
           end;
                  end;
   end; //change level;
+end;
+
+procedure TMain.ComboBoxSensorChange(Sender: TObject);
+begin
+ case ComboBoxSensor.ItemIndex of
+ 0: Sensor.kind:=probe;
+ 1: Sensor.kind:=cantilever;
+ end;
+ if(assigned(NanoEdu))        then  NanoEdu.SetSensor(Sensor);
+ if (assigned(AutoResonance)) then  AutoResonance.ResonanceParamUpdate;
 end;
 
 procedure TMain.ComboBoxSFMSTMSelect(Sender: TObject);
@@ -5538,42 +5592,26 @@ end;
     begin
      if(FlgCurrentUserLevel<>DEMO) then
      begin
-      if GetModuleHandle('MSVideoLib.dll')=0 then
-      begin
-        @StartVideo:=nil; @StopVideo:=nil;
-        LibVideoHandle:=0;
-        LibVideoHandle:=LoadLibrary(PChar(ExeFilePath+'MSVideoLib.dll'));
-        if  LibVideoHandle<=32 then
-                                  begin
-                                   silang1.MessageDlg(siLang1.GetTextOrDefault('IDS_211' (* 'Library MSVideoLib.dll Load Error' *) )+ IntToStr(GetLastError)+'!',mtWarning,[mbOk],0);
-                                   exit;
-                                  end
-                               else
-                                  begin
-                                    StartVideo:=GetProcAddress(LibVideoHandle,'StartVideo');
-                                    StopVideo:=GetProcAddress(LibVideoHandle,'StopVideo');
-                                  end;
-      end;
       if   StartVideo(Application.Handle,self.Handle,WM_UserCloseVideo,Lang,ConfigUsersIniFilePath) then
       begin
         h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then
         begin
          GetWindowRect(h,R);
-         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
+         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOACTIVATE or SWP_NOSIZE or SWP_SHOWWINDOW);
         end;
       end;
      end //not demo
      else
      begin //demo
        ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\landing.avi';
-       MSVideoForm:=TMSVideoFORM.Create(self,ApproachSimulationVideo,20,false,false,false);
-       MSVideoFORM.show;
+       MSVideoFormDemo:=TMSVideoFORMDEmo.Create(self,ApproachSimulationVideo,20,false,false,false);
+       MSVideoFORMDemo.show;
          h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
         if h<>0  then
         begin
          GetWindowRect(h,R);
-         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOSIZE or SWP_SHOWWINDOW);
+         SetWindowPos(h,HWND_TOPMost,Main.Left+5,Main.Top+Main.ClientHeight-(R.Bottom-R.Top),50,50,SWP_NOACTIVATE or SWP_NOSIZE or SWP_SHOWWINDOW);
         end;
      end;
     end
@@ -5744,23 +5782,7 @@ end;
    h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
    if h=0  then
     begin
-    if GetModuleHandle('MSVideoLib.dll')=0 then
-     begin
-      @StartVideo:=nil;
-      @StopVideo:=nil;
-      LibVideoHandle:=0;
-      LibVideoHandle:=LoadLibrary(PChar(ExeFilePath+'MSVideoLib.dll'));
-       if  LibVideoHandle<=32 then begin
-                                    silang1.MessageDlg('Library MSVideoLib.dll Load Error'+ IntToStr(GetLastError)+'!. Test USB Connection. ',mtWarning,[mbOk],0);
-                                    exit;
-                                   end
-                              else
-                                  begin
-                                    StartVideo:=GetProcAddress(LibVideoHandle,'StartVideo');
-                                    StopVideo:=GetProcAddress(LibVideoHandle,'StopVideo');
-                                  end;
-     end;
-       StartVideo(Application.Handle,self.Handle,WM_UserCloseVideo,Lang,ConfigUsersIniFilePath);
+      StartVideo(Application.Handle,self.Handle,WM_UserCloseVideo,Lang,ConfigUsersIniFilePath);
        h:=findwindow(nil,Pchar(strm41{'MSVideo'}));
       if h<>0  then
        begin

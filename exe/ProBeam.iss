@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=ProBeam
-AppVerName=ProBeam ver 17.01.13.40
-OutputBaseFilename=ProBeam-17.01.13.40
+AppVerName=ProBeam ver 17.01.13.56
+OutputBaseFilename=ProBeam-17.01.13.56
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
 AppUpdatesURL=http://www.ntspb.ru
@@ -82,6 +82,10 @@ Source: "SPMConfigDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "SPMOSC.ini";   DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
 Source: "SPMPID.ini";   DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
 Source: "SPMvideo.ini"; DestDir: "{userappdata}\ProBeam"; Flags: ignoreversion;
+Source: "SPMConfigNewDrv.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMConfigDefNewdrv.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMController.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMControllerDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 ;Source: "SPMupdates.ini"; DestDir: "{userappdata}\nanoeducator"; Flags: ignoreversion;
 Source: "SPMConfigUsersProBeam.ini";    DestDir: "{userappdata}\ProBeam"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
 Source: "SPMConfigDefUsersProBeam.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;

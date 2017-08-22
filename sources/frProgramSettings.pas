@@ -27,6 +27,8 @@ type
     BitBtnOK: TBitBtn;
     TabSheetSimulator: TTabSheet;
     CheckBoxFastSimulation: TCheckBox;
+    TabSheet2: TTabSheet;
+    CheckBoxChooseSensor: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure BitBtnOKClick(Sender: TObject);
@@ -34,6 +36,7 @@ type
     procedure ComboBoxProgramChange(Sender: TObject);
     procedure RadioGroupchangeUserLevelClick(Sender: TObject);
     procedure CheckBoxClick(Sender: TObject);
+    procedure CheckBoxChooseSensorClick(Sender: TObject);
 
   private
    SchemeList:TstringList;
@@ -50,7 +53,7 @@ var
 implementation
 
 {$R *.dfm}
-uses GlobalVar,CSPMVar, Globalfunction,mMain;
+uses GlobalVar,CSPMVar, Globalfunction,mMain, UNanoEduBaseClasses,frResonance;
 
  procedure TFormProgramSettings.BitBtnCancelClick(Sender: TObject);
 begin
@@ -64,6 +67,25 @@ begin
      ScanParams.flgFastSimulator:=CheckBoxFastSimulation.checked;
    //  SetFlgFastSimulation;
      modalResult:=mrOK;
+end;
+
+procedure TFormProgramSettings.CheckBoxChooseSensorClick(Sender: TObject);
+begin
+  Main.ComboBoxSensor.enabled:=CheckBoxChooseSensor.Checked;
+  ResonanceParams.flgChangeSensor:=CheckBoxChooseSensor.Checked;
+    if CurrentUserLevel='Demo' then
+    begin
+     ResonanceParams.flgChangeSensor:=false;
+     Main.ComboBoxSensor.enabled:=false;
+    end;
+    if (not ResonanceParams.flgChangeSensor) then Main.ComboBoxSensor.ItemIndex:=0;
+    
+     case main.ComboBoxSensor.ItemIndex of
+ 0: Sensor.kind:=probe;
+ 1: Sensor.kind:=cantilever;
+ end;
+ if (assigned(NanoEdu))        then  NanoEdu.SetSensor(Sensor);
+ if (assigned(AutoResonance)) then  AutoResonance.ResonanceParamUpdate;
 end;
 
 procedure TFormProgramSettings.CheckBoxClick(Sender: TObject);
@@ -141,6 +163,7 @@ begin
    {$ENDIF}
     CheckBoxFastSimulation.Checked:=ScanParams.flgFastSimulator;
     checkbox.Checked:=boolean(flgOnlineService);
+    CheckBoxChooseSensor.Checked:=ResonanceParams.flgChangeSensor;
 end;
 
 

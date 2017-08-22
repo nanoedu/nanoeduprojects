@@ -155,8 +155,8 @@ object VideoSettings: TVideoSettings
     Align = alBottom
     Caption = 'Video driver'
     TabOrder = 1
-    ExplicitTop = 65
-    ExplicitWidth = 385
+    ExplicitLeft = -4
+    ExplicitTop = 66
     object DriverCB: TComboBox
       Left = 20
       Top = 15

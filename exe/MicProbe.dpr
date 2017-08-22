@@ -166,7 +166,11 @@ uses
   OpenCV_types in '..\sources\Opencv\OpenCV_types.pas',
   OpenCV_utils in '..\sources\Opencv\OpenCV_utils.pas',
   OpenCV_video in '..\sources\Opencv\OpenCV_video.pas',
-  MSVideoDEMO in '..\sources\MSVideoDEMO.pas' {MSVideoForm};
+  MSVideoDEMO in '..\sources\MSVideoDEMO.pas' {MSVideoForm},
+  MSVideo in '..\sources\MSVIDEO\MSVideo.pas',
+  MSVideoStart in '..\sources\MSVIDEO\MSVideoStart.pas',
+  VfW in '..\sources\MSVIDEO\VfW.pas',
+  VideoSettingsUnit in '..\sources\MSVIDEO\VideoSettingsUnit.pas' {VideoSettings};
 
 {FormProgramSettings}
 

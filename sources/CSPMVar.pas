@@ -48,7 +48,8 @@ const  DAC_REFSTM:widestring = 'm_I_BASE';    //set point STM
 const  DAC_REFSFM:widestring = 'm_A_rez';
 const  SelBRamU:widestring   = 'm_sel_Uopora';    // $00000000  bram ; $80000000  dchange block
 const  IMaxCut:widestring    = 'm_I_max';
-const  CMP_VAL:widestring     = 'din' ; 
+const  CMP_VAL:widestring     = 'din' ;
+const  SENSOR_TYPE:widestring = '' ; 
                          		// Выход END_SCAN
  const FIFO_IN      = $66;		// Данные входного потока сканирования
  const FIFO_PATH    = $68;		// Данные пути сканирования
@@ -188,7 +189,9 @@ const      //  device
 const //motor
  stepm=1;
  piezom=2;
-
+const //sensor
+  probe=1;
+  cantilever=2;
  //View Type
  type
   RBufParams=record
@@ -264,7 +267,8 @@ var
   const   WM_UserApproachOptUpdated = WM_User + 21;
   const   WM_UserScanWndUpdated   = WM_User + 22;
   const   WM_UserMsgScanError     = WM_User + 23;
-  const   WM_UserUpdateWorkView   = WM_User + 24;  
+  const   WM_UserUpdateWorkView   = WM_User + 24;
+  const   WM_UserResWndUpdated    = WM_User + 25; 
 type
   TPrilipalkaMSG = packed record
     Msg: Cardinal;
@@ -375,6 +379,7 @@ Type RTransformUnit=packed record
 TYPE CSPMSignalsArr=array [1..13] of RSignalCharacter;
 
 Type RResonanceParams=packed record
+     flgChangeSensor:boolean;
      nchannel:LongWord;
      FreqStart:longword;        //word->longword 150217
      FreqEnd:longword;
@@ -382,8 +387,14 @@ Type RResonanceParams=packed record
      FreqStartFine:longword;
      FreqEndRough:longword;
      FreqEndFine:longword;
-     FreqStartRoughDef:longword;
-     FreqEndRoughDef:longword;
+     FreqStartProbeRoughDef:longword;
+     FreqEndProbeRoughDef:longword;
+     FreqStartProbeRough:longword;
+     FreqEndProbeRough:longword;
+     FreqStartCantRough:longword;
+     FreqEndCantRough:longword;
+     FreqStartCantRoughDef:longword;
+     FreqEndCantRoughDef:longword;
      NPoints:word;
      Step:word;
      StepRough:word;
@@ -422,6 +433,9 @@ end;
      NPoints:data_dig;
      Delay:data_dig;
 end;
+Type RSensor=packed record
+     kind:integer;
+end;
 TYPE RApproachParams=packed record
        NChannels:integer;
        flgOneStep:boolean;
@@ -431,6 +445,8 @@ TYPE RApproachParams=packed record
        TypeMover:byte; //0 step; 1 piezo mover Z ;2 piezo mover X; 3 piezo mover-y ; piezo mover Z SEM
        F0:word;         //generator base frequency
        Amp_M:word;
+       AmpCant_M:word;
+       AmpProbe_M:word;
        Gain_FM:word;
        FreqBandF:word;
        FreqBandR:word;
@@ -1001,6 +1017,8 @@ var
   YBiasTang:single;
   ZMatr:TMas2;
   LineXkoef,LineYKoef:single;
+
+  Sensor:RSensor;
   OSCParams:ROSCParams;
 //  PIDParamsApr:RPIDParams;
   PIDParams:RPIDParams;

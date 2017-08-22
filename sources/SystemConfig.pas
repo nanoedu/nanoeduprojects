@@ -459,10 +459,10 @@ begin
    with   ResonanceParams do
    begin
      Delay:=2;      //ms
-     FreqStartRoughDef:=6000;
-     FreqEndRoughDef:=12000;
-     FreqStartRough:=FreqStartRoughDef;//8000;
-     FreqEndRough:=FreqEndRoughDef; // 10000;
+     FreqStartProbeRoughDef:=6000;
+     FreqEndProbeRoughDef:=12000;
+     FreqStartRough:=FreqStartProbeRoughDef;//8000;
+     FreqEndRough:=FreqEndProbeRoughDef; // 10000;
      FreqStart:=FreqStartRough;  //Hrz
      FreqEnd:=FreqEndRough;
      StepFine:=1;//HRz
@@ -485,14 +485,27 @@ begin
   begin
       ResonanceParams.Delay:=ReadInteger('Resonance','Delay',2) ;
    case flgUnit of
-Nano,NANoTutor,
-Probeam:begin
+Nano,NanoTutor,
+Probeam,
+MicProbe:begin
          with   ResonanceParams do
         begin
-         FreqStartRoughDef:=ReadInteger('Resonance','FreqStartRough',6000);
-         FreqEndRoughDef:=ReadInteger('Resonance','FreqEndRough',12000) ;
-         FreqStartRough:=FreqStartRoughDef;//8000;
-         FreqEndRough:=FreqEndRoughDef; // 10000;
+         FreqStartProbeRough:=ReadInteger('Resonance','FreqStartProbeRough',6000);
+         FreqEndProbeRough:=ReadInteger('Resonance','FreqEndProbeRough',12000) ;
+         FreqStartCantRough:=ReadInteger('Resonance','FreqStartCantRough',36000);
+         FreqEndCantRough:=ReadInteger('Resonance','FreqEndCantRough',52000) ;
+         flgChangeSensor:=boolean(ReadInteger('Resonance','ChangeSensor',0));
+            case Sensor.kind of
+probe:begin
+         FreqStartRough:=FreqStartProbeRough;//8000;
+         FreqEndRough:=FreqEndProbeRough; // 10000;
+      end;
+cantilever:
+       begin
+         FreqStartRough:=FreqStartCantRough;//8000;
+         FreqEndRough:=FreqEndCantRough; // 10000;
+       end;
+        end;
          FreqStart:=FreqStartRough;  //Hrz
          FreqEnd:=FreqEndRough;
          StepFine:=1;//HRz
@@ -515,10 +528,10 @@ begin
    with   ResonanceParams do
    begin
      Delay:=2;      //ms
-     FreqStartRoughDef:=6000;
-     FreqEndRoughDef:=12000;
-     FreqStartRough:=FreqStartRoughDef;//8000;
-     FreqEndRough:=FreqEndRoughDef; // 10000;
+     FreqStartProbeRoughDef:=6000;
+     FreqEndProbeRoughDef:=12000;
+     FreqStartRough:=FreqStartProbeRoughDef;//8000;
+     FreqEndRough:=FreqEndProbeRoughDef; // 10000;
      FreqStart:=FreqStartRough;  //Hrz
      FreqEnd:=FreqEndRough;
      StepFine:=1;//HRz
@@ -528,7 +541,8 @@ begin
      DeltaFine:=210; //500 Hrz   1/2 fine windows size
      AmplStep:=1/TransformUnit.AmplV_d;
      Nchannels:=4;       //add drawdone channel number 2
-     // number of java channel; 1:  freq{i},Ampl[i]- outchannel; freqres
+     flgChangeSensor:=false;
+      // number of java channel; 1:  freq{i},Ampl[i]- outchannel; freqres
      //  write delay
   //   Gain_AM:=491;
    end;
@@ -584,6 +598,8 @@ begin
         ApproachParams.ExtremAmplitude:=1.5;//ReadFloatConvert(iniCSPM,'Approach Parameters','ExtremAmplitude',1.5);
         ApproachParams.MaxAmp_M:=60;//mv
         ApproachParams.Amp_M:=8;
+        ApproachParams.AmpProbe_M:=8;
+        ApproachParams.AmpCant_M:=8;
         ApproachParams.F0:=10;
         ApproachParams.FreqBandR:=6;
      end;
@@ -645,9 +661,9 @@ begin
                              ApproachParams.MaxSuppress:=1.0
              end;
                end;
-                ScanParams.ScanDrawDelay  :=400;
+                ScanParams.ScanDrawDelay  :=200;  //400
                 ScanParams.LithoDrawDelay  :=400;
-                ScanParams.FastDrawDelay  :=4000;
+                ScanParams.FastDrawDelay  :=200;
                 ScanParams.flgOneFrame:=true;
                 ScanParams.TimMeasurePoint:=0.01;//ms
                 ScanParams.TimMicroStep:=0.005;//      // milisec, Time of one microstep;
@@ -713,7 +729,20 @@ begin
         ApproachParams.ExtremAmplitude:=ReadFloatConvert(iniCSPM,'Approach Parameters','ExtremAmplitude',1.5);
         //ApproachParams.MaxSuppress:=ReadFloatConvert(iniCSPM,'Approach Parameters','MaxSuppress',0.5);
         ApproachParams.MaxAmp_M:=ReadInteger('Approach Parameters','MaxAmp_M', 60);
-        ApproachParams.Amp_M:=ReadInteger('Approach Parameters','Amp_M',8);
+        ApproachParams.AmpProbe_M:=ReadInteger('Approach Parameters','AmpProbe_M',8);
+        ApproachParams.AmpCant_M:=ReadInteger('Approach Parameters','AmpCant_M',8);
+        with   ResonanceParams do
+        begin
+            case Sensor.kind of
+probe:begin
+           ApproachParams.Amp_M :=ApproachParams.AmpProbe_M;
+        end;
+cantilever:
+       begin
+           ApproachParams.Amp_M :=ApproachParams.AmpCant_M;
+       end;
+                  end;
+        end;
         ApproachParams.F0:=10;
         ApproachParams.FreqBandR:=6
      end;
@@ -794,7 +823,7 @@ begin
        ScanParams.TerraTDelay:=ReadInteger('Scanning Parameters','TerraTDelay', 100);
        ScanParams.ScanDrawDelay  :=ReadInteger('Scanning Parameters','ScanDrawDelay', 300);//191211
        ScanParams.LithoDrawDelay :=ReadInteger('Scanning Parameters','LithoDrawDelay',400);//191211
-       ScanParams.FastDrawDelay  :=ReadInteger('Scanning Parameters','FastDrawDelay',4000);//05.12.16
+       ScanParams.FastDrawDelay  :=ReadInteger('Scanning Parameters','FastDrawDelay',400);//05.12.16
        ScanParams.flgOneFrame:=boolean(ReadInteger('Scanning Parameters','OneFrame',1));
        PidParams.Ti:= PidParams.TiApproach;
        ScanParams.TimMeasurePoint:=0.01;//ms
@@ -1250,7 +1279,20 @@ begin
      begin
     //   ResFreqR:= $80;
      //  ResFreqF:= $80;
-       Amp_M:=ReadInteger('Approach Parameters','Amp_M',254);
+       AmpProbe_M:=ReadInteger('Approach Parameters','AmpProbe_M',8);
+       AmpCant_M:=ReadInteger('Approach Parameters','AmpCant_M',8);
+        with   ResonanceParams do
+        begin
+            case Sensor.kind of
+probe:begin
+           ApproachParams.Amp_M :=ApproachParams.AmpProbe_M;
+        end;
+cantilever:
+       begin
+           ApproachParams.Amp_M :=ApproachParams.AmpCant_M;
+       end;
+                  end;
+        end;
        Gain_FM:=ReadInteger('Approach Parameters','Gain_FM',128);
    //    Gain_AM:=ReadInteger('Approach Parameters','Gain_AM',100);
     end;
@@ -1266,7 +1308,7 @@ begin
      begin
     //   ResFreqR:= $80;
      //  ResFreqF:= $80;
-       Amp_M:=15;//254;       //1000
+       Amp_M:=8;//254;       //1000
        Gain_FM:=128;
     //   Gain_AM:=100;
     end;
@@ -1389,8 +1431,9 @@ begin
          SetScanParamsDefGrand;
         end;
          end;
-   ResonanceParamsDef;
-   if (flgUnit=ProBeam) then  ResonanceParamsLast;
+   //ResonanceParamsDef;
+   //if (flgUnit=ProBeam) then
+   ResonanceParamsLast;
    SpectrParamsDef;
    SetDemoParamsDef;
    ScannerMovXYZParamsDef;
@@ -1505,8 +1548,20 @@ begin
        WriteInteger('Approach Parameters','ZFastStepsNumb', abs(ApproachParams.ZFastStepsNumb));
        WriteString('Approach Parameters','ExtremAmplitude', FloatToStrF(ApproachParams.ExtremAmplitude,ffFixed,4,2));
   //     WriteString('Approach Parameters','MaxSuppress', FloatToStrF(ApproachParams.MaxSuppress,ffFixed,4,2));
+          with   ResonanceParams do
+        begin
+            case Sensor.kind of
+probe:begin
+                 WriteInteger('Approach Parameters','AmpProbe_M', ApproachParams.Amp_M);
+        end;
+cantilever:
+       begin
+                 WriteInteger('Approach Parameters','AmpCant_M', ApproachParams.Amp_M);
+       end;
+                  end;
+
+        end;
        WriteInteger('Approach Parameters','MaxAmp_M', ApproachParams.MaxAmp_M);
-       WriteInteger('Approach Parameters','Amp_M', ApproachParams.Amp_M);
        WriteInteger('Approach Parameters','Gain_FM',ApproachParams.Gain_FM);
     //   WriteInteger('Approach Parameters','Gain_AM',ApproachParams.Gain_AM);
     end;
@@ -1536,11 +1591,15 @@ begin
 
              case  flgUNit of
   baby:        WriteString('Physical Unit Options','Scanner Number Atom Unit',HardWareOpt.ScannerNumb);
+  Nano,NanoTutor,
   ProBeam,MicProbe:  begin
-                       WriteInteger('Resonance','FreqStartRough',ResonanceParams.FreqStartRough);
-                       WriteInteger('Resonance','FreqEndRough',ResonanceParams.FreqEndRough);
+                       WriteInteger('Resonance','FreqStartProbeRough',ResonanceParams.FreqStartProbeRough);
+                       WriteInteger('Resonance','FreqEndProbeRough',ResonanceParams.FreqEndProbeRough);
+                       WriteInteger('Resonance','FreqStartCantRough',ResonanceParams.FreqStartCantRough);
+                       WriteInteger('Resonance','FreqEndCantRough',ResonanceParams.FreqEndCantRough);
+                       WriteInteger('Resonance','ChangeSensor',integer(ResonanceParams.flgChangeSensor));
                      end;
-  nano,Pipette,terra:begin
+  Pipette,terra:begin
                       //debug
                       if HardWareOpt.ScannerNumb=' ' then  NoFormUnitLoc.silang1.showmessage('scanner= ');
                       WriteString('Physical Unit Options','Scanner Number',HardWareOpt.ScannerNumb);

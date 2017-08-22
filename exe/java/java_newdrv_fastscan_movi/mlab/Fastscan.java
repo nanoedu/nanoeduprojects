@@ -1,4 +1,5 @@
-//16/06/17
+//05.07.17
+//edited 19/07/17 step changed RATE change ok
 package mlab;
 
 public class Fastscan
@@ -27,21 +28,6 @@ public static final int steps =64; // врем€ перемещени€ между точками mks
 	static  int M_USTEP;// = 21;
         static  int M_DACX;
         static  int M_DACY;
-/*
-  	static final int PORT_DIR_X = ( 3 );
-	static final int PORT_DIR_Y = ( 4 );
-	static final int PORT_DIR_Z = ( 5 );
-    //in
-	static final int PORT_X = ( 0 );
-	static final int PORT_Y = ( 1 );
-	static final int PORT_Z = ( 2 );
-
-    //out
-	static final int PORT_H   = ( 2 );      //Z
-        static final int PORT_PH  = ( 0 );
-        static final int PORT_ERR = ( 1 );
-        static final int PORT_I   = ( 4 );
-*/
     // chanels ID
 	public static final int CH_STOP        = 0;
 	public static final int CH_DRAWDONE    = 1;
@@ -81,8 +67,6 @@ public static final int steps =64; // врем€ перемещени€ между точками mks
 		int  YMicrostepNmb;
                 int  fastlinescount;
                 int  slowlinescount;
-                int  Vbw;
-                int  V;
                 M_BASE_K =Simple.bramID("m_BaseK");;
                 M_USTEP = Simple.bramID("m_ustep");;
                 M_DACX   = Simple.bramID("dxchg_X");
@@ -123,7 +107,7 @@ public static final int steps =64; // врем€ перемещени€ между точками mks
 		JVIO stream_ch_drawdone  = new JVIO(CH_DRAWDONE,1, 1,JVIO.BUF,  1, 0);                        // 1
              // +1 - лишн€€ точка, чтобы исключить передачу данных длиной,
              //  кратной 512 байт
-               JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,SZ,(fastlines)*slowlines,JVIO.FIFO,fastlines*slowlines, 0); // 2
+               JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,1,fastlines*slowlines/*+1*/,JVIO.FIFO,fastlines*slowlines, 0); // 2
                JVIO stream_ch_params    = new JVIO(CH_PARAMS,  2, 1,JVIO.BUF,  1, 0);                        // 3
 
 
@@ -139,7 +123,7 @@ public static final int steps =64; // врем€ перемещени€ между точками mks
 		wr = stream_ch_drawdone.Write(buf_drawdone, 1, 1000);
 
 	        d_step_N = XMicrostepNmb;     //  ол-во микрошагов от точки к точке.
- 		d_step = d_step_N * DAC_STEP; // ѕриращение ÷јѕ на шаге от точки к точке.
+ 		d_step = d_step_N*DiscrNumInMicroStep;// DAC_STEP; // ѕриращение ÷јѕ на шаге от точки к точке.
 
 	       	dacX =Simple.bramRead(M_DACX) ;
              	dacY =Simple.bramRead(M_DACY) ;
@@ -151,25 +135,16 @@ public static final int steps =64; // врем€ перемещени€ между точками mks
 
                 USTEP_DLYBW = MicrostepDelayBW;//buf_params[1];
 
-  
+
 
 ///***********************************************************************
-         	//int Snom = 0x028F5C29; // 1.0/50 - просто выбрано число 50
-		//int Vtrvl_nom = 0x19000000; // Snom*Vtrvl = Grid, за 1 шаг
-		// V = Vtrvl_nom / 32;
-               //  int Snom =((1<<17) /USTEP_DLY)<<14;
-               //  V=  1<<16;
-              //   Vbw= V;
 
-                 int Snom =((DiscrNumInMicroStep <<1) /USTEP_DLY)<<14;
-                 V=DiscrNumInMicroStep ;
-                 Vbw= (V*USTEP_DLY)/USTEP_DLYBW; // величина V пропорциональна скорости, а не задержке
-                   V=-V;                 
-               
-     		Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
-               
+              int[] resV;
+              resV = new int[2];
+              resV = SetRate.SetRate( USTEP_DLY,USTEP_DLYBW, DiscrNumInMicroStep) ;
+              int V=    resV[0];
+              int Vbw = resV[1];
 
-//////////////////////////////////////////////////////////////////////////
         	int[] path_in;
  	        int[] data_out;
  		int[] code;
@@ -232,6 +207,7 @@ public static final int steps =64; // врем€ перемещени€ между точками mks
 
          path_in=new int[4*(fastlines+2)*slowlines];
          data_out=new int[fastlines*slowlines];
+
 
        // сканируем  только   один кадр
                  i=0;
@@ -313,17 +289,14 @@ public static final int steps =64; // врем€ перемещени€ между точками mks
 
         // get data
 
-      // 	Simple.xchgCreate( "data", path_in );
+       	Simple.xchgCreate( "PATH", path_in );
+       	Simple.xchgCreate( "data_in", datain );
+
+
 for(; ;)
 {
-          
-             	Dxchg2.ExecuteScan( path_in, data_out, code, slowlines);
 
-                	rd=0;
-			for (;  rd == 0; )
-			{
-				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
-			}
+             	Dxchg2.ExecuteScan( path_in, data_out, code, slowlines);
 
 
           //send scan data
@@ -334,6 +307,12 @@ for(; ;)
                           wr += stream_ch_data_out.WriteEx(data_out, wr, s-wr, 1000);
 			}
 			stream_ch_data_out.Invalidate();
+
+                	rd=0;
+			for (;  rd == 0; )
+			{
+				rd=stream_ch_stop.Read(buf_stop, 1,300,true);
+			}
 
 			if (buf_stop[0] == MakeSTOP)
 			{

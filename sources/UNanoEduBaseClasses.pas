@@ -133,7 +133,7 @@ public
  function  ScannerMoveXYZMethod:boolean;   virtual;
  function  WritetoMLPCMethod:boolean;      virtual;
  function  ReadFromMLPCMethod(RPages:integer):boolean; virtual;
-
+ function  SetSensor(_sensor:RSensor):boolean; virtual; abstract;
  function  WritePagetoMemoryMethod(flgDatatype:integer):boolean;                     virtual;
  function  WritetoMemoryMethod(RecPointersList:TList; startPage:integer):boolean;    virtual;
 

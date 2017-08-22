@@ -1,5 +1,5 @@
 //230617
-  //
+//
 unit frapproachnew;
 
 interface
@@ -8,9 +8,9 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Menus, Math, Buttons, frSignalsMod, MPlayer,
   CspmVar,GlobalType, RuleMod4, siComp, siLngLnk, ComCtrls, ToolWin, ActnList,
-     {$IFDEF DEBUG}
+  {$IFDEF DEBUG}
            SioCSPM,frDebug,
-       {$ENDIF}
+  {$ENDIF}
   ImgList;
   type
   TApproach = class(TForm)
@@ -159,7 +159,7 @@ var
   Approach: TApproach;
 const
 	strv: string = ''; (* Voltage Bias=0. Set Voltage *) // TSI: Localized (Don't modify!)
-
+	strstepstatus: string = ''; (* too close step status *) // TSI: Localized (Don't modify!)
 
 implementation
 
@@ -191,7 +191,7 @@ var
           case FlgStepResult of
       3: begin           //ok
             beep;
-            BitBtnOK.Visible:=True;
+ //           BitBtnOK.Visible:=True;      06/07/17
             z:=NanoEdu.ZValue;
             ZIndicatorDraw(z);
           //  SignalsMode.FrequencyTrack.Enabled:=True;
@@ -209,7 +209,7 @@ var
              for i:=0  to 5 do beep;
              if flgCurrentUserLevel=DEMO then
              begin
-               if assigned(MSVideoForm) then  MSVideoForm.StopVideoStream;
+               if assigned(MSVideoFormDemo) then  MSVideoFormDemo.StopVideoStream;
              end;
                MessageDlg( siLangLinked1.GetTextOrDefault('IDS_2' (* 'Landing done' *) ) , mtInformation,[mbOk],0);
                FlgApproachOK:=True;
@@ -243,6 +243,10 @@ var
                Application.ProcessMessages;
                StartBtnFastUp.Down:=true;
                ApproachActive :=true;
+              {$IFDEF DEBUG}
+                  Formlog.memolog.Lines.add(strstepstatus+' '+inttostr(Approach.StepsCount));
+              {$ENDIF}
+
            //    NanoEdu.RisingToStartPoint(20);
            //edited 14/03/17
                if (flgUnit=ProBeam) then   lFlgStatusStep:=NanoEdu.RisingToStartPoint(100) else
@@ -294,7 +298,6 @@ var
      ApproachOpt.HardWareSheet.enabled:=true;
     end;
     StartStepsCount:=StepsCount;
-    Main.ComboBoxSFMSTM.Enabled:=not (FlgApproachOK and STMflg);
     SignalsMode.sbTi.Enabled:=True;
     NormBitBtn.Enabled:=True;
     PanelLanding.Font.Color:=clBlack;
@@ -311,6 +314,8 @@ var
     ToolBarControl.Enabled:=true;
     flgCanClose:=true;
     StopBtn.Down:=true;
+     Main.ComboBoxSFMSTM.Enabled:=not (FlgApproachOK and STMflg);
+     if (FlgStepResult=3)  then    BitBtnOK.Visible:=True;     //ok
    end;//drawthread
     if mScanning=AMessage.WParam then
     begin
@@ -601,22 +606,22 @@ begin
    //add demo video 090517
    if (flgCurrentUserLevel=DEMO) then
    begin
-    if Assigned(MSVideoForm) then
+    if Assigned(MSVideoFormDemo) then
     begin
-     MSVideoForm.restartvideo:=false;
+     MSVideoFormDemo.restartvideo:=false;
      if (ApproachParams.ZStepsNumb>0) then
      begin
       ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\landing.avi';
       VideoFile:=ApproachSimulationVideo ;
-      MSVideoForm.flgappr:=true;
-      MSVideoForm.StartVideoStream(VideoFile,MSVideoForm.nstartapr,20);
+      MSVideoFormDemo.flgappr:=true;
+      MSVideoFormDEmo.StartVideoStream(VideoFile,MSVideoFormDemo.nstartapr,20);
      end
      else
      begin
        ApproachSimulationVideo:=ExeFilePath+'Data\VideoCameraSimulation\rising.avi';
        VideoFile:=ApproachSimulationVideo ;
-       MSVideoForm.flgappr:=false;
-       MSVideoForm.StartVideoStream(VideoFile,MSVideoForm.nstartris,20);
+       MSVideoFormDemo.flgappr:=false;
+       MSVideoFormDemo.StartVideoStream(VideoFile,MSVideoFormDemo.nstartris,20);
      end;
     end;
    end;     //add demo video 090517
@@ -674,14 +679,14 @@ begin
     //add demo video 090517
    if (flgCurrentUserLevel=DEMO) then
    begin
-    MSVideoForm.restartvideo:=true;
+    MSVideoFormDemo.restartvideo:=true;
     if (ApproachParams.ZStepsNumb>0) then
      begin
-      MSVideoForm.flgappr:=true;
+      MSVideoFormDemo.flgappr:=true;
      end
      else
      begin
-       MSVideoForm.flgappr:=false;
+       MSVideoFormDemo.flgappr:=false;
      end;
       flgStopVideoStream:=true;
    end;
@@ -734,7 +739,7 @@ end;
   end;
 //add DEMO
   if flgUnit=DEMO  then
-   if assigned(MSVideoForm) then MSVideoForm.close; 
+   if assigned(MSVideoFormDemo) then MSVideoFormDemo.close; 
 //  
   Action := caFree;
   Approach:=nil;         { TODO : 190506 }
@@ -814,6 +819,7 @@ end;
 
 procedure TApproach.UpdateStrings;
 begin
+  strstepstatus := siLangLinked1.GetTextOrDefault('strstrstepstatus' (* 'too close step status' *) );
   strv := siLangLinked1.GetTextOrDefault('strstrv' (* 'Voltage Bias=0. Set Voltage' *) );
 
 end;
@@ -975,14 +981,24 @@ begin
      TimerUp.Enabled:=false;
      FreeAndNil(TimerUp);
     end;
-(*   if not STMFlg then
-   begin
-     NanoEdu.ScannerApproach.SetScanSetPoint;
-   end;
-  *)
    flgCancel:=false;
    Close;
+  end
+(*  else
+  begin
+   while( FlgTimerActive) do begin sleep(100); application.processmessages()end;   //add 06/07/17
+   if not FlgTimerActive then
+   begin
+    if assigned( TimerUp) then
+    begin
+     TimerUp.Enabled:=false;
+     FreeAndNil(TimerUp);
+    end;
+    flgCancel:=false;
+    Close
+   end;
   end;
+  *)
 end;
 
 (*procedure TApproach.BitBtnLogClick(Sender: TObject);
@@ -1180,7 +1196,7 @@ Nano,NanoTutor,ProBeam:begin
               LabelSignalMax.caption:='1';
               LabelCur.Visible:=true;//False;
               SignalsMode.tbSTM.TabVisible:=False;
-              SignalsMode.tbSFM.TabVisible:=True;
+              SignalsMode.tbSFM.TabVisible:=(flgUnit<>ProBeam);//True;
               SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam);// or (flgUnit=Nano) or (flgUnit=NanoTutor);
               SignalsMode.LabelFB.Caption:=FloatToStrf(PIDParams.Ti, fffixed,5,2);
               {$IFDEF FULL}
@@ -1295,9 +1311,9 @@ begin
     flgStopJava:=true;
    if (flgCurrentUserLevel=DEMO) then
    begin
-    if Assigned(MSVideoForm) then
+    if Assigned(MSVideoFormDemo) then
     begin
-     MSVideoForm.StopVideoStream;
+     MSVideoFormDemo.StopVideoStream;
     end;
    end;
   end;
@@ -1496,4 +1512,5 @@ if not FlgResonance then
        end;
 end;
 end.
+
 

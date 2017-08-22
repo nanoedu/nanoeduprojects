@@ -44,14 +44,14 @@
     <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
     <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
     <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
-    <DCC_Define>EUREKALOG;EUREKALOG_VER6;DEBUG;</DCC_Define>
+    <DCC_Define>EUREKALOG;EUREKALOG_VER6;DEBUG;FAST;</DCC_Define>
     <DCC_IOChecking>False</DCC_IOChecking>
   </PropertyGroup>
   <ProjectExtensions>
     <Borland.Personality>Delphi.Personality</Borland.Personality>
     <Borland.ProjectType>VCLApplication</Borland.ProjectType>
     <BorlandProject>
-<BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">..\..\</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">17</VersionInfo><VersionInfo Name="MinorVer">1</VersionInfo><VersionInfo Name="Release">13</VersionInfo><VersionInfo Name="Build">48</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1049</VersionInfo><VersionInfo Name="CodePage">1251</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">NTSPB</VersionInfoKeys><VersionInfoKeys Name="FileDescription">NanoTutor</VersionInfoKeys><VersionInfoKeys Name="FileVersion">17.1.13.48</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">NanoTutor.dpr</Source></Source><Excluded_Packages /></Delphi.Personality></BorlandProject></BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">..\..\</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">17</VersionInfo><VersionInfo Name="MinorVer">1</VersionInfo><VersionInfo Name="Release">13</VersionInfo><VersionInfo Name="Build">56</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1049</VersionInfo><VersionInfo Name="CodePage">1251</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">NTSPB</VersionInfoKeys><VersionInfoKeys Name="FileDescription">NanoTutor</VersionInfoKeys><VersionInfoKeys Name="FileVersion">17.1.13.56</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">NanoTutor.dpr</Source></Source><Excluded_Packages /></Delphi.Personality></BorlandProject></BorlandProject>
   </ProjectExtensions>
   <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
   <ItemGroup>
@@ -305,6 +305,12 @@
     <DCCReference Include="..\sources\MSVideoDEMO.pas">
       <Form>MSVideoForm</Form>
     </DCCReference>
+    <DCCReference Include="..\sources\MSVIDEO\MSVideo.pas" />
+    <DCCReference Include="..\sources\MSVIDEO\MSVideoStart.pas" />
+    <DCCReference Include="..\sources\MSVIDEO\VfW.pas" />
+    <DCCReference Include="..\sources\MSVIDEO\VideoSettingsUnit.pas">
+      <Form>VideoSettings</Form>
+    </DCCReference>
     <DCCReference Include="..\sources\MtpLib_TLB.pas" />
     <DCCReference Include="..\sources\Nanoeduhelp.pas" />
     <DCCReference Include="..\sources\NL3LFBLib_TLB.pas" />
@@ -370,7 +376,6 @@
     <DCCReference Include="..\sources\UUpdater.pas">
       <Form>UpdaterForm</Form>
     </DCCReference>
-    <DCCReference Include="..\sources\Video.pas" />
   </ItemGroup>
 </Project>
 <!-- EurekaLog First Line

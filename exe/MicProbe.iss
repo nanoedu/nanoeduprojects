@@ -3,8 +3,8 @@
 ; copy english version sigraph.dll   to exe dir changed 09/06/16
 [Setup]
 AppName=MicProbe
-AppVerName=MicProbe ver 17.01.13.35
-OutputBaseFilename=MicProbe-17.01.13.35
+AppVerName=MicProbe ver 17.01.13.56
+OutputBaseFilename=MicProbe-17.01.13.56
 AppPublisher=NT-SPb Inc.
 AppPublisherURL=http://www.ntspb.ru
 AppSupportURL=http://www.ntspb.ru
@@ -86,6 +86,10 @@ Source: "SPMvideo.ini"; DestDir: "{userappdata}\MicProbe"; Flags: ignoreversion;
 ;Source: "SPMupdates.ini"; DestDir: "{userappdata}\nanoeducator"; Flags: ignoreversion;
 Source: "SPMConfigUsersMicProbe.ini";    DestDir: "{userappdata}\MicProbe"; DestName:"SPMconfigUsers.ini";    Flags: ignoreversion;
 Source: "SPMConfigDefUsersMicProbe.ini"; DestDir: "{app}"; DestName:"SPMconfigDefUsers.ini"; Flags: ignoreversion;
+Source: "SPMConfigNewDrv.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMConfigDefNewdrv.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMController.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "SPMControllerDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 ;Source: "SPMScanner.ini"; DestDir: "{userappdata}\MicProbe"; Flags: ignoreversion;
 ;Source: "SPMScannerDef.ini"; DestDir: "{app}"; Flags: ignoreversion;
 ;Source: "SPMScannerY.ini"; DestDir: "{userappdata}\MicProbe"; Flags: ignoreversion;

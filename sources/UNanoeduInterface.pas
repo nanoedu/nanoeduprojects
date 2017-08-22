@@ -45,6 +45,8 @@ IpmApi05 = interface(IUnknown)
     procedure Set_PATHSPD_BW(pVal: apitype);
     procedure Set_IMaxCut(pVal: integer);
     function Get_IMaxCut:integer;
+    function  Get_Sensor: apitype;
+    procedure Set_Sensor(pVal: apitype);
 
     property DACY: apitype read Get_DacY write Set_DacY;
     property DACX: apitype read Get_DacX write Set_DacX;
@@ -52,21 +54,23 @@ IpmApi05 = interface(IUnknown)
     property Z: apitype read Get_Z;
     property UAM: apitype read Get_Uam;
     property UFM: apitype read Get_Ufm;
-    property Frequency: longword read Get_Frequency write Set_Frequency;
-    property SDGAM:      apitype read Get_SDGAM write Set_SDGAM;
-    property SMZSTEP:   apitype read Get_SMZSTEP write Set_SMZSTEP;
-    property SMZSTATUS: apitype read Get_SMZSTATUS write Set_SMZSTATUS;
-    property ITRRES:    apitype read Get_ITRRES write Set_ITRRES;
-    property DACIREF:   apitype read Get_DACIREF write Set_DACIREF;
-    property DACIREF_AM:apitype read Get_DACIREF_AM write Set_DACIREF_AM;
+    property Frequency: longword read Get_Frequency  write Set_Frequency;
+    property SDGAM:      apitype read Get_SDGAM      write Set_SDGAM;
+    property SMZSTEP:   apitype read Get_SMZSTEP     write Set_SMZSTEP;
+    property SMZSTATUS: apitype read Get_SMZSTATUS   write Set_SMZSTATUS;
+    property ITRRES:    apitype read Get_ITRRES      write Set_ITRRES;
+    property DACIREF:   apitype read Get_DACIREF     write Set_DACIREF;
+    property DACIREF_AM:apitype read Get_DACIREF_AM  write Set_DACIREF_AM;
     property DACREFSTM: apitype  read Get_DACREFSTM  write Set_DACREFSTM;
     property IT: apitype read Get_IT;
     property CmpValue: apitype   read Get_CmpValue;
     property DACVT: apitype      read Get_DACVT      write Set_DACVT;
     property UserErr: apitype    read Get_UserErr    write Set_UserErr;
     property ChooseBramU: apitype read Get_ChooseBramU write Set_ChooseBramU;
-    property PATHSPD: apitype     read Get_PATHSPD write Set_PATHSPD;
-    property IMaxCutVal:integer   read Get_IMaxCut write Set_IMaxCut;
+    property PATHSPD: apitype     read Get_PATHSPD   write Set_PATHSPD;
+    property IMaxCutVal:integer   read Get_IMaxCut   write Set_IMaxCut;
+    property SensorType:apitype   read Get_Sensor    write Set_Sensor;
+
   end;
 
 TpmAPI05=class(TInterfacedObject, IpmApi05)
@@ -104,12 +108,14 @@ TpmAPI05=class(TInterfacedObject, IpmApi05)
     procedure Set_UserErr(pVal: apitype);
     function  Get_ChooseBramU: apitype;
     procedure Set_ChooseBramU(pVal: apitype);
-    function Get_PATHSPD : apitype;
+    function  Get_PATHSPD : apitype;
     procedure Set_PATHSPD(pVal: apitype);
-    function Get_PATHSPD_BW : apitype;
+    function  Get_PATHSPD_BW : apitype;
     procedure Set_PATHSPD_BW(pVal: apitype);
     procedure Set_IMaxCut(pVal: integer);
     function  Get_IMaxCut:integer;
+    function  Get_Sensor: apitype;
+    procedure Set_Sensor(pVal: apitype);
  public
     property DACY: apitype       read Get_DacY       write Set_DacY;
     property DACX: apitype       read Get_DacX       write Set_DacX;
@@ -132,6 +138,8 @@ TpmAPI05=class(TInterfacedObject, IpmApi05)
     property ChooseBramU: apitype read Get_ChooseBramU write Set_ChooseBramU;
     property PATHSPD: apitype    read Get_PATHSPD  write Set_PATHSPD;
     property IMaxCutVal:integer  read Get_IMaxCut write Set_IMaxCut;
+    property SensorType:apitype   read Get_Sensor  write Set_Sensor;
+
 end; { class TpmAPI}
 
  var API:IpmAPI05;
@@ -145,15 +153,23 @@ uses SioCSPM, CSPMVar;
         Result:=GetCommonVar(Version);
       end;
 *)
-
-   function TpmAPI05.Get_UserErr: apitype;
-   begin
+ function  TpmAPI05.Get_Sensor: apitype;
+ begin
+ //   Result:=GetCommonVar(USER_err);
+ Result:=1;
+ end;
+ procedure TpmAPI05.Set_Sensor(pVal: apitype);
+ begin
+   SetCommonVar(SENSOR_TYPE, pVal);
+ end;
+ function TpmAPI05.Get_UserErr: apitype;
+ begin
       Result:=GetCommonVar(USER_err);
-   end;
-    procedure TpmAPI05.Set_UserErr(pVal: apitype);
-    begin
+ end;
+ procedure TpmAPI05.Set_UserErr(pVal: apitype);
+ begin
        SetCommonVar(USER_err, pVal);
-   end;
+ end;
     function   TpmAPI05.Get_ChooseBramU: apitype;
      begin
       result:=GetCommonVar(SelBramU);

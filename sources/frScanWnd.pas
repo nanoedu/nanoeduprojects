@@ -493,6 +493,7 @@ public
     procedure UserMessage (var Msg: TMessage); message WM_UserScanWndUpdated;
 end;
  const
+	strslowly: string = ''; (* too slowly for fast scanning,increase speed! *) // TSI: Localized (Don't modify!)
 	strsdrw: string = ''; (* Topo ,nm *)
 	strsdrw2: string = ''; (* Phase,a.u *)
 	strsdrw3: string = ''; (* Force,mv *)
@@ -1722,35 +1723,46 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
             TabSheetLitho.TabVisible:=false;
             TabSheetUAMR.TabVisible:=False;
             TabSheetPhaseR.TabVisible:=False;
-            if true{FlgCurrentUserLevel>Beginner} then
-            begin
+            TabSheetCurR.TabVisible:=True;
+            TabSheetSpectrR.TabVisible:=True;
+            SignalsMode.tbSTM.TabVisible:=True;
+            SignalsMode.tbSFMCUR.TabVisible:=False;
+            SignalsMode.tbSFM.TabVisible:=False;
+//            if true{FlgCurrentUserLevel>Beginner} then
+//            begin
+   {$IFDEF FAST}
+             if ((flgUnit=ProBeam)or (flgUnit=MicProbe)or (flgUnit=Nano)or (flgUnit=NanoTutor)) and (FlgCurrentUserLevel<>Demo) then
+             begin
+              TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ELSE}
              if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then
              begin
-              TabSheetFastTopo.TabVisible:=True;
+              TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ENDIF}
+             end;
+ //  TabSheetFastTopo.TabVisible:=True;
              // CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_47' (* 'Sample Surface Scanning; STM Fine Regime' *) );
               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_48' (* 'Sample Surface Scanning; STM Rough Regime' *) );
               Caption:=CaptionBase+Captionadd+CaptionRenishaw;
-             end
-             else
+(*             else
              begin
             //  TabSheetFastTopo.TabVisible:=true;//True;        23/12/15
-              CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_48' (* 'Sample Surface Scanning; STM Rough Regime' *) );
+              CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_48' {* 'Sample Surface Scanning; STM Rough Regime' *} );
               Caption:=CaptionBase+Captionadd+CaptionRenishaw;
              end;
-             TabSheetCurR.TabVisible:=True;
-             TabSheetSpectrR.TabVisible:=True;
-             SignalsMode.tbSTM.TabVisible:=True;
-            end
+ *)
+
+ (*         end
             else
             begin
              TabSheetCurR.TabVisible:=False;
              TabSheetSpectrR.TabVisible:=false;
             end;
+ *)
             TabSheetCurR.HighLighted:=False;
             TabSheetLitho.HighLighted:=False;
             SignalsMode.LabelFB.Caption:=FloatToStrf(PIDParams.Ti, fffixed,5,2);
-            SignalsMode.tbSFMCUR.TabVisible:=False;
-            SignalsMode.tbSFM.TabVisible:=False;
+
             SignalsMode.btnSetPoint.Caption:=
                       FloatToStrF(ApproachParams.SetPoint*ITCor,fffixed,5,2)+siLangLinked1.GetTextOrDefault('IDS_49' (* ' nA' *) );
             if ApproachParams.BiasV<0 then   SignalsMode.btnBiasV.Font.Color:=clBlue
@@ -1767,7 +1779,11 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
               TabSheetLitho.TabVisible:=(flgUnit<>Pipette) and (flgUnit<>Terra);//and (flgUnit<>ProBeam);  //250116
               TabSheetCurR.TabVisible:= False;
              if flgUnit=Terra then      TabSheetCurR.TabVisible:=true;
-             if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$IFDEF FAST}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)or (flgUnit=Nano)or (flgUnit=NanoTutor)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ELSE}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ENDIF}
               CaptionBase:=CaptionDemo+siLangLinked1.GetTextOrDefault('IDS_53' (* 'Sample Surface Scanning; SFM Rough Regime' *) );
               Caption:=CaptionBase+Captionadd+CaptionRenishaw;
               TabSheetUAMR.HighLighted:=False;
@@ -1777,7 +1793,7 @@ false:  NanoEdu.SetPoint:=ApproachParams.SetPoint;
               TabSheetLitho.HighLighted:=False;
      //         SignalsMode.tbSFMCUR.TabVisible:= (flgUnit=ProBeam);
               SignalsMode.tbSFMCUR.TabVisible:=(flgUnit=ProBeam);// or (flgUnit=Nano) or (flgUnit=NanoTutor);
-              SignalsMode.tbSFM.TabVisible:=True;
+              SignalsMode.tbSFM.TabVisible:=(flgUnit<>ProBeam);//True;
               SignalsMode.tbSTM.TabVisible:=False;
              if ApproachParams.BiasV<0 then  SignalsMode.btnBiasSFM.Font.Color:=clBlue
                                        else  SignalsMode.btnBiasSFM.Font.Color:=clRed ;
@@ -2134,6 +2150,11 @@ begin
          if (ScanParams.ScanMethod=Litho) or (ScanParams.ScanMethod=LithoCurrent) then TabSheetSideL.TabVisible:=False;
          //if HardWareOpt.XYtune='Fine'   then
         //if (FlgCurrentUserLevel<>Demo) then TabSheetFastTopo.TabVisible:=true;//True;    231215
+   {$IFDEF FAST}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)or (flgUnit=Nano)or (flgUnit=NanoTutor)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ELSE}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ENDIF}
         end
         else
         begin
@@ -2159,8 +2180,13 @@ begin
                                       then TabSheetTopoL.TabVisible:=True
                                       else TabSheetTopoL.TabVisible:=False;
          //if HardWareOpt.XYtune='Fine' then
-         if (flgUnit=ProBeam) or (flgUnit=MicProbe)then TabSheetFastTopo.TabVisible:=true;//false;//True; 231215
-         if  (ScanParams.ScanMethod=FastScan) then
+  //       if (flgUnit=ProBeam) or (flgUnit=MicProbe)then TabSheetFastTopo.TabVisible:=true;//false;//True; 231215
+   {$IFDEF FAST}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)or (flgUnit=Nano)or (flgUnit=NanoTutor)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ELSE}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ENDIF}
+       if  (ScanParams.ScanMethod=FastScan) then
          begin
           StopBtn.enabled:=true;
           RStartBtn.enabled:=true;
@@ -2292,12 +2318,20 @@ begin
            StopBtn.Down:=true;
            StartBtn.Down:=false;
            LandingBtn.visible:=true;
-           if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then TabSheetFastTopo.tabvisible:=true
-            else TabSheetFastTopo.tabvisible:=false;
+   //     if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then TabSheetFastTopo.tabvisible:=true
+   //      else TabSheetFastTopo.tabvisible:=false;
+   {$IFDEF FAST}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)or (flgUnit=Nano)or (flgUnit=NanoTutor)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ELSE}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ENDIF}
+
+           
 end;
 
 procedure TScanWnd.StartBtnClick(Sender: TObject);
 var i:integer;
+t:single;
 begin
  if FlgBlickApply then
    begin
@@ -2329,6 +2363,16 @@ if (flgUnit<>Terra) and (ApproachParams.BiasV=0) then
        NanoEdu.Method.WaitStopWork;
  end
  *)
+  if (ScanParams.ScanMethod=FastScan) or (ScanParams.ScanMethod=FastScanPhase)then
+  begin
+  t:=strtofloat(FrameTime.Caption);
+     if(t>5) then
+     begin
+          siLangLinked1.MessageDlg(strslowly,mtError ,[mbOK],0);
+          StopBtn.Down:=true;   StartBtn.Down:=false;
+          exit;
+     end;
+  end;
 if   FlgStopScan then       //Start  Scanning
  begin
    FlgStopJava:=False;
@@ -2652,8 +2696,9 @@ begin
   DisableTopPanel(false);
   self.enabled:=True;
   StartBtn.Enabled:=false;  SaveExpBtn.Visible:=False;     RStartBtn.Enabled:=false;
-  if (not ScanParams.flgOneFrame) then StopBtn.Enabled:=true
-                                  else StopBtn.Enabled:=false;
+(*  if (not ScanParams.flgOneFrame) then StopBtn.Enabled:=true
+                                  else  StopBtn.Enabled:=false*)
+  StopBtn.Enabled:=true;
   flgFirstPass:=true;
  // if (HardWareOpt.XYTune='Fine') and flgFineSpeedLock then
          begin
@@ -3554,8 +3599,9 @@ begin
    // ScanParams.YBegin:=0;
      if DemoDataInfoArray[PageCtlRight.ActivePageIndex].Nx<>0 then SetXYMaxDemo(PageCtlRight.ActivePageIndex);
      ScanAreaUpdate;
-     ApplyBtnClick(self);
+      ApplyBtnClick(self);
     end;
+   
      RestoreStartSFM;   { TODO : 090906 }
      CheckBoxStep.Enabled:=True;
      CheckBoxStep.Enabled:=(not ReniShawparams.flgSteponNets) and (not FlgReniShawUnit);
@@ -4129,7 +4175,7 @@ false: begin SpdBtnOneFrame.Caption:='V'; SpdBtnRecord.visible:=true; end;
          PanelChartL.height:=TabSheetTopoL.ClientHeight-28;
          PanelChartLEr.height:=TabSheetTopoError.ClientHeight-28;
          ImgLinit;
-
+     ApplyBtnClick(self);
   with PageCtlRight do
   begin
    for i:=0 to PageCount-1 do Pages[i].HighLighted:=False;
@@ -4320,22 +4366,26 @@ OneX:begin
                                begin
                                  if (not flgNewDriver) then CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate,ScanParams.ScanRateBW);
                                end;
-                             SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
-                            SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
+                         //    SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
+                         //   SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
+                         SetScanRates(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay,
+                                                                              ScanParams.ScanRateBW, ScanParams.MicrostepDelayBW);
                         end
                         else
-                        if  (HardWareOpt.XYtune='Rough')
-                              then
+                   //     if  (HardWareOpt.XYtune='Rough')
+                         //     then
                                   begin
                                    if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
                                    if  FlgCurrentUserLevel<>Demo then
                                    begin
                                     if (not flgNewDriver) then CalcScanRateDriverLimit(ScanParams.X, ScanParams.Nx, ScanParams.ScanRateLimParameter,  ScanParams.ScanRate,ScanParams.ScanRateBW);
                                    end;
-                                   SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
-                                   SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
-                                  end
-                              else  SetScanRateFine(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx);
+                                //   SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay);
+                                //   SetScanRate(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
+                                     SetScanRates(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx,ScanParams.ScanRate,ScanParams.MicrostepDelay,
+                                                                              ScanParams.ScanRateBW, ScanParams.MicrostepDelayBW);
+                                  end ;
+                        //      else  SetScanRateFine(ScanParams.X,FastAxisDiscrNumb,ScanParams.Nx);
         with ScanParams do
          begin
            XMicrostepNmb:= tMicroStepNmb;// JMP;
@@ -4343,7 +4393,7 @@ OneX:begin
            if YMicrostepNmb<1 then YMicrostepNmb:=1;
               case ScanMethod of
      Litho,LithoCurrent:      t:=ceil(X*Ny/ScanRate+X*Ny/ScanRateBW+CurrentLithoTimeEtch(Nx,Ny));
-                   else       t:=ceil(X*Ny/ScanRate+X*Ny/ScanRateBW);
+                   else       t:=(X*Ny/ScanRate+X*Ny/ScanRateBW);
                  end;
            if FlgUnit=terra then  t:=t+0.001*(2*0.001*ScanParams.TimMeasurePoint+ScanParams.TerraTDelay)*NX*NY;
           ScanParams.PiezoMoverNStepsXY:=round(ScanParams.X/ScanParams.PiezoMoverSzStepsXY);
@@ -4371,20 +4421,24 @@ OneY: begin
                                   begin
                                    if (not flgNewDriver) then CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,ScanParams.ScanRate,ScanParams.ScanRateBW);
                                   end;
-                           SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
-                           SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
+                          // SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
+                         // SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
+                          SetScanRates(ScanParams.Y,FastAxisDiscrNumb,ScanParams.Ny,ScanParams.ScanRate,ScanParams.MicrostepDelay,
+                                                                              ScanParams.ScanRateBW, ScanParams.MicrostepDelayBW);
                          end
                          else
-                         if  (HardWareOpt.XYtune='Rough')
-                              then
+                      //   if  (HardWareOpt.XYtune='Rough')
+                            //  then
                               begin
                                 if (( ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase)) then
                                    if  FlgCurrentUserLevel<>Demo then
                                     if (not flgNewDriver) then CalcScanRateDriverLimit(ScanParams.Y, ScanParams.NY, ScanParams.ScanRateLimParameter,ScanParams.ScanRate,ScanParams.ScanRateBW);
-                                SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
-                                SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
-                              end
-                              else SetScanRateFine(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY);
+                               // SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRate,ScanParams.MicrostepDelay);
+                              //  SetScanRate(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY,ScanParams.ScanRateBW,ScanParams.MicrostepDelayBW)
+                               SetScanRates(ScanParams.Y,FastAxisDiscrNumb,ScanParams.Ny,ScanParams.ScanRate,ScanParams.MicrostepDelay,
+                                                                              ScanParams.ScanRateBW, ScanParams.MicrostepDelayBW);
+                              end  ;
+                          //    else SetScanRateFine(ScanParams.Y,FastAxisDiscrNumb,ScanParams.NY);
         with ScanParams do
          begin
            YMicrostepNmb:= tMicroStepNmb;// JMP;
@@ -4429,6 +4483,13 @@ OneY: begin
   if assigned(NanoEdu.Method) then
     if (NanoEdu.Method is TScanMoveToX0Y0) or (FlgCurrentUserLevel = Demo) then  NanoEdu.Method.SetSpeed
                                          else  NanoEdu.Method.SetUsersParams;
+  if (ScanParams.ScanMethod=FastScan) or (ScanParams.ScanMethod=FastScanPhase)then
+  begin
+     if(t>5) then
+     begin
+          siLangLinked1.MessageDlg(strslowly,mtError ,[mbOK],0);
+     end;
+  end;
     //ScanParams.TimeWait:=round(t*1000); //ms
 end;
 
@@ -4908,10 +4969,11 @@ end;   //SetScanParameters
 
 procedure TScanWND.ApplyBtnClick(Sender: TObject);
 var wh:integer;
+    v:single;
 begin
 if FlgStopScan then
  begin
- if not (ScanParams.ScanMethod in ScanMethodSetLitho) then
+  if not (ScanParams.ScanMethod in ScanMethodSetLitho) then
   begin
      edX.enabled:=not CheckBoxStep.checked;
      edY.enabled:=not CheckBoxStep.checked;
@@ -4922,10 +4984,11 @@ if FlgStopScan then
         else  LithoParams.ScaleAct:= (LithoParams.VMin- LithoParams.V)/255
    *)
   end;
- if FlgChange then begin
-                        ImageScanArea.Picture.Bitmap.assign(ScanAreaBitMapTemp);
-                        ImageScanArea.Canvas.Pen.Color:=clGreen ;
-                   end
+  if FlgChange then
+  begin
+     ImageScanArea.Picture.Bitmap.assign(ScanAreaBitMapTemp);
+     ImageScanArea.Canvas.Pen.Color:=clGreen ;
+  end
   else
   begin
    ImageScanArea.Canvas.Pen.Color:=clBlack;
@@ -4941,7 +5004,7 @@ if FlgStopScan then
    SetImageSideLSize;
 
  if sqrt(sqr(R.left-R.Right)+sqr(R.top-r.Bottom))>5 then
-    begin
+  begin
      ImageScanArea.Canvas.Pen.Color:=clGreen;
      ImageScanArea.Canvas.Pen.Mode:=pmCopy;
      ImageScanArea.Canvas.Polyline([Point(R.Left,R.Bottom),Point(R.Left,R.Top),
@@ -4949,11 +5012,13 @@ if FlgStopScan then
    end;
  if ScannerCorrect.FlgXYLinear and (hardWareOpt.XYTune='Rough') then  SetLinearPathParameters;
       case ScanParams.ScanPath of
- Multi,OneX: begin
+ Multi,OneX:
+        begin
          ScanParams.ScanPoints:=ScanParams.NX;
          ScanParams.ScanLines:= ScanParams.NY;
         end;
- MultiY,OneY:begin
+ MultiY,OneY:
+        begin
          ScanParams.ScanPoints:=ScanParams.NY;
          ScanParams.ScanLines:= ScanParams.NX;
         end;
@@ -4982,10 +5047,10 @@ grand: begin
        end;           end;
 end; //flgstopscan
  if SetMotionParameters>0 then exit;
-    if (( ScanParams.ScanMethod = FastScan) or (ScanParams.ScanMethod = FastScanPhase)) then
+ (*   if (( ScanParams.ScanMethod = FastScan) or (ScanParams.ScanMethod = FastScanPhase)) then
                          if (ScanParams.FastDrawDelay/1000) < strtofloat(FrameTime.caption) then
                                 siLangLinked1.MessageDlg('Increase FastDrawDelay or Speed' ,mtwarning,[mbOK],0);
-
+  *)
  if  ScanParams.ScanMethod=OneLineScan then ImgRInit;
 
      edX.Font.Color:=clBlack;
@@ -5903,7 +5968,13 @@ begin
 
     if not STMflg and (flgUnit<>Pipette) (*and (flgUnit<>ProBeam)*) then TabSheetLitho.TabVisible:=true;      //250116
         TabSheetSpectrR.TabVisible:=true;
-        TabSheetFastTopo.TabVisible:=true;//(HardWareOpt.XYTune='Fine');
+//        TabSheetFastTopo.TabVisible:=true;//(HardWareOpt.XYTune='Fine');
+   {$IFDEF FAST}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)or (flgUnit=Nano)or (flgUnit=NanoTutor)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ELSE}
+            if ((flgUnit=ProBeam)or (flgUnit=MicProbe)) and (FlgCurrentUserLevel<>Demo) then  TabSheetFastTopo.TabVisible:=true;//True;   //231215
+   {$ENDIF}
+
     if  FlgCurrentUserLevel<>Demo            then     TabSheetScanTran.TabVisible:=true;
    ScanParams.ScanPath:=ComboBoxPath.ItemIndex;
    SetTypeScanPath;
@@ -7143,7 +7214,6 @@ begin
             SignalsMode.tbSFMCUR.TabVisible:=true;
             SignalsMode.tbSFM.TabVisible:=false;
         {$ENDIF}
-
          with ScrollBarLitho do
                  begin
                    Min:=0;
@@ -7177,9 +7247,10 @@ begin
         DemoSampleLitho:='sfm\lithoanode';
         LithoTransform:=TransformUnit.BiasV_d ;
         Scanparams.ScanMethod:=LithoCurrent;
+
           {$IFDEF FULL}
-            SignalsMode.tbSFM.TabVisible:=true;
-            SignalsMode.tbSFMCUR.TabVisible:=false;
+            SignalsMode.tbSFM.TabVisible:=false;//true;
+            SignalsMode.tbSFMCUR.TabVisible:=true;//false;
           {$ENDIF}
         LabelAction.Caption:=siLangLinked1.GetTextOrDefault('IDS_41' (* 'Action V' *) );
            with ScrollBarLitho do
@@ -7452,6 +7523,7 @@ end;
 
 procedure TScanWnd.UpdateStrings;
 begin
+  strslowly := siLangLinked1.GetTextOrDefault('strstrslowly' (* 'too slowly for fast scanning,increase speed!' *) );
   errorscan := siLangLinked1.GetTextOrDefault('strerrorscan' (* 'Scannning error!' *) );
   scan40 := siLangLinked1.GetTextOrDefault('strscan40');
   scan39 := siLangLinked1.GetTextOrDefault('strscan39');
@@ -7818,11 +7890,11 @@ bmp:=Tbitmap.Create();
      true: ImageList2.GetBitmap(8,bmp) ;
      false:ImageList2.GetBitmap(9,bmp) ;
      end;
-
-  SpdBtnRecord.glyph.assign(bmp);
+  StopBtn.enabled:=true;
+    SpdBtnRecord.glyph.assign(bmp);
   FreeandNil(BMP);
     application.ProcessMessages;
- //   SpdBTnRecord.Down:=not   SpdBTnRecord.Down;
+
 end;
 
 procedure TScanWnd.SpdBtnFBClick(Sender: TObject);
@@ -8111,6 +8183,7 @@ initialization
  end;
 
 end.
+
 
 
 

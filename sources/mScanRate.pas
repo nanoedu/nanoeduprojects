@@ -7,6 +7,8 @@ interface
 procedure SetScanRate(L:double;ScanDiscrNumb,NPoints:integer;var Rate:single; var Delay:integer);
 procedure SetScanRateFine(L:double;ScanDiscrNumb,NPoints:integer);
 procedure CalcScanRateDriverLimit(L:double; NPoints:integer; parameter:single;  var Rate:single; var RateBW:single);
+procedure SetScanRates(L:double;ScanDiscrNumb,NPoints:integer;var Rate:single; var Delay:integer; var RateBW:single; var DelayBW:integer);
+procedure CalcScanRatebyJump(Jump:integer;L:double; ScanDiscrNumb,NPoints:integer;  var Rate:single; var Delay:integer);
 // L - nm, Scan length (X or Y in the dependence of scan direction);
 // FieldLen - nm, Max size of scaning field in given direction;
 // NPoints - Nx or Ny (depends of scan direction);
@@ -70,7 +72,8 @@ begin
                  else    TimMove:=TimScan;         //TimMove - time of one way moving
  if  (TimMove<=(ScanParams.TimMicroStep+MinValidMicroStepDelay)*NPoints/1000) then  // sec
      begin
-   (*    if HardWareOpt.XYtune='Rough' then
+    // Закомментировать для отмены ограничения скорости в обычном сканировании (*
+     if ((ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase))  then
        begin
         tMicroStepDelay:=MinValidMicroStepDelay;
         NMicroStep:=ScanDiscrNumb;
@@ -78,7 +81,8 @@ begin
         ScanParams.DiscrNumInMicroStep:=1;
         Rate:=MaxScanRate1;
        end
-       else      *)
+       else
+       // *)
        begin
         tMicroStepDelay:=MinValidMicroStepDelay;
         NMicroStep:=NPoints;
@@ -104,7 +108,8 @@ begin
   end
   else
   begin
-  (* if HardWareOpt.XYtune='Rough' then
+  // Закомментировать для отмены ограничения скорости в обычном сканировании (*
+ if ((ScanParams.ScanMethod <> FastScan) and (ScanParams.ScanMethod <> FastScanPhase))  then
        begin
         tMicroStepDelay:=MinValidMicroStepDelay;
         NMicroStep:=ScanDiscrNumb;
@@ -114,7 +119,8 @@ begin
         Delay:=round(1000*tMicrostepDelay);
         exit;
        end
-       else      //fine  *)
+       else      //fine
+       //*)
        begin
         ScanParams.DiscrNumInMicroStep:=round(ScanDiscrNumb/NMicrostep+0.5); //ceil
         NMicroStep:=ScanDiscrNumb div ScanParams.DiscrNumInMicroStep;  // Really doing
@@ -217,5 +223,48 @@ begin
   end;
   end; { SetScanRate}
 
+  procedure SetScanRates(L:double;ScanDiscrNumb,NPoints:integer;var Rate:single; var Delay:integer; var RateBW:single; var DelayBW:integer);
+  var bufrate:integer;
+  begin
+   if (RateBW > Rate) then
+      begin
+       SetScanRate(L,ScanDiscrNumb,NPoints, RateBW, DelayBW) ;
+       CalcScanRatebyJump(ScanParams.DiscrNumInMicroStep, L, ScanDiscrNumb,NPoints, Rate, Delay);
+      end
+       else
+       begin
+       SetScanRate(L,ScanDiscrNumb,NPoints, Rate, Delay) ;
+       CalcScanRatebyJump(ScanParams.DiscrNumInMicroStep, L, ScanDiscrNumb,NPoints, RateBW, DelayBW);
+       end;
+    // округлить так, чтобы последние 2 цифры были 0
+      bufrate:= round(0.01*Rate);
+      if(bufrate > 1) then
+       begin
+         Rate:=100* bufrate;
+       end;
+        bufrate:= round(0.01*RateBW);
+      if(bufrate > 1) then
+       begin
+         RateBW:=100* bufrate;
+       end;
+  end;
+
+  procedure CalcScanRatebyJump(Jump:integer; L:double; ScanDiscrNumb,NPoints:integer; var Rate:single; var Delay:integer);
+  // расчет задержки между микрошагами (Delay) при заданном количестве дискрет в микрошаге (JUMP)
+  var
+  TimScan, TimMove: single; //sec,  Time for scanner moving in one scan;
+  NMicroStep: integer; // Number of microsteps in one scan;
+  Rate_info:single;
+  begin
+    TimScan:=L/Rate;    {sec}
+    TimMove:=TimScan-ScanParams.TimMeasurePoint*NPoints/1000; {sec}
+    NMicroStep := round( ScanDiscrNumb/Jump);
+    Delay := round(1000*(1000*TimMove- NMicroStep* ScanParams.TimMicroStep)/NMicroStep);   //   mks;
+    if (Delay < MinValidMicroStepDelay) then Delay := round(MinValidMicroStepDelay *1000);
+    
+   // Rate:=1000*L/(TMicrostepNmb*NPoints*(ScanParams.TimMicroStep+1000*Delay)+ScanParams.TimMeasurePoint*NPoints);
+    Rate_info := 1000*L/(NMicroStep*(0.001*Delay+ ScanParams.TimMicroStep) + ScanParams.TimMeasurePoint*NPoints);
+    Rate := Rate_info;
+  end;
   initialization
 end.

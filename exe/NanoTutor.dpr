@@ -59,7 +59,6 @@ uses
   frReport in '..\sources\frReport.pas' {ReportForm},
   frStepTest in '..\sources\frStepTest.pas' {StepsTest},
   TestStepDrawThread in '..\sources\TestStepDrawThread.pas',
-  Video in '..\sources\Video.pas',
   frCurrentLine in '..\sources\frCurrentLine.pas' {CurrentLineWnd},
   UNanoeduInterface in '..\sources\UNanoeduInterface.pas',
   frWelCome in '..\sources\frWelCome.pas' {WellCome},
@@ -168,7 +167,11 @@ uses
   OpenCV_video in '..\sources\Opencv\OpenCV_video.pas',
   SysUtils,
   MSVideoDEMO in '..\sources\MSVideoDEMO.pas' {MSVideoForm},
-  ThreadVideoStream in '..\sources\ThreadVideoStream.pas';
+  ThreadVideoStream in '..\sources\ThreadVideoStream.pas',
+  MSVideo in '..\sources\MSVIDEO\MSVideo.pas',
+  MSVideoStart in '..\sources\MSVIDEO\MSVideoStart.pas',
+  VideoSettingsUnit in '..\sources\MSVIDEO\VideoSettingsUnit.pas' {VideoSettings},
+  VfW in '..\sources\MSVIDEO\VfW.pas';
 
 {FormProgramSettings}
 

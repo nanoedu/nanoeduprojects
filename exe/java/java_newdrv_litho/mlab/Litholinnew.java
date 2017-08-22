@@ -1,4 +1,4 @@
-package mlab;// 17.06.26 edited
+package mlab;// 05.07.17 edited
 
 //16/11/17 new scheme
 //error testing right java exit 16/11/15
@@ -100,7 +100,7 @@ public class Litholinnew
 		int[] LINSTEPS;
 		int  JMPX_SUM = 0;
                 int  JMPY_SUM = 0;
-                int V,Vbw,Snom;
+
                 err=1;
                 timewait=20000;
                 timewait_bw=-1;
@@ -148,7 +148,7 @@ public class Litholinnew
 
 		JVIO stream_ch_stop      = new JVIO(CH_STOP,    1, 1,JVIO.BUF,  1, 0);                        // 0
 		JVIO stream_ch_drawdone  = new JVIO(CH_DRAWDONE,1, 1,JVIO.BUF,  1, 0);                        // 1
-		JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,1,2*(X_POINTS*Y_POINTS),JVIO.FIFO,fastlines, 0);  // 2
+		JVIO stream_ch_data_out  = new JVIO(CH_DATA_OUT,1,2*(X_POINTS*Y_POINTS+ slowlines+1),JVIO.FIFO,fastlines, 0);  // 2
 
                 JVIO stream_ch_params    = new JVIO(CH_PARAMS, 4, 1,JVIO.BUF,  1, 0);                        // 3
 
@@ -231,12 +231,18 @@ public class Litholinnew
                   USTEP_DLY = buf_params[0];
 
                 USTEP_DLYBW = buf_params[1];
-
+/*
                  Snom =((1<<17) /USTEP_DLY)<<14;
                  V=  1<<16;
                  V=-V;
                  Vbw=-V*USTEP_DLY/USTEP_DLYBW;
                  Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
+*/
+              int[] resV;
+              resV = new int[2];
+              resV = SetRate.SetRate( USTEP_DLY,USTEP_DLYBW, DiscrNumInMicroStep) ; 
+              int V=    resV[0];
+              int Vbw = resV[1];
 
 
                      // set  speed z??????????????
@@ -248,67 +254,72 @@ public class Litholinnew
  	        int[] data_out;
  		int[] code;
                 int[] code2 ;
-               	code2 = new int[23];
-                code  = new int[34];
+               	code2 = new int[25];
+                code  = new int[36];
 //----- Заголовок -- "2D point" --------------------
 		code[0]  = Dxchg2.CODE_SIGNATURE;
 		code[1]  = 0x00030002; //точка входа  3   глубина =2
 		code[2]  = code.length;
 // repeat
 
-                code[3]= 0x80000000 + (5<<16)  +fastlines;      //forward
+                code[3]= 0x80000000 + (7<<16)  +fastlines;      //forward
+
+          // Считывание после паузы
+                code[4]  = 0x00000000 + (0<<16) + (29<<0);
+                code[5] = 0x40000000 + pause - 1;
+
            //-------------------end----
-                code[4]= 0x80000000 + (3<<16)  +0;
+                code[6]= 0x80000000 + (3<<16)  +0;
 
 // Вектор перемещения и позиция точки
-                code[5]  = 0x00000000 + (22<<16) + (0<<0);
-		code[6]  = 0x20000000;
+                code[7]  = 0x00000000 + (24<<16) + (0<<0);
+		code[8]  = 0x20000000;
 		// Контроль перемещения
-                code[7]  = 0x00000000;
-		code[8]  = 0x10000008;    //?????
+                code[9]  = 0x00000000;
+		code[10]  = 0x10000008;    //?????
                 // Считывание после паузы
-                code[9]  = 0x00000000 + (0<<16) + (27<<0);
-                code[10] = 0x40000000 + pause - 1;
+                code[11]  = 0x00000000 + (0<<16) + (29<<0);
+                code[12] = 0x40000000 + pause - 1;
 // перемещения по z dz
-                code[11]  = 0x00000000 + (29<<16) + (0<<0);
-		code[12]  = 0x20000000;
+                code[13]  = 0x00000000 + (31<<16) + (0<<0);
+		code[14]  = 0x20000000;
 		// Контроль перемещения
-                code[13]  = 0x00000000;
-		code[14]  = 0x10000008;
+                code[15]  = 0x00000000;
+		code[16]  = 0x10000008;
  // пауза после перемещения по z  береться из dataout
 
-                code[15]  = 0x00008000 + (32<<16) + (0<<0);  //pause from dataout
-		code[16]  = 0x00000000;
+                code[17]  = 0x00008000 + (34<<16) + (0<<0);  //pause from dataout
+		code[18]  = 0x00000000;
 
 // перемещения по z -dz
-                code[17]  = 0x00000000 + (29<<16) + (0<<0);
-		code[18]  = 0x20000000;
+                code[19]  = 0x00000000 + (31<<16) + (0<<0);
+		code[20]  = 0x20000000;
 		// Контроль перемещения
-                code[19]  = 0x00000000;
-		code[20]  = 0x10000008;
+                code[21]  = 0x00000000;
+		code[22]  = 0x10000008;
 // Возврат
-                code[21] = 0x80000000 + (5<<16) + 0;
+                code[23] = 0x80000000 + (7<<16) + 0;
 
 //----- Список портов перемещения в точку ---------
-		code[22] = 4;
-		code[23] = Dxchg2.PORT_DIRY;
-		code[24] = Dxchg2.PORT_DIRX;
-		code[25] = Dxchg2.PORT_Y;
-		code[26] = Dxchg2.PORT_X;
+		code[24] = 4;
+		code[25] = Dxchg2.PORT_DIRY;
+		code[26] = Dxchg2.PORT_DIRX;
+		code[27] = Dxchg2.PORT_Y;
+		code[28] = Dxchg2.PORT_X;
 
 //----- Список портов получения результатов ------------------
-		code[27] = 1;
-           	code[28] = Dxchg2.PORT_H;
+		code[29] = 1;
+           	code[30] = Dxchg2.PORT_H;
 //
 
 //----- Список портов перемещения в точку z  dz-------
-		code[29] = 2;
-		code[30] = Dxchg2.PORT_DIRZ;
-		code[31] = Dxchg2.PORT_Z;
+		code[31] = 2;
+		code[32] = Dxchg2.PORT_DIRZ;
+		code[33] = Dxchg2.PORT_Z;
 // список портов ожидание воздействия
 
-		code[32] = 1;
-		code[33] = -1;
+		code[34] = 1;
+		code[35] = -1;
 
 
 //  code backward
@@ -319,49 +330,53 @@ public class Litholinnew
 		code2[1]  = 0x00030002; //точка входа  3   глубина =2
 		code2[2]  = code2.length;
 // repeat
-                code2[3]  = 0x80000000 + (9<<16) +fastlines;
+                code2[3]  = 0x80000000 + (11<<16) +fastlines;
 
 //перемещения в точку next line
-                code2[4]  = 0x00000000 + (16<<16) + (0<<0);
+                code2[4]  = 0x00000000 + (18<<16) + (0<<0);
 		code2[5]  = 0x20000000;
 		// Контроль перемещения
                 code2[6]  = 0x00000000;
 		code2[7]  = 0x10000008;
+                       // Считывание после паузы
+                code2[8]  = 0x00000000 + (0<<16) + (23<<0);
+                code2[9] = 0x40000000 + pause - 1;
+
 // Возврат
-                code2[8]  = 0x80000000 + (3<<16) +0;
+                code2[10]  = 0x80000000 + (3<<16) +0;
 // конец
 
 
 //----- Код ---движения по Быстрой оси------------------------------------
                 // Вектор перемещения и позиция точки
-                code2[9]   = 0x00000000 + (16<<16) + (0<<0);
-		code2[10]  = 0x20000000;
+                code2[11]   = 0x00000000 + (18<<16) + (0<<0);
+		code2[12]  = 0x20000000;
 		// Контроль перемещения
-                code2[11]  = 0x00000000;
-		code2[12]  = 0x10000008;
+                code2[13]  = 0x00000000;
+		code2[14]  = 0x10000008;
 	 	// Считывание после паузы
-                code2[13]  = 0x00000000 + (0<<16) + (21<<0);
-                code2[14]  = 0x40000000 + pause - 1;
+                code2[15]  = 0x00000000 + (0<<16) + (23<<0);
+                code2[16]  = 0x40000000 + pause - 1;
 // Возврат
-                code2[15]  = 0x80000000 + (9<<16) + 0;
+                code2[17]  = 0x80000000 + (11<<16) + 0;
 //-------------------движения по медленной оси----------------------
 
 //----- Список портов перемещения в точку ---------
-		code2[16] = 4;
-		code2[17] = Dxchg2.PORT_DIRY;
-		code2[18] = Dxchg2.PORT_DIRX;
-		code2[19] = Dxchg2.PORT_Y;
-		code2[20] = Dxchg2.PORT_X;
+		code2[18] = 4;
+		code2[19] = Dxchg2.PORT_DIRY;
+		code2[20] = Dxchg2.PORT_DIRX;
+		code2[21] = Dxchg2.PORT_Y;
+		code2[22] = Dxchg2.PORT_X;
 //----- Список портов получения результатов ------------------
-		code2[21] = 1;
-           	code2[22] = Dxchg2.PORT_H;
+		code2[23] = 1;
+           	code2[24] = Dxchg2.PORT_H;
 
-                
+
             int   slowlinescount=0;
             int   fastlinescount=0;
             path_in  =new int[9*(fastlines)];
             path_in2 =new int[4*(fastlines+1)];
-            data_out =new int[fastlines];
+            data_out =new int[fastlines+1];
 
 
             i=0;
@@ -387,12 +402,16 @@ public class Litholinnew
                            dt           = buf_params[3];
                            USTEP_DLY    = buf_params[0];
                            USTEP_DLYBW = buf_params[1];
-
+/*
                   Snom =((1<<17) /USTEP_DLY)<<14;
                   V=1<<16;
                   V=-V;
                   Vbw=-V*USTEP_DLY/USTEP_DLYBW;
                   Simple.bramWrite( Simple.bramID("m_ustep"), Snom );
+*/              
+              resV = SetRate.SetRate( USTEP_DLY,USTEP_DLYBW, DiscrNumInMicroStep) ; 
+              V=    resV[0];
+              Vbw = resV[1];
                    i=0;
                     for(point=0; point<fastlines; point++)  //forward
 		     {
@@ -435,7 +454,7 @@ public class Litholinnew
                         Dxchg2.ExecuteScan( path_in, data_out, code,   1);
 
                     	wr=0;  rd=0;
-			s = fastlines;
+			s = fastlines+1;
 			for (;  wr != s; )
 			{
 			   wr += stream_ch_data_out.WriteEx(data_out, wr, s-wr, 1000);
@@ -497,10 +516,10 @@ public class Litholinnew
 			          }
                                path_in2[i++]=dacY;
                                path_in2[i++]=dacX;
-                               
+
                               Dxchg2.ExecuteScan( path_in2, data_out, code2,   1);
    	          	wr=0;  rd=0;
-			 s = fastlines;
+			 s = fastlines+1;
 			for (;  wr != s; )
 			{
 				wr += stream_ch_data_out.WriteEx(data_out, wr, s-wr, 1000);

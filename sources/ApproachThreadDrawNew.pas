@@ -52,8 +52,8 @@ uses  CSPMVAR,globalvar,globalfunction,SioCSPM,UNanoEduBaseClasses,uNanoEduScanC
           Begin
              res:= integer(PIntegerArray(DataBuf)[3]);
            case   flgUnit of
-nano,terra:        Approach.StepsCount:=res;//datatype(PIntegerArray(DataBuf)[3]); //0711114             //4
-ProBeam,MicProbe:  Approach.StepsCount:=Approach.StepsCount+res;//datatype(PIntegerArray(DataBuf)[3]);  //4
+nano,nanotutor,terra:  Approach.StepsCount:=res;//datatype(PIntegerArray(DataBuf)[3]); //0711114             //4
+    ProBeam,MicProbe:  Approach.StepsCount:=Approach.StepsCount+res;//datatype(PIntegerArray(DataBuf)[3]);  //4
                     end
           End
           else
